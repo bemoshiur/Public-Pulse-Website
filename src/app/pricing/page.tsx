@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { ArrowRight, Check, Info } from "lucide-react";
 
 import { buildMetadata } from "@/lib/seo";
-import { breadcrumbSchema, faqPageSchema, webPageSchema } from "@/lib/schema";
+import { breadcrumbSchema, faqPageSchema, pricingSchema, webPageSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
@@ -60,6 +60,7 @@ export default function PricingPage() {
             description:
               "Starting prices for every Public Pulse service, billed in BDT.",
           }),
+          pricingSchema(),
           faqPageSchema(FAQS),
         ]}
       />

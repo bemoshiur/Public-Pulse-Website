@@ -163,6 +163,16 @@ info "Applying Drizzle schema to Neon (uses DATABASE_URL_DIRECT)"
 DATABASE_URL_DIRECT="$DATABASE_URL_DIRECT" npx --yes drizzle-kit push --force
 ok "Schema in sync"
 
+# ─── 4b. Generate AI-ingestion files (public/llms.txt + llms-full.txt) ──
+# These MUST be regenerated here, before `sst deploy`, so OpenNext bundles the
+# fresh files into S3. They can't be dynamic `.txt` routes (CloudFront routes
+# `.txt` to S3, so a Lambda `.txt` route 403s). Reads DATABASE_URL for the
+# blog/case sections; degrades to catalog-only if the DB is unreachable.
+info "Regenerating public/llms.txt + public/llms-full.txt"
+DATABASE_URL="$DATABASE_URL" DATABASE_URL_DIRECT="$DATABASE_URL_DIRECT" \
+  npx --yes tsx scripts/generate-llms.ts
+ok "llms files generated"
+
 # ─── 5. SST deploy ──────────────────────────────────────────────────────
 
 info "Deploying SST stack (stage=$STAGE, region=$REGION)"

@@ -258,3 +258,34 @@ export const PRICING: ServicePricing[] = [
     notes: ["Creator fees are separate and depend on tier/reach."],
   },
 ];
+
+export const getServicePricing = (serviceSlug: string): ServicePricing | undefined =>
+  PRICING.find((p) => p.serviceSlug === serviceSlug);
+
+/** Parse a "৳1,20,000+" style label to a BDT integer (handles lakh grouping). */
+function bdtToNumber(label: string | undefined): number | null {
+  if (!label) return null;
+  const n = Number(label.replace(/[^\d]/g, ""));
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+/** Lowest published MONTHLY starting price (BDT integer) for a service, or null
+ *  if the service is project/one-time only. Used for Service Offer JSON-LD so
+ *  the Offer carries a real price, not just a currency. Single source of truth:
+ *  the PRICING table above. */
+export function startingMonthlyBdt(serviceSlug: string): number | null {
+  const p = getServicePricing(serviceSlug);
+  if (!p) return null;
+  const nums = p.tiers.map((t) => bdtToNumber(t.monthly)).filter((n): n is number => n !== null);
+  return nums.length ? Math.min(...nums) : null;
+}
+
+/** Lowest published price of ANY kind (monthly, setup, or one-time), BDT int. */
+export function startingAnyBdt(serviceSlug: string): number | null {
+  const p = getServicePricing(serviceSlug);
+  if (!p) return null;
+  const nums = p.tiers
+    .flatMap((t) => [bdtToNumber(t.monthly), bdtToNumber(t.setup), bdtToNumber(t.oneTime)])
+    .filter((n): n is number => n !== null);
+  return nums.length ? Math.min(...nums) : null;
+}

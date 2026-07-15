@@ -12,6 +12,14 @@ import { caseStudies, type CaseStudy } from "@/db/schema";
 
 export const CASE_STUDIES_TAG = "case-studies";
 
+// Developer seed rows (src/db/seed.ts) use a "seed-" slug prefix. They exist so
+// the data layer has something to read before real cases are published — but
+// they must NEVER reach a public surface (they render placeholder copy like
+// "Untitled case study" / "Replace this seed entry"). This is a hard,
+// belt-and-braces guard at the read layer so a stray published=true seed row
+// can't leak to the homepage / sitemap / llms even if it's never deleted.
+const isSeedSlug = (slug: string) => slug.startsWith("seed-");
+
 /** All published case studies for a locale. The `eq(published,true)` filter
  *  is the durable signal — legacy rows pre-date the `status` column. */
 export const getPublishedCaseStudies = unstable_cache(
@@ -27,7 +35,7 @@ export const getPublishedCaseStudies = unstable_cache(
           )
         )
         .orderBy(desc(caseStudies.displayOrder), desc(caseStudies.publishedAt));
-      return rows;
+      return rows.filter((r) => !isSeedSlug(r.slug));
     } catch (err) {
       console.warn(
         "[case-studies] DB unavailable — returning empty list.",
@@ -36,7 +44,7 @@ export const getPublishedCaseStudies = unstable_cache(
       return [];
     }
   },
-  ["case-studies:published-v2"],
+  ["case-studies:published-v3"],
   { tags: [CASE_STUDIES_TAG], revalidate: 60 }
 );
 
@@ -57,9 +65,10 @@ export const getFeaturedCaseStudies = unstable_cache(
           )
         )
         .orderBy(desc(caseStudies.displayOrder), desc(caseStudies.publishedAt))
-        .limit(limit);
-      if (rows.length === 0) {
-        return await db
+        .limit(limit + 4);
+      const featured = rows.filter((r) => !isSeedSlug(r.slug)).slice(0, limit);
+      if (featured.length === 0) {
+        const recent = await db
           .select()
           .from(caseStudies)
           .where(
@@ -69,19 +78,21 @@ export const getFeaturedCaseStudies = unstable_cache(
             )
           )
           .orderBy(desc(caseStudies.publishedAt))
-          .limit(limit);
+          .limit(limit + 4);
+        return recent.filter((r) => !isSeedSlug(r.slug)).slice(0, limit);
       }
-      return rows;
+      return featured;
     } catch {
       return [];
     }
   },
-  ["case-studies:featured-v2"],
+  ["case-studies:featured-v3"],
   { tags: [CASE_STUDIES_TAG], revalidate: 60 }
 );
 
 export const getCaseStudyBySlug = unstable_cache(
   async (slug: string, locale: "en" | "bn" = "en"): Promise<CaseStudy | null> => {
+    if (isSeedSlug(slug)) return null; // seed detail pages must 404 publicly
     try {
       const [row] = await db
         .select()
@@ -95,7 +106,7 @@ export const getCaseStudyBySlug = unstable_cache(
       return null;
     }
   },
-  ["case-studies:by-slug-v2"],
+  ["case-studies:by-slug-v3"],
   { tags: [CASE_STUDIES_TAG], revalidate: 60 }
 );
 
@@ -119,13 +130,15 @@ export const getRelatedCaseStudies = unstable_cache(
           )
         )
         .orderBy(desc(caseStudies.publishedAt))
-        .limit(limit + 1);
-      return rows.filter((r) => r.slug !== excludeSlug).slice(0, limit);
+        .limit(limit + 2);
+      return rows
+        .filter((r) => r.slug !== excludeSlug && !isSeedSlug(r.slug))
+        .slice(0, limit);
     } catch {
       return [];
     }
   },
-  ["case-studies:related-v2"],
+  ["case-studies:related-v3"],
   { tags: [CASE_STUDIES_TAG], revalidate: 60 }
 );
 

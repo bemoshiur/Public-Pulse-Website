@@ -6,6 +6,8 @@ import { INDUSTRIES } from "@/lib/taxonomies/industries";
 import { GLOSSARY } from "@/lib/taxonomies/glossary";
 import { GUIDES } from "@/lib/content/guides";
 import { COMPARES } from "@/lib/content/compares";
+import { allowedServiceCityParams, allowedServiceIndustrySlugs } from "@/lib/taxonomies/matrix";
+import { PUBLISHED_BENCHMARKS } from "@/lib/content/benchmarks";
 import { getPublishedPosts } from "@/lib/data/blog";
 import { getPublishedCaseStudies } from "@/lib/data/case-studies";
 
@@ -19,6 +21,13 @@ import { getPublishedCaseStudies } from "@/lib/data/case-studies";
 
 const today = new Date().toISOString().slice(0, 10);
 
+// Stable lastmod for static + programmatic pages. Using new Date() here stamped
+// EVERY page with today's date on every rebuild — Google detects that lastmod
+// inflation and stops trusting the field. Bump this constant only when the
+// static/catalog content actually changes. DB-backed pages (blog/cases) use
+// their real publishedAt below.
+const CATALOG_LASTMOD = "2026-07-15";
+
 function entry(
   path: string,
   changeFrequency: "daily" | "weekly" | "monthly" | "yearly" = "monthly",
@@ -26,7 +35,7 @@ function entry(
 ): MetadataRoute.Sitemap[number] {
   return {
     url: absoluteUrl(path),
-    lastModified: today,
+    lastModified: CATALOG_LASTMOD,
     changeFrequency,
     priority,
     alternates: {
@@ -74,14 +83,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // ── Industries × N ─────────────────────────────────────────────────
   const industries = INDUSTRIES.map((i) => entry(`/industries/${i.slug}`, "monthly", 0.7));
 
-  // ── Service × Location matrix (scale driver) ───────────────────────
-  const serviceLocation = SERVICES.filter((s) => s.ready).flatMap((s) =>
-    LOCATIONS.map((l) => entry(`/${s.slug}/${l.slug}`, "monthly", 0.65))
+  // ── Service × Location matrix (PRUNED to coherent combos) ──────────
+  // Only the allow-listed combos are indexable; the rest 308-redirect. See
+  // src/lib/taxonomies/matrix.ts.
+  const serviceLocation = allowedServiceCityParams().map(({ slug, city }) =>
+    entry(`/${slug}/${city}`, "monthly", 0.65)
   );
 
-  // ── Service × Industry matrix ──────────────────────────────────────
-  const serviceIndustry = SERVICES.filter((s) => s.ready).flatMap((s) =>
-    INDUSTRIES.map((i) => entry(`/${s.slug}-for-${i.slug}`, "monthly", 0.65))
+  // ── Service × Industry matrix (PRUNED to coherent pairings) ────────
+  const serviceIndustry = allowedServiceIndustrySlugs().map((slug) =>
+    entry(`/${slug}`, "monthly", 0.65)
   );
 
   // ── Glossary terms ─────────────────────────────────────────────────
@@ -92,6 +103,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // ── Compare pages ──────────────────────────────────────────────────
   const compares = COMPARES.map((c) => entry(`/compare/${c.slug}`, "monthly", 0.6));
+
+  // ── Research / first-party benchmarks (only published, real ones) ──
+  const research: MetadataRoute.Sitemap =
+    PUBLISHED_BENCHMARKS.length > 0
+      ? [
+          entry("/research", "monthly", 0.8),
+          ...PUBLISHED_BENCHMARKS.map((b) =>
+            entry(`/research/${b.slug}`, "yearly", 0.85)
+          ),
+        ]
+      : [];
 
   // ── Blog (DB-backed, English only — BN retired 2026-05-31) ─────────
   const publishedEn = await getPublishedPosts("en");
@@ -121,6 +143,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...glossary,
     ...guides,
     ...compares,
+    ...research,
     ...blog,
     ...cases,
   ];

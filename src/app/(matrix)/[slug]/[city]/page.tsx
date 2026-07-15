@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
 
 import { buildMetadata } from "@/lib/seo";
@@ -10,27 +10,27 @@ import {
 } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ProgrammaticPage, CalloutList, Hl } from "@/components/seo/ProgrammaticPage";
-import { SERVICES, getService } from "@/lib/services";
-import { LOCATIONS, getLocation } from "@/lib/taxonomies/locations";
+import { getService } from "@/lib/services";
+import { getLocation } from "@/lib/taxonomies/locations";
+import { allowedServiceCityParams, isAllowedServiceCity } from "@/lib/taxonomies/matrix";
 
 // Folder must be named [slug] (not [service]) — Next.js requires consistent
 // dynamic-segment names at the same path depth as sibling /(matrix)/[slug]/.
 type Params = { slug: string; city: string };
 
-// SERVICE × LOCATION matrix — 9 services × 9 locations = 81 grounded pages.
+// SERVICE × LOCATION matrix at bare `/<service>/<city>`.
 //
-// Route lives under (matrix) route group so the URL is bare `/<service>/<city>`
-// without leaking into the actual /services/<slug> tree. The catch is that
-// generateStaticParams + dynamicParams=false guarantees a 404 for any
-// service/city that isn't a real combination.
+// PRUNED: only the coherent, real-intent combos in src/lib/taxonomies/matrix.ts
+// are prerendered + indexed. dynamicParams=true so any OTHER (valid but pruned)
+// service/city hits the page once and permanent-redirects (308) to the city
+// overview — consolidating link equity instead of 404-ing. Truly invalid
+// service/city still 404s.
 
 export function generateStaticParams(): Params[] {
-  return SERVICES.filter((s) => s.ready).flatMap((s) =>
-    LOCATIONS.map((l) => ({ slug: s.slug, city: l.slug }))
-  );
+  return allowedServiceCityParams();
 }
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,
@@ -43,7 +43,7 @@ export async function generateMetadata({
   if (!s || !l) return {};
   return buildMetadata({
     title: `${s.shortName} in ${l.name} | Public Pulse Agency`,
-    description: `${s.oneLiner} Public Pulse delivers ${s.shortName.toLowerCase()} for ${l.name} brands — grounded in the local market.`,
+    description: `${s.oneLiner} Public Pulse delivers ${s.shortName} for ${l.name} brands — grounded in the local market.`,
     path: `/${s.slug}/${l.slug}`,
     useDynamicOg: true,
     ogTitle: `${s.shortName} in ${l.name}`,
@@ -60,6 +60,8 @@ export default async function ServiceLocationPage({
   const s = getService(slug);
   const l = getLocation(city);
   if (!s || !s.ready || !l) notFound();
+  // Pruned combo: 308-redirect to the city overview (real page, related intent).
+  if (!isAllowedServiceCity(s.slug, l.slug)) permanentRedirect(`/locations/${l.slug}`);
 
   const crumbs = [
     { name: "Home", path: "/" },
@@ -72,11 +74,11 @@ export default async function ServiceLocationPage({
 
   const autoFaqs = [
     {
-      q: `Does Public Pulse offer ${s.shortName.toLowerCase()} in ${l.name}?`,
+      q: `Does Public Pulse offer ${s.shortName} in ${l.name}?`,
       a: `Yes. ${s.oneLiner} We deliver it for ${l.name} brands from our Dhaka HQ, calibrated to the local market: ${l.characterizedBy}`,
     },
     {
-      q: `How does ${s.shortName.toLowerCase()} in ${l.name} differ from ${s.shortName.toLowerCase()} elsewhere in Bangladesh?`,
+      q: `How does ${s.shortName} in ${l.name} differ from ${s.shortName} elsewhere in Bangladesh?`,
       a: `${l.name} over-indexes on ${l.topIndustries.slice(0, 3).join(", ")}. The playbook we use in ${l.name} weights toward those verticals — different creative, different paid mix, different KPIs than the same service in, say, Dhaka.`,
     },
     {
@@ -115,16 +117,16 @@ export default async function ServiceLocationPage({
           </>
         }
         lead={`${s.oneLiner} For brands operating in ${l.name}, ${l.division} Division.`}
-        answer={`Public Pulse Agency delivers ${s.shortName.toLowerCase()} for ${l.name} brands. We tune every engagement to the local market — ${l.name} over-indexes on ${l.topIndustries.slice(0, 3).join(", ")}, so the playbook and KPIs we run differ from generic ${s.shortName.toLowerCase()} delivered elsewhere.`}
+        answer={`Public Pulse Agency delivers ${s.shortName} for ${l.name} brands. We tune every engagement to the local market — ${l.name} over-indexes on ${l.topIndustries.slice(0, 3).join(", ")}, so the playbook and KPIs we run differ from generic ${s.shortName} delivered elsewhere.`}
         answerQuestion={`What does ${s.shortName} look like for ${l.name} brands?`}
         faqs={autoFaqs}
         related={[
           { href: `/services/${s.slug}`, label: `${s.shortName} (full service overview)`, eyebrow: "Service" },
           { href: `/locations/${l.slug}`, label: `Marketing in ${l.name} (city overview)`, eyebrow: "Location" },
           ...l.topIndustries.slice(0, 1).map((ind) => ({
-            href: `/${s.slug}-for-${ind}`,
-            label: `${s.shortName} for ${ind.replace(/-/g, " ").replace(/\b\w/g, (m) => m.toUpperCase())}`,
-            eyebrow: "Service × Industry",
+            href: `/industries/${ind}`,
+            label: `${ind.replace(/-/g, " ").replace(/\b\w/g, (m) => m.toUpperCase())} marketing`,
+            eyebrow: "Industry",
           })),
         ]}
         ctaTitle={

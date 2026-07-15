@@ -1,29 +1,29 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
 
 import { buildMetadata } from "@/lib/seo";
 import { breadcrumbSchema, faqPageSchema, serviceSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ProgrammaticPage, CalloutList, Hl } from "@/components/seo/ProgrammaticPage";
-import { SERVICES, getService } from "@/lib/services";
-import { INDUSTRIES, getIndustry } from "@/lib/taxonomies/industries";
+import { getService } from "@/lib/services";
+import { getIndustry } from "@/lib/taxonomies/industries";
+import { allowedServiceIndustrySlugs, isAllowedServiceIndustry } from "@/lib/taxonomies/matrix";
 
-// SERVICE × INDUSTRY matrix — 9 × 10 = 90 grounded pages at
-//   /<service>-for-<industry>     e.g. /paid-ads-for-real-estate
+// SERVICE × INDUSTRY matrix at /<service>-for-<industry> (e.g. /paid-ads-for-real-estate).
 //
-// The URL is a single segment with the "-for-" delimiter. We parse it,
-// validate against the SERVICES + INDUSTRIES catalogs, and 404 anything
-// that doesn't match a real combination.
+// PRUNED: only coherent pairings (service aligned to the industry — see
+// src/lib/taxonomies/matrix.ts) are prerendered + indexed. This kills nonsense
+// combos like /political-pr-for-e-commerce and /hospitality-for-hospitality.
+// dynamicParams=true so a valid-but-pruned pairing 308-redirects to the
+// industry page rather than 404-ing; a malformed slug still 404s.
 
 type Params = { slug: string };
 
 export function generateStaticParams(): Params[] {
-  return SERVICES.filter((s) => s.ready).flatMap((s) =>
-    INDUSTRIES.map((i) => ({ slug: `${s.slug}-for-${i.slug}` }))
-  );
+  return allowedServiceIndustrySlugs().map((slug) => ({ slug }));
 }
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 function parseSlug(slug: string): {
   service: ReturnType<typeof getService>;
@@ -47,7 +47,7 @@ export async function generateMetadata({
   if (!service || !industry) return {};
   return buildMetadata({
     title: `${service.shortName} for ${industry.name} | Public Pulse Agency`,
-    description: `Public Pulse delivers ${service.shortName.toLowerCase()} for Bangladesh ${industry.name.toLowerCase()} brands — tuned to the vertical's priorities: ${industry.priorities.slice(0, 3).join(", ")}.`,
+    description: `Public Pulse delivers ${service.shortName} for Bangladesh ${industry.name} brands — tuned to the vertical's priorities: ${industry.priorities.slice(0, 3).join(", ")}.`,
     path: `/${slug}`,
     useDynamicOg: true,
     ogTitle: `${service.shortName} for ${industry.name}`,
@@ -63,6 +63,8 @@ export default async function ServiceIndustryPage({
   const { slug } = await params;
   const { service: s, industry: ind } = parseSlug(slug);
   if (!s || !s.ready || !ind) notFound();
+  // Pruned/incoherent pairing: 308-redirect to the industry overview.
+  if (!isAllowedServiceIndustry(s.slug, ind.slug)) permanentRedirect(`/industries/${ind.slug}`);
 
   const crumbs = [
     { name: "Home", path: "/" },
@@ -73,15 +75,15 @@ export default async function ServiceIndustryPage({
 
   const autoFaqs = [
     {
-      q: `Does Public Pulse offer ${s.shortName.toLowerCase()} for ${ind.name.toLowerCase()} brands?`,
+      q: `Does Public Pulse offer ${s.shortName} for ${ind.name} brands?`,
       a: `Yes. ${s.oneLiner} For ${ind.name} brands we calibrate the engagement to vertical priorities: ${ind.priorities.slice(0, 3).join(", ")}.`,
     },
     {
-      q: `What makes ${s.shortName.toLowerCase()} for ${ind.name.toLowerCase()} different?`,
+      q: `What makes ${s.shortName} for ${ind.name} different?`,
       a: ind.description,
     },
     {
-      q: `Which other services pair well with this for ${ind.name.toLowerCase()}?`,
+      q: `Which other services pair well with this for ${ind.name}?`,
       a: `Our default ${ind.name} playbook pairs ${ind.alignedServices.slice(0, 3).join(", ")} — we walk through fit on a consultation call.`,
     },
     {
@@ -114,8 +116,8 @@ export default async function ServiceIndustryPage({
             {s.shortName} for <Hl>{ind.name}</Hl>.
           </>
         }
-        lead={`${s.oneLiner} Calibrated to ${ind.name.toLowerCase()} priorities.`}
-        answer={`Public Pulse Agency delivers ${s.shortName.toLowerCase()} for Bangladesh ${ind.name} brands. ${ind.description} The engagement is tuned to ${ind.name.toLowerCase()} priorities: ${ind.priorities.slice(0, 3).join(", ")} — not generic ${s.shortName.toLowerCase()} delivered to whoever signs.`}
+        lead={`${s.oneLiner} Calibrated to ${ind.name} priorities.`}
+        answer={`Public Pulse Agency delivers ${s.shortName} for Bangladesh ${ind.name} brands. ${ind.description} The engagement is tuned to ${ind.name} priorities: ${ind.priorities.slice(0, 3).join(", ")} — not generic ${s.shortName} delivered to whoever signs.`}
         answerQuestion={`What does ${s.shortName} for ${ind.name} look like?`}
         faqs={autoFaqs}
         related={[

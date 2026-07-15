@@ -5,9 +5,35 @@
 import { SITE, absoluteUrl } from "./site";
 import { PULSE_GROUP } from "./group";
 import { SERVICES } from "./services";
+import { startingMonthlyBdt, startingAnyBdt, PRICING } from "./pricing";
 
 const ORG_ID = SITE.organizationId;
 const WEBSITE_ID = `${SITE.url}/#website`;
+
+// The entity's sameAs fingerprint — every non-empty profile URL. Shared across
+// Organization, LocalBusiness, and ProfessionalService so all three nodes point
+// at the SAME real-world entity (answer engines triangulate these to confirm
+// notability). Blank entries in SITE.social are filtered out.
+const SAME_AS: string[] = [
+  SITE.social.facebook,
+  SITE.social.instagram,
+  SITE.social.x,
+  SITE.social.linkedin,
+  SITE.social.youtube,
+  SITE.social.tiktok,
+  SITE.social.wikidata,
+  SITE.social.crunchbase,
+  SITE.contact.mapsPlaceUrl, // Google Maps Place — Knowledge-Graph anchor
+].filter(Boolean);
+
+// Square brand mark (the "P" glyph) — the correct shape for a Knowledge-panel
+// logo, unlike the 1200×630 og-image social card.
+const LOGO = {
+  "@type": "ImageObject",
+  url: absoluteUrl("/favicon-192x192.png"),
+  width: 192,
+  height: 192,
+} as const;
 
 // ─── Site-wide: Organization (knowledge-panel-ready, BRAND-ONLY) ────────
 //
@@ -26,12 +52,7 @@ export function organizationSchema() {
     legalName: SITE.name,
     alternateName: ["Public Pulse", "Public Pulse Agency Bangladesh"],
     url: SITE.url,
-    logo: {
-      "@type": "ImageObject",
-      url: absoluteUrl("/og-image.jpg"),
-      width: 1200,
-      height: 630,
-    },
+    logo: LOGO,
     image: absoluteUrl("/og-image.jpg"),
     description: SITE.description,
     slogan: "Reach that moves. Narratives that hold.",
@@ -79,13 +100,7 @@ export function organizationSchema() {
         availableLanguage: ["en"],
       },
     ],
-    sameAs: [
-      SITE.social.facebook,
-      SITE.social.instagram,
-      SITE.contact.mapsPlaceUrl, // Google Maps Place — entity disambiguation
-      // Authoritative external profiles for entity disambiguation can be
-      // appended here as they're created (LinkedIn, Wikidata, etc.).
-    ].filter(Boolean),
+    sameAs: SAME_AS,
     identifier: [
       { "@type": "PropertyValue", propertyID: "BIN", value: SITE.contact.legal.bin },
       { "@type": "PropertyValue", propertyID: "TradeLicense", value: SITE.contact.legal.tradeLicense },
@@ -166,6 +181,7 @@ export function localBusinessSchema(input: LocalBusinessSchemaInput = {}) {
       },
     ],
     areaServed: { "@type": "Country", name: "Bangladesh" },
+    sameAs: SAME_AS,
     parentOrganization: { "@id": ORG_ID },
   };
 }
@@ -209,11 +225,25 @@ export function serviceSchema(input: ServiceSchemaInput) {
     category: input.category,
     provider: { "@id": ORG_ID },
     areaServed: { "@type": "Country", name: "Bangladesh" },
-    offers: {
-      "@type": "Offer",
-      availability: "https://schema.org/InStock",
-      priceCurrency: "BDT",
-    },
+    // Offer carries a real published starting price (from src/lib/pricing.ts),
+    // not just a currency — a concrete "how much does X cost" AEO signal.
+    offers: (() => {
+      const price = startingAnyBdt(input.slug);
+      return {
+        "@type": "Offer",
+        availability: "https://schema.org/InStock",
+        priceCurrency: "BDT",
+        url: absoluteUrl("/pricing"),
+        ...(price && {
+          priceSpecification: {
+            "@type": "PriceSpecification",
+            priceCurrency: "BDT",
+            minPrice: price,
+            description: "Starting price; confirmed on a discovery call.",
+          },
+        }),
+      };
+    })(),
   };
 }
 
@@ -457,24 +487,34 @@ export function professionalServiceSchema() {
       { "@type": "City", name: "Sylhet" },
       { "@type": "City", name: "Cox's Bazar" },
     ],
+    // Each catalog leaf is a real Offer → Service (was a bare, invalid nested
+    // OfferCatalog with only a name — Google ignored it). Now cross-links to
+    // the per-service @id and carries the published starting price.
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Public Pulse services",
-      itemListElement: [
-        "Political PR",
-        "Social Media Management",
-        "Paid Ads",
-        "Content Production",
-        "SEO",
-        "Hospitality Marketing",
-        "Brand Building",
-        "Analytics",
-        "Influencer Marketing",
-      ].map((s) => ({
-        "@type": "OfferCatalog",
-        name: s,
-      })),
+      itemListElement: SERVICES.filter((s) => s.ready).map((s) => {
+        const price = startingMonthlyBdt(s.slug);
+        return {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            "@id": `${absoluteUrl(`/services/${s.slug}`)}#service`,
+            name: s.name,
+            serviceType: s.serviceType,
+          },
+          ...(price && {
+            priceSpecification: {
+              "@type": "UnitPriceSpecification",
+              priceCurrency: "BDT",
+              price,
+              unitText: "MONTH",
+            },
+          }),
+        };
+      }),
     },
+    sameAs: SAME_AS,
     parentOrganization: { "@id": ORG_ID },
   };
 }
@@ -747,6 +787,103 @@ export function itemListSchema(name: string, items: ItemListEntry[]) {
       position: i + 1,
       url: it.url.startsWith("http") ? it.url : absoluteUrl(it.url),
       name: it.name,
+    })),
+  };
+}
+
+// ─── Dataset (first-party statistics / benchmark pages) ─────────────────
+// Dated, numeric, first-party data with clear provenance is the single most
+// -cited content type across ChatGPT / Perplexity / AI Overviews. Dataset
+// markup makes the numbers machine-trusted. Emit ONLY on /research/<slug>
+// pages backed by REAL data — never fabricate a Dataset.
+
+export type DatasetInput = {
+  /** Slug under /research/<slug>. */
+  slug: string;
+  name: string;
+  description: string;
+  /** ISO date the data was collected/published. */
+  datePublished: string;
+  dateModified?: string;
+  keywords?: string[];
+  /** What the dataset measures, e.g. ["Facebook Ads CPM", "CTR"]. */
+  variableMeasured?: string[];
+  /** How it was collected, e.g. "First-party campaign data + survey of N BD businesses". */
+  measurementTechnique?: string;
+  /** Number of data points / respondents behind the numbers. */
+  sampleSize?: number;
+  /** Time window the data covers, e.g. "2026" or "2025-01/2025-12". */
+  temporalCoverage?: string;
+};
+
+export function datasetSchema(input: DatasetInput) {
+  const url = absoluteUrl(`/research/${input.slug}`);
+  return {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "@id": `${url}#dataset`,
+    name: input.name,
+    description: input.description,
+    url,
+    datePublished: input.datePublished,
+    dateModified: input.dateModified ?? input.datePublished,
+    inLanguage: SITE.language,
+    isAccessibleForFree: true,
+    license: "https://creativecommons.org/licenses/by/4.0/",
+    creator: { "@id": ORG_ID },
+    publisher: { "@id": ORG_ID },
+    spatialCoverage: { "@type": "Country", name: "Bangladesh" },
+    ...(input.temporalCoverage && { temporalCoverage: input.temporalCoverage }),
+    ...(input.measurementTechnique && { measurementTechnique: input.measurementTechnique }),
+    ...(input.sampleSize && {
+      size: {
+        "@type": "QuantitativeValue",
+        value: input.sampleSize,
+        unitText: "data points",
+      },
+    }),
+    ...(input.keywords && input.keywords.length > 0 && { keywords: input.keywords }),
+    ...(input.variableMeasured &&
+      input.variableMeasured.length > 0 && {
+        variableMeasured: input.variableMeasured,
+      }),
+  };
+}
+
+// ─── Pricing (OfferCatalog of real published tiers) ─────────────────────
+// Emitted on /pricing so answer engines have structured, citable prices for
+// "how much does X cost in Bangladesh" queries. Prices are STARTING points
+// from src/lib/pricing.ts (the single source of truth).
+
+export function pricingSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    "@id": `${absoluteUrl("/pricing")}#pricing`,
+    name: "Public Pulse service pricing",
+    url: absoluteUrl("/pricing"),
+    provider: { "@id": ORG_ID },
+    itemListElement: PRICING.map((p) => ({
+      "@type": "Offer",
+      name: p.displayName,
+      itemOffered: {
+        "@type": "Service",
+        "@id": `${absoluteUrl(`/services/${p.serviceSlug}`)}#service`,
+        name: p.displayName,
+      },
+      priceSpecification: p.tiers.map((t) => {
+        const raw = t.monthly ?? t.setup ?? t.oneTime ?? "";
+        const price = Number(raw.replace(/[^\d]/g, "")) || undefined;
+        const isMonthly = Boolean(t.monthly);
+        return {
+          "@type": isMonthly ? "UnitPriceSpecification" : "PriceSpecification",
+          name: `${p.displayName} — ${t.name}`,
+          priceCurrency: "BDT",
+          ...(price && { minPrice: price }),
+          ...(isMonthly && { unitText: "MONTH" }),
+          description: t.bestFor,
+        };
+      }),
     })),
   };
 }

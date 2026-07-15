@@ -31,9 +31,31 @@ export const SITE = {
       tradeLicense: "TRAD/DNCC/037136/2025",
     },
   },
+  // sameAs / entity-graph anchors. Every non-empty URL here is emitted into
+  // Organization.sameAs (src/lib/schema.ts) — the set of independent profiles
+  // answer engines + Google's Knowledge Graph triangulate to confirm this is a
+  // real, notable entity. MORE authoritative profiles = stronger entity
+  // resolution = higher citation confidence.
+  //
+  // TODO(user): paste the REAL profile URLs below. Blank strings are filtered
+  // out automatically (a sameAs pointing at a nonexistent profile HURTS entity
+  // trust), so leaving one empty is safe — never invent a URL.
+  //   • linkedin  — the LinkedIn *company* page (strongest B2B authority anchor)
+  //   • youtube   — channel URL
+  //   • tiktok    — profile URL
+  //   • wikidata  — a Wikidata item URL once created (highest-leverage node)
+  //   • crunchbase — company profile URL
   social: {
     facebook: "https://web.facebook.com/publicpulse.agency",
     instagram: "https://www.instagram.com/publicpulse_agency/",
+    // X handle is also declared as `twitter` above for the Twitter card meta.
+    // TODO(user): confirm @publicpulse_bd is a live account; blank this if not.
+    x: "https://x.com/publicpulse_bd",
+    linkedin: "",
+    youtube: "",
+    tiktok: "",
+    wikidata: "",
+    crunchbase: "",
   },
   tracking: {
     gtm: "GTM-TNK2J29K",

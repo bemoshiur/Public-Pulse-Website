@@ -18,6 +18,7 @@ import { Footer } from "@/components/layout/Footer";
 import { SocialSidebar } from "@/components/layout/SocialSidebar";
 import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
 import { CookieConsent } from "@/components/analytics/CookieConsent";
+import { AiReferralTracker } from "@/components/analytics/AiReferralTracker";
 import { CommandPalette } from "@/components/search/CommandPalette";
 import { CursorGlow, ScrollProgress } from "@/components/motion";
 import { StickyBar, ExitIntent } from "@/components/lead-capture";
@@ -75,6 +76,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               - stays silent (if consent='denied')
             See src/components/analytics/CookieConsent.tsx for the policy. */}
         <CookieConsent />
+        {/* Fires an ai_referral event when a visit comes from an AI answer
+            engine (ChatGPT/Perplexity/Gemini/…) — on-site AEO proof. */}
+        <AiReferralTracker />
         <JsonLd
           data={[
             organizationSchema(),

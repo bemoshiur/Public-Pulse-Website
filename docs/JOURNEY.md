@@ -13,6 +13,54 @@ Entry format:
 
 ---
 
+## 2026-07-15 — STEP 21 / SEO·AEO·MARKETING AUDIT + SUPER-AEO BUILD
+
+**Build green (`tsc` clean, `next build` passes). NOT deployed — awaiting the user's `bash scripts/deploy.sh production`.** Work is on branch `feat/super-aeo` (not merged/committed until the user asks). Preceded by a verified multi-agent audit (delivered as an artifact); this entry is the build.
+
+### Audit (context)
+7-dimension audit (technical SEO, on-page/content, structured data, AEO/GEO, performance/CWV, marketing/conversion, live-QA) grounded in code + live curls, every high/critical finding adversarially re-verified. Overall health ~72/100; AEO maturity 6.5/10. Two criticals (dead `/llms-full.txt`, live seed placeholder), plus matrix doorway-content, thin entity graph, and zero first-party data.
+
+### A. Two criticals fixed
+1. **Seed case study guard** — [src/lib/data/case-studies.ts](../src/lib/data/case-studies.ts): all public accessors now filter `seed-*` slugs (published/featured/by-slug/related); cache keys bumped `v2→v3`. The `/case-studies/seed-coxs-bazar-resort` "Untitled case study" and homepage "Replace this seed entry" can never surface again in code, even before the DB row is deleted. **User still must delete the row via /manage** (belt-and-braces).
+2. **`/llms-full.txt` 403** — root cause confirmed: OpenNext/CloudFront routes `.txt` (and `.json`) paths to the S3 static origin, so a dynamic `.txt` route 403s (only physical `public/*.txt` files work, which is why `llms.txt` worked and `feed.xml` — a `.xml` route — didn't). Fix: the broken `src/app/llms-full.txt/route.ts` is **deleted**; content builders moved to [src/lib/llms.ts](../src/lib/llms.ts); [scripts/generate-llms.ts](../scripts/generate-llms.ts) writes **physical** `public/llms.txt` + `public/llms-full.txt` + `public/facts.json` at build (wired as npm `prebuild` **and** into [scripts/deploy.sh](../scripts/deploy.sh) before `sst deploy`, since OpenNext runs `next build` not `npm run build`). An extensionless [/llms-full](../src/app/llms-full/route.ts) route (routes to Lambda → 200) gives an always-fresh companion between deploys.
+
+### B. AEO surfaces
+- **llms.txt rebuilt** ([src/lib/llms.ts](../src/lib/llms.ts)) — was a frozen static file listing 1 of 121 posts. Now generated from the DB with EVERY published post + a "Canonical facts" block + real pricing + a published-benchmarks section + an explicit CC-BY citation licence. `llms-full.txt` corpus likewise (services/locations/industries/glossary/guides/compares/cases/all post bodies + citation grant).
+- **/facts.json** ([src/lib/facts.ts](../src/lib/facts.ts)) — machine-readable canonical facts (NAP, legal IDs, services, coverage, pricing, sameAs, gated statistics). Physical build file (dynamic `.json` would 403 like `.txt`).
+- **Entity graph** — [src/lib/site.ts](../src/lib/site.ts) `social` object expanded (X wired from the existing `@publicpulse_bd`; LinkedIn/YouTube/TikTok/Wikidata/Crunchbase are blank TODOs, auto-filtered from `sameAs` until real). [src/lib/schema.ts](../src/lib/schema.ts): shared `SAME_AS` used by Organization + LocalBusiness + ProfessionalService (entity consolidation); Organization `logo` now the square `/favicon-192x192.png` (was the 1200×630 og card).
+
+### C. Structured data ([src/lib/schema.ts](../src/lib/schema.ts))
+- **OfferCatalog fixed** — ProfessionalService's 9 malformed bare nested `OfferCatalog` nodes → real `Offer → Service` (@id cross-linked) with `UnitPriceSpecification` (the "10× empty OfferCatalog" homepage bug).
+- **Service Offer** now carries a real BDT `minPrice` (from [src/lib/pricing.ts](../src/lib/pricing.ts) `startingAnyBdt`), not just a currency.
+- New **`pricingSchema()`** (OfferCatalog of real tiers) wired into [/pricing](../src/app/pricing/page.tsx).
+- New **`datasetSchema()`** for the benchmark pages.
+
+### D. Matrix prune + fix ([src/lib/taxonomies/matrix.ts](../src/lib/taxonomies/matrix.ts))
+171 → **52 coherent combos**. Service×industry kept only where `service ∈ industry.alignedServices` (kills `political-pr-for-e-commerce`) + self-pair guard (kills `hospitality-for-hospitality`). Service×city kept for primary markets (dhaka, chattogram) + curated extras (hospitality→coxs-bazar/sylhet). Both templates: `dynamicParams=true`, pruned-but-valid combos **308-redirect** to the parent (industry/city) page; casing bug fixed (`s.shortName.toLowerCase()` → proper-cased across ~171 pages). Sitemap + prerender both driven by the allow-list. **Tune via the 3 constants in matrix.ts** if you want it tighter/looser.
+
+### E. Data moat — the north star ([src/lib/content/benchmarks.ts](../src/lib/content/benchmarks.ts))
+Typed benchmark catalog + [/research](../src/app/research/page.tsx) + [/research/[slug]](../src/app/research/[slug]/page.tsx) with `Dataset` schema, big-number layout, breakdown table, `KeyTakeaways`, and per-benchmark FAQs. **REAL-ONLY, GATED:** all 6 seeded benchmarks are `published:false` (templates) → render NOWHERE (route 404s, no sitemap/facts/llms entry) until the user enters real numbers and flips `published:true`. Zero fabrication.
+
+### F. Other
+- **KeyTakeaways** component ([src/components/seo/KeyTakeaways.tsx](../src/components/seo/KeyTakeaways.tsx)) — labeled extractable facts box (used on /research). (H2 anchors already existed in PostBody; AnswerBlock already serves as the per-page TL;DR.)
+- **AI-referral measurement** — [AiReferralTracker](../src/components/analytics/AiReferralTracker.tsx) fires an `ai_referral` GA4/dataLayer event when a visit comes from ChatGPT/Perplexity/Gemini/Copilot/Claude/etc. (on-site AEO proof). Mounted in layout.
+- **Sitemap** — fixed lastmod inflation (all pages stamped `Date.now()` every rebuild → stable `CATALOG_LASTMOD` constant for static/programmatic; real `publishedAt` for DB content); added /research. Full sitemap-index split deferred (audit rated it medium — no indexing failure at 366 URLs).
+
+### Verification
+`npx tsc --noEmit` clean · `npm run build` green. SSR-gate confirmed on `/services/political-pr` (1 H1, answer-block, canonical, real PriceSpecification). Homepage JSON-LD confirmed: `UnitPriceSpecification`, square logo, expanded `sameAs`. Prune confirmed in prerender (coherent combos built; `political-pr-for-e-commerce` not built). prebuild regenerated public/llms.txt + llms-full.txt + facts.json.
+
+### Next (user actions — cannot be agent-done)
+1. **Paste real profile URLs** into `SITE.social` (LinkedIn/YouTube/TikTok; confirm/blank the X handle) → they flow into `sameAs` + `/facts.json`. Consider creating a **Wikidata item** (highest-leverage entity node).
+2. **Delete the seed case study** row via /manage; publish real (or NDA-anonymized) case studies + add client logos; replace homepage placeholder stats (`50+/300%+`).
+3. **Fill real benchmark numbers** in `benchmarks.ts` (`value`/`sampleSize`/`methodology`), set `published:true` → /research lights up + Dataset schema + facts.statistics populate. Add `/research` to the nav once live.
+4. **Reconcile political-PR pricing** (blog says ৳2–15L, /pricing says ৳1.5–3L+).
+5. **Deploy:** `bash scripts/deploy.sh production`, then verify: `curl -I .../llms-full.txt` (200), `curl .../facts.json` (200 JSON), `curl -I .../political-pr-for-e-commerce` (308), Rich Results Test on a service page.
+6. In GA4, create an "AI answer engines" custom channel group + a report on the `ai_referral` event.
+
+**Rollback target:** `9b6d438` (STEP 20 live HEAD). This work is branch-only until merged; code-only, no DB/schema changes.
+
+---
+
 ## 2026-05-26 — STEP 20 / PERF + PERMANENT CACHE FIX + WRAP-UP
 
 Deployed live to https://publicpulse.com.bd. Three coupled fixes in this turn.

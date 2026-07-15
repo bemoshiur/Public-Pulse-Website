@@ -25,7 +25,8 @@ type EventName =
   | "outbound_click"       // clicked an external link
   | "video_played"         // video element first play
   | "service_matcher_completed"
-  | "audit_tool_completed";
+  | "audit_tool_completed"
+  | "ai_referral";        // visitor arrived from an AI answer engine (AEO proof)
 
 type EventProps = {
   /** Free-text label — distinguishes variants (e.g. "header", "blog-end"). */
