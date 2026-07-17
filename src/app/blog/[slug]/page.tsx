@@ -431,13 +431,9 @@ export default async function BlogPostPage({
                 )}
 
                 {/* CTA card */}
-                <div
-                  className="overflow-hidden rounded-panel p-6 text-paper"
-                  style={{
-                    background: `radial-gradient(60% 80% at 80% 20%, #FF5C00 0%, transparent 60%), radial-gradient(80% 80% at 20% 80%, #2563EB 0%, transparent 60%), linear-gradient(135deg, #14B8A6 0%, #0A0A0A 100%)`,
-                  }}
-                >
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-paper/80">
+                <div className="overflow-hidden rounded-panel border border-ink/10 bg-ink p-6 text-paper">
+                  <span aria-hidden className="mb-4 inline-block h-[3px] w-6 bg-brand-orange" />
+                  <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-paper/70">
                     Need help executing?
                   </p>
                   <p className="mt-3 text-h3 font-bold leading-tight">

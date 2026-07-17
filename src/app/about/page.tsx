@@ -24,7 +24,6 @@ import { SITE } from "@/lib/site";
 import { SERVICES } from "@/lib/services";
 import { PULSE_GROUP, SISTER_BRANDS } from "@/lib/group";
 import {
-  AuroraGradient,
   GradientText,
   MagneticButton,
   Parallax,
@@ -114,7 +113,6 @@ export default function AboutPage() {
 
       {/* ═══ HERO — aurora + parallax + gradient headline ════════════════ */}
       <section className="relative isolate overflow-hidden border-b border-ink bg-paper">
-        <AuroraGradient variant="default" />
         <Container className="relative z-10 pt-10 pb-16 md:pt-14 md:pb-20">
           <Breadcrumbs crumbs={crumbs} />
           <div className="mt-8 grid items-end gap-10 lg:grid-cols-12">
@@ -464,7 +462,6 @@ export default function AboutPage() {
 
       {/* ═══ CTA ══════════════════════════════════════════════════════════ */}
       <section className="relative isolate overflow-hidden border-t border-ink bg-ink py-24 text-paper md:py-28">
-        <AuroraGradient variant="soft" />
         <Container className="relative z-10">
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-mega leading-[0.95] tracking-tight">

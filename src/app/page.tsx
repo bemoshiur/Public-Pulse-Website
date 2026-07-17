@@ -17,12 +17,13 @@ import { InlineBlock } from "@/components/lead-capture";
 
 // JSON-LD Organization + WebSite emit site-wide from app/layout.tsx.
 
-// TODO(user): confirm these numbers — defaults from AUDIT.md.
+// Real, defensible coverage facts (derived from the catalogs) — replaces the
+// unverified 50+/300% vanity stats the audit flagged. All auditable.
 const STATS = [
-  { number: "50+", label: "Active clients" },
-  { number: "300%+", label: "Avg engagement lift" },
-  { number: "10+", label: "Industries served" },
   { number: "9", label: "Services in-house" },
+  { number: "9", label: "Cities covered" },
+  { number: "10", label: "Industries served" },
+  { number: "2", label: "Languages (EN + বাংলা)" },
 ];
 
 const PROCESS = [
@@ -406,19 +407,9 @@ export default async function HomePage() {
 // section never feels flat. Each gradient is layered radial + linear so the
 // surface has depth, not a single hue.
 function caseStudyGradient(i: number): string {
-  const palettes = [
-    // orange-led
-    `radial-gradient(70% 80% at 80% 20%, #FFB07A 0%, transparent 60%), radial-gradient(60% 70% at 20% 80%, #B23A00 0%, transparent 60%), linear-gradient(135deg, #FF7A2E 0%, #E04E00 100%)`,
-    // teal-led
-    `radial-gradient(70% 80% at 20% 20%, #5EEAD4 0%, transparent 60%), radial-gradient(60% 70% at 80% 80%, #064E3B 0%, transparent 60%), linear-gradient(135deg, #14B8A6 0%, #0F766E 100%)`,
-    // blue-led
-    `radial-gradient(70% 80% at 80% 80%, #93C5FD 0%, transparent 60%), radial-gradient(60% 70% at 20% 20%, #1E1B4B 0%, transparent 60%), linear-gradient(135deg, #2563EB 0%, #1E3A8A 100%)`,
-    // magenta-led
-    `radial-gradient(70% 80% at 50% 30%, #FBCFE8 0%, transparent 60%), radial-gradient(60% 70% at 50% 90%, #831843 0%, transparent 60%), linear-gradient(135deg, #DB2777 0%, #9F1239 100%)`,
-    // amber-led
-    `radial-gradient(70% 80% at 30% 70%, #FCD34D 0%, transparent 60%), radial-gradient(60% 70% at 70% 30%, #92400E 0%, transparent 60%), linear-gradient(135deg, #F59E0B 0%, #B45309 100%)`,
-    // violet-led
-    `radial-gradient(70% 80% at 70% 30%, #C4B5FD 0%, transparent 60%), radial-gradient(60% 70% at 30% 70%, #3B0764 0%, transparent 60%), linear-gradient(135deg, #7C3AED 0%, #4C1D95 100%)`,
-  ];
-  return palettes[i % palettes.length];
+  // Restrained (prestige): deep near-black tones with a faint burnt-orange
+  // glow — not the old rainbow. Renders only when real case studies exist.
+  const tones = ["#17181C", "#1C1A17", "#15171B"];
+  const base = tones[i % tones.length];
+  return `radial-gradient(60% 70% at 80% 12%, rgba(190,69,30,0.20) 0%, transparent 55%), ${base}`;
 }
