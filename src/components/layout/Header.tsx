@@ -73,19 +73,12 @@ export function Header() {
         {/* ─── Logo ──────────────────────────────────────────────────── */}
         <Link
           href="/"
-          className="flex flex-shrink-0 items-center gap-2"
+          className="flex flex-shrink-0 items-center gap-2.5"
           aria-label="Public Pulse Agency home"
         >
-          <span
-            aria-hidden
-            className="inline-block h-5 w-5 rounded-full"
-            style={{
-              background:
-                "conic-gradient(from 180deg at 50% 50%, #FF5C00 0deg, #FF5C00 270deg, transparent 270deg)",
-            }}
-          />
-          <span className="text-[18px] font-extrabold tracking-tight text-ink">
-            Public<span className="text-brand-orange">Pulse</span>
+          <span aria-hidden className="inline-block h-[3px] w-5 bg-brand-orange" />
+          <span className="font-pr-serif text-[20px] font-semibold tracking-tight text-ink">
+            Public&nbsp;<span className="text-brand-orange">Pulse</span>
           </span>
         </Link>
 
