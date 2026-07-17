@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
 
 import { buildMetadata } from "@/lib/seo";
@@ -19,7 +19,8 @@ export function generateStaticParams(): Params[] {
   return LOCATIONS.map((l) => ({ city: l.slug }));
 }
 
-export const dynamicParams = false;
+// dynamicParams=true → unknown city redirects (308) instead of 502ing.
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,
@@ -46,7 +47,7 @@ export default async function LocationPage({
 }) {
   const { city } = await params;
   const loc = getLocation(city);
-  if (!loc) notFound();
+  if (!loc) permanentRedirect("/locations");
 
   const crumbs = [
     { name: "Home", path: "/" },

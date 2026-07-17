@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 
@@ -16,7 +16,8 @@ export function generateStaticParams(): Params[] {
   return GLOSSARY.map((t) => ({ term: t.slug }));
 }
 
-export const dynamicParams = false;
+// dynamicParams=true → unknown term redirects (308) instead of 502ing.
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,
@@ -43,7 +44,7 @@ export default async function TermPage({
 }) {
   const { term } = await params;
   const t = getGlossaryTerm(term);
-  if (!t) notFound();
+  if (!t) permanentRedirect("/glossary");
 
   const crumbs = [
     { name: "Home", path: "/" },

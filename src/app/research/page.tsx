@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
@@ -22,7 +22,10 @@ export const metadata = buildMetadata({
 
 export default function ResearchIndex() {
   const benchmarks = PUBLISHED_BENCHMARKS;
-  if (benchmarks.length === 0) notFound();
+  // No published benchmarks yet → send visitors/crawlers to the closest live
+  // hub (307, reversible) rather than 404ing an indexed URL. When the first
+  // real benchmark is published this renders normally again.
+  if (benchmarks.length === 0) redirect("/guides");
 
   const crumbs = [
     { name: "Home", path: "/" },

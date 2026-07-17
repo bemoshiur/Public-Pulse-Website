@@ -42,6 +42,13 @@ const nextConfig: NextConfig = {
       { source: "/teams", destination: "/about", permanent: true },
       { source: "/teams/", destination: "/about", permanent: true },
 
+      // ── /group — the Pulse Group page was removed in the STEP 9
+      //    redesign. Google still has it indexed; 301 it to /about
+      //    (which carries the parent-org context) instead of 404. ─────
+      { source: "/group", destination: "/about", permanent: true },
+      { source: "/group/", destination: "/about", permanent: true },
+      { source: "/group/:path*", destination: "/about", permanent: true },
+
       // ── Inbound URLs we don't have a post at yet — redirect to the
       //    closest published guide so the visitor doesn't 404. ──────
       {

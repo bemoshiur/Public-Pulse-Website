@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowUpRight, ArrowRight, CheckCircle2 } from "lucide-react";
@@ -24,7 +24,10 @@ export function generateStaticParams(): Params[] {
   return SERVICES.filter((s) => s.ready).map((s) => ({ slug: s.slug }));
 }
 
-export const dynamicParams = false;
+// dynamicParams=true so an unknown /services/<slug> renders at runtime and
+// hits the redirect below (a clean 308 to the hub) instead of the 502 that
+// OpenNext/Lambda returns for an unmatched param when dynamicParams=false.
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,
@@ -57,7 +60,7 @@ export default async function ServiceDetailPage({
   const { slug } = await params;
   const service = getService(slug);
   const content = service && service.ready ? getServiceContent(service.slug) : undefined;
-  if (!service || !service.ready || !content) notFound();
+  if (!service || !service.ready || !content) permanentRedirect("/services");
 
   // Topical cluster: blog posts whose grounding cites this service slug.
   const relatedPosts = await getPostsBySourceRef(service.slug, "en", 3);

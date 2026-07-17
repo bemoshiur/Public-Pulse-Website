@@ -87,6 +87,14 @@ function isMalformedContactUs(pathname: string): boolean {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
+  // Seed/placeholder case studies (slug prefix `seed-`) are filtered out of
+  // every public accessor, so the detail route 404s for them. Google indexed
+  // the seed placeholder before the guard landed — 308 it to the hub instead
+  // of leaving a 404. Catches all seed-* variants, not just the known one.
+  if (pathname.startsWith("/case-studies/seed-")) {
+    return NextResponse.redirect(new URL("/case-studies", request.url), 308);
+  }
+
   // Legacy WordPress paths → 410 Gone. Google sees this and deindexes
   // within ~2 crawls (vs. 404 which it keeps re-checking for months).
   if (isLegacyGone(pathname) || isMalformedContactUs(pathname)) {

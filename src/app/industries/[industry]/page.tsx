@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
 
 import { buildMetadata } from "@/lib/seo";
@@ -14,7 +14,8 @@ export function generateStaticParams(): Params[] {
   return INDUSTRIES.map((i) => ({ industry: i.slug }));
 }
 
-export const dynamicParams = false;
+// dynamicParams=true → unknown industry redirects (308) instead of 502ing.
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,
@@ -41,7 +42,7 @@ export default async function IndustryPage({
 }) {
   const { industry } = await params;
   const ind = getIndustry(industry);
-  if (!ind) notFound();
+  if (!ind) permanentRedirect("/industries");
 
   const crumbs = [
     { name: "Home", path: "/" },

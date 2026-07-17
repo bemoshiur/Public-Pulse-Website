@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
 import { Clock, ArrowRight } from "lucide-react";
 
@@ -17,7 +17,8 @@ export function generateStaticParams(): Params[] {
   return GUIDES.filter((g) => g.ready).map((g) => ({ slug: g.slug }));
 }
 
-export const dynamicParams = false;
+// dynamicParams=true → unknown guide redirects (308) instead of 502ing.
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,
@@ -44,7 +45,7 @@ export default async function GuidePage({
 }) {
   const { slug } = await params;
   const g = getGuide(slug);
-  if (!g || !g.ready) notFound();
+  if (!g || !g.ready) permanentRedirect("/guides");
 
   const crumbs = [
     { name: "Home", path: "/" },

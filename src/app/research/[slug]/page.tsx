@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 
 import { buildMetadata } from "@/lib/seo";
@@ -10,14 +10,19 @@ import { Container } from "@/components/ui/Container";
 import { PUBLISHED_BENCHMARKS, getBenchmark } from "@/lib/content/benchmarks";
 
 // First-party Bangladesh marketing benchmark pages — the "data moat".
-// ONLY published benchmarks (real numbers) render; everything else 404s.
-// generateStaticParams is empty until the user flips a benchmark to
-// published:true in src/lib/content/benchmarks.ts, so no thin/fabricated page
-// ever ships.
+// ONLY published benchmarks (real numbers) render. generateStaticParams is
+// empty until the user flips a benchmark to published:true in
+// src/lib/content/benchmarks.ts, so no thin/fabricated page ever ships.
+//
+// dynamicParams=true (not false) so an unknown /research/<slug> renders at
+// runtime and hits the temporary redirect below — instead of the 502 that
+// OpenNext/Lambda returns for an unmatched param when dynamicParams=false AND
+// generateStaticParams is empty. A 307 (not 308) keeps the URL reusable the
+// moment a real benchmark with that slug is published.
 
 type Params = { slug: string };
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export function generateStaticParams(): Params[] {
   return PUBLISHED_BENCHMARKS.map((b) => ({ slug: b.slug }));
@@ -44,7 +49,7 @@ export async function generateMetadata({
 export default async function BenchmarkPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
   const b = getBenchmark(slug);
-  if (!b) notFound();
+  if (!b) redirect("/guides");
 
   const crumbs = [
     { name: "Home", path: "/" },

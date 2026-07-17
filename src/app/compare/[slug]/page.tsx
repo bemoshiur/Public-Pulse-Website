@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
 
 import { buildMetadata } from "@/lib/seo";
@@ -14,7 +14,8 @@ export function generateStaticParams(): Params[] {
   return COMPARES.filter((c) => c.ready).map((c) => ({ slug: c.slug }));
 }
 
-export const dynamicParams = false;
+// dynamicParams=true → unknown compare redirects (308) instead of 502ing.
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,
@@ -41,7 +42,7 @@ export default async function ComparePage({
 }) {
   const { slug } = await params;
   const c = getCompare(slug);
-  if (!c || !c.ready) notFound();
+  if (!c || !c.ready) permanentRedirect("/compare");
 
   const crumbs = [
     { name: "Home", path: "/" },
