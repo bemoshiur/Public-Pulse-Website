@@ -44,7 +44,7 @@ export function LegalPage({ title, path, eyebrow, intro, effectiveDate, children
         ]}
       />
 
-      <section className="border-b border-ink bg-paper">
+      <section className="bg-paper">
         <Container className="pt-2">
           <Breadcrumbs crumbs={crumbs} />
         </Container>
@@ -74,13 +74,13 @@ export function LegalPage({ title, path, eyebrow, intro, effectiveDate, children
         </Container>
       </section>
 
-      <section className="border-b border-ink bg-paper-alt py-16 md:py-24">
+      <section className="bg-paper-alt py-16 md:py-24">
         <Container>
           <article className="prose-legal mx-auto max-w-3xl">{children}</article>
         </Container>
       </section>
 
-      <section className="border-b border-ink bg-paper py-12">
+      <section className="bg-paper py-12">
         <Container>
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-meta text-ink/55">

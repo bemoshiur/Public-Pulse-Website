@@ -27,22 +27,24 @@ const config: Config = {
         "brand-orange": "#FE4A0F",
         "brand-orange-soft": "#FF6A37",
         "brand-orange-deep": "#D63D0B",
-        // ── Prestige ("restrained luxury") palette — scoped to the political-ad
-        // flagship + src/components/prestige/*. Additive; changes no existing page.
-        "pr-paper": "#F3F2EE",
-        "pr-surface": "#FBFAF7",
+        // ── Prestige palette — scoped to the political-ad flagship +
+        // src/components/prestige/*. Rethemed to the Dataplace direction
+        // (restyle) so the flagship matches the rest of the site: white +
+        // warm-grey panels + vivid orange. Layout stays bespoke; palette only.
+        "pr-paper": "#FFFFFF",
+        "pr-surface": "#F6F7F7",
         "pr-raise": "#FFFFFF",
-        "pr-ink": "#18191B",
-        "pr-ink-soft": "#3C3D3F",
-        "pr-muted": "#6E6B64",
-        "pr-faint": "#9A968D",
-        "pr-hairline": "#DAD7CE",
-        "pr-accent": "#BE451E",
-        "pr-accent-ink": "#A03A17",
-        "pr-accent-wash": "#F1E4DB",
-        "pr-briefing": "#17181C",
-        "pr-briefing-ink": "#ECEAE4",
-        "pr-briefing-muted": "#9C9890",
+        "pr-ink": "#16181C",
+        "pr-ink-soft": "#212833",
+        "pr-muted": "#6B7075",
+        "pr-faint": "#9A9EA3",
+        "pr-hairline": "#E6E6E6",
+        "pr-accent": "#FE4A0F",
+        "pr-accent-ink": "#D63D0B",
+        "pr-accent-wash": "#FCE6DD",
+        "pr-briefing": "#16181C",
+        "pr-briefing-ink": "#ECEDEE",
+        "pr-briefing-muted": "#9CA0A5",
         "pr-briefing-line": "#2C2D30",
         // Legacy aliases (kept so any unmigrated markup still compiles).
         // They point at the new Dataplace-direction tokens so the visual

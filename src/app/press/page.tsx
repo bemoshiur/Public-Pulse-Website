@@ -71,12 +71,13 @@ export default function PressPage() {
         ]}
       />
 
-      <section className="bg-paper py-12 md:py-20">
+      <Section size="sm" className="bg-paper">
         <Container>
           <Breadcrumbs crumbs={crumbs} />
-          <div className="mt-6 max-w-3xl">
+          <GreyPanel tone="tint" radius="lg" className="mt-6 px-6 py-12 md:px-12 md:py-14">
+          <div className="max-w-3xl">
             <p className="text-eyebrow uppercase text-brand-orange">Press &amp; media</p>
-            <h1 className="mt-4 text-display tracking-tight text-ink">
+            <h1 className="mt-4 text-h1 tracking-tight text-ink">
               Reporting on us? Here&rsquo;s what you need.
             </h1>
             <p className="mt-5 text-lead text-ink/70">
@@ -101,8 +102,9 @@ export default function PressPage() {
               </a>
             </div>
           </div>
+          </GreyPanel>
         </Container>
-      </section>
+      </Section>
 
       {/* ─── Boilerplate ─────────────────────────────────────────────── */}
       <section className="bg-surface-alt py-16 md:py-24">

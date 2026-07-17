@@ -98,7 +98,7 @@ export default async function GuidePage({
         answerQuestion={g.title}
       />
 
-      <section className="border-t border-ink bg-paper-alt py-16 md:py-20">
+      <section className="bg-paper-alt py-16 md:py-20">
         <Container>
           <div className="mx-auto grid max-w-4xl gap-10 md:grid-cols-2">
             <div>
@@ -121,7 +121,7 @@ export default async function GuidePage({
         </Container>
       </section>
 
-      <section className="border-t border-ink bg-paper py-16 md:py-20">
+      <section className="bg-paper py-16 md:py-20">
         <Container>
           <div className="mx-auto max-w-3xl">
             <h2 className="text-h2 tracking-tight text-ink">Step-by-step</h2>
@@ -144,7 +144,7 @@ export default async function GuidePage({
       </section>
 
       {refs.length > 0 && (
-        <section className="border-t border-ink bg-paper-alt py-16 md:py-20">
+        <section className="bg-paper-alt py-16 md:py-20">
           <Container>
             <div className="mx-auto max-w-3xl">
               <p className="text-eyebrow uppercase text-brand-orange">In the glossary</p>
@@ -175,7 +175,7 @@ export default async function GuidePage({
         </section>
       )}
 
-      <section className="border-t border-ink bg-paper py-16 md:py-20">
+      <section className="bg-paper py-16 md:py-20">
         <Container>
           <div className="mx-auto max-w-3xl">
             <p className="text-eyebrow uppercase text-brand-orange">FAQ</p>

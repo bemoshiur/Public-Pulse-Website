@@ -77,7 +77,7 @@ export default async function UnsubscribePage({
   }[result.state];
 
   return (
-    <section className="border-b border-ink bg-paper py-24 md:py-32">
+    <section className="bg-paper py-24 md:py-32">
       <Container>
         <div className="mx-auto max-w-xl text-center">
           <span className="inline-flex items-center rounded-full border border-ink/20 bg-paper px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-ink/55">

@@ -104,7 +104,7 @@ export default async function TermPage({
         answerQuestion={`What is ${t.name}?`}
       />
 
-      <section className="border-t border-ink bg-paper py-16 md:py-20">
+      <section className="bg-paper py-16 md:py-20">
         <Container>
           <div className="mx-auto max-w-3xl">
             <h2 className="text-h2 tracking-tight text-ink">In practice</h2>
@@ -114,7 +114,7 @@ export default async function TermPage({
       </section>
 
       {see.length > 0 && (
-        <section className="border-t border-ink bg-paper-alt py-16 md:py-20">
+        <section className="bg-paper-alt py-16 md:py-20">
           <Container>
             <div className="mx-auto max-w-3xl">
               <p className="text-eyebrow uppercase text-brand-orange">See also</p>
@@ -145,7 +145,7 @@ export default async function TermPage({
         </section>
       )}
 
-      <section className="border-t border-ink bg-paper py-16 md:py-20">
+      <section className="bg-paper py-16 md:py-20">
         <Container>
           <div className="mx-auto max-w-3xl">
             <p className="text-eyebrow uppercase text-brand-orange">FAQ</p>

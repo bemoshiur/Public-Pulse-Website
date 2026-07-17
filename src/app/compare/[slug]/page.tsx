@@ -94,12 +94,12 @@ export default async function ComparePage({
         answerQuestion={c.title}
         faqs={autoFaqs}
       >
-        <section className="border-t border-ink bg-paper py-16 md:py-20">
+        <section className="bg-paper py-16 md:py-20">
           <Container>
-            <div className="mx-auto max-w-4xl overflow-hidden rounded-card border border-ink">
+            <div className="mx-auto max-w-4xl overflow-hidden rounded-panel border border-ink/12">
               <table className="w-full border-collapse text-left text-sm">
                 <thead>
-                  <tr className="border-b border-ink bg-ink text-paper">
+                  <tr className="bg-ink text-paper">
                     <th className="p-4 font-semibold">Dimension</th>
                     <th className="p-4 font-semibold">{c.leftLabel}</th>
                     <th className="p-4 font-semibold">{c.rightLabel}</th>
@@ -122,7 +122,7 @@ export default async function ComparePage({
           </Container>
         </section>
 
-        <section className="border-t border-ink bg-paper-alt py-16 md:py-20">
+        <section className="bg-paper-alt py-16 md:py-20">
           <Container>
             <div className="mx-auto max-w-3xl">
               <p className="text-eyebrow uppercase text-brand-orange">Our recommendation</p>
