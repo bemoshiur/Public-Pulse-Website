@@ -80,6 +80,17 @@ export function buildFacts(generatedAt: string) {
         bestFor: t.bestFor,
       })),
     })),
+    // Named specializations — focused offerings at explicit routes.
+    specializations: [
+      {
+        name: "Political Facebook Advertising",
+        url: `${SITE.url}/political-facebook-ads-bangladesh`,
+        area: "Political PR · Paid Media",
+        compliant: true,
+        notes:
+          "Meta-authorized, 'Paid for by' disclaimer on every account, Special Ad Category, geography/affinity targeting, one candidate per constituency, NDA. No fake engagement.",
+      },
+    ],
     // First-party statistics — ONLY the ones marked published + real in
     // src/lib/content/benchmarks.ts. Empty until real data is entered; never
     // fabricated.

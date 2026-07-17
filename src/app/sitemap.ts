@@ -62,6 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry("/locations", "monthly", 0.7),
     entry("/industries", "monthly", 0.7),
     entry("/election", "monthly", 0.85),
+    entry("/political-facebook-ads-bangladesh", "monthly", 0.9),
     entry("/pricing", "monthly", 0.85),
     entry("/tools", "monthly", 0.7),
     entry("/tools/seo-audit", "monthly", 0.7),

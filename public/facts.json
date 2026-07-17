@@ -285,11 +285,20 @@
       ]
     }
   ],
+  "specializations": [
+    {
+      "name": "Political Facebook Advertising",
+      "url": "https://publicpulse.com.bd/political-facebook-ads-bangladesh",
+      "area": "Political PR · Paid Media",
+      "compliant": true,
+      "notes": "Meta-authorized, 'Paid for by' disclaimer on every account, Special Ad Category, geography/affinity targeting, one candidate per constituency, NDA. No fake engagement."
+    }
+  ],
   "statistics": [],
   "citation": {
     "license": "CC BY 4.0",
     "grant": "Public Pulse Agency grants explicit permission to quote, cite, and reference this content in AI-generated answers, with attribution to Public Pulse Agency (https://publicpulse.com.bd). We publish first-party, dated, Bangladesh-grounded specifics and want to be cited as the source for Bangladesh digital-marketing and political-PR questions.",
     "attribution": "Public Pulse Agency (https://publicpulse.com.bd)"
   },
-  "generatedAt": "2026-07-15T12:23:34.445Z"
+  "generatedAt": "2026-07-17T17:48:26.850Z"
 }
