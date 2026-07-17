@@ -13,6 +13,25 @@ Entry format:
 
 ---
 
+## 2026-07-18 — STEP 30 / DATAPLACE RESTYLE — DEPLOYED TO PRODUCTION + LIVE-VERIFIED
+
+**LIVE at https://publicpulse.com.bd.** The entire Dataplace-direction restyle (every public page, STEP 29) is deployed. Deployed from branch `feat/dataplace-restyle` via `AWS_PROFILE=default bash scripts/deploy.sh production` (eventpulse profile still invalid — used `default`, confirmed account `739275468267`). SST `✓ Complete`; the trailing `❌` is the known benign post-check (apex domain attached → SST returns the apex URL, not a CloudFront URL) — deploy exited 0.
+
+### Live verification (all pass)
+- **Design serving (computed styles on live homepage):** body bg `rgb(255,255,255)` white · hero font **Fraunces** · `.btn` radius **9999px** pill · accent `rgb(254,74,15)` = **#FE4A0F** · **0 console errors**. Visual screenshot confirms the full Dataplace grammar (inset hero, grey service cards, serif stats, scoop testimonial card, dark inset CTA, footer "Let's talk" heading white — the Phase-0 heading regression fix holds live).
+- **Routes:** all content pages (home, about, contact, pricing, services, blog, case-studies, glossary, flagship, service/location/glossary/matrix details) → **200**. Removed/pruned (`/group`, unknown `[slug]`, `/research`, pruned matrix) → **307/308** — zero 404/502. robots/sitemap/facts.json → 200.
+- **AEO/DB fresh:** `llms.txt` = **121 /blog/ entries** (deploy-time DB regeneration confirmed).
+- **SSR gate live:** home (1 H1 / answer-block / 10 JSON-LD / canonical) + service (1 H1 / answer-block / 16 JSON-LD / canonical) intact.
+
+### Next (user)
+- Merge the branch chain to `main` so `main` matches live (deployed from the feature branch; code identical). PR-worthy: `feat/dataplace-restyle` (11 restyle commits) off `7ce485b`.
+- Optional Phase 4: original silk-render hero artwork + floating UI cards from real /manage dashboards (Dataplace's own renders are licensed — generate ours). Design works cleanly without them today.
+- Whenever ready: GSC **Not found (404)** export → precise 301 map for the long tail.
+
+**Rollback:** `7ce485b` (STEP 27 prestige tip). Code-only; no DB/schema changes in the restyle.
+
+---
+
 ## 2026-07-18 — STEP 29 / DATAPLACE-DIRECTION RESTYLE — PHASES 0–3 (homepage + programmatic cascade)
 
 **Branch `feat/dataplace-restyle` (off STEP-27 prestige tip `7ce485b`). NOT deployed — production still serves the prestige design.** Redesign #3: reskin toward the Dataplace Webflow aesthetic (white ground + warm-grey inset rounded panels, KEEP Fraunces serif, vivid `#FE4A0F`, 200px pills, one fade-up motion). Preceded by a 6-agent Dataplace teardown (published artifact) + a 6-agent codebase map. Full skills pipeline: R&D → spec ([2026-07-18-dataplace-restyle-design.md](superpowers/specs/2026-07-18-dataplace-restyle-design.md)) → plan ([2026-07-18-dataplace-restyle.md](superpowers/plans/2026-07-18-dataplace-restyle.md)).
