@@ -247,6 +247,59 @@ export function serviceSchema(input: ServiceSchemaInput) {
   };
 }
 
+// ─── Specialized Service (a focused offering, e.g. political FB advertising) ─
+// A Service at an explicit top-level route (not /services/<slug>) that cross-
+// links to the broader parent services via isRelatedTo, so answer engines see
+// it as a specialization of the agency's offering, not an orphan.
+
+export type SpecializedServiceInput = {
+  /** Top-level path segment, e.g. "political-facebook-ads-bangladesh". */
+  slug: string;
+  name: string;
+  description: string;
+  serviceType: string;
+  /** Broader /services/<slug> offerings this specializes (cross-linked by @id). */
+  relatedServiceSlugs?: string[];
+  /** Starting price in BDT (integer), if published. */
+  minPriceBdt?: number;
+};
+
+export function specializedServiceSchema(input: SpecializedServiceInput) {
+  const url = absoluteUrl(`/${input.slug}`);
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${url}#service`,
+    url,
+    name: input.name,
+    description: input.description,
+    serviceType: input.serviceType,
+    provider: { "@id": ORG_ID },
+    areaServed: { "@type": "Country", name: "Bangladesh" },
+    ...(input.relatedServiceSlugs &&
+      input.relatedServiceSlugs.length > 0 && {
+        isRelatedTo: input.relatedServiceSlugs.map((s) => ({
+          "@type": "Service",
+          "@id": `${absoluteUrl(`/services/${s}`)}#service`,
+        })),
+      }),
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      priceCurrency: "BDT",
+      url: absoluteUrl("/pricing"),
+      ...(input.minPriceBdt && {
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          priceCurrency: "BDT",
+          minPrice: input.minPriceBdt,
+          description: "Starting management fee; media spend separate. Confirmed on a briefing call.",
+        },
+      }),
+    },
+  };
+}
+
 // ─── Article / BlogPosting ──────────────────────────────────────────────
 
 export type ArticleSchemaInput = {
