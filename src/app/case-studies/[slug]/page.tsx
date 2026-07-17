@@ -155,7 +155,7 @@ export default async function CaseStudyDetailPage({
       reviewSchema({
         itemReviewed: itemId,
         body: study.testimonialQuote,
-        rating: 5,
+        // no `rating` — a testimonial quote is not a star rating (real-only)
         authorName: study.testimonialAttribution,
       })
     );

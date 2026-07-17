@@ -581,6 +581,7 @@ export function qaPageSchema(question: string, answer: string) {
     mainEntity: {
       "@type": "Question",
       name: question,
+      answerCount: 1,
       acceptedAnswer: { "@type": "Answer", text: answer },
     },
   };
@@ -780,8 +781,9 @@ export type ReviewSchemaInput = {
   itemReviewed: string;
   /** Free-text quote / body of the testimonial. */
   body: string;
-  /** Numeric rating, e.g. 5. */
-  rating: number;
+  /** Numeric rating, e.g. 5 — ONLY when the client actually gave one.
+   *  Omit to emit a quote-only Review (never fabricate a star rating). */
+  rating?: number;
   /** Max possible rating, e.g. 5. */
   bestRating?: number;
   authorName: string;
@@ -793,11 +795,16 @@ export function reviewSchema(input: ReviewSchemaInput) {
     "@context": "https://schema.org",
     "@type": "Review",
     itemReviewed: { "@id": input.itemReviewed },
-    reviewRating: {
-      "@type": "Rating",
-      ratingValue: input.rating,
-      bestRating: input.bestRating ?? 5,
-    },
+    // reviewRating is emitted ONLY when a real numeric rating was supplied —
+    // a testimonial quote is not a star rating; inventing one violates
+    // Google's review policy + the codebase's real-only rule.
+    ...(typeof input.rating === "number" && {
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: input.rating,
+        bestRating: input.bestRating ?? 5,
+      },
+    }),
     reviewBody: input.body,
     author: {
       "@type": "Person",

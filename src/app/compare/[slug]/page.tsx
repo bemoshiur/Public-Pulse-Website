@@ -66,7 +66,8 @@ export default async function ComparePage({
       <JsonLd
         data={[
           articleSchema({
-            slug: `compare/${c.slug}`,
+            slug: c.slug,
+            pathPrefix: "/compare",
             headline: c.title,
             description: c.description,
             image: "/og-image.jpg",

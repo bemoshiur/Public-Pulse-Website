@@ -10,6 +10,7 @@ import {
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ProgrammaticPage, CalloutList, Hl } from "@/components/seo/ProgrammaticPage";
 import { LOCATIONS, getLocation } from "@/lib/taxonomies/locations";
+import { getIndustry } from "@/lib/taxonomies/industries";
 import { SERVICES, getService } from "@/lib/services";
 
 type Params = { city: string };
@@ -119,12 +120,17 @@ export default async function LocationPage({
           },
         ]}
         related={[
-          ...top.map((ind) => ({
-            href: `/industries/${ind}`,
-            label: `${ind.replace(/-/g, " ").replace(/\b\w/g, (m) => m.toUpperCase())} marketing`,
-            eyebrow: "Industry",
-          })),
-          ...aligned.slice(0, 3 - top.length > 0 ? 3 - top.length : 0).map((s) => ({
+          // Only link industries that actually have a page — some cities'
+          // topIndustries (logistics, manufacturing, fmcg…) aren't in the
+          // 10-item INDUSTRIES catalog, so linking them raw = a real 404.
+          ...top
+            .filter((ind) => getIndustry(ind))
+            .map((ind) => ({
+              href: `/industries/${ind}`,
+              label: `${ind.replace(/-/g, " ").replace(/\b\w/g, (m) => m.toUpperCase())} marketing`,
+              eyebrow: "Industry",
+            })),
+          ...aligned.slice(0, Math.max(0, 3 - top.filter((ind) => getIndustry(ind)).length)).map((s) => ({
             href: `/${s.slug}/${loc.slug}`,
             label: `${s.shortName} in ${loc.name}`,
             eyebrow: "Service × Location",

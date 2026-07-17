@@ -35,10 +35,22 @@ function warnIfLong(label: string, value: string, max: number) {
   }
 }
 
+// Backstop: clamp the META description to ≤160 chars at a word boundary so
+// Google doesn't truncate mid-word. The full text stays on the page — this
+// only trims the <meta>/OG/Twitter snippet. Catches unbounded sources
+// (glossary raw definitions, matrix priority tails) in one place.
+function clampDescription(desc: string, max = 160): string {
+  if (desc.length <= max) return desc;
+  const cut = desc.slice(0, max - 1);
+  const lastSpace = cut.lastIndexOf(" ");
+  const trimmed = lastSpace > max - 30 ? cut.slice(0, lastSpace) : cut;
+  return trimmed.replace(/[\s,;:.—-]+$/, "") + "…";
+}
+
 export function buildMetadata(input: BuildMetadataInput): Metadata {
   const {
     title,
-    description,
+    description: rawDescription,
     path,
     ogImage,
     ogType = "website",
@@ -58,7 +70,8 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
   } = input;
 
   warnIfLong("title", title, 60);
-  warnIfLong("description", description, 160);
+  warnIfLong("description", rawDescription, 160);
+  const description = clampDescription(rawDescription);
 
   const canonical = absoluteUrl(path);
   const resolvedOg = useDynamicOg
