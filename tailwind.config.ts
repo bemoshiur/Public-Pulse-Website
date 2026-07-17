@@ -10,20 +10,23 @@ const config: Config = {
         // Brand orange: #FF5911 (avoora exact). Was #FF5C00 — close but not identical.
         // Body text: flat #5D5D5D (avoora exact). Use via `text-mute` token.
         // Dark grey: #4C4C4C — avoora's NEUTRAL primary-button colour.
-        // ── Base palette rethemed to "restrained luxury" (prestige rollout
-        // Phase 1). Values changed, class names unchanged, so every page
-        // inherits the warm-paper / deepened-orange / prestige-ink look. The
-        // political-ad flagship uses independent pr-* tokens (unaffected).
-        "ink": "#18191B",
-        "ink-soft": "#3C3D3F",
-        "ink-mute": "#6E6B64",
-        "paper": "#F3F2EE",
-        "paper-alt": "#ECEAE4",
-        "paper-tint": "#DEDBD3",
-        "graphite": "#4C4C4C",
-        "brand-orange": "#BE451E",
-        "brand-orange-soft": "#CF5A2E",
-        "brand-orange-deep": "#A03A17",
+        // ── Base palette rethemed to the "Dataplace direction" (restyle
+        // Phase 0). White page + warm-grey inset panels + one VIVID orange
+        // accent + near-black ink. Class names unchanged, so every page
+        // inherits it. The political-ad flagship uses independent pr-* tokens
+        // (unaffected). Surface greys sampled from Dataplace: #F6F7F7 / #F6F6F6
+        // / #F3F4F5. Accent #FE4A0F (Dataplace exact — ~= the site's original
+        // avoora orange). Body ink #212833; heading ink near-black.
+        "ink": "#16181C",
+        "ink-soft": "#212833",
+        "ink-mute": "#6B7075",
+        "paper": "#FFFFFF",
+        "paper-alt": "#F6F6F6",
+        "paper-tint": "#F3F4F5",
+        "graphite": "#242424",
+        "brand-orange": "#FE4A0F",
+        "brand-orange-soft": "#FF6A37",
+        "brand-orange-deep": "#D63D0B",
         // ── Prestige ("restrained luxury") palette — scoped to the political-ad
         // flagship + src/components/prestige/*. Additive; changes no existing page.
         "pr-paper": "#F3F2EE",
@@ -42,16 +45,17 @@ const config: Config = {
         "pr-briefing-muted": "#9C9890",
         "pr-briefing-line": "#2C2D30",
         // Legacy aliases (kept so any unmigrated markup still compiles).
-        // They point at the new tokens so the visual stays correct.
-        "brand-navy": "#18191B",
-        "brand-navy-soft": "#3C3D3F",
-        "brand-teal": "#BE451E",
-        "brand-teal-soft": "#CF5A2E",
-        "brand-teal-deep": "#A03A17",
-        "brand-teal-tint": "#F1E4DB",
-        "brand-red": "#BE451E",
-        "surface-alt": "#ECEAE4",
-        "surface-tint": "#DEDBD3",
+        // They point at the new Dataplace-direction tokens so the visual
+        // stays correct wherever old class names still appear.
+        "brand-navy": "#16181C",
+        "brand-navy-soft": "#212833",
+        "brand-teal": "#FE4A0F",
+        "brand-teal-soft": "#FF6A37",
+        "brand-teal-deep": "#D63D0B",
+        "brand-teal-tint": "#FCE6DD",
+        "brand-red": "#FE4A0F",
+        "surface-alt": "#F6F6F6",
+        "surface-tint": "#F3F4F5",
         whatsapp: "#25D366",
         // Category palette retained for service-card top borders only
         "cat-red": "#D32F2F",
@@ -100,12 +104,12 @@ const config: Config = {
         prose: "65ch",
       },
       borderRadius: {
-        // Avoora-faithful: small 6px radius on buttons (was pill 9999px).
-        // Pills feel SaaS-y; the small rectangle feels editorial.
-        // Card stays 8px, panel 12px (close enough to avoora's quietly rounded forms).
-        btn: "6px",
-        card: "8px",
-        panel: "12px",
+        // Dataplace direction: 200px pill buttons, soft-radius cards + panels.
+        // The big soft radius on grey panels is the template's signature.
+        btn: "9999px",
+        card: "14px",
+        panel: "20px",
+        "panel-lg": "32px",
       },
       animation: {
         marquee: "marquee 40s linear infinite",

@@ -3,16 +3,22 @@
 @tailwind utilities;
 
 :root {
-  /* Avoora-faithful tokens, verified against avoora.webflow.io */
-  --ink: #111111;
-  --ink-mute: #5d5d5d;
+  /* Dataplace-direction tokens (restyle Phase 0). Kept in sync with the
+     tailwind.config.ts color scale. White page, warm-grey panels, vivid
+     orange accent. Body ink #212833, heading ink near-black. */
+  --ink: #16181c;
+  --ink-mute: #6b7075;
+  --body-ink: #212833;
   --paper: #ffffff;
-  --paper-alt: #f5f5f5;
-  --paper-tint: #e3e3e3;
-  --graphite: #4c4c4c;
-  --brand-orange: #ff5911;
-  --brand-orange-deep: #e84a00;
-  --brand-orange-soft: #ff7a3d;
+  --paper-alt: #f6f6f6;
+  --paper-tint: #f3f4f5;
+  --panel: #f6f7f7;
+  --hairline: #e6e6e6;
+  --card-border: #e4e4e4;
+  --graphite: #242424;
+  --brand-orange: #fe4a0f;
+  --brand-orange-deep: #d63d0b;
+  --brand-orange-soft: #ff6a37;
 }
 
 html {
@@ -23,7 +29,7 @@ html {
 }
 
 body {
-  color: var(--ink);
+  color: var(--body-ink);
   background: var(--paper);
   font-family: var(--font-inter), system-ui, sans-serif;
   font-size: 1rem;
@@ -40,12 +46,12 @@ body {
 /* ─── AnswerBlock (AEO/GEO surface) ─────────────────────────────────── */
 .answer-block {
   border-left: 3px solid var(--brand-orange);
-  background: #f5f5f5;
+  background: var(--panel);
   padding: 22px 26px;
-  border-radius: 8px;
+  border-radius: 14px;
   font-size: 1rem;
   line-height: 1.65;
-  color: var(--ink);
+  color: var(--body-ink);
 }
 .answer-block-dark {
   border-left: 3px solid var(--brand-orange);
@@ -69,7 +75,7 @@ body {
   font-size: 0.9375rem;
   line-height: 1;
   padding: 0.875rem 1.5rem;
-  border-radius: 6px;
+  border-radius: 9999px;
   transition:
     background-color 200ms ease-out,
     color 200ms ease-out,
@@ -136,9 +142,9 @@ body {
 /* ─── Cards ──────────────────────────────────────────────────────────── */
 .card {
   position: relative;
-  background: var(--paper);
-  border: 1px solid var(--ink);
-  border-radius: 8px;
+  background: var(--paper-alt);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
   padding: 1.75rem;
   transition:
     transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
@@ -151,15 +157,15 @@ body {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(120% 80% at 50% 0%, rgba(255, 92, 0, 0.08), transparent 60%);
+  background: radial-gradient(120% 80% at 50% 0%, rgba(254, 74, 15, 0.05), transparent 60%);
   opacity: 0;
   transition: opacity 300ms ease-out;
   pointer-events: none;
 }
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 8px 8px 0 0 var(--ink);
-  border-color: var(--brand-orange);
+  transform: translateY(-3px);
+  box-shadow: 0 22px 48px -30px rgba(0, 0, 0, 0.35);
+  border-color: #d7d8da;
 }
 .card:hover::before {
   opacity: 1;
@@ -171,15 +177,15 @@ body {
   background: var(--ink);
   color: var(--paper);
   border: 1px solid var(--ink);
-  border-radius: 8px;
+  border-radius: 14px;
   padding: 1.75rem;
   transition:
     transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .card-dark:hover {
-  transform: translateY(-4px);
-  box-shadow: 8px 8px 0 0 var(--brand-orange);
+  transform: translateY(-3px);
+  box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.6);
 }
 
 /* ─── Motion: scroll-reveal (fade + scale 105 → 100) ────────────────── */
@@ -290,7 +296,7 @@ html.reveal-ready .reveal.is-visible {
   left: 0;
   height: 2px;
   width: 100%;
-  background: linear-gradient(90deg, #ff5c00, #2563eb, #14b8a6);
+  background: var(--brand-orange);
   transform: scaleX(0);
   transform-origin: 0 50%;
   z-index: 60;
@@ -454,11 +460,11 @@ html.reveal-ready .reveal-v2.is-visible {
 .form-input {
   display: block;
   width: 100%;
-  padding: 0.875rem 1rem;
-  border: 1px solid var(--ink);
-  border-radius: 8px;
+  padding: 0.875rem 1.1rem;
+  border: 1px solid #dedede;
+  border-radius: 12px;
   background: var(--paper);
-  color: var(--ink);
+  color: var(--body-ink);
   font-size: 1rem;
   line-height: 1.4;
   transition:
@@ -468,13 +474,13 @@ html.reveal-ready .reveal-v2.is-visible {
 .form-input:focus {
   outline: none;
   border-color: var(--brand-orange);
-  box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.2);
+  box-shadow: 0 0 0 3px rgba(254, 74, 15, 0.18);
 }
 .form-input[aria-invalid="true"] {
   border-color: var(--brand-orange);
 }
 .form-input[aria-invalid="true"]:focus {
-  box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.25);
+  box-shadow: 0 0 0 3px rgba(254, 74, 15, 0.24);
 }
 
 /* ─── Print stylesheet (audit / brief save-as-PDF) ───────────────────── */
@@ -669,6 +675,7 @@ html.reveal-ready .reveal-v2.is-visible {
 h1, h2, h3 {
   font-family: var(--font-fraunces), "Charter", Georgia, serif;
   letter-spacing: -0.015em;
+  color: var(--ink);
 }
 h1.font-sans, h2.font-sans, h3.font-sans {
   font-family: var(--font-inter), system-ui, sans-serif;
