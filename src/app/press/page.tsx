@@ -10,6 +10,8 @@ import {
 } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
+import { GreyPanel } from "@/components/ui/GreyPanel";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { SITE } from "@/lib/site";
 
@@ -291,32 +293,32 @@ export default function PressPage() {
         </Container>
       </section>
 
-      <section className="bg-ink py-14 text-paper">
+      <Section size="lg" className="bg-paper">
         <Container>
-          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
-            <div className="max-w-2xl">
-              <h2 className="text-h2 tracking-tight">
-                Got a deadline?
-              </h2>
-              <p className="mt-3 text-white/70">
-                Email the press desk and put your outlet + deadline in the subject —
-                we&rsquo;ll match the response window.
-              </p>
+          <GreyPanel tone="ink" radius="lg" className="px-6 py-14 md:px-12 md:py-16">
+            <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+              <div className="max-w-2xl">
+                <h2 className="text-h2 tracking-tight text-paper">Got a deadline?</h2>
+                <p className="mt-3 text-white/70">
+                  Email the press desk and put your outlet + deadline in the subject — we&rsquo;ll
+                  match the response window.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href={`mailto:${SITE.contact.email}?subject=Press%20enquiry`}
+                  className="btn btn-orange"
+                >
+                  <Mail className="h-4 w-4" aria-hidden /> Email press desk
+                </a>
+                <Link href="/about" className="btn btn-ghost-dark">
+                  <FileText className="h-4 w-4" aria-hidden /> About the studio
+                </Link>
+              </div>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <a
-                href={`mailto:${SITE.contact.email}?subject=Press%20enquiry`}
-                className="btn btn-orange"
-              >
-                <Mail className="h-4 w-4" aria-hidden /> Email press desk
-              </a>
-              <Link href="/about" className="btn btn-ghost-dark">
-                <FileText className="h-4 w-4" aria-hidden /> About the studio
-              </Link>
-            </div>
-          </div>
+          </GreyPanel>
         </Container>
-      </section>
+      </Section>
     </>
   );
 }

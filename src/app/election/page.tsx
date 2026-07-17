@@ -10,6 +10,8 @@ import {
 } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
+import { GreyPanel } from "@/components/ui/GreyPanel";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { AnswerBlock } from "@/components/seo/AnswerBlock";
 import { SITE } from "@/lib/site";
@@ -276,28 +278,30 @@ export default function ElectionPage() {
         </Container>
       </section>
 
-      <section className="bg-ink py-16 text-paper md:py-24">
+      <Section size="lg" className="bg-paper">
         <Container>
-          <div className="max-w-3xl">
-            <h2 className="text-h1 tracking-tight">
-              Election cycle running? Let&rsquo;s talk this week.
-            </h2>
-            <p className="mt-5 text-lead text-white/75">
-              Free 30-minute discovery call. We&rsquo;ll review the seat, the opposition,
-              and the timeline — and tell you honestly whether we can help and when to start.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link href={booking ? "/book" : "/contact"} className="btn btn-orange">
-                {booking ? "Book the call" : "Send a brief"}
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-              <Link href="/services/political-pr" className="btn btn-ghost-dark">
-                Read the service detail
-              </Link>
+          <GreyPanel tone="ink" radius="lg" className="px-6 py-16 md:px-12 md:py-20">
+            <div className="max-w-3xl">
+              <h2 className="text-h1 tracking-tight text-paper">
+                Election cycle running? Let&rsquo;s talk this week.
+              </h2>
+              <p className="mt-5 text-lead text-white/75">
+                Free 30-minute discovery call. We&rsquo;ll review the seat, the opposition, and the
+                timeline — and tell you honestly whether we can help and when to start.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Link href={booking ? "/book" : "/contact"} className="btn btn-orange">
+                  {booking ? "Book the call" : "Send a brief"}
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+                <Link href="/services/political-pr" className="btn btn-ghost-dark">
+                  Read the service detail
+                </Link>
+              </div>
             </div>
-          </div>
+          </GreyPanel>
         </Container>
-      </section>
+      </Section>
     </>
   );
 }
