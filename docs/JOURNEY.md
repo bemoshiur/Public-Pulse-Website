@@ -36,8 +36,16 @@ Keep Fraunces · vivid `#FE4A0F` (≈ original avoora orange) · inspired-evolut
 
 **Whole site now converted:** homepage · ~60 programmatic pages · all service/location/industry/glossary/guides/compare detail + index pages · blog index + post · pricing · about · contact · case-studies index + detail · press · election. Cohesive Dataplace: white ground, grey inset panels, one dark accent per page, Fraunces serif, vivid orange, 200px pills, single fade-up motion. SEO no-touch verified in built HTML across every page type (1 H1 / AnswerBlock / JSON-LD unchanged / canonical / FAQ dl). `tsc` clean, `next build` green. 8 restyle commits.
 
-### Remaining (Phase 4–6)
-Phase 4 (original silk-render artwork + floating UI cards from real /manage dashboards — the one asset-production item; Dataplace's renders are licensed), Phase 5 (finer motion cadence polish + retire leftover rainbow decoratives like `gradient-text` on unused paths), Phase 6 (full curl-matrix + SSR-gate regression sweep across all ~130 prerendered pages → Lighthouse → **deploy**). The election page keeps its bespoke dark full-bleed hero by design.
+### Phase 3e `f6973af` — flagship + detail/utility/legal (EVERY part now converted)
+- **pr-* prestige palette rethemed** (political-FB flagship + `prestige/*` kit): warm-stone→white, burnt `#BE451E`→vivid `#FE4A0F`, hairlines lighter. Flagship keeps its bespoke campaign-dossier layout (method framework, **dark compliance briefing room** — an intentional design feature, budget table) but now palette-matches the site. Prestige components carry zero hardcoded hex, so the token flip converted all of them.
+- **Brutalist borders swept** from guides/[slug], glossary/[term], compare/[slug], confirm, unsubscribe, LegalPage (privacy/terms/data-deletion). compare table full-ink border → soft. press → inset hero. tools pages already fine (subtle cards).
+
+### Phase 6 regression sweep — PASS (branch fully verified, still NOT deployed)
+- **SSR-gate across all 135 prerendered pages:** every content page has exactly 1 `<h1>` + canonical; the only 3 with H1=0 are **redirect stubs** (`/research`, `/book`, a pruned guide slug) — correct.
+- **Route-status matrix:** all content pages 200; all removed/pruned/unknown (`/group`, unknown `[slug]`s, `/research`, pruned matrix, `seed-*`) → 307/308 redirect — **zero 404/500/502**; robots/sitemap/llms/feed 200.
+- **Zero** full-opacity `border-[tby] border-ink` sitewide · **zero** old burnt `#BE451E` in compiled CSS · **zero** rainbow motion primitives (Aurora/GradientText/CursorGlow/Marquee) rendered on any public page. `tsc` clean, `next build` green. **10 restyle commits.**
+
+**The Dataplace restyle is COMPLETE across every public page.** What remains is optional: Phase 4 original silk-render artwork + floating UI cards from real /manage dashboards (the one asset-production item — Dataplace's renders are licensed), a Lighthouse pass, and the **production deploy** (held for an explicit go — a full-site redesign going live is a deliberate call; `AWS_PROFILE=default bash scripts/deploy.sh production` when ready). Election + flagship keep their bespoke dark hero/briefing-room by design.
 
 **Rollback:** branch-only; `7ce485b` is the live prestige tip.
 
