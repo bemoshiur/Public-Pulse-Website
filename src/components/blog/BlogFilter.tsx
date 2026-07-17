@@ -10,8 +10,6 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useMemo, useState, useTransition } from "react";
 import { ArrowRight, CalendarDays, Clock } from "lucide-react";
 
-import { TiltCard } from "@/components/motion";
-
 export type BlogFilterPost = {
   slug: string;
   locale: string;
@@ -76,7 +74,7 @@ export function BlogFilter({ posts, categories }: Props) {
   return (
     <>
       {/* Category chips + search */}
-      <section className="border-t border-ink bg-paper py-8">
+      <section className="bg-paper py-8">
         <div className="max-w-container mx-auto px-5 md:px-8">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <ul className="flex flex-wrap gap-2">
@@ -131,10 +129,10 @@ export function BlogFilter({ posts, categories }: Props) {
         </div>
       </section>
 
-      <section className="border-t border-ink bg-paper-alt py-16 md:py-24">
+      <section className="bg-paper pb-20 md:pb-28">
         <div className="max-w-container mx-auto px-5 md:px-8">
           {filtered.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-ink/20 bg-paper p-10 text-center">
+            <div className="rounded-panel border border-dashed border-ink/20 bg-paper-alt p-10 text-center">
               <p className="text-ink/55">
                 {posts.length === 0
                   ? "New guides are being prepared — check back soon."
@@ -160,55 +158,46 @@ export function BlogFilter({ posts, categories }: Props) {
                 const cat = categories.find((c) => c.slug === p.categorySlug);
                 return (
                   <li key={`${p.slug}-${p.locale}`}>
-                    <TiltCard maxTilt={4}>
-                      <Link
-                        href={`/blog/${p.slug}`}
-                        className="card group flex h-full flex-col"
-                      >
-                        <div className="flex items-center justify-between gap-3">
-                          <span className="chip chip-orange">
-                            {cat?.nameEn ?? p.categorySlug}
-                          </span>
-                          <span className="inline-flex items-center gap-1 rounded-full border border-ink/20 px-2 py-0.5 text-[10px] font-semibold uppercase">
-                            {p.locale === "bn" ? "বাংলা" : "EN"}
-                          </span>
-                        </div>
-                        <h2 className="mt-5 text-h3 font-bold text-ink">{p.title}</h2>
-                        <p className="mt-3 flex-1 text-sm leading-relaxed text-ink/70">
-                          {p.excerpt}
+                    <Link href={`/blog/${p.slug}`} className="card group flex h-full flex-col">
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="chip chip-orange">{cat?.nameEn ?? p.categorySlug}</span>
+                        <span className="inline-flex items-center gap-1 rounded-full border border-ink/20 px-2 py-0.5 text-[10px] font-semibold uppercase">
+                          {p.locale === "bn" ? "বাংলা" : "EN"}
+                        </span>
+                      </div>
+                      <h2 className="mt-5 text-h3 font-bold text-ink">{p.title}</h2>
+                      <p className="mt-3 flex-1 text-sm leading-relaxed text-ink/70">{p.excerpt}</p>
+                      {(p.tags ?? []).length > 0 && (
+                        <p className="mt-3 text-[11px] uppercase tracking-wider text-ink/45">
+                          {(p.tags ?? []).slice(0, 3).join(" · ")}
                         </p>
-                        {(p.tags ?? []).length > 0 && (
-                          <p className="mt-3 text-[11px] uppercase tracking-wider text-ink/45">
-                            {(p.tags ?? []).slice(0, 3).join(" · ")}
-                          </p>
-                        )}
-                        <div className="mt-5 flex items-center justify-between text-meta text-ink/55">
-                          <span className="inline-flex items-center gap-3">
-                            {p.publishedAt && (
-                              <span className="inline-flex items-center gap-1">
-                                <CalendarDays className="h-3.5 w-3.5" aria-hidden />
-                                {new Date(p.publishedAt).toLocaleDateString("en-GB", {
-                                  year: "numeric",
-                                  month: "short",
-                                  day: "numeric",
-                                })}
-                              </span>
-                            )}
+                      )}
+                      <div className="mt-5 flex items-center justify-between text-meta text-ink/55">
+                        <span className="inline-flex items-center gap-3">
+                          {p.publishedAt && (
                             <span className="inline-flex items-center gap-1">
-                              <Clock className="h-3.5 w-3.5" aria-hidden />
-                              {p.readingTime} min
+                              <CalendarDays className="h-3.5 w-3.5" aria-hidden />
+                              {new Date(p.publishedAt).toLocaleDateString("en-GB", {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                              })}
                             </span>
+                          )}
+                          <span className="inline-flex items-center gap-1">
+                            <Clock className="h-3.5 w-3.5" aria-hidden />
+                            {p.readingTime} min
                           </span>
-                          <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-orange">
-                            Read
-                            <ArrowRight
-                              className="h-3.5 w-3.5 transition group-hover:translate-x-1"
-                              aria-hidden
-                            />
-                          </span>
-                        </div>
-                      </Link>
-                    </TiltCard>
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-orange">
+                          Read
+                          <ArrowRight
+                            className="h-3.5 w-3.5 transition group-hover:translate-x-1"
+                            aria-hidden
+                          />
+                        </span>
+                      </div>
+                    </Link>
                   </li>
                 );
               })}

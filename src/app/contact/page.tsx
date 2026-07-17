@@ -18,6 +18,8 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { AnswerBlock } from "@/components/seo/AnswerBlock";
 import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
+import { GreyPanel } from "@/components/ui/GreyPanel";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { SITE } from "@/lib/site";
 import { bookingUrl } from "@/lib/booking";
@@ -53,245 +55,212 @@ const FAQS = [
   },
 ];
 
+const PATHS = [
+  {
+    href: SITE.contact.whatsapp,
+    external: true,
+    icon: MessageCircle,
+    iconTint: "text-emerald-600",
+    tag: "Fastest",
+    title: (
+      <>
+        WhatsApp <span className="text-ink/45">now</span>
+      </>
+    ),
+    body: "Under 2h reply during business hours. Best for quick questions and to feel out whether we're a fit.",
+    cta: SITE.contact.phoneDisplay,
+    label: "Chat on WhatsApp now",
+  },
+  {
+    href: "#brief",
+    external: false,
+    icon: Sparkles,
+    iconTint: "text-brand-orange",
+    tag: "Best fit",
+    title: (
+      <>
+        Send a <span className="text-ink/45">brief</span>
+      </>
+    ),
+    body: "Tell us what you're trying to grow, what you've tried, and we'll reply with a structured proposal.",
+    cta: "Jump to the form",
+    label: "Send a brief",
+  },
+  {
+    href: `tel:${SITE.contact.phone}`,
+    external: false,
+    icon: Phone,
+    iconTint: "text-blue-600",
+    tag: "Call us",
+    title: (
+      <>
+        Just <span className="text-ink/45">call</span>
+      </>
+    ),
+    body: "Direct line to the sales team. Best for urgent or sensitive work (election cycles, crisis comms).",
+    cta: SITE.contact.phoneDisplay,
+    label: `Call ${SITE.contact.phoneDisplay}`,
+  },
+];
+
 export default function ContactPage() {
   return (
     <>
       <JsonLd data={[contactPageSchema(), breadcrumbSchema(crumbs), faqPageSchema(FAQS)]} />
 
-      {/* ═══ HERO — gradient panel with live availability ═══════════════ */}
-      <section className="relative overflow-hidden bg-paper">
-        <Container className="relative pt-10 pb-14 md:pt-14 md:pb-16">
+      {/* ═══ HERO — inset panel + live availability card ════════════════ */}
+      <Section size="sm" className="bg-paper">
+        <Container>
           <Breadcrumbs crumbs={crumbs} />
-          <div className="mt-8 grid gap-8 lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-7">
-              <span className="chip chip-orange">Contact</span>
-              <h1 className="mt-5 text-mega tracking-tight text-ink">
-                Talk to a <span className="text-brand-orange">human</span> in under an hour.
-              </h1>
-              <p className="mt-5 max-w-2xl text-lead text-ink/70">
-                No pitch deck, no qualifying questions, no SDR. Pick the channel that suits you and
-                the sales team picks up.
-              </p>
-            </div>
-
-            {/* Live status panel */}
-            <div className="lg:col-span-5">
-              <div
-                className="rounded-panel p-6 text-paper"
-                style={{
-                  background: "#17181C",
-                }}
-              >
-                <div className="flex items-center gap-2 text-meta uppercase tracking-wider text-paper/80">
-                  <span
-                    aria-hidden
-                    className="inline-block h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-emerald-400/30"
-                  />
-                  Sales team online
-                </div>
-                <p className="mt-3 text-h3 font-bold leading-tight">
-                  Available 09:00 – 21:00 BD
+          <GreyPanel tone="tint" radius="lg" className="mt-6 px-6 py-12 md:px-12 md:py-14">
+            <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+              <div className="lg:col-span-7">
+                <span className="chip chip-orange">Contact</span>
+                <h1 className="mt-5 text-h1 tracking-tight text-ink">
+                  Talk to a <span className="text-brand-orange">human</span> in under an hour.
+                </h1>
+                <p className="mt-5 max-w-2xl text-lead text-ink/70">
+                  No pitch deck, no qualifying questions, no SDR. Pick the channel that suits you and
+                  the sales team picks up.
                 </p>
-                <p className="mt-1 text-sm text-paper/80">
-                  Average WhatsApp reply: <strong className="text-paper">under 2 hours</strong>
-                  &nbsp;during business hours.
-                </p>
-                <div className="mt-5 grid grid-cols-3 gap-3 border-t border-white/15 pt-4">
-                  <Stat n="<2h" k="WhatsApp" />
-                  <Stat n="<24h" k="Email" />
-                  <Stat n="6 days" k="Sat–Thu" />
+              </div>
+              {/* Live status card — the one dark accent in the panel */}
+              <div className="lg:col-span-5">
+                <div className="rounded-panel bg-ink p-6 text-paper">
+                  <div className="flex items-center gap-2 text-meta uppercase tracking-wider text-paper/80">
+                    <span
+                      aria-hidden
+                      className="inline-block h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-emerald-400/30"
+                    />
+                    Sales team online
+                  </div>
+                  <p className="mt-3 text-h3 font-bold leading-tight">Available 09:00 – 21:00 BD</p>
+                  <p className="mt-1 text-sm text-paper/80">
+                    Average WhatsApp reply: <strong className="text-paper">under 2 hours</strong>
+                    &nbsp;during business hours.
+                  </p>
+                  <div className="mt-5 grid grid-cols-3 gap-3 border-t border-white/15 pt-4">
+                    <Stat n="<2h" k="WhatsApp" />
+                    <Stat n="<24h" k="Email" />
+                    <Stat n="6 days" k="Sat–Thu" />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </GreyPanel>
 
-          <div className="mt-12 max-w-3xl">
+          <div className="mt-6 max-w-3xl">
             <AnswerBlock>
               We reply to every email and WhatsApp message within 24 hours, Saturday through
-              Thursday. Office hours are 09:00–21:00 Asia/Dhaka. Fastest channel is WhatsApp.
-              Free 30-minute consultation; no pitch deck, no qualifying questions.
+              Thursday. Office hours are 09:00–21:00 Asia/Dhaka. Fastest channel is WhatsApp. Free
+              30-minute consultation; no pitch deck, no qualifying questions.
             </AnswerBlock>
           </div>
         </Container>
-      </section>
+      </Section>
 
-      {/* ═══ PICK YOUR PATH — three gradient cards ══════════════════════ */}
-      <section className="border-y border-ink bg-paper-alt py-20 md:py-24">
+      {/* ═══ PICK YOUR PATH — light inset cards ═════════════════════════ */}
+      <Section size="lg" className="bg-paper">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-eyebrow uppercase text-brand-orange">Pick your path</p>
-            <h2 className="mt-4 text-display tracking-tight text-ink">
-              Three ways in. All of them work.
-            </h2>
+            <h2 className="mt-4 text-h2 tracking-tight text-ink">Three ways in. All of them work.</h2>
           </div>
-          <ul className="mt-12 grid gap-5 md:grid-cols-3">
-            <li>
-              <a
-                href={SITE.contact.whatsapp}
-                rel="noopener noreferrer"
-                target="_blank"
-                aria-label="Chat on WhatsApp now"
-                className="group relative flex h-full flex-col overflow-hidden rounded-panel p-6 text-paper transition hover:-translate-y-1"
-                style={{
-                  background: "#17181C",
-                }}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-card bg-paper/95 text-emerald-600">
-                    <MessageCircle className="h-5 w-5" aria-hidden />
-                  </span>
-                  <span className="chip chip-light">Fastest</span>
-                </div>
-                <h3 className="mt-6 text-h2 leading-tight">
-                  WhatsApp <span className="text-paper/70">now</span>
-                </h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-paper/85">
-                  Under 2h reply during business hours. Best for quick questions and to feel out
-                  whether we&rsquo;re a fit.
-                </p>
-                <div className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-paper">
-                  {SITE.contact.phoneDisplay}
-                  <ArrowUpRight
-                    className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    aria-hidden
-                  />
-                </div>
-              </a>
-            </li>
-            <li>
-              <Link
-                href="#brief"
-                aria-label="Send a brief"
-                className="group relative flex h-full flex-col overflow-hidden rounded-panel p-6 text-paper transition hover:-translate-y-1"
-                style={{
-                  background: "#17181C",
-                }}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-card bg-paper/95 text-brand-orange">
-                    <Sparkles className="h-5 w-5" aria-hidden />
-                  </span>
-                  <span className="chip chip-light">Best fit</span>
-                </div>
-                <h3 className="mt-6 text-h2 leading-tight">
-                  Send a <span className="text-paper/80">brief</span>
-                </h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-paper/85">
-                  Tell us what you&rsquo;re trying to grow, what you&rsquo;ve tried, and we&rsquo;ll
-                  reply with a structured proposal.
-                </p>
-                <div className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-paper">
-                  Jump to the form
-                  <ArrowUpRight
-                    className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    aria-hidden
-                  />
-                </div>
-              </Link>
-            </li>
-            <li>
-              <a
-                href={`tel:${SITE.contact.phone}`}
-                aria-label={`Call ${SITE.contact.phoneDisplay}`}
-                className="group relative flex h-full flex-col overflow-hidden rounded-panel p-6 text-paper transition hover:-translate-y-1"
-                style={{
-                  background: "#17181C",
-                }}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-card bg-paper/95 text-blue-600">
-                    <Phone className="h-5 w-5" aria-hidden />
-                  </span>
-                  <span className="chip chip-light">Call us</span>
-                </div>
-                <h3 className="mt-6 text-h2 leading-tight">
-                  Just <span className="text-paper/80">call</span>
-                </h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-paper/85">
-                  Direct line to the sales team. Best for urgent or sensitive (election cycles,
-                  crisis comms).
-                </p>
-                <div className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-paper">
-                  {SITE.contact.phoneDisplay}
-                  <ArrowUpRight
-                    className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    aria-hidden
-                  />
-                </div>
-              </a>
-            </li>
+          <ul className="mt-12 grid gap-4 md:grid-cols-3">
+            {PATHS.map((p) => {
+              const Icon = p.icon;
+              const inner = (
+                <>
+                  <div className="flex items-center justify-between">
+                    <span
+                      className={`inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper ring-1 ring-ink/10 ${p.iconTint}`}
+                    >
+                      <Icon className="h-5 w-5" aria-hidden />
+                    </span>
+                    <span className="chip">{p.tag}</span>
+                  </div>
+                  <h3 className="mt-6 text-h3 font-bold leading-tight text-ink">{p.title}</h3>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-ink/70">{p.body}</p>
+                  <div className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-orange">
+                    {p.cta}
+                    <ArrowUpRight
+                      className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      aria-hidden
+                    />
+                  </div>
+                </>
+              );
+              const cls =
+                "group flex h-full flex-col rounded-panel bg-paper-alt p-6 transition duration-300 hover:-translate-y-1 hover:bg-paper-tint";
+              return (
+                <li key={p.tag}>
+                  {p.external ? (
+                    <a href={p.href} rel="noopener noreferrer" target="_blank" aria-label={p.label} className={cls}>
+                      {inner}
+                    </a>
+                  ) : (
+                    <Link href={p.href} aria-label={p.label} className={cls}>
+                      {inner}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
           </ul>
 
-          {/* Email — secondary row */}
-          <div className="mt-6">
+          {/* Email + Maps — secondary rows */}
+          <div className="mt-4 space-y-3">
             <a
               href={`mailto:${SITE.contact.email}`}
-              className="group flex flex-col items-start justify-between gap-3 rounded-panel border border-ink/15 bg-paper p-5 transition hover:border-ink sm:flex-row sm:items-center"
+              className="group flex flex-col items-start justify-between gap-3 rounded-panel bg-paper-alt p-5 transition hover:bg-paper-tint sm:flex-row sm:items-center"
               aria-label={`Email ${SITE.contact.email}`}
             >
               <div className="flex items-center gap-3">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-card border border-ink bg-paper text-ink">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-paper text-ink ring-1 ring-ink/10">
                   <Mail className="h-4 w-4" aria-hidden />
                 </span>
                 <div>
                   <p className="text-meta uppercase tracking-wider text-ink/55">Email</p>
-                  <p className="text-base font-bold text-ink break-all">
-                    {SITE.contact.email}
-                  </p>
+                  <p className="break-all text-base font-bold text-ink">{SITE.contact.email}</p>
                 </div>
               </div>
               <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-orange">
                 Compose
-                <ArrowUpRight
-                  className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  aria-hidden
-                />
+                <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
               </span>
             </a>
-          </div>
-
-          {/* Google Maps — directions */}
-          <div className="mt-4">
             <a
               href={SITE.contact.mapsShareUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col items-start justify-between gap-3 rounded-panel border border-ink/15 bg-paper p-5 transition hover:border-ink sm:flex-row sm:items-center"
+              className="group flex flex-col items-start justify-between gap-3 rounded-panel bg-paper-alt p-5 transition hover:bg-paper-tint sm:flex-row sm:items-center"
               aria-label="Get directions to Public Pulse Agency on Google Maps"
             >
               <div className="flex items-center gap-3">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-card border border-ink bg-paper text-ink">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-paper text-ink ring-1 ring-ink/10">
                   <MapPin className="h-4 w-4" aria-hidden />
                 </span>
                 <div>
                   <p className="text-meta uppercase tracking-wider text-ink/55">Location</p>
-                  <p className="text-base font-bold text-ink">
-                    Dhaka, Bangladesh
-                  </p>
+                  <p className="text-base font-bold text-ink">Dhaka, Bangladesh</p>
                 </div>
               </div>
               <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-orange">
                 Get directions
-                <ArrowUpRight
-                  className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  aria-hidden
-                />
+                <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
               </span>
             </a>
           </div>
         </Container>
-      </section>
+      </Section>
 
       {/* ═══ BRIEF FORM ═════════════════════════════════════════════════ */}
-      <section id="brief" className="bg-paper py-20 md:py-28">
+      <Section id="brief" size="lg" className="bg-paper-alt">
         <Container>
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-12">
-            {/* Side rail */}
             <aside className="lg:col-span-4">
               <p className="text-eyebrow uppercase text-brand-orange">Brief</p>
-              <h2 className="mt-4 text-display tracking-tight text-ink">
-                Send your brief.
-              </h2>
+              <h2 className="mt-4 text-h2 tracking-tight text-ink">Send your brief.</h2>
               <p className="mt-4 text-ink/70">
                 Lands in our inbox the moment you hit send. Read by a human, replied to by the same
                 human.
@@ -302,29 +271,27 @@ export default function ContactPage() {
                 <Promise icon={CalendarDays} text="If a fit, we'll book a 30-min call within 2 working days" />
               </ul>
             </aside>
-
-            {/* Form */}
             <div className="lg:col-span-8">
-              {/* Resolve booking URL server-side and pass as prop —
-                  avoids the NEXT_PUBLIC build-time inline problem when
-                  the URL comes from an SST runtime secret. */}
-              <ContactForm bookingUrl={bookingUrl()} />
+              {/* Resolve booking URL server-side and pass as prop — avoids the
+                  NEXT_PUBLIC build-time inline problem when the URL comes from
+                  an SST runtime secret. */}
+              <div className="rounded-panel bg-paper p-6 md:p-8">
+                <ContactForm bookingUrl={bookingUrl()} />
+              </div>
             </div>
           </div>
         </Container>
-      </section>
+      </Section>
 
       {/* ═══ FAQ ════════════════════════════════════════════════════════ */}
-      <section className="border-t border-ink bg-paper-alt py-20 md:py-24">
+      <Section size="lg" className="bg-paper">
         <Container>
           <div className="mx-auto max-w-3xl">
             <p className="text-eyebrow uppercase text-brand-orange">FAQ</p>
-            <h2 className="mt-4 text-display tracking-tight text-ink">
-              Before you write.
-            </h2>
-            <dl className="mt-10 space-y-4">
+            <h2 className="mt-4 text-h2 tracking-tight text-ink">Before you write.</h2>
+            <dl className="mt-10 space-y-3">
               {FAQS.map((f) => (
-                <div key={f.q} className="rounded-card border border-ink/15 bg-paper p-6">
+                <div key={f.q} className="rounded-panel bg-paper-alt p-6 md:p-7">
                   <dt className="font-semibold text-ink">{f.q}</dt>
                   <dd className="mt-2 text-sm leading-relaxed text-ink/70">{f.a}</dd>
                 </div>
@@ -332,7 +299,7 @@ export default function ContactPage() {
             </dl>
           </div>
         </Container>
-      </section>
+      </Section>
     </>
   );
 }
