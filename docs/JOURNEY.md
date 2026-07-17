@@ -13,6 +13,40 @@ Entry format:
 
 ---
 
+## 2026-07-18 — STEP 23 / PRESTIGE ROLLOUT PHASE 1 (foundation + chrome + homepage)
+
+**Build green (`tsc` clean, `next build` passes). NOT deployed.** Branch `feat/prestige-rollout` (off `feat/political-fb-flagship`). Full skills pipeline: brainstorm → spec ([2026-07-18-prestige-rollout-phase1-design.md](superpowers/specs/2026-07-18-prestige-rollout-phase1-design.md)) → plan ([2026-07-18-prestige-rollout-phase1.md](superpowers/plans/2026-07-18-prestige-rollout-phase1.md)) → 5 tasks. **Phase 1 of the full-site conversion** to the "restrained luxury" language the flagship debuted (STEP 22). User chose full conversion, phased.
+
+### What + why
+Convert the WHOLE site to restrained-luxury by **rethemeing the base tokens** (not migrating 30 pages), then rebuild the three highest-visibility surfaces. After Phase 1 the entire site reads as a restrained-luxury agency; Phases 2–3 refine each page's layout.
+
+### A. Foundation retheme (converts the whole site at once)
+- [tailwind.config.ts](../tailwind.config.ts): base token VALUES rethemed (class names unchanged, so every page inherits it) — `paper` #FFF→**#F3F2EE** (warm stone), `paper-alt`→#ECEAE4, `ink`→#18191B, `ink-mute`→#6E6B64, `brand-orange` #FF5911→**#BE451E** (deepened burnt orange), + legacy aliases in sync. `cat-*` left alone.
+- [globals.css](../src/styles/globals.css): `h1,h2,h3 { font-family: var(--font-fraunces)… }` — **Fraunces headings site-wide** (tracking reset from the tight Inter values). `font-sans` opt-out.
+- [layout.tsx](../src/app/layout.tsx): **removed `CursorGlow`** (kept `ScrollProgress`).
+- **Discovery reconfirmed:** the site was Inter-only; `font-serif` is still Inter-aliased, so explicit serif uses `font-pr-serif`.
+
+### B. Chrome
+- **Header** ([Header.tsx](../src/components/layout/Header.tsx)): Fraunces wordmark + accent seal (dropped the conic-gradient dot), hairline.
+- **Footer** ([Footer.tsx](../src/components/layout/Footer.tsx)): "Let's make noise" → **"Let's talk."**, the mega sign-off now Fraunces serif, mono metadata row (BIN/Trade License).
+
+### C. Homepage ([page.tsx](../src/app/page.tsx))
+- Retired the avoora `HeroPanel` (gradient cloud/founder card) → **restrained editorial hero**: Fraunces display "Reach that *moves*. Narratives that *hold*.", lede, 2 CTAs, + a **real operational-facts strip** (Founded 2024 · Dhaka; 9 in-house; BDT-billed registered entity; EN+Bangla) — NOT the `50+/300%` placeholders.
+- **Marquee removed**; testimonial gradient panel de-gradiented to solid `bg-ink`.
+- Sections inherited the retheme (serif headings, warm paper, deepened orange). Verified live: cohesive, 0 console errors, still `○` static, 1 H1, AnswerBlock intact.
+
+### Verification
+`tsc` clean · `npm run build` green · Playwright screenshots of `/` + `/services/political-pr` confirm the restrained-luxury look reads correctly + nothing broke. Flagship (pr-* tokens) unaffected.
+
+### Next
+- **Phase 2** (separate spec): `GradientHero` → prestige, `ProgrammaticPage` (~60 pages), service index/detail. **Phase 3**: blog, about, contact, pricing, election, case-studies, `AuroraGradient` usages, category colors.
+- Known items surfaced by the retheme (later phases): the `50+/300%` STATS block still shows placeholders (hero now leads with real facts); the "Talk to us now" contact card + case-study cards have hardcoded rainbow gradients (case-studies section is hidden while empty); the homepage testimonial is anonymous.
+- Merge the branch chain (`super-aeo` → `political-fb-flagship` → `prestige-rollout`) + deploy when ready.
+
+**Rollback:** branch-only. Code-only, no DB.
+
+---
+
 ## 2026-07-17 — STEP 22 / POLITICAL FACEBOOK ADVERTISING FLAGSHIP + PRESTIGE UI KIT
 
 **Build green (`tsc` clean, `next build` passes). NOT deployed.** Branch `feat/political-fb-flagship` (off `feat/super-aeo`). Followed the full skills pipeline: brainstorming → spec ([docs/superpowers/specs/2026-07-17-political-fb-flagship-design.md](superpowers/specs/2026-07-17-political-fb-flagship-design.md)) → plan ([docs/superpowers/plans/2026-07-17-political-fb-flagship.md](superpowers/plans/2026-07-17-political-fb-flagship.md)) → 11 verified tasks. Design mockup approved as an Artifact before build.
