@@ -13,6 +13,39 @@ Entry format:
 
 ---
 
+## 2026-07-18 — STEP 28 / SEARCH CONSOLE CRAWL-ERROR FIX (502s + 404s) — DEPLOYED + LIVE-VERIFIED
+
+**Trigger:** user pasted the GSC "Page indexing" report (Not found 404: 177, Crawled-not-indexed 153, noindex 41, redirect 31, alt-canonical 19, discovered 12, blocked-robots 3, other-4xx 1) with "also fix all of this in search console." Deployed on `feat/prestige-rollout` (the live branch) via `AWS_PROFILE=default bash scripts/deploy.sh production`. Commit `9314392`.
+
+### Root cause found (bigger than the report showed)
+Seven dynamic `[slug]` routes shipped with `dynamicParams = false`. On OpenNext/Lambda an unmatched param has **no fallback handler → HTTP 502** (server error), not a clean 404. Live probes confirmed: `/services/<unknown>`, `/glossary/*`, `/guides/*`, `/compare/*`, `/locations/*`, `/industries/*`, `/research/*` all returned **502**. (The two routes already on `dynamicParams=true` — blog, case-studies — correctly 404'd; matrix routes 308'd.) A 502 is worse for crawling than a 404 — Google reads it as site instability.
+
+### Fix (all live-verified on publicpulse.com.bd)
+- **7 routes → `dynamicParams = true` + redirect-on-miss.** Six stable-catalog routes `permanentRedirect` (308) to their hub (`/services`, `/glossary`, `/guides`, `/compare`, `/locations`, `/industries`) — matches the existing matrix-prune pattern. `/research/[slug]` + `/research` index use temporary `redirect` (307) to `/guides` — reversible the instant a real benchmark flips `published:true`. Files: the 7 `page.tsx` under those routes.
+- **`/group`** (removed in the STEP 9 redesign, was 404) → **301 → /about** in [next.config.ts](../next.config.ts).
+- **`/case-studies/seed-*`** (seed placeholder, guarded in code so it 404'd) → **308 → /case-studies** via [middleware.ts](../src/middleware.ts) (catches all seed- variants).
+- Honors the standing rule: no crawlable URL returns 502 or a raw 404 for a removed/unknown page — every one resolves to a live, topically-relevant page.
+
+### Verified live (post-deploy curls)
+All 7 formerly-502 paths now 307/308 to hub; `/services/digital-marketing` 502→308; `/group` 404→308→/about; seed case study 404→308→/case-studies; `/services/political-pr`, `/glossary/aeo`, `/locations/dhaka`, `/political-pr/dhaka` still 200. `tsc` clean, `next build` green, redirects confirmed under `next start` before deploy.
+
+### GSC report categories — triage (what's real vs normal)
+- **Not found 404 (177) / other-4xx (1):** the actionable bucket. The systematic causes above are fixed; the **long tail needs the user's GSC URL export** (Pages → Not found → Export) to build a precise 301 map — counts alone don't reveal paths.
+- **Page with redirect (31):** our 308s working as intended — will grow as Google recrawls; not an error.
+- **Alternate w/ canonical (19):** correct dedupe behavior; informational.
+- **Crawled-not-indexed (153) / Discovered (12):** quality/crawl-budget, not bugs — improves with authority + internal links, not a "fix."
+- **noindex (41):** intentional (/manage etc.); verify none are real content when the export lands.
+- **Blocked by robots (3):** /manage, /api — intentional.
+
+### Next (user)
+1. In GSC: **Export** the "Not found (404)" URL list → paste/attach so I can add exact 301s for the long tail.
+2. After the deploy propagates (~a few days of recrawl), click **Validate Fix** on the "Not found (404)" and any 5xx/other-4xx rows.
+3. Nothing to redeploy for the systematic fix — it's already live.
+
+**Rollback target:** `7ce485b` (STEP 27 prestige tip). Code-only; no DB/schema changes.
+
+---
+
 ## 2026-07-18 — STEP 27 / DEPLOYED TO PRODUCTION + LIVE-VERIFIED
 
 **LIVE at https://publicpulse.com.bd.** The entire session's work (super-AEO fixes + political-FB flagship & cluster + full-site restrained-luxury restyle + sweep fixes) is deployed and verified. Deployed from branch `feat/prestige-rollout` via `bash scripts/deploy.sh production`.
