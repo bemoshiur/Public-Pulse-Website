@@ -109,7 +109,7 @@ export function Header() {
           </Link>
           <Link
             href="/book"
-            className="btn btn-orange hidden text-[13px] uppercase tracking-wide sm:inline-flex"
+            className="btn btn-orange hidden text-[14px] sm:inline-flex"
           >
             Book a call
             <ArrowUpRight className="h-4 w-4" aria-hidden />

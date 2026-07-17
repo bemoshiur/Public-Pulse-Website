@@ -15,7 +15,7 @@ export function Footer() {
           </h2>
           <Link
             href="/contact"
-            className="btn btn-orange text-[14px] uppercase tracking-wide"
+            className="btn btn-orange text-[15px]"
           >
             Start a project
             <ArrowUpRight className="h-4 w-4" aria-hidden />
