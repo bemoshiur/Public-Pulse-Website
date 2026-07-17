@@ -245,6 +245,61 @@ export const GLOSSARY: GlossaryTerm[] = [
       "Conversion API is one of two technical lifts every Bangladeshi e-commerce stack must do post-iOS-14.5 (the other is first-party data). Server-side events restore 30–50% of the conversion signal lost from browser-side pixels. Public Pulse implements Meta CAPI alongside the browser pixel (dedup by event_id), so the platform sees both signals and Meta's bidding has clean attribution. Without CAPI, Meta's algorithm optimizes against a partial dataset and CPA inflates 20–40% over a 6-month decay curve.",
     see: ["meta-conversions-api", "first-party-data", "roas"],
   },
+  {
+    slug: "boosted-post",
+    name: "Boosted Post",
+    nameBn: "বুস্টেড পোস্ট",
+    area: "Paid Media",
+    definition:
+      "Paying to extend the reach of an existing Facebook or Instagram post. It is the simplest Meta ad — but when the content is political, a boosted post still requires ad authorization and a “Paid for by” disclaimer.",
+    body:
+      "Boosting is where almost every Bangladeshi candidate starts, because it is one tap from a page post. It is fast and blunt: limited targeting, one creative, no message testing, no frequency control. It works to amplify a moment that is already resonating — a rally clip, a local win — but it does not carry a message through a constituency the way an Ads Manager campaign does. Crucially, boosting political content without completing Meta’s authorization and disclaimer is a policy violation that gets ads rejected and pages restricted. Public Pulse boosts only from authorized, disclaimed accounts, and only when a boost is genuinely the right tool.",
+    see: ["ad-authorization", "paid-for-by-disclaimer", "special-ad-category"],
+  },
+  {
+    slug: "ad-authorization",
+    name: "Ad Authorization",
+    nameBn: "বিজ্ঞাপন অনুমোদন",
+    area: "Paid Media",
+    definition:
+      "Meta’s identity- and location-verification that an advertiser must complete before running ads about elections, politics, or social issues. Without it, political ads are rejected.",
+    body:
+      "Before a single political ad runs, Meta requires the advertiser to confirm a verified identity and an in-country location, and to register who is paying. In Bangladesh this step is the one most local operators skip — and it is exactly why their ads get pulled at the worst moment, often in the final week. Authorization can take days, so Public Pulse completes it per account ahead of the campaign, not at launch. It is the gate the entire operation depends on: no authorization, no compliant reach.",
+    see: ["paid-for-by-disclaimer", "special-ad-category", "boosted-post"],
+  },
+  {
+    slug: "paid-for-by-disclaimer",
+    name: "“Paid for by” Disclaimer",
+    nameBn: "“যার অর্থায়নে” ঘোষণা",
+    area: "Paid Media",
+    definition:
+      "The mandatory label on every political ad naming who paid for it. Registered once on an authorized account, it then appears on every ad the campaign runs.",
+    body:
+      "Meta requires political ads to carry a visible disclaimer stating who paid. It is registered once during authorization and applied automatically to every ad. The disclaimer is not a formality — it is what keeps a campaign on the right side of both Meta’s rules and public scrutiny, and it feeds the public Ad Library where anyone can see what a candidate is running. Public Pulse treats the disclaimer as a discipline: if a message could not stand next to the name of who paid for it, it does not run.",
+    see: ["ad-authorization", "boosted-post", "constituency-targeting"],
+  },
+  {
+    slug: "special-ad-category",
+    name: "Special Ad Category",
+    nameBn: "বিশেষ বিজ্ঞাপন শ্রেণি",
+    area: "Paid Media",
+    definition:
+      "Meta’s restricted category for political, electoral, and social-issue ads that limits targeting — no narrowing by age, gender, or detailed personal traits the way commercial ads allow.",
+    body:
+      "When an ad is classified as political or social-issue, Meta places it in a Special Ad Category and strips away much of the fine-grained targeting available to commercial advertisers. You cannot narrow by detailed demographics or many interest traits. That sounds like a handicap; in practice it forces the discipline that actually wins constituencies — building reach on geography and legitimate affinity. Public Pulse designs every political campaign to perform inside these limits from the start, rather than fighting them, so nothing is rejected on review.",
+    see: ["constituency-targeting", "ad-authorization", "boosted-post"],
+  },
+  {
+    slug: "constituency-targeting",
+    name: "Constituency Targeting",
+    nameBn: "আসনভিত্তিক টার্গেটিং",
+    area: "Paid Media",
+    definition:
+      "Focusing paid Facebook reach on a specific electoral seat using Meta’s geography and affinity layers, within Special Ad Category limits — targeting the voters who decide the margin, not vanity reach.",
+    body:
+      "A national ad set wastes most of a candidate’s budget on people who cannot vote for them. Constituency targeting tunes the location radius to union, ward, and upazila lines and weights spend toward the pockets that decide the seat. Because political ads sit in the Special Ad Category, this is built on geography and legitimate affinity rather than protected traits. In Bangladesh it also means designing for a mobile, data-light, Bangla-first electorate. Public Pulse targets the seat, tracks reach and frequency against it, and reallocates daily toward the wards that move.",
+    see: ["special-ad-category", "paid-for-by-disclaimer", "boosted-post"],
+  },
 ];
 
 export function getGlossaryTerm(slug: string): GlossaryTerm | undefined {

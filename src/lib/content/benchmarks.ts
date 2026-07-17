@@ -198,6 +198,31 @@ export const BENCHMARKS: Benchmark[] = [
     variableMeasured: ["Engagement rate (%)"],
     published: false,
   },
+  {
+    slug: "political-facebook-cpm-bangladesh",
+    category: "political-pr",
+    title: "Political Facebook Ad CPM in Bangladesh (2026)",
+    metric: "Political Facebook Ads CPM",
+    value: "TODO ৳___",
+    unit: "BDT per 1,000 impressions",
+    context: "Bangladesh, Meta political ads (Special Ad Category), 2026",
+    sampleSize: undefined,
+    methodology:
+      "TODO — first-party: CPM aggregated across Public Pulse-managed political ad accounts over the period. State the number of accounts / constituencies / spend covered.",
+    collectedDate: "2026-01-01",
+    temporalCoverage: "2026",
+    description:
+      "Average Facebook/Meta political-ad CPM in Bangladesh in 2026, from first-party Public Pulse campaign data, broken down by division.",
+    answer:
+      "TODO — lead with the number, e.g. 'The average political Facebook ad CPM in Bangladesh in 2026 is ৳___ per 1,000 impressions, based on N Public Pulse-managed constituency campaigns. Urban seats run higher (৳___); rural reach is cheaper (৳___).'",
+    breakdown: [
+      { segment: "Urban constituencies", value: "TODO ৳___" },
+      { segment: "Rural constituencies", value: "TODO ৳___" },
+    ],
+    keywords: ["political Facebook ad cost Bangladesh", "election ad CPM Bangladesh 2026", "political ad benchmark"],
+    variableMeasured: ["Political Facebook Ads CPM (BDT)"],
+    published: false,
+  },
 ];
 
 /** Only REAL, published benchmarks. Everything downstream (/research, Dataset

@@ -105,6 +105,54 @@ export const COMPARES: Compare[] = [
     ready: true,
     datePublished: "2026-05-25",
   },
+  {
+    slug: "boosting-vs-ads-manager-political",
+    title: "Boosting vs Ads Manager for political campaigns in Bangladesh",
+    description:
+      "For a Bangladeshi candidate, when should you boost a Facebook post and when do you need a full Ads Manager campaign? A practical, compliance-first comparison.",
+    answer:
+      "For a political campaign in Bangladesh, Ads Manager is the engine and boosting is the moment-rider. Ads Manager gives real audiences, message variants, frequency control, and daily optimization; boosting just amplifies one post fast. Both are only legitimate from an authorized, disclaimed account. Most winning constituencies use both — Ads Manager to carry the message, boosting to ride a spike.",
+    leftLabel: "Boosting",
+    rightLabel: "Ads Manager",
+    points: [
+      {
+        dimension: "Control",
+        left: "One tap on a page post; almost no settings",
+        right: "Full control of objective, placements, schedule, and budget pacing",
+      },
+      {
+        dimension: "Targeting",
+        left: "Basic location + a few interests",
+        right: "Constituency-tuned geography + affinity within Special Ad Category limits",
+      },
+      {
+        dimension: "Message testing",
+        left: "One creative, no real testing",
+        right: "Multiple variants tested against the same audience — find what moves the seat",
+      },
+      {
+        dimension: "Frequency",
+        left: "No frequency control — can burn the audience",
+        right: "Frequency capped so you don’t exhaust or annoy voters",
+      },
+      {
+        dimension: "Cost efficiency",
+        left: "Fine for a short amplify; wasteful as a whole strategy",
+        right: "Budget reallocates daily toward the wards, messages, and hours that perform",
+      },
+      {
+        dimension: "Compliance",
+        left: "Still needs authorization + “Paid for by” — no exceptions for boosts",
+        right: "Same authorization + disclaimer; more room to run it cleanly",
+      },
+    ],
+    recommendation:
+      "Run Ads Manager as the campaign engine — audiences, variants, frequency, daily optimization — and use boosting sparingly to amplify a moment that’s already working. Neither is legitimate without Meta ad authorization and a “Paid for by” disclaimer. If your budget or timeline only allows one, and you’re past the amplify-a-moment stage, choose Ads Manager.",
+    glossaryRefs: ["boosted-post", "ad-authorization", "special-ad-category", "constituency-targeting"],
+    groundingRefs: ["paid-ads", "political-pr"],
+    ready: true,
+    datePublished: "2026-07-17",
+  },
 ];
 
 export function getCompare(slug: string): Compare | undefined {

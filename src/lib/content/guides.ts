@@ -33,15 +33,20 @@ export const GUIDES: Guide[] = [
     description:
       "Step-by-step playbook for setting up a constituency-targeted Meta ads campaign for a Bangladeshi political candidate — from audience build to compliance to budget pacing.",
     answer:
-      "Constituency-level Meta campaigns for Bangladesh elections need a geo-radius pinned to the constituency boundary, Bangla-first creative tested on micro-budget, and a CAPI-backed event setup so polling-week conversion signal survives ad blockers. Budget pacing should heavy-weight the final 14 days.",
-    totalTime: "PT2H",
-    tools: ["Meta Ads Manager", "Meta Business Suite", "Meta Conversions API"],
+      "Before anything else, complete Meta ad authorization (identity + location) and register the “Paid for by” disclaimer — political ads are rejected without them. Then pin a geo-radius to the constituency, run Bangla-first creative within Special Ad Category limits, back it with CAPI, and heavy-weight budget in the final 14 days. Full offer: /political-facebook-ads-bangladesh.",
+    totalTime: "PT2H30M",
+    tools: ["Meta Ads Manager", "Meta Business Suite", "Meta Conversions API", "Meta Ad Library"],
     prerequisites: [
       "Verified Meta Business Page for the candidate",
+      "Ability to complete Meta political-ad authorization (ID + in-country location)",
       "Ad account with BDT payment method on file",
       "Constituency boundary coordinates (lat/lng polygon)",
     ],
     steps: [
+      {
+        name: "Authorize the ad account + register the “Paid for by” disclaimer",
+        text: "Before any spend: complete Meta’s political-ad authorization (verified identity + in-country location) and register the disclaimer naming who pays. This can take days — do it early, because unauthorized political ads are rejected and pages get restricted. See /political-facebook-ads-bangladesh for the full compliance regime.",
+      },
       {
         name: "Build the constituency-pinned audience",
         text: "In Meta Ads Manager → Audiences → Create a custom audience with a geo-radius drawn over the constituency. Layer in age 18+ and language=Bangla. Save this audience by name — you'll reuse it for every ad in the cycle.",
@@ -59,14 +64,14 @@ export const GUIDES: Guide[] = [
         text: "Heavy-weight the final 14 days. Recommended split: 20% pre-narrative (T-60 to T-30), 30% sustained (T-30 to T-14), 50% closing window (T-14 to polling day).",
       },
       {
-        name: "Compliance check + post-election archival",
-        text: "Save all creative + targeting + spend reports to a candidate archive. BD doesn't have BCRA-equivalent disclosure yet but expect a request from the EC; have it ready.",
+        name: "Stay inside Special Ad Category + Ad Library, then archive",
+        text: "Keep every ad within Meta's Special Ad Category — no protected-trait targeting — and remember all political ads are archived in Meta's public Ad Library for years, so write and target assuming full visibility. Save all creative, targeting, and spend to a candidate archive; BD has no BCRA-equivalent disclosure yet, but expect a request from the EC — have it ready.",
       },
     ],
-    glossaryRefs: ["meta-conversions-api", "political-pr", "narrative-engineering"],
+    glossaryRefs: ["ad-authorization", "paid-for-by-disclaimer", "special-ad-category", "constituency-targeting", "meta-conversions-api"],
     groundingRefs: ["political-pr", "paid-ads"],
     ready: true,
-    datePublished: "2026-05-25",
+    datePublished: "2026-07-17",
   },
   {
     slug: "meta-conversions-api-setup",
