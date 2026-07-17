@@ -108,27 +108,23 @@ function DefaultSalesPanel() {
     <Link
       href="/contact"
       aria-label="Sales team online — available 09:00–21:00 Asia/Dhaka"
-      className="group relative block overflow-hidden rounded-panel p-6 text-paper transition hover:-translate-y-0.5"
-      style={{
-        background: `radial-gradient(60% 80% at 80% 20%, #FF5C00 0%, transparent 60%), radial-gradient(80% 80% at 20% 80%, #2563EB 0%, transparent 60%), linear-gradient(135deg, #14B8A6 0%, #0A0A0A 100%)`,
-      }}
+      className="group relative block overflow-hidden rounded-panel border border-ink/10 bg-ink p-6 text-paper transition hover:-translate-y-0.5"
     >
-      <div className="flex items-center gap-2 text-meta uppercase tracking-wider text-paper/80">
+      <span aria-hidden className="mb-4 inline-block h-[3px] w-6 bg-brand-orange" />
+      <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-paper/70">
         <span
           aria-hidden
-          className="inline-block h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-emerald-400/30"
+          className="inline-block h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-emerald-400/25"
         />
         Sales team online
       </div>
-      <p className="mt-3 text-h3 font-bold leading-tight">Talk to us now.</p>
-      <p className="mt-1 text-sm text-paper/80">
+      <p className="mt-3 font-pr-serif text-h3 font-semibold leading-tight">Talk to us now.</p>
+      <p className="mt-1 text-sm text-paper/70">
         Reply usually under 2 hours on WhatsApp · Sat–Thu, 09:00–21:00 BD.
       </p>
-      <div className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-paper px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-ink">
+      <div className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-brand-orange">
         Let&rsquo;s talk
-        <span className="grid h-3.5 w-3.5 place-items-center rounded-full bg-brand-orange">
-          <ArrowUpRight className="h-2.5 w-2.5 text-paper" aria-hidden />
-        </span>
+        <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" aria-hidden />
       </div>
     </Link>
   );
