@@ -647,3 +647,16 @@ html.reveal-ready .reveal-v2.is-visible {
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
+
+/* ─── Prestige flagship — single signature load motion ──────────────────
+   Used by the political-ad flagship + src/components/prestige/*. transform +
+   opacity only (CLS-safe); fully disabled under prefers-reduced-motion. */
+.pr-reveal { opacity: 0; transform: translateY(14px); animation: pr-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.pr-reveal.d1 { animation-delay: 0.06s; }
+.pr-reveal.d2 { animation-delay: 0.14s; }
+.pr-reveal.d3 { animation-delay: 0.22s; }
+.pr-reveal.d4 { animation-delay: 0.32s; }
+@keyframes pr-rise { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .pr-reveal { animation: none; opacity: 1; transform: none; }
+}

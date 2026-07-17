@@ -20,6 +20,23 @@ const config: Config = {
         "brand-orange": "#FF5911",
         "brand-orange-soft": "#FF7A3D",
         "brand-orange-deep": "#E84A00",
+        // ── Prestige ("restrained luxury") palette — scoped to the political-ad
+        // flagship + src/components/prestige/*. Additive; changes no existing page.
+        "pr-paper": "#F3F2EE",
+        "pr-surface": "#FBFAF7",
+        "pr-raise": "#FFFFFF",
+        "pr-ink": "#18191B",
+        "pr-ink-soft": "#3C3D3F",
+        "pr-muted": "#6E6B64",
+        "pr-faint": "#9A968D",
+        "pr-hairline": "#DAD7CE",
+        "pr-accent": "#BE451E",
+        "pr-accent-ink": "#A03A17",
+        "pr-accent-wash": "#F1E4DB",
+        "pr-briefing": "#17181C",
+        "pr-briefing-ink": "#ECEAE4",
+        "pr-briefing-muted": "#9C9890",
+        "pr-briefing-line": "#2C2D30",
         // Legacy aliases (kept so any unmigrated markup still compiles).
         // They point at the new tokens so the visual stays correct.
         "brand-navy": "#111111",
@@ -48,6 +65,10 @@ const config: Config = {
         display: ["var(--font-display)", "var(--font-inter)", "system-ui", "sans-serif"],
         // serif aliased to sans so legacy markup compiles
         serif: ["var(--font-inter)", "system-ui", "sans-serif"],
+        // Prestige serif display (Fraunces, loaded in layout.tsx) + mono
+        // "field-dossier" layer. Used by the political-ad flagship + prestige kit.
+        "pr-serif": ["var(--font-fraunces)", "Charter", "Palatino", "Georgia", "serif"],
+        mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
       },
       fontSize: {
         // Avoora-faithful: editorial weight (500/600), VERY tight tracking.

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Fraunces } from "next/font/google";
 import Script from "next/script";
 import "@/styles/globals.css";
 
@@ -27,6 +27,17 @@ const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+// Fraunces — variable serif display for the "restrained luxury" prestige
+// surfaces (political-ad flagship + prestige kit). optical-size axis tuned for
+// display. Scoped: only elements with `font-pr-serif` use it.
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-fraunces",
   display: "swap",
 });
 
@@ -62,7 +73,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-BD" className={`${inter.variable} reveal-ready`} suppressHydrationWarning>
+    <html lang="en-BD" className={`${inter.variable} ${fraunces.variable} reveal-ready`} suppressHydrationWarning>
       <body className="font-sans antialiased bg-paper text-ink">
         {/* Safety kill-switch: 2.5s after load, drop reveal-ready so no element
             can stay invisible if IntersectionObserver fails to fire. */}
