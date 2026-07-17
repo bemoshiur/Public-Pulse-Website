@@ -154,27 +154,29 @@ export default async function LocationPage({
           ]}
         />
 
-        <section className="border-t border-ink bg-ink py-20 text-paper md:py-24">
-          <div className="mx-auto max-w-3xl px-5 md:px-8">
-            <p className="text-eyebrow uppercase text-brand-orange">Service mix</p>
-            <h2 className="mt-4 text-display tracking-tight">
-              The services {loc.name} brands ask for.
-            </h2>
+        <section className="bg-paper py-16 md:py-20">
+          <div className="mx-auto max-w-3xl px-6 md:px-8">
+            <div className="border-t border-ink/15 pt-8">
+              <p className="text-eyebrow uppercase text-brand-orange">Service mix</p>
+              <h2 className="mt-4 text-h2 tracking-tight text-ink">
+                The services {loc.name} brands ask for.
+              </h2>
+            </div>
             <ul className="mt-10 grid gap-3 sm:grid-cols-2">
               {aligned.map((s, i) => (
                 <li
                   key={s.slug}
-                  className="flex items-center gap-3 rounded-card border border-white/15 bg-ink-soft p-4"
+                  className="flex items-center gap-3 rounded-panel bg-paper-alt p-4"
                 >
-                  <span className="text-meta font-semibold uppercase text-white/45">
+                  <span className="font-mono text-meta font-semibold text-ink/40">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="flex-1 text-sm font-semibold">{s.shortName}</span>
+                  <span className="flex-1 text-sm font-semibold text-ink">{s.shortName}</span>
                   <a
                     href={`/${s.slug}/${loc.slug}`}
                     className="text-meta font-semibold uppercase text-brand-orange"
                   >
-                    {s.shortName} in {loc.name} →
+                    In {loc.name} →
                   </a>
                 </li>
               ))}

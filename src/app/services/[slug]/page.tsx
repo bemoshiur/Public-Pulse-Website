@@ -1,7 +1,7 @@
 import { permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowUpRight, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 import { buildMetadata } from "@/lib/seo";
 import {
@@ -12,6 +12,9 @@ import {
 import { JsonLd } from "@/components/seo/JsonLd";
 import { GradientHero } from "@/components/seo/GradientHero";
 import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
+import { GreyPanel } from "@/components/ui/GreyPanel";
+import { ArrowCircle } from "@/components/ui/ArrowCircle";
 import { InlineBlock } from "@/components/lead-capture";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SERVICES, getService } from "@/lib/services";
@@ -103,28 +106,26 @@ export default async function ServiceDetailPage({
       />
 
       {/* ═══ INTRO ═══════════════════════════════════════════════════════ */}
-      <section className="border-y border-ink bg-paper-alt py-16 md:py-20">
+      <Section size="sm" className="bg-paper">
         <Container>
-          <p className="mx-auto max-w-3xl text-center text-lead text-ink/80">{content.intro}</p>
+          <GreyPanel tone="alt" radius="lg" className="px-6 py-12 md:px-12 md:py-14">
+            <p className="mx-auto max-w-3xl text-center text-lead text-ink/80">{content.intro}</p>
+          </GreyPanel>
         </Container>
-      </section>
+      </Section>
 
       {/* ═══ DELIVERABLES ════════════════════════════════════════════════ */}
-      <section id="deliverables" className="bg-paper py-20 md:py-28">
+      <Section size="lg" id="deliverables" className="bg-paper">
         <Container>
-          <div className="grid items-end gap-10 md:grid-cols-12">
-            <div className="md:col-span-7">
-              <p className="text-eyebrow uppercase text-brand-orange">Deliverables</p>
-              <h2 className="mt-4 text-display tracking-tight text-ink">
-                What&rsquo;s in the box.
-              </h2>
-            </div>
+          <div className="max-w-3xl border-t border-ink/15 pt-8">
+            <p className="text-eyebrow uppercase text-brand-orange">Deliverables</p>
+            <h2 className="mt-4 text-h2 tracking-tight text-ink">What&rsquo;s in the box.</h2>
           </div>
-          <ul className="mt-12 grid gap-4 sm:grid-cols-2">
+          <ul className="mt-12 grid gap-3 sm:grid-cols-2">
             {content.included.map((item, i) => (
               <li key={item}>
                 <ScrollReveal delayMs={Math.min(i, 8) * 40}>
-                  <div className="flex items-start gap-3 rounded-card border border-ink/15 bg-paper p-5 transition hover:border-ink">
+                  <div className="flex items-start gap-3 rounded-panel bg-paper-alt p-5">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-orange" aria-hidden />
                     <span className="text-sm leading-relaxed text-ink">{item}</span>
                   </div>
@@ -133,43 +134,43 @@ export default async function ServiceDetailPage({
             ))}
           </ul>
         </Container>
-      </section>
+      </Section>
 
-      {/* ═══ PROCESS ═════════════════════════════════════════════════════ */}
-      <section className="bg-ink py-20 text-paper md:py-28">
+      {/* ═══ PROCESS — light inset cards ═════════════════════════════════ */}
+      <Section size="lg" className="bg-paper">
         <Container>
-          <div className="max-w-3xl">
+          <div className="max-w-3xl border-t border-ink/15 pt-8">
             <p className="text-eyebrow uppercase text-brand-orange">How it runs</p>
-            <h2 className="mt-4 text-display tracking-tight">5-step process.</h2>
+            <h2 className="mt-4 text-h2 tracking-tight text-ink">5-step process.</h2>
           </div>
           <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {content.process.map((step, i) => (
               <li key={step.title}>
                 <ScrollReveal delayMs={i * 60}>
-                  <div className="h-full rounded-card border border-white/15 bg-ink-soft p-6 transition hover:border-brand-orange">
-                    <span className="text-meta font-semibold uppercase text-brand-orange">
+                  <div className="h-full rounded-panel bg-paper-alt p-6">
+                    <span className="font-mono text-meta font-semibold uppercase text-brand-orange">
                       Step {String(i + 1).padStart(2, "0")}
                     </span>
-                    <h3 className="mt-3 text-h3 font-bold leading-tight">{step.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-white/70">{step.body}</p>
+                    <h3 className="mt-3 text-h3 font-bold leading-tight text-ink">{step.title}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-ink/70">{step.body}</p>
                   </div>
                 </ScrollReveal>
               </li>
             ))}
           </ol>
         </Container>
-      </section>
+      </Section>
 
       {/* ═══ WHY US ══════════════════════════════════════════════════════ */}
-      <section className="border-t border-ink bg-paper py-20 md:py-28">
+      <Section size="lg" className="bg-paper">
         <Container>
-          <div className="max-w-3xl">
+          <div className="max-w-3xl border-t border-ink/15 pt-8">
             <p className="text-eyebrow uppercase text-brand-orange">Why us</p>
-            <h2 className="mt-4 text-display tracking-tight text-ink">
+            <h2 className="mt-4 text-h2 tracking-tight text-ink">
               Why Public Pulse for {service.shortName}?
             </h2>
           </div>
-          <ul className="mt-12 grid gap-5 md:grid-cols-2">
+          <ul className="mt-12 grid gap-4 md:grid-cols-2">
             {content.whyChooseUs.map((w) => (
               <li key={w.title}>
                 <div className="card h-full">
@@ -180,48 +181,44 @@ export default async function ServiceDetailPage({
             ))}
           </ul>
         </Container>
-      </section>
+      </Section>
 
       {/* ═══ FAQ ═════════════════════════════════════════════════════════ */}
-      <section className="border-t border-ink bg-paper-alt py-20 md:py-28">
+      <Section size="lg" className="bg-paper">
         <Container>
-          <div className="max-w-3xl">
+          <div className="mx-auto max-w-3xl">
             <p className="text-eyebrow uppercase text-brand-orange">FAQ</p>
-            <h2 className="mt-4 text-display tracking-tight text-ink">
-              Frequently asked.
-            </h2>
+            <h2 className="mt-4 text-h2 tracking-tight text-ink">Frequently asked.</h2>
+            <dl className="mt-10 space-y-3">
+              {content.faqs.map((f) => (
+                <div key={f.q} className="rounded-panel bg-paper-alt p-6 md:p-7">
+                  <dt className="font-semibold text-ink">{f.q}</dt>
+                  <dd className="mt-2 text-sm leading-relaxed text-ink/70">{f.a}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
-          <dl className="mx-auto mt-12 max-w-3xl space-y-4">
-            {content.faqs.map((f) => (
-              <div key={f.q} className="rounded-card border border-ink/15 bg-paper p-6">
-                <dt className="font-semibold text-ink">{f.q}</dt>
-                <dd className="mt-2 text-sm leading-relaxed text-ink/70">{f.a}</dd>
-              </div>
-            ))}
-          </dl>
         </Container>
-      </section>
+      </Section>
 
       {/* ═══ FREE AUDIT — service-specific lead capture ══════════════════ */}
-      <section className="border-t border-ink bg-paper py-20 md:py-24">
+      <Section size="sm" className="bg-paper">
         <Container>
           <InlineBlock context="service" />
         </Container>
-      </section>
+      </Section>
 
       {/* ═══ RELATED POSTS (topical cluster — only if posts cite this service) ══ */}
       {relatedPosts.length > 0 && (
-        <section className="border-t border-ink bg-paper-alt py-16 md:py-20">
+        <Section size="md" className="bg-paper">
           <Container>
-            <div className="grid items-end gap-10 md:grid-cols-12">
-              <div className="md:col-span-7">
-                <p className="text-eyebrow uppercase text-brand-orange">From the blog</p>
-                <h2 className="mt-4 text-display tracking-tight text-ink">
-                  Practitioner guides on {service.shortName.toLowerCase()}.
-                </h2>
-              </div>
+            <div className="max-w-3xl border-t border-ink/15 pt-8">
+              <p className="text-eyebrow uppercase text-brand-orange">From the blog</p>
+              <h2 className="mt-4 text-h2 tracking-tight text-ink">
+                Practitioner guides on {service.shortName.toLowerCase()}.
+              </h2>
             </div>
-            <ul className="mt-10 grid gap-5 md:grid-cols-3">
+            <ul className="mt-10 grid gap-4 md:grid-cols-3">
               {relatedPosts.map((p) => (
                 <li key={`${p.slug}-${p.locale}`}>
                   <Link href={`/blog/${p.slug}`} className="card group flex h-full flex-col">
@@ -239,44 +236,42 @@ export default async function ServiceDetailPage({
               ))}
             </ul>
           </Container>
-        </section>
+        </Section>
       )}
 
       {/* ═══ SPECIALIZATION (political-pr + paid-ads → flagship) ═══════════ */}
       {(service.slug === "political-pr" || service.slug === "paid-ads") && (
-        <section className="border-t border-ink bg-paper-alt py-16">
+        <Section size="sm" className="bg-paper">
           <Container>
-            <div className="mx-auto max-w-3xl">
-              <p className="text-eyebrow uppercase text-brand-orange">Specialization</p>
-              <h2 className="mt-3 text-h2 tracking-tight text-ink">Running for office?</h2>
-              <p className="mt-4 text-lead text-ink/70">
-                We run compliant, Meta-authorized{" "}
-                <Link
-                  href="/political-facebook-ads-bangladesh"
-                  className="font-semibold text-brand-orange underline underline-offset-4"
-                >
-                  political Facebook advertising
-                </Link>{" "}
-                for Bangladeshi candidates and parties — constituency targeting, “Paid for by”
-                disclaimers, and BDT budgets, run from Dhaka.
-              </p>
-            </div>
+            <GreyPanel tone="alt" radius="lg" className="px-6 py-10 md:px-12">
+              <div className="mx-auto max-w-3xl">
+                <p className="text-eyebrow uppercase text-brand-orange">Specialization</p>
+                <h2 className="mt-3 text-h2 tracking-tight text-ink">Running for office?</h2>
+                <p className="mt-4 text-lead text-ink/70">
+                  We run compliant, Meta-authorized{" "}
+                  <Link
+                    href="/political-facebook-ads-bangladesh"
+                    className="font-semibold text-brand-orange underline underline-offset-4"
+                  >
+                    political Facebook advertising
+                  </Link>{" "}
+                  for Bangladeshi candidates and parties — constituency targeting, &ldquo;Paid for
+                  by&rdquo; disclaimers, and BDT budgets, run from Dhaka.
+                </p>
+              </div>
+            </GreyPanel>
           </Container>
-        </section>
+        </Section>
       )}
 
       {/* ═══ RELATED ═════════════════════════════════════════════════════ */}
-      <section className="border-t border-ink bg-paper py-20 md:py-24">
+      <Section size="lg" className="bg-paper">
         <Container>
-          <div className="grid items-end gap-10 md:grid-cols-12">
-            <div className="md:col-span-7">
-              <p className="text-eyebrow uppercase text-brand-orange">Related</p>
-              <h2 className="mt-4 text-display tracking-tight text-ink">
-                Pair with.
-              </h2>
-            </div>
+          <div className="max-w-3xl border-t border-ink/15 pt-8">
+            <p className="text-eyebrow uppercase text-brand-orange">Related</p>
+            <h2 className="mt-4 text-h2 tracking-tight text-ink">Pair with.</h2>
           </div>
-          <ul className="mt-10 grid gap-5 md:grid-cols-3">
+          <ul className="mt-10 grid gap-4 md:grid-cols-3">
             {SERVICES.filter((s) => s.slug !== service.slug)
               .slice(0, 3)
               .map((s) => (
@@ -299,27 +294,27 @@ export default async function ServiceDetailPage({
               ))}
           </ul>
         </Container>
-      </section>
+      </Section>
 
-      {/* ═══ CTA ═════════════════════════════════════════════════════════ */}
-      <section className="border-t border-ink bg-ink py-24 text-paper md:py-28">
+      {/* ═══ CTA — dark inset panel (Dataplace T9) ═══════════════════════ */}
+      <Section size="lg" className="bg-paper">
         <Container>
-          <div className="mx-auto max-w-4xl text-center">
-            <h2 className="text-mega leading-[0.95] tracking-tight">
+          <GreyPanel tone="ink" radius="lg" className="px-6 py-20 text-center md:px-16 md:py-24">
+            <h2 className="mx-auto max-w-4xl text-display leading-[0.98] tracking-tight text-paper">
               Ready for <span className="text-brand-orange">{service.shortName}</span>?
             </h2>
-            <p className="mt-6 text-lead text-white/70">
+            <p className="mx-auto mt-6 max-w-2xl text-lead text-white/70">
               Free 30-minute consultation. We&rsquo;ll review your situation and propose a plan.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Link href="/contact" className="btn btn-orange">
+              <Link href="/contact" className="btn btn-orange group">
                 Get a free consultation
-                <ArrowUpRight className="h-4 w-4" aria-hidden />
+                <ArrowCircle onDark />
               </Link>
             </div>
-          </div>
+          </GreyPanel>
         </Container>
-      </section>
+      </Section>
     </article>
   );
 }

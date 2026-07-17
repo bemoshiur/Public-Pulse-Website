@@ -16,8 +16,13 @@ type Props = {
   size?: Size;
   className?: string;
   as?: ElementType;
+  id?: string;
 };
 
-export function Section({ children, size = "md", className = "", as: As = "section" }: Props) {
-  return <As className={`${PAD[size]} ${className}`}>{children}</As>;
+export function Section({ children, size = "md", className = "", as: As = "section", id }: Props) {
+  return (
+    <As id={id} className={`${PAD[size]} ${className}`}>
+      {children}
+    </As>
+  );
 }

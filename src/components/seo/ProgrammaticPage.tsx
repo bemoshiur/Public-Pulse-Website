@@ -1,8 +1,11 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowUpRight, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { GradientHero } from "@/components/seo/GradientHero";
 import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
+import { GreyPanel } from "@/components/ui/GreyPanel";
+import { ArrowCircle } from "@/components/ui/ArrowCircle";
 import type { Crumb } from "@/lib/schema";
 
 // Shared shell for every grounded programmatic page (location, industry,
@@ -78,16 +81,14 @@ export function ProgrammaticPage(props: Props) {
       {children}
 
       {/* ─── FAQ (≥3 required by quality gate) ──────────────────────── */}
-      <section className="border-t border-ink bg-paper-alt py-20 md:py-24">
+      <Section size="lg" className="bg-paper">
         <Container>
           <div className="mx-auto max-w-3xl">
             <p className="text-eyebrow uppercase text-brand-orange">FAQ</p>
-            <h2 className="mt-4 text-display tracking-tight text-ink">
-              Frequently asked.
-            </h2>
-            <dl className="mt-10 space-y-4">
+            <h2 className="mt-4 text-h2 tracking-tight text-ink">Frequently asked.</h2>
+            <dl className="mt-10 space-y-3">
               {faqs.map((f) => (
-                <div key={f.q} className="rounded-card border border-ink/15 bg-paper p-6">
+                <div key={f.q} className="rounded-panel bg-paper-alt p-6 md:p-7">
                   <dt className="font-semibold text-ink">{f.q}</dt>
                   <dd className="mt-2 text-sm leading-relaxed text-ink/70">{f.a}</dd>
                 </div>
@@ -95,17 +96,15 @@ export function ProgrammaticPage(props: Props) {
             </dl>
           </div>
         </Container>
-      </section>
+      </Section>
 
       {/* ─── Related rail ───────────────────────────────────────────── */}
       {related && related.length > 0 && (
-        <section className="border-t border-ink bg-paper py-20 md:py-24">
+        <Section size="lg" className="bg-paper">
           <Container>
-            <div className="mx-auto max-w-3xl">
+            <div className="max-w-3xl border-t border-ink/15 pt-8">
               <p className="text-eyebrow uppercase text-brand-orange">Keep reading</p>
-              <h2 className="mt-4 text-display tracking-tight text-ink">
-                Related.
-              </h2>
+              <h2 className="mt-4 text-h2 tracking-tight text-ink">Related.</h2>
             </div>
             <ul className="mt-10 grid gap-4 md:grid-cols-3">
               {related.map((r) => (
@@ -129,24 +128,26 @@ export function ProgrammaticPage(props: Props) {
               ))}
             </ul>
           </Container>
-        </section>
+        </Section>
       )}
 
-      {/* ─── Closing CTA ────────────────────────────────────────────── */}
-      <section className="border-t border-ink bg-ink py-24 text-paper md:py-28">
+      {/* ─── Closing CTA — dark inset panel (Dataplace T9) ──────────── */}
+      <Section size="lg" className="bg-paper">
         <Container>
-          <div className="mx-auto max-w-4xl text-center">
-            <h2 className="text-mega leading-[0.95] tracking-tight">{ctaTitle}</h2>
-            <p className="mt-6 text-lead text-white/70">{ctaSub}</p>
+          <GreyPanel tone="ink" radius="lg" className="px-6 py-20 text-center md:px-16 md:py-24">
+            <h2 className="mx-auto max-w-4xl text-display leading-[0.98] tracking-tight text-paper">
+              {ctaTitle}
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-lead text-white/70">{ctaSub}</p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Link href="/contact" className="btn btn-orange">
+              <Link href="/contact" className="btn btn-orange group">
                 Get a free consultation
-                <ArrowUpRight className="h-4 w-4" aria-hidden />
+                <ArrowCircle onDark />
               </Link>
             </div>
-          </div>
+          </GreyPanel>
         </Container>
-      </section>
+      </Section>
     </article>
   );
 }
@@ -154,17 +155,20 @@ export function ProgrammaticPage(props: Props) {
 // Re-export the bullet-list pattern used by deliverable / step sections.
 export function CalloutList({ items }: { items: string[] }) {
   return (
-    <section className="bg-paper py-16">
+    <Section size="sm" className="bg-paper">
       <Container>
-        <ul className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2">
+        <ul className="mx-auto grid max-w-4xl gap-3 sm:grid-cols-2">
           {items.map((item) => (
-            <li key={item} className="flex items-start gap-3 rounded-card border border-ink/15 bg-paper p-4">
+            <li
+              key={item}
+              className="flex items-start gap-3 rounded-panel bg-paper-alt p-5"
+            >
               <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-orange" aria-hidden />
               <span className="text-sm leading-relaxed text-ink">{item}</span>
             </li>
           ))}
         </ul>
       </Container>
-    </section>
+    </Section>
   );
 }

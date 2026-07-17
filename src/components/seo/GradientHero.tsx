@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowUpRight, MessageCircleMore } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { GreyPanel } from "@/components/ui/GreyPanel";
+import { ArrowCircle } from "@/components/ui/ArrowCircle";
 import { AnswerBlock } from "@/components/seo/AnswerBlock";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import type { Crumb } from "@/lib/schema";
@@ -50,51 +52,50 @@ export function GradientHero({
   rightPanel,
 }: Props) {
   return (
-    <section className="relative overflow-hidden bg-paper">
-      <Container className="relative pt-10 pb-12 md:pt-14 md:pb-16">
+    <section className="relative bg-paper">
+      <Container className="relative pt-8 md:pt-10">
         <Breadcrumbs crumbs={crumbs} />
-
-        <div
-          className={`mt-8 grid items-end gap-8 lg:gap-10 ${
-            variant === "panel" ? "lg:grid-cols-12" : ""
-          }`}
-        >
-          <div className={variant === "panel" ? "lg:col-span-7" : "max-w-5xl"}>
-            <span className="chip chip-orange">{chip}</span>
-            {/* text-display (44-104px clamp) NOT text-mega (56-136px).
-                text-mega is reserved for the homepage wordmark + the footer
-                sign-off — using it on long article titles like blog posts
-                blows past the viewport and looks broken. text-display sits
-                in the right scale for inner-page heroes. */}
-            <h1 className="mt-6 text-display tracking-tight text-ink leading-[0.98]">
-              {title}
-            </h1>
-            <p className="mt-6 max-w-2xl text-lead text-ink/70">{lead}</p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link href={primaryCtaHref} className="btn btn-primary">
-                {primaryCtaLabel}
-                <ArrowUpRight className="h-4 w-4" aria-hidden />
-              </Link>
-              <a
-                href={SECONDARY_CTA.href}
-                rel="noopener noreferrer"
-                target="_blank"
-                className="btn btn-secondary"
-              >
-                <MessageCircleMore className="h-4 w-4" aria-hidden />
-                {SECONDARY_CTA.label}
-              </a>
+      </Container>
+      <Container className="relative pb-12 pt-6 md:pb-16">
+        {/* Dataplace inset hero panel (matches the homepage hero) */}
+        <GreyPanel tone="tint" radius="lg" className="px-6 py-12 md:px-12 md:py-16">
+          <div
+            className={`grid items-end gap-8 lg:gap-10 ${
+              variant === "panel" ? "lg:grid-cols-12" : ""
+            }`}
+          >
+            <div className={variant === "panel" ? "lg:col-span-7" : "max-w-4xl"}>
+              <span className="chip chip-orange">{chip}</span>
+              {/* text-display (44-104px clamp) NOT text-mega — text-mega is
+                  reserved for the homepage wordmark + footer sign-off. */}
+              <h1 className="mt-6 text-display leading-[0.98] tracking-tight text-ink">
+                {title}
+              </h1>
+              <p className="mt-6 max-w-2xl text-lead text-ink/70">{lead}</p>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Link href={primaryCtaHref} className="btn btn-primary group">
+                  {primaryCtaLabel}
+                  <ArrowCircle onDark />
+                </Link>
+                <a
+                  href={SECONDARY_CTA.href}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  className="btn btn-secondary"
+                >
+                  <MessageCircleMore className="h-4 w-4" aria-hidden />
+                  {SECONDARY_CTA.label}
+                </a>
+              </div>
             </div>
+
+            {variant === "panel" && (
+              <div className="lg:col-span-5">{rightPanel ?? <DefaultSalesPanel />}</div>
+            )}
           </div>
+        </GreyPanel>
 
-          {variant === "panel" && (
-            <div className="lg:col-span-5">
-              {rightPanel ?? <DefaultSalesPanel />}
-            </div>
-          )}
-        </div>
-
-        <div className="mt-12 max-w-3xl">
+        <div className="mt-8 max-w-3xl">
           <AnswerBlock question={answerQuestion}>{answer}</AnswerBlock>
         </div>
       </Container>
