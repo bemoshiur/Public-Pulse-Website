@@ -86,7 +86,7 @@ export default async function CaseStudiesIndex() {
         <CaseStudiesFilter cases={serialized} serviceLabels={serviceLabels} />
       </Suspense>
 
-      <section className="border-t border-ink bg-paper py-20 md:py-24">
+      <section className="bg-paper py-16 md:py-20">
         <Container>
           <InlineBlock context="service" />
         </Container>

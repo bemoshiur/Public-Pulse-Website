@@ -51,7 +51,7 @@ export default function GlossaryIndex() {
         answer="The Public Pulse glossary defines the working vocabulary of digital marketing and political PR: AEO, GEO, JSON-LD, FAQPage Schema, IndexNow, Meta Conversions API, ROAS, CTR, Political PR, Narrative Engineering, Opposition Research, llms.txt, robots.txt, Speakable. Each term has its own page with a longer explanation."
       />
 
-      <section className="border-t border-ink bg-paper-alt py-16 md:py-24">
+      <section className="bg-paper py-16 md:py-24">
         <Container>
           {AREAS.map((area) => {
             const terms = GLOSSARY.filter((t) => t.area === area);

@@ -50,7 +50,7 @@ export default function LocationsIndex() {
           Geographic SVG with hoverable city dots — replaces the static
           grid as the primary discovery surface. Card list below stays
           for SEO + keyboard browsing. */}
-      <section className="border-t border-ink bg-paper py-16 md:py-20">
+      <section className="bg-paper py-16 md:py-20">
         <Container>
           <div className="max-w-3xl">
             <p className="text-eyebrow uppercase text-brand-orange">Coverage map</p>
@@ -64,7 +64,7 @@ export default function LocationsIndex() {
         </Container>
       </section>
 
-      <section className="border-t border-ink bg-paper-alt py-16 md:py-24">
+      <section className="bg-paper py-16 md:py-24">
         <Container>
           <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {LOCATIONS.map((l) => (

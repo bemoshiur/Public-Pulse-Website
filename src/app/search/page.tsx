@@ -146,7 +146,7 @@ export default async function SearchPage({
           </Suspense>
 
           {query.length >= 2 && hits.length === 0 && (
-            <div className="mt-10 rounded-card border border-dashed border-ink/20 bg-surface-alt p-8 text-center">
+            <div className="mt-10 rounded-panel border border-dashed border-ink/20 bg-paper-alt p-8 text-center">
               <p className="text-body text-ink/70">Nothing matched. Try a broader term, or browse:</p>
               <div className="mt-4 flex flex-wrap justify-center gap-2">
                 <Link href="/services" className="rounded-full border border-ink/20 px-4 py-1.5 text-sm hover:border-brand-orange">Services</Link>

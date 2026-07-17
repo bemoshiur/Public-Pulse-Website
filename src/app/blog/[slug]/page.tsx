@@ -347,7 +347,7 @@ export default async function BlogPostPage({
                     {faqs.map((f, i) => (
                       <details
                         key={`${f.q}-${i}`}
-                        className="group rounded-card border border-ink/15 bg-paper p-5 open:border-ink"
+                        className="group rounded-panel bg-paper-alt p-5"
                       >
                         <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
                           <span className="font-semibold text-ink">{f.q}</span>
@@ -376,7 +376,7 @@ export default async function BlogPostPage({
                       <li key={b.href}>
                         <Link
                           href={b.href}
-                          className="group flex items-center justify-between gap-3 rounded-card border border-ink/15 bg-paper px-4 py-3 transition hover:border-ink"
+                          className="group flex items-center justify-between gap-3 rounded-panel bg-paper-alt px-4 py-3 transition hover:bg-paper-tint"
                         >
                           <span>
                             <span className="block text-[10px] font-semibold uppercase tracking-wider text-ink/45">
@@ -467,10 +467,10 @@ export default async function BlogPostPage({
         </Container>
       </section>
 
-      <section className="border-t border-ink bg-ink py-24 text-paper md:py-28">
+      <section className="bg-ink py-24 text-paper md:py-28">
         <Container>
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="text-mega leading-[0.95] tracking-tight">
+            <h2 className="text-display leading-[0.98] tracking-tight">
               Want help <span className="text-brand-orange">executing</span> this?
             </h2>
             <p className="mt-6 text-lead text-white/70">

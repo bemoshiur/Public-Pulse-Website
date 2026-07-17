@@ -46,7 +46,7 @@ export default function CompareIndex() {
         answer="The Public Pulse compare library publishes side-by-side decision matrices for the calls Bangladesh marketing teams have to make — in-house team vs integrated agency, Facebook Ads vs Google Ads, channel-by-channel cost/benefit. Each compare ends with an honest recommendation, not an agency pitch."
       />
 
-      <section className="border-t border-ink bg-paper-alt py-16 md:py-24">
+      <section className="bg-paper py-16 md:py-24">
         <Container>
           <ul className="grid gap-5 md:grid-cols-2">
             {ready.map((c) => (

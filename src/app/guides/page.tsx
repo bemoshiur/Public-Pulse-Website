@@ -46,7 +46,7 @@ export default function GuidesIndex() {
         answer="The Public Pulse guides library publishes step-by-step playbooks for Bangladesh digital marketing and political PR — Facebook campaigns for constituency elections, Meta Conversions API setup for BD e-commerce, IndexNow integration. Each guide is authored as a HowTo (schema.org) with timing and tooling specified."
       />
 
-      <section className="border-t border-ink bg-paper-alt py-16 md:py-24">
+      <section className="bg-paper py-16 md:py-24">
         <Container>
           <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {ready.map((g) => (

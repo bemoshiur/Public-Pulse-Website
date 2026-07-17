@@ -46,7 +46,7 @@ export default function IndustriesIndex() {
         answer="Public Pulse Agency runs vertical-tailored digital marketing across the Bangladesh economy: real estate, e-commerce, restaurants & food, healthcare, education, NGO & development, government, RMG & garments, hospitality, fintech. Each industry page surfaces the priorities and aligned services for that vertical."
       />
 
-      <section className="border-t border-ink bg-paper-alt py-16 md:py-24">
+      <section className="bg-paper py-16 md:py-24">
         <Container>
           <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {INDUSTRIES.map((i) => {

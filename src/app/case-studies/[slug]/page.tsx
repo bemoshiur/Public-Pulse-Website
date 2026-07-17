@@ -166,7 +166,7 @@ export default async function CaseStudyDetailPage({
       <JsonLd data={schemas} />
 
       {/* ─── Compact hero ─────────────────────────────────────────────── */}
-      <section className="border-b border-ink bg-paper">
+      <section className="bg-paper">
         <Container className="pt-2">
           <Breadcrumbs crumbs={crumbs} />
         </Container>
@@ -245,7 +245,7 @@ export default async function CaseStudyDetailPage({
 
       {/* ─── Metric callout band ──────────────────────────────────────── */}
       {metrics.length > 0 && (
-        <section className="border-y border-ink bg-ink py-12 text-paper md:py-16">
+        <section className="bg-ink py-12 text-paper md:py-16">
           <Container>
             <ul className={`grid gap-6 ${metrics.length >= 4 ? "md:grid-cols-3 lg:grid-cols-6" : `md:grid-cols-${metrics.length}`}`}>
               {metrics.map((m, i) => {
@@ -272,7 +272,7 @@ export default async function CaseStudyDetailPage({
       )}
 
       {/* ─── Challenge → Approach → Result (compact) ──────────────────── */}
-      <section className="border-b border-ink bg-paper-alt py-16 md:py-20">
+      <section className="bg-paper-alt py-16 md:py-20">
         <Container>
           <div className="grid gap-10 md:grid-cols-3">
             {[
@@ -300,7 +300,7 @@ export default async function CaseStudyDetailPage({
 
       {/* ─── Testimonial (only when real) ─────────────────────────────── */}
       {study.testimonialQuote && study.testimonialAttribution && (
-        <section className="border-b border-ink bg-paper py-16 md:py-20">
+        <section className="bg-paper py-16 md:py-20">
           <Container>
             <figure className="mx-auto max-w-3xl">
               <Quote className="h-8 w-8 text-brand-red" aria-hidden />
@@ -317,7 +317,7 @@ export default async function CaseStudyDetailPage({
 
       {/* ─── FAQ (only when real) ─────────────────────────────────────── */}
       {faqs.length > 0 && (
-        <section className="border-b border-ink bg-paper-alt py-16 md:py-20">
+        <section className="bg-paper-alt py-16 md:py-20">
           <Container>
             <div className="mx-auto max-w-3xl">
               <p className="text-eyebrow text-brand-red">FAQ</p>
@@ -328,7 +328,7 @@ export default async function CaseStudyDetailPage({
                 {faqs.map((f, i) => (
                   <details
                     key={`${f.q}-${i}`}
-                    className="group rounded-card border border-ink/15 bg-paper p-5 open:border-ink"
+                    className="group rounded-panel bg-paper-alt p-5"
                   >
                     <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
                       <span className="font-semibold text-ink">{f.q}</span>
@@ -350,7 +350,7 @@ export default async function CaseStudyDetailPage({
 
       {/* ─── Related (industry cluster) ──────────────────────────────── */}
       {related.length > 0 && (
-        <section className="border-b border-ink bg-paper py-16 md:py-20">
+        <section className="bg-paper py-16 md:py-20">
           <Container>
             <div className="flex items-end justify-between gap-6">
               <div>
@@ -392,7 +392,7 @@ export default async function CaseStudyDetailPage({
       )}
 
       {/* ─── CTA — free audit ────────────────────────────────────────── */}
-      <section className="border-t border-ink bg-paper-alt py-20 md:py-24">
+      <section className="bg-paper-alt py-20 md:py-24">
         <Container>
           <InlineBlock context="service" />
         </Container>
