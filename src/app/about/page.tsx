@@ -24,7 +24,6 @@ import { SITE } from "@/lib/site";
 import { SERVICES } from "@/lib/services";
 import { PULSE_GROUP, SISTER_BRANDS } from "@/lib/group";
 import {
-  GradientText,
   MagneticButton,
   Parallax,
   ScrollRevealV2 as ScrollReveal,
@@ -119,10 +118,10 @@ export default function AboutPage() {
             <div className="lg:col-span-8">
               <span className="chip chip-orange">About the studio</span>
               <h1 className="mt-6 text-mega tracking-tight text-ink leading-[0.95]">
-                <GradientText as="span">A Bangladesh studio</GradientText>
+                A Bangladesh studio
                 <br />
                 built for{" "}
-                <span className="text-brand-orange">integrated</span> work.
+                <span className="italic text-brand-orange">integrated</span> work.
               </h1>
               <Parallax mouse mouseStrength={6} className="mt-6 max-w-2xl">
                 <p className="text-lead text-ink/70">
@@ -466,7 +465,7 @@ export default function AboutPage() {
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-mega leading-[0.95] tracking-tight">
               Curious whether we&rsquo;re&nbsp;
-              <GradientText as="span">the right fit</GradientText>?
+              <span className="italic text-brand-orange">the right fit</span>?
             </h2>
             <p className="mt-6 text-lead text-white/70">
               We&rsquo;re not for everyone. The fastest way to find out is a 30-minute call.
