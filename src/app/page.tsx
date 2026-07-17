@@ -2,16 +2,13 @@ import Link from "next/link";
 import {
   ArrowUpRight,
   ArrowRight,
-  Sparkles,
   Phone,
   Quote,
 } from "lucide-react";
 import { AnswerBlock } from "@/components/seo/AnswerBlock";
 import { Container } from "@/components/ui/Container";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { Marquee } from "@/components/ui/Marquee";
 import { CountUp } from "@/components/ui/CountUp";
-import { HeroPanel } from "@/components/home/HeroPanel";
 import { SERVICES } from "@/lib/services";
 import { getServiceIcon } from "@/lib/icons";
 import { SITE } from "@/lib/site";
@@ -42,8 +39,51 @@ export default async function HomePage() {
   const caseStudies = await getFeaturedCaseStudies("en", 4);
   return (
     <>
-      {/* ═══════ AVOORA-STYLE HERO (wordmark + gradient + tiles) ════════ */}
-      <HeroPanel />
+      {/* ═══════ HERO — restrained editorial (prestige) ════════════════ */}
+      <section className="border-b border-ink/10 bg-paper">
+        <Container className="pb-14 pt-16 md:pb-20 md:pt-24">
+          <div className="max-w-4xl">
+            <div className="mb-6 flex items-center gap-3">
+              <span aria-hidden className="inline-block h-[3px] w-6 bg-brand-orange" />
+              <span className="font-mono text-[11.5px] uppercase tracking-[0.22em] text-ink-mute">
+                Digital marketing &amp; political PR · Dhaka
+              </span>
+            </div>
+            <h1 className="text-display leading-[1.02] tracking-tight text-ink">
+              Reach that <em className="italic text-brand-orange">moves</em>. Narratives that{" "}
+              <em className="italic text-brand-orange">hold</em>.
+            </h1>
+            <p className="mt-6 max-w-2xl text-lead text-ink-soft">
+              Public Pulse is a Dhaka-based 360° digital marketing and political-PR studio —
+              strategy, creative, paid media, PR, and analytics under one accountable team, billed
+              in BDT from a registered Bangladeshi entity.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link href="/contact" className="btn btn-orange">
+                Book a free consultation
+                <ArrowUpRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <Link href="/services" className="btn btn-secondary">
+                See our services
+              </Link>
+            </div>
+          </div>
+          {/* Operational facts — real, hairline strip (not the 50+/300% placeholders) */}
+          <dl className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-card border border-ink/12 bg-ink/12 md:grid-cols-4">
+            {[
+              ["Founded", "2024 · Dhaka"],
+              ["Services", "9 in-house"],
+              ["Billing", "BDT · registered BD entity"],
+              ["Languages", "English + Bangla"],
+            ].map(([k, v]) => (
+              <div key={k} className="bg-paper px-5 py-5">
+                <dt className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-ink-mute">{k}</dt>
+                <dd className="mt-1.5 text-sm font-medium text-ink">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </Container>
+      </section>
 
       {/* ═══════ ANSWER BLOCK (AEO) ═════════════════════════════════════ */}
       <section className="bg-paper">
@@ -52,29 +92,11 @@ export default async function HomePage() {
             <AnswerBlock>
               Public Pulse Agency is a Dhaka-based 360° digital marketing and political PR studio.
               We run political PR, social media, content production, paid ads, hospitality
-              marketing, brand building, SEO and analytics — under one accountable team, for 50+
-              Bangladeshi brands.
+              marketing, brand building, SEO and analytics — under one accountable team, for
+              Bangladeshi brands and candidates.
             </AnswerBlock>
           </div>
         </Container>
-      </section>
-
-      {/* ═══════ MARQUEE — service categories on loop ═════════════════════ */}
-      <section className="border-y border-ink bg-paper py-7">
-        <Marquee>
-          {[...SERVICES.map((s) => s.shortName), "Bangladesh", "Dhaka", "Cox's Bazar", "Election ready", "Brand systems"].map(
-            (label, i) => (
-              <div key={`${label}-${i}`} className="flex items-center gap-12">
-                <span className="text-2xl md:text-3xl font-extrabold tracking-tight text-ink whitespace-nowrap">
-                  {label}
-                </span>
-                <span className="text-3xl text-brand-orange" aria-hidden>
-                  ✦
-                </span>
-              </div>
-            )
-          )}
-        </Marquee>
       </section>
 
       {/* ═══════ SERVICES (full list) ═════════════════════════════════════ */}
@@ -278,12 +300,8 @@ export default async function HomePage() {
             <figure className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-12 lg:gap-10">
               {/* Author / brand panel */}
               <div className="lg:col-span-4">
-                <div
-                  className="flex h-full flex-col justify-between gap-8 rounded-panel p-7 text-paper"
-                  style={{
-                    background: `radial-gradient(60% 70% at 70% 30%, #FF5C00 0%, transparent 60%), radial-gradient(80% 80% at 20% 80%, #0F766E 0%, transparent 60%), linear-gradient(135deg, #1A1A1A 0%, #0A0A0A 100%)`,
-                  }}
-                >
+                <div className="flex h-full flex-col justify-between gap-8 rounded-panel bg-ink p-7 text-paper">
+                  <span aria-hidden className="inline-block h-[3px] w-6 bg-brand-orange" />
                   <Quote className="h-8 w-8 text-brand-orange" aria-hidden />
                   <div>
                     <div className="flex items-center gap-3">
