@@ -13,6 +13,31 @@ Entry format:
 
 ---
 
+## 2026-07-18 — STEP 25 / PRESTIGE ROLLOUT PHASE 3 (page-specific loud elements) — ROLLOUT COMPLETE
+
+**Build green (`tsc` clean, `next build` passes). NOT deployed.** Branch `feat/prestige-rollout`. Final phase of the full-site conversion — the hardcoded loud elements the token retheme couldn't reach.
+
+### Changed
+- **/about** ([about/page.tsx](../src/app/about/page.tsx)): removed both `AuroraGradient` (heavy ambient rainbow motion).
+- **/blog/[slug]** ([page.tsx](../src/app/blog/[slug]/page.tsx)) + **/contact** ([page.tsx](../src/app/contact/page.tsx)): the rainbow "Talk to us"/channel cards → **solid dark dossier cards** (contact: 4 cards de-gradiented in one pass).
+- **Homepage** ([page.tsx](../src/app/page.tsx)): the fabricated `50+/300%` STATS → **real coverage facts** (9 services · 9 cities · 10 industries · 2 languages, all catalog-derived + auditable); `caseStudyGradient` rainbow palette → restrained near-black + faint burnt-orange glow (future-proofs the cards for when real cases are published).
+- **/press**: brand-color hex labels updated to the rethemed palette (swatches auto-updated via tokens).
+- **Deleted dead code:** `HeroPanel.tsx` + `IconTile.tsx` (both unused after Phase 1, both held old rainbow gradients).
+
+### Prestige rollout — DONE (Phases 1–3)
+The full site now reads as a restrained-luxury agency: warm-stone paper, Fraunces serif headings, deepened burnt-orange accent, hairlines, mono dossier metadata, minimal motion. Verified live across homepage, service, and location/programmatic pages.
+
+### Remaining minor polish (optional, low-visibility)
+- `/about` still uses `GradientText` (animated headline) + `Parallax`/`TiltCard` (subtle) — the loud aurora is gone; these are a bigger about-page rewrite if wanted.
+- Contact channel cards are now uniform dark (lost the green/orange/blue channel color-coding — a deliberate restraint tradeoff; re-add subtle per-channel accents if preferred).
+- Homepage testimonial is still anonymous ("Hospitality brand") — needs a real attribution from the user.
+- `cat-*` category-color chips (service/blog cards) left as-is (BRAND.md scopes them to those cards).
+
+### Branch chain
+`main` → `super-aeo` (PR #8) → `political-fb-flagship` → `prestige-rollout`. Merge + deploy when ready.
+
+---
+
 ## 2026-07-18 — STEP 24 / PRESTIGE ROLLOUT PHASE 2 (programmatic + service surface)
 
 **Build green (`tsc` clean, `next build` passes). NOT deployed.** Branch `feat/prestige-rollout` (continues from Phase 1). Approved-direction continuation of the full-site conversion, so executed directly (design already brainstormed/approved in Phase 1) with a JOURNEY trail.
