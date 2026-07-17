@@ -10,16 +10,20 @@ const config: Config = {
         // Brand orange: #FF5911 (avoora exact). Was #FF5C00 — close but not identical.
         // Body text: flat #5D5D5D (avoora exact). Use via `text-mute` token.
         // Dark grey: #4C4C4C — avoora's NEUTRAL primary-button colour.
-        "ink": "#111111",
-        "ink-soft": "#222222",
-        "ink-mute": "#5D5D5D",
-        "paper": "#FFFFFF",
-        "paper-alt": "#F5F5F5",
-        "paper-tint": "#E3E3E3",
+        // ── Base palette rethemed to "restrained luxury" (prestige rollout
+        // Phase 1). Values changed, class names unchanged, so every page
+        // inherits the warm-paper / deepened-orange / prestige-ink look. The
+        // political-ad flagship uses independent pr-* tokens (unaffected).
+        "ink": "#18191B",
+        "ink-soft": "#3C3D3F",
+        "ink-mute": "#6E6B64",
+        "paper": "#F3F2EE",
+        "paper-alt": "#ECEAE4",
+        "paper-tint": "#DEDBD3",
         "graphite": "#4C4C4C",
-        "brand-orange": "#FF5911",
-        "brand-orange-soft": "#FF7A3D",
-        "brand-orange-deep": "#E84A00",
+        "brand-orange": "#BE451E",
+        "brand-orange-soft": "#CF5A2E",
+        "brand-orange-deep": "#A03A17",
         // ── Prestige ("restrained luxury") palette — scoped to the political-ad
         // flagship + src/components/prestige/*. Additive; changes no existing page.
         "pr-paper": "#F3F2EE",
@@ -39,15 +43,15 @@ const config: Config = {
         "pr-briefing-line": "#2C2D30",
         // Legacy aliases (kept so any unmigrated markup still compiles).
         // They point at the new tokens so the visual stays correct.
-        "brand-navy": "#111111",
-        "brand-navy-soft": "#222222",
-        "brand-teal": "#FF5911",
-        "brand-teal-soft": "#FF7A3D",
-        "brand-teal-deep": "#E84A00",
-        "brand-teal-tint": "#FFE6D6",
-        "brand-red": "#FF5911",
-        "surface-alt": "#F5F5F5",
-        "surface-tint": "#E3E3E3",
+        "brand-navy": "#18191B",
+        "brand-navy-soft": "#3C3D3F",
+        "brand-teal": "#BE451E",
+        "brand-teal-soft": "#CF5A2E",
+        "brand-teal-deep": "#A03A17",
+        "brand-teal-tint": "#F1E4DB",
+        "brand-red": "#BE451E",
+        "surface-alt": "#ECEAE4",
+        "surface-tint": "#DEDBD3",
         whatsapp: "#25D366",
         // Category palette retained for service-card top borders only
         "cat-red": "#D32F2F",

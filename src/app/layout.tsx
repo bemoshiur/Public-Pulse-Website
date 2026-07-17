@@ -20,7 +20,7 @@ import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
 import { CookieConsent } from "@/components/analytics/CookieConsent";
 import { AiReferralTracker } from "@/components/analytics/AiReferralTracker";
 import { CommandPalette } from "@/components/search/CommandPalette";
-import { CursorGlow, ScrollProgress } from "@/components/motion";
+import { ScrollProgress } from "@/components/motion";
 import { StickyBar, ExitIntent } from "@/components/lead-capture";
 
 const inter = Inter({
@@ -120,7 +120,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <ScrollProgress />
-        <CursorGlow />
         <Header />
         <main id="main" tabIndex={-1} className="focus:outline-none">{children}</main>
         <SocialSidebar />

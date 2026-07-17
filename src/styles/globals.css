@@ -660,3 +660,16 @@ html.reveal-ready .reveal-v2.is-visible {
 @media (prefers-reduced-motion: reduce) {
   .pr-reveal { animation: none; opacity: 1; transform: none; }
 }
+
+/* ─── Prestige rollout Phase 1: serif headings site-wide ─────────────────
+   Fraunces (already loaded via next/font) becomes the heading face. The
+   text-hX size tokens carry tight Inter tracking; reset it for Fraunces.
+   Headings that must stay sans (a mono/UI label rendered as h*) opt out
+   with `font-sans`. */
+h1, h2, h3 {
+  font-family: var(--font-fraunces), "Charter", Georgia, serif;
+  letter-spacing: -0.015em;
+}
+h1.font-sans, h2.font-sans, h3.font-sans {
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
