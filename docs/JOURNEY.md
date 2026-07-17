@@ -29,8 +29,15 @@ Keep Fraunces · vivid `#FE4A0F` (≈ original avoora orange) · inspired-evolut
 ### SEO no-touch — verified intact every build
 1 H1 / `.answer-block[data-speakable]` / JSON-LD count unchanged / canonical / FAQ `<dl>` on home + services + locations + industries + glossary. `tsc` clean, `next build` green. Screenshots (homepage, service, location) confirm cohesive Dataplace look.
 
-### Remaining (Phase 3 tail + 4–6)
-Bespoke pages not yet recomposed: **blog (index + post), pricing, about, contact, case-studies**, and the section **index** pages (services/locations/industries/glossary/guides/compare) + press/election/tools/search. Then Phase 4 (original silk-render artwork + floating UI cards from real dashboards), Phase 5 (motion cadence polish), Phase 6 (full SSR-gate + curl-matrix regression sweep → deploy). Kit + patterns are all in place; remaining work is applying them.
+### Phase 3 COMPLETE — all pages recomposed (later commits)
+- **Phase 3c `66e042c` — bespoke pages.** pricing (inset hero + white tier cards + serif prices + orange-ring featured tier), contact (4 hardcoded `#17181C` panels → light path cards + one dark status card), about (motion primitives reduced to the single fade-up; both dark bands → one dark CTA; Capabilities flipped light), blog (BlogFilter cards on white, dropped TiltCard).
+- **Phase 3d `cacb572` — index + detail pages.** services/glossary/guides/compare/industries/locations indexes (brutalist border-t bands dropped, cards on white, TiltCard removed); case-studies filter (serif metrics); blog-post + case-study detail (swept full-width borders, hard-bordered cards → inset panels, text-mega CTA → text-display); search empty state.
+- **`52f68b3` — CRITICAL fix + election/press.** Phase 0's global `h1,h2,h3 { color: var(--ink) }` overrode inherited white on dark sections — footer "Let's talk", election/press CTAs rendered **dark-on-dark = invisible**. Removed the element-level color (headings inherit again); verified footer h2 = `rgb(255,255,255)`. election + press CTAs → dark inset panels.
+
+**Whole site now converted:** homepage · ~60 programmatic pages · all service/location/industry/glossary/guides/compare detail + index pages · blog index + post · pricing · about · contact · case-studies index + detail · press · election. Cohesive Dataplace: white ground, grey inset panels, one dark accent per page, Fraunces serif, vivid orange, 200px pills, single fade-up motion. SEO no-touch verified in built HTML across every page type (1 H1 / AnswerBlock / JSON-LD unchanged / canonical / FAQ dl). `tsc` clean, `next build` green. 8 restyle commits.
+
+### Remaining (Phase 4–6)
+Phase 4 (original silk-render artwork + floating UI cards from real /manage dashboards — the one asset-production item; Dataplace's renders are licensed), Phase 5 (finer motion cadence polish + retire leftover rainbow decoratives like `gradient-text` on unused paths), Phase 6 (full curl-matrix + SSR-gate regression sweep across all ~130 prerendered pages → Lighthouse → **deploy**). The election page keeps its bespoke dark full-bleed hero by design.
 
 **Rollback:** branch-only; `7ce485b` is the live prestige tip.
 
