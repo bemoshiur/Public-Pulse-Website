@@ -13,6 +13,29 @@ Entry format:
 
 ---
 
+## 2026-07-18 — STEP 29 / DATAPLACE-DIRECTION RESTYLE — PHASES 0–3 (homepage + programmatic cascade)
+
+**Branch `feat/dataplace-restyle` (off STEP-27 prestige tip `7ce485b`). NOT deployed — production still serves the prestige design.** Redesign #3: reskin toward the Dataplace Webflow aesthetic (white ground + warm-grey inset rounded panels, KEEP Fraunces serif, vivid `#FE4A0F`, 200px pills, one fade-up motion). Preceded by a 6-agent Dataplace teardown (published artifact) + a 6-agent codebase map. Full skills pipeline: R&D → spec ([2026-07-18-dataplace-restyle-design.md](superpowers/specs/2026-07-18-dataplace-restyle-design.md)) → plan ([2026-07-18-dataplace-restyle.md](superpowers/plans/2026-07-18-dataplace-restyle.md)).
+
+### Locked decisions
+Keep Fraunces · vivid `#FE4A0F` (≈ original avoora orange) · inspired-evolution (not clone) · retune existing ScrollReveal (no new dep) · original artwork later (Dataplace renders are licensed).
+
+### Done (4 commits)
+- **Phase 0 `f8524b0` — token retheme.** Reconciled the two diverged token sources (tailwind.config.ts colors + globals.css :root, which held stale avoora values). Surfaces warm-stone→white + `#F6F6F6`/`#F3F4F5` greys; accent `#BE451E`→`#FE4A0F`; radii 6px btn→200px pill, cards 8→14, panels 12→20/32; `.card` brutalist 8px-offset hard shadow→soft inset panel; `.answer-block` panel-grey + 14px (class + `data-speakable` kept); scroll-progress rainbow→solid orange; body ink `#212833`. Whole site shifted at once.
+- **Phase 1 `af79383` — primitives.** New `<Section>` (3/5/7rem), `<GreyPanel>` (inset panel, alt/tint/ink tones, 20/32px), `<ArrowCircle>` (CTA tell), `<SplitHeader>`. Retuned `.reveal`/`.reveal-v2` to Dataplace fade-up (pure translateY 48px, ease-out-quart, no avoora scale-zoom).
+- **Phase 3 homepage `af79383`.** Recomposed into inset-panel grammar: centered-serif inset hero + facts strip; light grey service cards (T7); serif stat numerals in a grey panel; asymmetric-scoop testimonial card (T5) + dark stat column; dark closing-CTA panel (T9). Header/Footer CTAs de-uppercased.
+- **Phase 3 programmatic cascade `e672c90` (~60 pages).** GradientHero → inset hero panel; ProgrammaticPage FAQ/Related/CalloutList → light grey inset panels, closing CTA → dark inset panel; services/[slug] dark PROCESS band → light, two dark bands → one; locations/[city] inline dark "Service mix" → light. All section heads `text-display`→`text-h2`; brutalist `border-t border-ink` → hairline-topped heads.
+
+### SEO no-touch — verified intact every build
+1 H1 / `.answer-block[data-speakable]` / JSON-LD count unchanged / canonical / FAQ `<dl>` on home + services + locations + industries + glossary. `tsc` clean, `next build` green. Screenshots (homepage, service, location) confirm cohesive Dataplace look.
+
+### Remaining (Phase 3 tail + 4–6)
+Bespoke pages not yet recomposed: **blog (index + post), pricing, about, contact, case-studies**, and the section **index** pages (services/locations/industries/glossary/guides/compare) + press/election/tools/search. Then Phase 4 (original silk-render artwork + floating UI cards from real dashboards), Phase 5 (motion cadence polish), Phase 6 (full SSR-gate + curl-matrix regression sweep → deploy). Kit + patterns are all in place; remaining work is applying them.
+
+**Rollback:** branch-only; `7ce485b` is the live prestige tip.
+
+---
+
 ## 2026-07-18 — STEP 28 / SEARCH CONSOLE CRAWL-ERROR FIX (502s + 404s) — DEPLOYED + LIVE-VERIFIED
 
 **Trigger:** user pasted the GSC "Page indexing" report (Not found 404: 177, Crawled-not-indexed 153, noindex 41, redirect 31, alt-canonical 19, discovered 12, blocked-robots 3, other-4xx 1) with "also fix all of this in search console." Deployed on `feat/prestige-rollout` (the live branch) via `AWS_PROFILE=default bash scripts/deploy.sh production`. Commit `9314392`.
