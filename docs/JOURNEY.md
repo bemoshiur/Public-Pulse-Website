@@ -13,6 +13,25 @@ Entry format:
 
 ---
 
+## 2026-07-18 — STEP 24 / PRESTIGE ROLLOUT PHASE 2 (programmatic + service surface)
+
+**Build green (`tsc` clean, `next build` passes). NOT deployed.** Branch `feat/prestige-rollout` (continues from Phase 1). Approved-direction continuation of the full-site conversion, so executed directly (design already brainstormed/approved in Phase 1) with a JOURNEY trail.
+
+### What
+Phase 2 targeted `GradientHero` + `ProgrammaticPage` + the service pages. It turned out the **Phase 1 retheme already did the heavy lifting** (warm paper, Fraunces headings, deepened orange inherited by every page). The one remaining loud holdover on the whole programmatic surface was `GradientHero`'s `DefaultSalesPanel` — a hardcoded rainbow-gradient "Talk to us now" card.
+
+- [GradientHero.tsx](../src/components/seo/GradientHero.tsx): the sales card → a **restrained dark dossier card** (accent seal + mono "SALES TEAM ONLINE" + Fraunces "Talk to us now." + a text "Let's talk →"). Gradient removed.
+- This single change converts the card across **15+ page types**: services (index + detail), locations, industries, blog (index + detail), guides, glossary, compare, case-studies, research, and everything via `ProgrammaticPage` (~60 matrix/location/industry pages).
+- Confirmed via grep: the service detail template + `ProgrammaticPage` + service index carry **no other hardcoded gradients/hex** — they fully inherited the retheme, so no per-template restyle was needed.
+
+### Verification
+`tsc` clean · `next build` green · Playwright screenshot of `/locations/dhaka` confirms the full prestige look (Fraunces hero, warm paper, deepened orange, dark dossier sales card) — cohesive with the homepage + flagship.
+
+### Next (Phase 3)
+Page-specific loud elements that the retheme couldn't reach: blog-detail body polish, `AuroraGradient` on `/about`, the homepage/case-study **rainbow gradient cards** (`caseStudyGradient` in page.tsx — only render when real case studies exist), the anonymous homepage testimonial, the `50+/300%` STATS placeholders, and the `cat-*` category-color chips. Plus about/contact/pricing/election page-specific treatments.
+
+---
+
 ## 2026-07-18 — STEP 23 / PRESTIGE ROLLOUT PHASE 1 (foundation + chrome + homepage)
 
 **Build green (`tsc` clean, `next build` passes). NOT deployed.** Branch `feat/prestige-rollout` (off `feat/political-fb-flagship`). Full skills pipeline: brainstorm → spec ([2026-07-18-prestige-rollout-phase1-design.md](superpowers/specs/2026-07-18-prestige-rollout-phase1-design.md)) → plan ([2026-07-18-prestige-rollout-phase1.md](superpowers/plans/2026-07-18-prestige-rollout-phase1.md)) → 5 tasks. **Phase 1 of the full-site conversion** to the "restrained luxury" language the flagship debuted (STEP 22). User chose full conversion, phased.
