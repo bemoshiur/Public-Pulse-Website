@@ -13,6 +13,28 @@ Entry format:
 
 ---
 
+## 2026-07-18 — STEP 26 / PRE-DEPLOY SEO/AEO/GEO REGRESSION SWEEP + FIXES
+
+**Build green (`tsc` clean, `next build` passes). NOT deployed.** Branch `feat/prestige-rollout`. A 6-dimension multi-agent sweep over the freshly-built output (136 prerendered pages) to prove the big restyle destroyed nothing + introduced no Search-Console 404s (explicit user constraint), then fixed the real defects it surfaced.
+
+### Verdict: production-ready. Restyle destroyed NOTHING.
+All 6 dims passed after fixes. Confirmed across 136 pages: exactly 1 H1 each, `.answer-block[data-speakable]` present, self-referencing canonical, rich valid JSON-LD (0 parse errors, entity graph intact, prior empty-OfferCatalog bug fixed, 0 fabricated ratings/Datasets), complete OG/Twitter, **0 duplicate titles/descriptions** (matrix prune held), all internal links resolve, middleware 410/301 intact, robots allows AI crawlers.
+
+### Fixes committed (the real defects)
+- **404 (HIGH — the user's exact concern):** `/locations/[city]` linked `topIndustries` (logistics, manufacturing, fmcg, retail, pharmaceuticals) with no `/industries` page → 7 real 404s across 4 pages. Now filtered through `getIndustry()` ([locations/[city]/page.tsx](../src/app/locations/[city]/page.tsx)). **0 bad links** in the rebuilt HTML.
+- **Schema:** `/compare/[slug]` Article `url`/`mainEntityOfPage` pointed at non-existent `/blog/compare/<slug>` → now `pathPrefix:'/compare'` (Rich-Results canonical match).
+- **Real-only:** `reviewSchema` `rating` made optional; case-study Review is now quote-only (was hardcoding a fabricated 5-star rating that would ship with the first real testimonial).
+- **Validator:** flagship `QAPage` now has `answerCount`.
+- **Snippet:** `buildMetadata` now clamps meta descriptions to ≤160 at a word boundary (backstop for ~95 over-long glossary/matrix descriptions; full text stays on-page).
+
+### Non-defects noted (no action / deploy-handled)
+- Committed `public/llms.txt`/`llms-full.txt` are catalog-only (0 posts) — local gen has no DB. `scripts/deploy.sh` regenerates them WITH the DB before `sst deploy`, and `/llms-full` (extensionless, Lambda) is always DB-fresh. **Always deploy via `bash scripts/deploy.sh production`**; verify post-deploy: `curl .../llms.txt | grep -c /blog/`.
+- LOW/benign: utility+legal pages have no AnswerBlock (correct); `/book` 307→`/contact` until `BOOKING_URL` set (redirect, not 404; not in sitemap); `/research` `notFound`s while benchmarks gated; dead motion components (AuroraGradient/CursorGlow/Marquee) are tree-shaken (optional cleanup); `brand-orange` on warm paper ≈4.7:1 (passes AA; `-soft` hover dips slightly — optional).
+
+Still gated on the user: run the blog seed (DB), real benchmark numbers, real testimonial attribution, and the live Rich-Results/crawl tests (post-deploy).
+
+---
+
 ## 2026-07-18 — STEP 25 / PRESTIGE ROLLOUT PHASE 3 (page-specific loud elements) — ROLLOUT COMPLETE
 
 **Build green (`tsc` clean, `next build` passes). NOT deployed.** Branch `feat/prestige-rollout`. Final phase of the full-site conversion — the hardcoded loud elements the token retheme couldn't reach.
