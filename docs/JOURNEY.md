@@ -13,6 +13,42 @@ Entry format:
 
 ---
 
+## 2026-07-17 — STEP 22 / POLITICAL FACEBOOK ADVERTISING FLAGSHIP + PRESTIGE UI KIT
+
+**Build green (`tsc` clean, `next build` passes). NOT deployed.** Branch `feat/political-fb-flagship` (off `feat/super-aeo`). Followed the full skills pipeline: brainstorming → spec ([docs/superpowers/specs/2026-07-17-political-fb-flagship-design.md](superpowers/specs/2026-07-17-political-fb-flagship-design.md)) → plan ([docs/superpowers/plans/2026-07-17-political-fb-flagship.md](superpowers/plans/2026-07-17-political-fb-flagship.md)) → 11 verified tasks. Design mockup approved as an Artifact before build.
+
+### What + why
+A mega SEO/AEO/GEO content cluster for **political Facebook advertising in Bangladesh**, plus a new **"restrained luxury / campaign dossier"** design language (user chose institutional-prestige over the current bold look). Debuts on the flagship; the kit is reusable for a later site-wide rollout. **Compliance-anchored throughout** (Meta ad authorization, "Paid for by", Special Ad Category, Ad Library) — legitimate advertising only; the compliance rigor IS the credibility wedge. Evergreen (no election dated), real-only (no fabricated metrics).
+
+### A. Prestige design system
+- **Discovery:** the site was **Inter-only** (`font-serif` was aliased to Inter; Fraunces was never loaded despite BRAND.md). Added **Fraunces** via `next/font` behind `font-pr-serif`.
+- Scoped, additive `pr-*` tokens in [tailwind.config.ts](../tailwind.config.ts) (warm stone paper, cool briefing dark, deepened burnt-orange `#BE451E` accent) + a single signature reveal motion in [globals.css](../src/styles/globals.css) (reduced-motion-safe). **Changes no existing page.**
+- Kit in [src/components/prestige/](../src/components/prestige/): `PrestigeHero`, `Framework`, `Clauses`, `CardGrid`, `BudgetTable`, `PrestigeFaq`, `SectionHead`, `Seal`, `MonoTag`. Serif display + mono "field-dossier" metadata layer; minimal motion.
+
+### B. Flagship pillar
+[/political-facebook-ads-bangladesh](../src/app/political-facebook-ads-bangladesh/page.tsx) — bespoke prestige page. Explicit route **shadows the (matrix) catch-all** (verified: prerenders as own route). AnswerBlock (`data-speakable`), method framework, dark compliance "briefing room", BD targeting, BDT planning ranges, 5 FAQs, dark CTA. Schema: new **`specializedServiceSchema`** ([schema.ts](../src/lib/schema.ts), `isRelatedTo` political-pr + paid-ads) + FAQPage + BreadcrumbList + WebPage + QAPage. SSR-gate passed (1 H1, answer-block, canonical, all 5 @types, Fraunces resolves).
+
+### C. Content cluster
+- **Glossary +5** ([glossary.ts](../src/lib/taxonomies/glossary.ts)): boosted-post, ad-authorization, paid-for-by-disclaimer, special-ad-category, constituency-targeting (EN+BN, cross-linked).
+- **Compare +1** ([compares.ts](../src/lib/content/compares.ts)): boosting-vs-ads-manager-political.
+- **Guide deepened** ([guides.ts](../src/lib/content/guides.ts)): the FB election guide now leads with authorization + a Special-Ad-Category/Ad-Library step; cross-links the flagship.
+- **Benchmark +1** ([benchmarks.ts](../src/lib/content/benchmarks.ts)): political-facebook-cpm-bangladesh, **`published:false`** (renders nowhere until real numbers).
+- **Blog: 4 posts** as a seed script [scripts/seed-political-fb-cluster.ts](../scripts/seed-political-fb-cluster.ts) (DB-backed blog — user runs it; seeds `review`-first, idempotent). Authorization steps · boost cost in BDT · constituency targeting · boosting-vs-Ads-Manager.
+
+### D. AEO wiring + internal links
+- [llms.ts](../src/lib/llms.ts): new "Political Facebook advertising" section (flagship + guide + compare + 5 glossary). [facts.ts](../src/lib/facts.ts): `specializations` entry. [sitemap.ts](../src/app/sitemap.ts): pillar entry (glossary/compare auto-flow). Regenerated public/llms.txt + facts.json (pillar confirmed present).
+- Internal links → flagship from [/election](../src/app/election/page.tsx) + a conditional "Specialization" band on the political-pr + paid-ads [service pages](../src/app/services/[slug]/page.tsx).
+
+### Next (user actions)
+1. **Run the blog seed** — `DATABASE_URL=… npx tsx scripts/seed-political-fb-cluster.ts`, then publish the 4 posts via /manage/blog.
+2. **Fill the political-CPM benchmark** with real numbers → `published:true` → /research + Dataset light up.
+3. Optional: roll the prestige kit site-wide (separate spec — homepage/services/blog/`ProgrammaticPage`).
+4. Merge `feat/political-fb-flagship` → `feat/super-aeo`/`main`, then deploy.
+
+**Rollback:** branch-only until merged. Code + one seed-script (no DB writes performed by the agent).
+
+---
+
 ## 2026-07-15 — STEP 21 / SEO·AEO·MARKETING AUDIT + SUPER-AEO BUILD
 
 **Build green (`tsc` clean, `next build` passes). NOT deployed — awaiting the user's `bash scripts/deploy.sh production`.** Work is on branch `feat/super-aeo` (not merged/committed until the user asks). Preceded by a verified multi-agent audit (delivered as an artifact); this entry is the build.

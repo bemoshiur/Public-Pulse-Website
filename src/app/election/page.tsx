@@ -171,6 +171,16 @@ export default function ElectionPage() {
                     WhatsApp the strategist
                   </a>
                 </div>
+                <p className="mt-4 text-sm text-white/60">
+                  Focused on the paid digital push?{" "}
+                  <Link
+                    href="/political-facebook-ads-bangladesh"
+                    className="text-brand-orange underline underline-offset-4 hover:text-brand-orange-soft"
+                  >
+                    See our political Facebook advertising
+                  </Link>{" "}
+                  — Meta-authorized, compliant, run from Dhaka.
+                </p>
               </div>
               <div className="md:col-span-4">
                 <div className="rounded-card border border-white/15 bg-white/5 p-5 backdrop-blur">

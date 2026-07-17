@@ -239,6 +239,29 @@ export default async function ServiceDetailPage({
         </section>
       )}
 
+      {/* ═══ SPECIALIZATION (political-pr + paid-ads → flagship) ═══════════ */}
+      {(service.slug === "political-pr" || service.slug === "paid-ads") && (
+        <section className="border-t border-ink bg-paper-alt py-16">
+          <Container>
+            <div className="mx-auto max-w-3xl">
+              <p className="text-eyebrow uppercase text-brand-orange">Specialization</p>
+              <h2 className="mt-3 text-h2 tracking-tight text-ink">Running for office?</h2>
+              <p className="mt-4 text-lead text-ink/70">
+                We run compliant, Meta-authorized{" "}
+                <Link
+                  href="/political-facebook-ads-bangladesh"
+                  className="font-semibold text-brand-orange underline underline-offset-4"
+                >
+                  political Facebook advertising
+                </Link>{" "}
+                for Bangladeshi candidates and parties — constituency targeting, “Paid for by”
+                disclaimers, and BDT budgets, run from Dhaka.
+              </p>
+            </div>
+          </Container>
+        </section>
+      )}
+
       {/* ═══ RELATED ═════════════════════════════════════════════════════ */}
       <section className="border-t border-ink bg-paper py-20 md:py-24">
         <Container>
