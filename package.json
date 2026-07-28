@@ -14,7 +14,7 @@
     "@neondatabase/serverless": "^1.1.0",
     "@react-email/components": "^1.0.12",
     "@react-email/render": "^1.4.0",
-    "better-auth": "^1.6.11",
+    "better-auth": "^1.6.22",
     "drizzle-orm": "^0.45.2",
     "eslint-config-next": "^16.2.6",
     "leaflet": "^1.9.4",
