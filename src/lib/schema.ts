@@ -354,6 +354,71 @@ export function articleSchema(input: ArticleSchemaInput) {
   };
 }
 
+// ─── CreativeWork (client work / portfolio piece, /work/<slug>) ─────────
+// The client is emitted as a distinct Organization node (via `about`) so
+// answer engines can resolve "who did this for whom"; `provider`/`creator`
+// cross-link the site Organization @id. clientName is genuinely optional —
+// anonymised works omit it, and the emitted graph then contains no client
+// identity at all.
+
+export type CreativeWorkInput = {
+  slug: string;
+  name: string;
+  description: string;
+  /** Client display name — omitted entirely when the work is anonymised. */
+  clientName?: string;
+  clientUrl?: string;
+  datePublished?: string;
+  /** Absolute or site-relative image URLs (hero first). */
+  images?: { url: string; width: number; height: number; caption?: string }[];
+  keywords?: string[];
+  serviceSlugs?: string[];
+};
+
+export function creativeWorkSchema(input: CreativeWorkInput) {
+  const url = absoluteUrl(`/work/${input.slug}`);
+  return {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": `${url}#creativework`,
+    url,
+    name: input.name,
+    headline: input.name,
+    description: input.description,
+    inLanguage: SITE.language,
+    ...(input.datePublished && { datePublished: input.datePublished }),
+    // Disciplines + the services delivered both act as keywords — this is the
+    // only consumer of input.serviceSlugs, so it is not a dead parameter.
+    ...(() => {
+      const kw = [...(input.keywords ?? []), ...(input.serviceSlugs ?? [])];
+      return kw.length ? { keywords: kw.join(", ") } : {};
+    })(),
+    provider: { "@id": ORG_ID },
+    creator: { "@id": ORG_ID },
+    ...(input.clientName && {
+      about: {
+        "@type": "Organization",
+        name: input.clientName,
+        ...(input.clientUrl && { url: input.clientUrl }),
+      },
+    }),
+    ...(input.images?.length && {
+      image: input.images.map((img) => ({
+        "@type": "ImageObject",
+        url: img.url.startsWith("http") ? img.url : absoluteUrl(img.url),
+        width: img.width,
+        height: img.height,
+        ...(img.caption && { caption: img.caption }),
+      })),
+    }),
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: [".answer-block"],
+    },
+    isPartOf: { "@id": WEBSITE_ID },
+  };
+}
+
 // ─── FAQPage (with Speakable for voice assistants) ───────────────────────
 
 export type Faq = { q: string; a: string };
