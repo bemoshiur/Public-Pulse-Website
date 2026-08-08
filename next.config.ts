@@ -14,6 +14,14 @@ const nextConfig: NextConfig = {
     // (used by the per-post blog hero when no static heroImageUrl is set).
     // Next 16 rejects query-string srcs without an explicit localPattern.
     localPatterns: [{ pathname: "/og", search: "" }],
+    // Portfolio media lives in the SST-provisioned S3 bucket. Without this,
+    // next/image HARD-ERRORS on any remote src — the bug that made the old
+    // case-study heroImageUrl field a trap rather than a broken image.
+    remotePatterns: [
+      { protocol: "https", hostname: "*.s3.ap-southeast-1.amazonaws.com" },
+      { protocol: "https", hostname: "*.s3.amazonaws.com" },
+      { protocol: "https", hostname: "*.cloudfront.net" },
+    ],
   },
   typedRoutes: true,
   // Phase 6: opportunistic perf — modularize heavy lucide-react imports so each

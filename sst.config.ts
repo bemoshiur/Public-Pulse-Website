@@ -112,6 +112,22 @@ export default $config({
     // Webhooks → "Signing secret". Verifies /api/webhooks/resend events.
     const RESEND_WEBHOOK_SECRET = new sst.Secret("RESEND_WEBHOOK_SECRET", "");
 
+    // Public-read media bucket for /work portfolio assets. Uploaded via the
+    // presigned PUT at /api/media/presign (admin-auth gated). CORS is
+    // required — the uploader does a browser -> S3 presigned PUT directly
+    // (not proxied through our Lambda), so without a bucket CORS rule every
+    // upload fails with an opaque browser CORS error even though the
+    // presign endpoint itself looks perfectly healthy.
+    const media = new sst.aws.Bucket("Media", {
+      access: "public",
+      cors: {
+        allowOrigins: ["https://publicpulse.com.bd", "http://localhost:3000"],
+        allowMethods: ["PUT", "GET", "HEAD"],
+        allowHeaders: ["*"],
+        maxAge: "1 hour",
+      },
+    });
+
     // ─── Next.js (OpenNext) ────────────────────────────────────────────
     // The Nextjs component handles CloudFront + S3 (static + ISR cache) +
     // Lambda (server) + Image Optimizer Lambda. Cache policy details in
@@ -119,6 +135,7 @@ export default $config({
     const web = new sst.aws.Nextjs("Web", {
       link: [
         DATABASE_URL,
+        media,
         RESEND_API_KEY,
         RESEND_FROM_EMAIL,
         RESEND_REPLY_TO,
@@ -140,6 +157,8 @@ export default $config({
       // Linked secrets are exposed at runtime as Resource.NAME.value AND
       // process.env.NAME for code that reads env directly.
       environment: {
+        MEDIA_BUCKET_NAME: media.name,
+        NEXT_PUBLIC_MEDIA_HOST: media.domain,
         MESSENGER_VERIFY_TOKEN: MESSENGER_VERIFY_TOKEN.value,
         MESSENGER_PAGE_ACCESS_TOKEN: MESSENGER_PAGE_ACCESS_TOKEN.value,
         MESSENGER_APP_SECRET: MESSENGER_APP_SECRET.value,
