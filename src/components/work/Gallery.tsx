@@ -38,10 +38,10 @@ export function Gallery({ items }: Props) {
             <button
               type="button"
               onClick={() => setOpen(i)}
-              aria-label={`Open image: ${m.alt}`}
+              aria-label={`Open ${m.kind === "video" ? "video" : "image"}: ${m.alt}`}
               className="block w-full text-left transition hover:opacity-95"
             >
-              <MediaFrame media={m} sizes="(min-width: 768px) 50vw, 100vw" />
+              <MediaFrame media={m} sizes="(min-width: 768px) 50vw, 100vw" interactive={false} />
             </button>
           </li>
         ))}

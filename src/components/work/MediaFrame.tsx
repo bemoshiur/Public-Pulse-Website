@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Play } from "lucide-react";
 import type { WorkMedia } from "@/db/schema";
 
 // Aspect-ratio-safe media wrapper. width/height always come from the stored
@@ -9,10 +10,47 @@ type Props = {
   priority?: boolean;
   className?: string;
   sizes?: string;
+  /** false = render an inert preview instead of a live iframe. Iframes
+   *  swallow clicks (they don't bubble to an ancestor <button> in the parent
+   *  document), so grid tiles that need a click-anywhere-to-open affordance
+   *  must opt out of the live embed. Defaults to true (lightbox/full view). */
+  interactive?: boolean;
 };
 
-export function MediaFrame({ media, priority = false, className = "", sizes = "100vw" }: Props) {
+export function MediaFrame({
+  media,
+  priority = false,
+  className = "",
+  sizes = "100vw",
+  interactive = true,
+}: Props) {
   if (media.kind === "video") {
+    if (!interactive) {
+      // Grid-tile preview: no live embed (so the wrapping <button> always
+      // receives the click), just the poster art + a play affordance.
+      return (
+        <div className={`relative overflow-hidden rounded-panel bg-paper-alt ${className}`}>
+          {media.poster ? (
+            <Image
+              src={media.poster}
+              alt={media.alt}
+              width={media.width}
+              height={media.height}
+              sizes={sizes}
+              className="h-auto w-full object-cover"
+            />
+          ) : (
+            <div className="aspect-video" />
+          )}
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <span className="grid h-12 w-12 place-items-center rounded-full bg-ink/70 text-paper">
+              <Play className="ml-0.5 h-5 w-5" aria-hidden fill="currentColor" />
+            </span>
+          </div>
+        </div>
+      );
+    }
+
     const src =
       media.provider === "youtube"
         ? `https://www.youtube-nocookie.com/embed/${media.url}`
