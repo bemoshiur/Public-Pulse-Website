@@ -66,6 +66,10 @@ export const caseStudies = pgTable(
     clientName: text("client_name"),
     /** Logo URL (only when client is named + has agreed). */
     logoUrl: text("logo_url"),
+    /** Client identity record (replaces the flat logo_url/client_name pair). */
+    clientId: uuid("client_id").references(() => clients.id, { onDelete: "set null" }),
+    /** Reverse cross-link to the visual counterpart at /work/<slug>. */
+    workSlug: text("work_slug"),
     /** Loose categorisation — drives filter chips on /case-studies. */
     industry: text("industry").notNull(),
     /** Location slug from taxonomies/locations.ts (optional). */
@@ -141,6 +145,107 @@ export type CaseStudyMetric = {
   timeframe?: string;
   /** Optional unit suffix (e.g. "%", "BDT"). */
   unit?: string;
+};
+
+// ─── Clients (shared by works + case studies) ─────────────────────────
+// A real client identity record. Replaces the dead `case_studies.logo_url`
+// column and enables the logo wall, "more work for this client" rails, and
+// a client Organization node in JSON-LD.
+
+export const clients = pgTable(
+  "clients",
+  {
+    id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+    slug: text("slug").notNull(),
+    name: text("name").notNull(),
+    /** Logo for light surfaces. Optional — anonymised work has none. */
+    logoUrl: text("logo_url"),
+    /** Optional inverted logo for dark panels. */
+    logoDarkUrl: text("logo_dark_url"),
+    website: text("website"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => ({
+    slugIdx: uniqueIndex("clients_slug_idx").on(t.slug),
+  })
+);
+
+export type Client = typeof clients.$inferSelect;
+export type NewClient = typeof clients.$inferInsert;
+
+// ─── Works (the /work portfolio) ──────────────────────────────────────
+// Visual-led counterpart to case_studies. EVERY media field is nullable:
+// a numbers-only work is a valid, complete record (see the spec's
+// "Mixed" content decision).
+
+export const works = pgTable(
+  "works",
+  {
+    id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+    slug: text("slug").notNull(),
+    locale: text("locale").notNull().default("en"),
+    title: text("title").notNull(),
+    tagline: text("tagline"),
+    clientId: uuid("client_id").references(() => clients.id, { onDelete: "restrict" }),
+    /** 'named' renders client.name + logo; 'anonymised' renders anonLabel only. */
+    confidentiality: text("confidentiality").notNull().default("named"),
+    anonLabel: text("anon_label"),
+    year: integer("year"),
+    windowLabel: text("window_label"),
+    industrySlug: text("industry_slug"),
+    locationSlug: text("location_slug"),
+    serviceSlugs: jsonb("service_slugs").$type<string[]>().notNull().default(sql`'[]'::jsonb`),
+    disciplines: jsonb("disciplines").$type<string[]>().notNull().default(sql`'[]'::jsonb`),
+    /** Card copy + AnswerBlock source. 40-60 words. */
+    summary: text("summary").notNull(),
+    context: text("context"),
+    approach: text("approach"),
+    outcome: text("outcome"),
+    deliverables: jsonb("deliverables").$type<string[]>().notNull().default(sql`'[]'::jsonb`),
+    metrics: jsonb("metrics").$type<CaseStudyMetric[]>().notNull().default(sql`'[]'::jsonb`),
+    media: jsonb("media").$type<WorkMedia[]>().notNull().default(sql`'[]'::jsonb`),
+    liveUrl: text("live_url"),
+    adLibraryUrl: text("ad_library_url"),
+    testimonialQuote: text("testimonial_quote"),
+    testimonialAttribution: text("testimonial_attribution"),
+    testimonialRole: text("testimonial_role"),
+    /** Cross-link to the metrics-led counterpart at /case-studies/<slug>. */
+    caseStudySlug: text("case_study_slug"),
+    featured: boolean("featured").notNull().default(false),
+    displayOrder: integer("display_order").notNull().default(0),
+    status: text("status").notNull().default("draft"),
+    published: boolean("published").notNull().default(false),
+    publishedAt: timestamp("published_at", { withTimezone: true }),
+    seoTitle: text("seo_title"),
+    seoDescription: text("seo_description"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => ({
+    slugLocaleIdx: uniqueIndex("works_slug_locale_idx").on(t.slug, t.locale),
+    publishedIdx: index("works_published_idx").on(t.published, t.displayOrder),
+    statusIdx: index("works_status_idx").on(t.status, t.publishedAt.desc()),
+    featuredIdx: index("works_featured_idx").on(t.featured, t.displayOrder),
+    clientIdx: index("works_client_idx").on(t.clientId),
+  })
+);
+
+export type Work = typeof works.$inferSelect;
+export type NewWork = typeof works.$inferInsert;
+
+/** A single media asset on a work. `width`/`height` are REQUIRED on images
+ *  so next/image can reserve space — the CLS budget is 0. */
+export type WorkMedia = {
+  kind: "image" | "video";
+  url: string;
+  alt: string;
+  caption?: string;
+  width: number;
+  height: number;
+  role: "hero" | "gallery";
+  provider?: "s3" | "youtube" | "vimeo";
+  poster?: string;
 };
 
 // ─── ContentTopic queue (LLM generation pipeline) ─────────────────────
