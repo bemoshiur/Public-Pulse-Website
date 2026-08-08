@@ -5,8 +5,12 @@ import { buildMetadata } from "@/lib/seo";
 import { breadcrumbSchema, faqPageSchema, industrySchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ProgrammaticPage, CalloutList, Hl } from "@/components/seo/ProgrammaticPage";
+import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
 import { INDUSTRIES, getIndustry } from "@/lib/taxonomies/industries";
 import { SERVICES, getService } from "@/lib/services";
+import { getWorksByIndustry } from "@/lib/data/works";
+import { WorkCard } from "@/components/work/WorkCard";
 
 type Params = { industry: string };
 
@@ -55,6 +59,9 @@ export default async function IndustryPage({
     .map((slug) => getService(slug))
     .filter((s): s is NonNullable<ReturnType<typeof getService>> => s != null && s.ready)
     .slice(0, 6);
+
+  // Inbound proof rail — published client work in this industry.
+  const industryWorks = await getWorksByIndustry(ind.slug, 3);
 
   return (
     <>
@@ -129,6 +136,26 @@ export default async function IndustryPage({
         }
       >
         <CalloutList items={ind.priorities} />
+
+        {industryWorks.length > 0 && (
+          <Section size="md" className="bg-paper">
+            <Container>
+              <div className="max-w-3xl border-t border-ink/15 pt-8">
+                <p className="text-eyebrow uppercase text-brand-orange">Proof</p>
+                <h2 className="mt-4 text-h2 tracking-tight text-ink">
+                  {ind.name} work we&rsquo;ve shipped.
+                </h2>
+              </div>
+              <ul className="mt-10 grid gap-4 md:grid-cols-3">
+                {industryWorks.map((w) => (
+                  <li key={w.id}>
+                    <WorkCard work={w} />
+                  </li>
+                ))}
+              </ul>
+            </Container>
+          </Section>
+        )}
       </ProgrammaticPage>
     </>
   );

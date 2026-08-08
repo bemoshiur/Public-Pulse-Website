@@ -12,6 +12,8 @@ import { ProgrammaticPage, CalloutList, Hl } from "@/components/seo/Programmatic
 import { LOCATIONS, getLocation } from "@/lib/taxonomies/locations";
 import { getIndustry } from "@/lib/taxonomies/industries";
 import { SERVICES, getService } from "@/lib/services";
+import { getWorksByLocation } from "@/lib/data/works";
+import { WorkCard } from "@/components/work/WorkCard";
 
 type Params = { city: string };
 
@@ -60,6 +62,9 @@ export default async function LocationPage({
 
   // Top 3 over-indexed industries — content hook for FAQ + body copy.
   const top = loc.topIndustries.slice(0, 3);
+
+  // Inbound proof rail — published client work delivered in this city.
+  const locationWorks = await getWorksByLocation(loc.slug, 3);
 
   return (
     <>
@@ -183,6 +188,26 @@ export default async function LocationPage({
             </ul>
           </div>
         </section>
+
+        {locationWorks.length > 0 && (
+          <section className="bg-paper py-16 md:py-20">
+            <div className="mx-auto max-w-6xl px-6 md:px-8">
+              <div className="max-w-3xl border-t border-ink/15 pt-8">
+                <p className="text-eyebrow uppercase text-brand-orange">Proof</p>
+                <h2 className="mt-4 text-h2 tracking-tight text-ink">
+                  Work we&rsquo;ve shipped in {loc.name}.
+                </h2>
+              </div>
+              <ul className="mt-10 grid gap-4 md:grid-cols-3">
+                {locationWorks.map((w) => (
+                  <li key={w.id}>
+                    <WorkCard work={w} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
       </ProgrammaticPage>
     </>
   );

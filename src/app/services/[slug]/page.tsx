@@ -20,6 +20,8 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SERVICES, getService } from "@/lib/services";
 import { getServiceContent } from "@/content/services";
 import { getPostsBySourceRef } from "@/lib/data/blog";
+import { getWorksByService } from "@/lib/data/works";
+import { WorkCard } from "@/components/work/WorkCard";
 
 type Params = { slug: string };
 
@@ -67,6 +69,8 @@ export default async function ServiceDetailPage({
 
   // Topical cluster: blog posts whose grounding cites this service slug.
   const relatedPosts = await getPostsBySourceRef(service.slug, "en", 3);
+  // Inbound proof rail — published client work citing this service slug.
+  const serviceWorks = await getWorksByService(service.slug, 3);
 
   const crumbs = [
     { name: "Home", path: "/" },
@@ -232,6 +236,27 @@ export default async function ServiceDetailPage({
                       <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" aria-hidden />
                     </p>
                   </Link>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </Section>
+      )}
+
+      {/* ═══ PROOF — inbound client work citing this service ═══════════════ */}
+      {serviceWorks.length > 0 && (
+        <Section size="md" className="bg-paper">
+          <Container>
+            <div className="max-w-3xl border-t border-ink/15 pt-8">
+              <p className="text-eyebrow uppercase text-brand-orange">Proof</p>
+              <h2 className="mt-4 text-h2 tracking-tight text-ink">
+                {service.shortName} work we&rsquo;ve shipped.
+              </h2>
+            </div>
+            <ul className="mt-10 grid gap-4 md:grid-cols-3">
+              {serviceWorks.map((w) => (
+                <li key={w.id}>
+                  <WorkCard work={w} />
                 </li>
               ))}
             </ul>
