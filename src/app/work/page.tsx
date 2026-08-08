@@ -34,7 +34,21 @@ const crumbs = [
 ];
 
 export default async function WorkIndexPage() {
-  const [works, logoClients] = await Promise.all([getPublishedWorks("en"), getClientsWithLogos()]);
+  const [works, allLogoClients] = await Promise.all([getPublishedWorks("en"), getClientsWithLogos()]);
+
+  // A client is only shown in the "Trusted by" logo wall if at least one of
+  // their PUBLISHED works names them (confidentiality !== "anonymised").
+  // getClientsWithLogos() is a global accessor unaware of any single work's
+  // confidentiality flag — showing every logo unconditionally would let a
+  // visitor match an anonymised card's outcome to a named logo on the same
+  // page, defeating the NDA the anonymisation exists to honour. Do not
+  // simplify this away; it is a confidentiality boundary, not decoration.
+  const namedClientIds = new Set(
+    works
+      .filter((w) => w.confidentiality !== "anonymised" && w.clientId)
+      .map((w) => w.clientId as string)
+  );
+  const logoClients = allLogoClients.filter((c) => namedClientIds.has(c.id));
 
   return (
     <>
@@ -103,14 +117,17 @@ export default async function WorkIndexPage() {
 
       <Section size="lg" className="bg-paper">
         <Container>
+          <h2 className="text-h2 tracking-tight text-ink">Selected work</h2>
           {works.length === 0 ? (
-            <div className="rounded-panel border border-dashed border-ink/20 bg-paper-alt p-10 text-center">
+            <div className="mt-8 rounded-panel border border-dashed border-ink/20 bg-paper-alt p-10 text-center">
               <p className="text-ink/55">
                 Selected work is being prepared for publication — check back shortly.
               </p>
             </div>
           ) : (
-            <WorksFilter works={works} disciplines={DISCIPLINES} />
+            <div className="mt-8">
+              <WorksFilter works={works} disciplines={DISCIPLINES} />
+            </div>
           )}
         </Container>
       </Section>
