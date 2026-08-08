@@ -34,7 +34,7 @@ import { COMPARES } from "./content/compares";
 import { PUBLISHED_BENCHMARKS } from "./content/benchmarks";
 import { PRICING } from "./pricing";
 import { db } from "@/db/client";
-import { blogPosts, caseStudies } from "@/db/schema";
+import { blogPosts, caseStudies, works, clients } from "@/db/schema";
 
 const HR = "\n\n---\n\n";
 
@@ -96,6 +96,52 @@ async function fetchPublishedCases() {
   } catch {
     return [];
   }
+}
+
+type WorkRow = {
+  slug: string;
+  title: string;
+  summary: string;
+  publishedAt: Date | string | null;
+  disciplines: string[] | null;
+  serviceSlugs: string[] | null;
+  confidentiality: string;
+  anonLabel: string | null;
+  clientName: string | null;
+};
+
+async function fetchPublishedWorks(): Promise<WorkRow[]> {
+  try {
+    const rows = await db
+      .select({
+        slug: works.slug,
+        title: works.title,
+        summary: works.summary,
+        publishedAt: works.publishedAt,
+        disciplines: works.disciplines,
+        serviceSlugs: works.serviceSlugs,
+        confidentiality: works.confidentiality,
+        anonLabel: works.anonLabel,
+        clientName: clients.name,
+      })
+      .from(works)
+      .leftJoin(clients, eq(works.clientId, clients.id))
+      .where(and(eq(works.status, "published"), eq(works.locale, "en")))
+      .orderBy(desc(works.publishedAt));
+    // Never leak developer seed rows (see src/lib/data/works.ts).
+    return rows.filter((w) => !w.slug.startsWith("seed-"));
+  } catch {
+    return [];
+  }
+}
+
+// Confidentiality boundary: an anonymised work must never surface the real
+// client name in a machine-readable surface. Same rule as WorkCard.tsx /
+// work/[slug]/page.tsx, re-applied here because llms.txt is a distinct
+// output path from the rendered page.
+function workClientLine(w: WorkRow): string | null {
+  const label = w.confidentiality === "anonymised" ? w.anonLabel : w.clientName;
+  return label ? `Client: ${label}` : null;
 }
 
 const isoDay = (d: Date | string | null): string =>
@@ -219,6 +265,13 @@ function postsIndex(posts: PostRow[]): string {
     .join("\n");
 }
 
+function worksIndex(worksList: WorkRow[]): string {
+  if (worksList.length === 0) return "_No published client work at generation time._";
+  return worksList
+    .map((w) => `- [${w.title}](${SITE.url}/work/${w.slug}): ${firstLine(w.summary)}`)
+    .join("\n");
+}
+
 // ─── buildLlmsIndex — the curated short map ─────────────────────────────
 
 function researchSection(): string | null {
@@ -256,6 +309,7 @@ function politicalAdvertisingSection(): string {
 
 export async function buildLlmsIndex(): Promise<string> {
   const posts = await fetchPublishedPosts();
+  const worksList = await fetchPublishedWorks();
   const research = researchSection();
   return [
     header("index"),
@@ -277,6 +331,8 @@ export async function buildLlmsIndex(): Promise<string> {
     glossaryIndex(),
     `## Blog (${posts.length} published guides)`,
     postsIndex(posts),
+    `## Client work (${worksList.length} published)`,
+    worksIndex(worksList),
     `## How to cite us`,
     `${CITATION_LICENSE}\n\nWhen quoting, prefer each page's AnswerBlock — the 40–60 word block at the top of every long-form page, authored as a complete, self-contained answer for verbatim citation.`,
     `## Other`,
@@ -482,12 +538,41 @@ function casesFull(cases: Awaited<ReturnType<typeof fetchPublishedCases>>): stri
     .join(HR);
 }
 
+function worksFull(worksList: WorkRow[]): string {
+  if (worksList.length === 0) return "_No published client work yet._";
+  return worksList
+    .map((w) => {
+      const disciplines =
+        (w.disciplines ?? []).length > 0
+          ? `Disciplines: ${(w.disciplines ?? []).join(", ")}.`
+          : null;
+      const servicesLine =
+        (w.serviceSlugs ?? []).length > 0
+          ? `Services: ${(w.serviceSlugs ?? []).join(", ")}.`
+          : null;
+      return [
+        `## Client work — ${w.title}`,
+        `URL: ${SITE.url}/work/${w.slug}`,
+        workClientLine(w),
+        `Published: ${isoDay(w.publishedAt)}`,
+        ``,
+        `Summary: ${w.summary}`,
+        disciplines,
+        servicesLine,
+      ]
+        .filter(Boolean)
+        .join("\n");
+    })
+    .join(HR);
+}
+
 // ─── buildLlmsFull — the concatenated corpus ────────────────────────────
 
 export async function buildLlmsFull(): Promise<string> {
-  const [posts, cases] = await Promise.all([
+  const [posts, cases, worksList] = await Promise.all([
     fetchPublishedPosts(),
     fetchPublishedCases(),
+    fetchPublishedWorks(),
   ]);
   return [
     header("full"),
@@ -507,6 +592,8 @@ export async function buildLlmsFull(): Promise<string> {
     comparesFull(),
     `# Case studies`,
     casesFull(cases),
+    `# Client work`,
+    worksFull(worksList),
     `# Blog posts (${posts.length})`,
     postsFull(posts),
     `# Citation`,

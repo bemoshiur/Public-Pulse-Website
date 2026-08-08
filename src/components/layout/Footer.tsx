@@ -80,7 +80,8 @@ export function Footer() {
           <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/45">Studio</h3>
           <ul className="mt-4 space-y-2.5 text-sm">
             <li><Link href="/about" className="text-white/80 hover:text-white">About</Link></li>
-            <li><Link href="/case-studies" className="text-white/80 hover:text-white">Work</Link></li>
+            <li><Link href="/work" className="text-white/80 hover:text-white">Work</Link></li>
+            <li><Link href="/case-studies" className="text-white/80 hover:text-white">Results</Link></li>
             <li><Link href="/blog" className="text-white/80 hover:text-white">Insights</Link></li>
             <li><Link href="/press" className="text-white/80 hover:text-white">Press</Link></li>
             <li><Link href="/contact" className="text-white/80 hover:text-white">Contact</Link></li>

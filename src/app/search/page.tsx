@@ -44,6 +44,7 @@ const KIND_LABEL: Record<Hit["kind"], string> = {
   service: "Service",
   glossary: "Glossary",
   "case-study": "Case study",
+  work: "Client work",
   post: "Article",
   guide: "Guide",
   compare: "Decision matrix",

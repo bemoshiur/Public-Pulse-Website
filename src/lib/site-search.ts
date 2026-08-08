@@ -9,9 +9,10 @@ import { GUIDES } from "@/lib/content/guides";
 import { COMPARES } from "@/lib/content/compares";
 import { getPublishedPosts } from "@/lib/data/blog";
 import { getPublishedCaseStudies } from "@/lib/data/case-studies";
+import { getPublishedWorks } from "@/lib/data/works";
 
 export type SiteSearchHit = {
-  kind: "post" | "service" | "glossary" | "case-study" | "guide" | "compare" | "location" | "industry" | "page";
+  kind: "post" | "service" | "glossary" | "case-study" | "work" | "guide" | "compare" | "location" | "industry" | "page";
   title: string;
   url: string;
   excerpt: string;
@@ -95,13 +96,24 @@ export async function siteSearch(q: string, limit = 40): Promise<SiteSearchHit[]
       if (sc < 999) hits.push({ kind: "case-study", title: c.title, url: `/case-studies/${c.slug}`, excerpt: c.summary, score: sc });
     }
   } catch { /* DB unreachable */ }
+  try {
+    const worksList = await getPublishedWorks("en");
+    for (const w of worksList) {
+      // Confidentiality boundary: an anonymised work is never scored (or
+      // therefore surfaced as matchable) against the real client name —
+      // only its anonLabel. Same rule as WorkCard.tsx / work/[slug]/page.tsx.
+      const clientLabel = w.confidentiality === "anonymised" ? w.anonLabel : w.client?.name;
+      const sc = score(needle, w.title, w.summary, w.industrySlug, clientLabel);
+      if (sc < 999) hits.push({ kind: "work", title: w.title, url: `/work/${w.slug}`, excerpt: w.summary, score: sc });
+    }
+  } catch { /* DB unreachable */ }
   for (const pg of STATIC_PAGES) {
     const sc = score(needle, pg.title, pg.excerpt, pg.keywords);
     if (sc < 999) hits.push({ kind: "page", title: pg.title, url: pg.url, excerpt: pg.excerpt, score: sc });
   }
 
   const kindWeight: Record<SiteSearchHit["kind"], number> = {
-    service: 0, location: 0.05, industry: 0.05, "case-study": 0.05,
+    service: 0, location: 0.05, industry: 0.05, "case-study": 0.05, work: 0.05,
     page: 0.1, compare: 0.15, guide: 0.15, post: 0.2, glossary: 0.3,
   };
   hits.sort((a, b) => (a.score + kindWeight[a.kind]) - (b.score + kindWeight[b.kind]));

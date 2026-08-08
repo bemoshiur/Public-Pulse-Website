@@ -5,12 +5,17 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, X, Search, ArrowUpRight } from "lucide-react";
 
 // Primary nav. /election is a priority landing page (seasonal political-PR
-// flagship) so it sits in the top bar between Work and Insights. Search
+// flagship) so it sits in the top bar between Results and Insights. Search
 // is also priority — promoted from icon-only to a labeled button in the
 // right cluster (see below). Press remains secondary (mobile drawer + footer).
+//
+// Work vs Results is a deliberate editorial split: /work is the visual
+// portfolio ("are they any good?"), /case-studies is the metrics-led proof
+// ("does it work?"). Both stay reachable from the primary bar.
 const NAV = [
   { href: "/services", label: "Services" },
-  { href: "/case-studies", label: "Work" },
+  { href: "/work", label: "Work" },
+  { href: "/case-studies", label: "Results" },
   { href: "/election", label: "Election" },
   { href: "/blog", label: "Insights" },
   { href: "/about", label: "Studio" },

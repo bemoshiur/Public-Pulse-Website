@@ -10,6 +10,7 @@ import { allowedServiceCityParams, allowedServiceIndustrySlugs } from "@/lib/tax
 import { PUBLISHED_BENCHMARKS } from "@/lib/content/benchmarks";
 import { getPublishedPosts } from "@/lib/data/blog";
 import { getPublishedCaseStudies } from "@/lib/data/case-studies";
+import { getPublishedWorks } from "@/lib/data/works";
 
 // Single flat sitemap.xml — Next.js doesn't have first-class sitemap-index
 // support without a route handler. We list every URL here with `alternates`
@@ -59,6 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry("/glossary", "weekly", 0.7),
     entry("/guides", "weekly", 0.7),
     entry("/case-studies", "weekly", 0.8),
+    entry("/work", "monthly", 0.8),
     entry("/locations", "monthly", 0.7),
     entry("/industries", "monthly", 0.7),
     entry("/election", "monthly", 0.85),
@@ -134,6 +136,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.75,
   }));
 
+  // ── Client work (DB-backed, English only) ───────────────────────────
+  const publishedWorks = await getPublishedWorks("en");
+  const workEntries: MetadataRoute.Sitemap = publishedWorks.map((w) => ({
+    url: absoluteUrl(`/work/${w.slug}`),
+    lastModified: w.publishedAt
+      ? new Date(w.publishedAt).toISOString().slice(0, 10)
+      : CATALOG_LASTMOD,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
   return [
     ...core,
     ...services,
@@ -147,6 +160,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...research,
     ...blog,
     ...cases,
+    ...workEntries,
   ];
 }
 
