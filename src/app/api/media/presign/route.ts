@@ -18,6 +18,26 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  // This route is stricter than a /manage page: it doesn't just render
+  // admin UI behind a login wall, it MINTS A WRITE CREDENTIAL (a presigned
+  // PUT) against a publicly-readable S3 bucket. Session existence alone
+  // proves "this cookie belongs to a valid session" — it doesn't prove
+  // "this is the one admin we intend to let write." There's exactly one
+  // provisioned account (see src/lib/admin-bootstrap.ts; no roles table,
+  // no signup flow), so identity is verified against ADMIN_EMAIL, the same
+  // value that provisions that single account. Fail closed if it's unset —
+  // never silently fall back to session-existence for a write credential.
+  const adminEmail = process.env.ADMIN_EMAIL;
+  if (!adminEmail) {
+    return NextResponse.json(
+      { error: "Server misconfiguration: ADMIN_EMAIL is not set." },
+      { status: 500 }
+    );
+  }
+  if (session.user.email.trim().toLowerCase() !== adminEmail.trim().toLowerCase()) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   let body: { filename?: string; contentType?: string; size?: number; workSlug?: string };
   try {
     body = await request.json();
