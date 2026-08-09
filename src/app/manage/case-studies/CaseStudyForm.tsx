@@ -96,7 +96,7 @@ export function CaseStudyForm({ action, initial, clients, submitLabel }: Props) 
             className="form-input"
           />
         </Field>
-        <Field label="Client (drives the logo on the detail page)" id="clientId">
+        <Field label="Client (logo displays if clientName is the real name)" id="clientId">
           <select
             id="clientId"
             name="clientId"
@@ -110,6 +110,11 @@ export function CaseStudyForm({ action, initial, clients, submitLabel }: Props) 
               </option>
             ))}
           </select>
+          <p className="mt-1.5 text-xs text-slate-500">
+            The logo on the case study detail page appears only when Client Name (above) is set to this
+            client&rsquo;s real name. If Client Name is anonymised (e.g., a sector label), the logo stays
+            hidden to respect confidentiality.
+          </p>
         </Field>
         <Field label="Industry" id="industry" required>
           <select
