@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getCaseStudyById } from "@/lib/data/case-studies";
+import { listAllClients } from "@/lib/data/clients";
 import { CaseStudyForm } from "../CaseStudyForm";
 import { updateCaseStudy } from "../actions";
 
@@ -13,7 +14,7 @@ export default async function EditCaseStudyPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const row = await getCaseStudyById(id);
+  const [row, clients] = await Promise.all([getCaseStudyById(id), listAllClients()]);
   if (!row) notFound();
 
   const action = updateCaseStudy.bind(null, id);
@@ -26,7 +27,7 @@ export default async function EditCaseStudyPage({
         <code className="mx-1">revalidateTag(&apos;case-studies&apos;)</code>.
       </p>
       <div className="mt-8">
-        <CaseStudyForm action={action} initial={row} submitLabel="Save changes" />
+        <CaseStudyForm action={action} initial={row} clients={clients} submitLabel="Save changes" />
       </div>
     </div>
   );

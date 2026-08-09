@@ -19,7 +19,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import { ArrowRight, Quote } from "lucide-react";
 
 import { buildMetadata } from "@/lib/seo";
@@ -106,7 +106,10 @@ export default async function CaseStudyDetailPage({
 }) {
   const { slug } = await params;
   const study = await getCaseStudyBySlug(slug, "en");
-  if (!study) notFound();
+  // Unknown/unpublished slug → 308 to the index, never a raw 404 for a
+  // crawlable URL shape (project-wide no-raw-404 rule; matches /work,
+  // /services, /glossary, etc.).
+  if (!study) permanentRedirect("/case-studies");
 
   const related = await getRelatedCaseStudies(study.slug, study.industry, "en", 3);
 
@@ -186,6 +189,17 @@ export default async function CaseStudyDetailPage({
                 <p className="mt-3 text-sm font-semibold uppercase tracking-wider text-ink/55">
                   {study.clientName}
                 </p>
+              )}
+              {study.client?.logoUrl && (
+                <div className="mt-4">
+                  <Image
+                    src={study.client.logoUrl}
+                    alt={study.client.name}
+                    width={140}
+                    height={40}
+                    className="h-8 w-auto object-contain"
+                  />
+                </div>
               )}
               <AnswerBlock question={study.title}>{outcome}</AnswerBlock>
             </div>

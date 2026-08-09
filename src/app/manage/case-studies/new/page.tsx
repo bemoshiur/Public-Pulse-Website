@@ -1,3 +1,4 @@
+import { listAllClients } from "@/lib/data/clients";
 import { CaseStudyForm } from "../CaseStudyForm";
 import { createCaseStudy } from "../actions";
 
@@ -5,7 +6,9 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const fetchCache = "force-no-store";
 
-export default function NewCaseStudyPage() {
+export default async function NewCaseStudyPage() {
+  const clients = await listAllClients();
+
   return (
     <div className="mx-auto max-w-3xl">
       <h1 className="font-serif text-3xl font-medium text-brand-navy">New case study</h1>
@@ -14,7 +17,7 @@ export default function NewCaseStudyPage() {
         the homepage cache refreshes automatically.
       </p>
       <div className="mt-8">
-        <CaseStudyForm action={createCaseStudy} submitLabel="Create" />
+        <CaseStudyForm action={createCaseStudy} clients={clients} submitLabel="Create" />
       </div>
     </div>
   );

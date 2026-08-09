@@ -1,18 +1,31 @@
 import { SERVICES } from "@/lib/services";
-import type { CaseStudy } from "@/db/schema";
+import { INDUSTRIES } from "@/lib/taxonomies/industries";
+import { LOCATIONS } from "@/lib/taxonomies/locations";
+import type { CaseStudy, Client } from "@/db/schema";
+import { CheckboxGroup } from "./CheckboxGroup";
+import { MetricsEditor } from "./MetricsEditor";
+import { FaqEditor } from "./FaqEditor";
 
 type Props = {
   action: (formData: FormData) => Promise<void>;
   initial?: Partial<CaseStudy>;
+  clients: Client[];
   submitLabel: string;
 };
 
-// Plain HTML form posting to a server action — no client JS needed.
-// Required fields are minimal so the entry path stays low-friction. The
-// long-form narrative + structured metrics + FAQ are optional but unlock
-// the full case-study detail experience when filled.
+// Plain HTML form posting to a server action — no client JS needed for the
+// form itself. Required fields are minimal so the entry path stays
+// low-friction. The long-form narrative + structured metrics + FAQ are
+// optional but unlock the full case-study detail experience when filled.
+//
+// industry / location / servicesJson are catalog-backed (INDUSTRIES /
+// LOCATIONS / SERVICES) — free text here is exactly what silently created
+// duplicate filter facets and broke getRelatedCaseStudies's exact-match
+// industry lookup (Task 13). metricsJson / faqJson are structured editors
+// (MetricsEditor / FaqEditor) instead of raw-JSON textareas — a missing
+// comma used to throw an unstyled server exception and lose the form.
 
-export function CaseStudyForm({ action, initial, submitLabel }: Props) {
+export function CaseStudyForm({ action, initial, clients, submitLabel }: Props) {
   return (
     <form action={action} className="rounded-2xl border border-slate-200 bg-white p-8">
       {/* ── Identity ────────────────────────────────────────────────── */}
@@ -60,36 +73,53 @@ export function CaseStudyForm({ action, initial, submitLabel }: Props) {
             className="form-input"
           />
         </Field>
-        <Field label="Logo URL (only when client agrees)" id="logoUrl">
-          <input
-            id="logoUrl"
-            name="logoUrl"
-            type="text"
-            placeholder="/logos/client.svg"
-            defaultValue={initial?.logoUrl ?? ""}
+        <Field label="Client (drives the logo on the detail page)" id="clientId">
+          <select
+            id="clientId"
+            name="clientId"
+            defaultValue={initial?.clientId ?? ""}
             className="form-input"
-          />
+          >
+            <option value="">— no client —</option>
+            {clients.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
         </Field>
         <Field label="Industry" id="industry" required>
-          <input
+          <select
             id="industry"
             name="industry"
-            type="text"
             required
-            placeholder="hospitality"
             defaultValue={initial?.industry ?? ""}
             className="form-input"
-          />
+          >
+            <option value="" disabled>
+              — select an industry —
+            </option>
+            {INDUSTRIES.map((i) => (
+              <option key={i.slug} value={i.slug}>
+                {i.name}
+              </option>
+            ))}
+          </select>
         </Field>
-        <Field label="Location (slug)" id="location">
-          <input
+        <Field label="Location" id="location">
+          <select
             id="location"
             name="location"
-            type="text"
-            placeholder="coxs-bazar"
             defaultValue={initial?.location ?? ""}
             className="form-input"
-          />
+          >
+            <option value="">— none —</option>
+            {LOCATIONS.map((l) => (
+              <option key={l.slug} value={l.slug}>
+                {l.name}
+              </option>
+            ))}
+          </select>
         </Field>
       </div>
 
@@ -130,16 +160,14 @@ export function CaseStudyForm({ action, initial, submitLabel }: Props) {
             ))}
           </select>
         </Field>
-        <Field label="Services delivered (CSV of service slugs)" id="servicesCsv" className="md:col-span-3">
-          <input
-            id="servicesCsv"
-            name="servicesCsv"
-            type="text"
-            placeholder="hospitality, paid-ads, social-media"
-            defaultValue={(initial?.services ?? []).join(", ")}
-            className="form-input"
-          />
-        </Field>
+      </div>
+      <div className="mt-5">
+        <CheckboxGroup
+          name="servicesJson"
+          label="Services delivered"
+          options={SERVICES.map((s) => ({ slug: s.slug, label: s.shortName }))}
+          initial={initial?.services}
+        />
       </div>
 
       <Field label="Summary (1–2 sentences shown on cards)" id="summary" required className="mt-5">
@@ -203,16 +231,9 @@ export function CaseStudyForm({ action, initial, submitLabel }: Props) {
       </div>
 
       {/* ── Metrics callout band ────────────────────────────────────── */}
-      <Field label="Metrics callout band (JSON array of {label,value,timeframe?,unit?})" id="metricsJson" className="mt-5">
-        <textarea
-          id="metricsJson"
-          name="metricsJson"
-          rows={4}
-          defaultValue={JSON.stringify(initial?.metrics ?? [], null, 2)}
-          className="form-input font-mono text-xs resize-y"
-          placeholder='[{"label":"Direct bookings","value":"47","unit":"%"},{"label":"CPC","value":"-32","unit":"%"}]'
-        />
-      </Field>
+      <div className="mt-5">
+        <MetricsEditor name="metricsJson" initial={initial?.metrics} />
+      </div>
 
       {/* ── Optional testimonial (drives Review schema) ─────────────── */}
       <div className="mt-5 grid gap-5 md:grid-cols-2">
@@ -239,16 +260,9 @@ export function CaseStudyForm({ action, initial, submitLabel }: Props) {
       </div>
 
       {/* ── FAQ ─────────────────────────────────────────────────────── */}
-      <Field label="FAQs (JSON array of {q,a})" id="faqJson" className="mt-5">
-        <textarea
-          id="faqJson"
-          name="faqJson"
-          rows={4}
-          defaultValue={JSON.stringify(initial?.faqJson ?? [], null, 2)}
-          className="form-input font-mono text-xs resize-y"
-          placeholder='[{"q":"How long did it take?","a":"90 days end-to-end."}]'
-        />
-      </Field>
+      <div className="mt-5">
+        <FaqEditor name="faqJson" initial={initial?.faqJson} />
+      </div>
 
       {/* ── Imagery + SEO ───────────────────────────────────────────── */}
       <div className="mt-5 grid gap-5 md:grid-cols-2">

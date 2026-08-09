@@ -24,6 +24,7 @@ const KIND_LABEL: Record<string, string> = {
   service: "Service",
   glossary: "Glossary",
   "case-study": "Case study",
+  work: "Work",
   post: "Article",
   guide: "Guide",
   compare: "Decision matrix",

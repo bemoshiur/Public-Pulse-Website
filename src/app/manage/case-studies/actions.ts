@@ -16,6 +16,9 @@ import { caseStudies, type CaseStudyMetric } from "@/db/schema";
 import { CASE_STUDIES_TAG } from "@/lib/data/case-studies";
 import { pingIndexNow } from "@/lib/indexnow";
 import { SITE } from "@/lib/site";
+import { getIndustry } from "@/lib/taxonomies/industries";
+import { getLocation } from "@/lib/taxonomies/locations";
+import { getService } from "@/lib/services";
 
 const MetricArray = z.array(
   z.object({
@@ -32,15 +35,29 @@ const FaqArray = z.array(
   })
 );
 
+/** servicesJson arrives as a JSON-encoded array from the CheckboxGroup
+ *  client editor via a hidden input — never free text typed by the admin.
+ *  Malformed input (only reachable via devtools tampering, not the real UI)
+ *  degrades to an empty array rather than throwing, matching
+ *  RepeatableEditor/CheckboxGroup's own defensive JSON.stringify contract. */
+function jsonArray(raw: string | undefined): string[] {
+  try {
+    const v = JSON.parse(raw || "[]");
+    return Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
 const caseStudySchema = z.object({
   slug: z.string().min(2).max(120).regex(/^[a-z0-9-]+$/, "lowercase letters, numbers, hyphens"),
   locale: z.enum(["en", "bn"]).default("en"),
   title: z.string().min(5).max(200),
   clientName: z.string().max(160).optional().or(z.literal("")),
-  logoUrl: z.string().max(500).optional().or(z.literal("")),
-  industry: z.string().min(2).max(200),
+  clientId: z.string().uuid().optional().or(z.literal("")),
+  industry: z.string().min(1, "Select an industry.").max(200),
   location: z.string().max(80).optional().or(z.literal("")),
-  servicesCsv: z.string().max(500).optional().default(""),
+  servicesJson: z.string().default("[]"),
   metric: z.string().min(2).max(120),
   windowLabel: z.string().min(2).max(60),
   summary: z.string().min(20).max(800),
@@ -85,6 +102,20 @@ function parsePayload(formData: FormData) {
     );
   }
   const d = parsed.data;
+
+  // Catalog-backed — the <select>/checkbox controls only ever submit real
+  // slugs, so anything that fails here is either tampered input or a stale
+  // catalog. Free text used to let typos silently create duplicate filter
+  // facets and break getRelatedCaseStudies's exact-match industry lookup
+  // (Task 13 fix) — industry is required so an invalid value is rejected
+  // outright rather than silently dropped.
+  const industry = getIndustry(d.industry);
+  if (!industry) {
+    throw new Error("Select a valid industry from the list.");
+  }
+  const location = d.location && getLocation(d.location) ? d.location : null;
+  const services = jsonArray(d.servicesJson).filter((s) => Boolean(getService(s)));
+
   let metrics: CaseStudyMetric[] = [];
   try {
     const raw = JSON.parse(d.metricsJson || "[]");
@@ -99,16 +130,15 @@ function parsePayload(formData: FormData) {
   } catch {
     throw new Error("faqJson must be valid JSON");
   }
-  const services = (d.servicesCsv ?? "").split(",").map((s) => s.trim()).filter(Boolean);
   const isPublished = d.status === "published" || d.published === true;
   return {
     slug: d.slug,
     locale: d.locale,
     title: d.title,
     clientName: d.clientName || null,
-    logoUrl: d.logoUrl || null,
-    industry: d.industry,
-    location: d.location || null,
+    clientId: d.clientId || null,
+    industry: industry.slug,
+    location,
     services,
     metric: d.metric,
     windowLabel: d.windowLabel,

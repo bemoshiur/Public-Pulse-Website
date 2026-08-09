@@ -1,9 +1,12 @@
 // Modern compact case-studies index — filterable grid, dense but breathable.
-// Server fetches once, ISR-cached. Client component (CaseStudiesFilter)
-// reads useSearchParams + filters — keeps the page CDN-cacheable.
+// Server fetches once, ISR-cached, statically prerendered. Client component
+// (CaseStudiesFilter) renders every card unconditionally and filters via
+// local useState + a CSS `hidden` class (WorksFilter's pattern — Task 6/13).
+// Do NOT wrap it in <Suspense>/useSearchParams — that combination is what
+// made this grid invisible to crawlers (zero /case-studies/<slug> anchors
+// in the built HTML) before Task 13.
 
 import type { Metadata } from "next";
-import { Suspense } from "react";
 
 import { buildMetadata } from "@/lib/seo";
 import { breadcrumbSchema, collectionPageSchema, itemListSchema } from "@/lib/schema";
@@ -82,9 +85,7 @@ export default async function CaseStudiesIndex() {
         answer={`Public Pulse case studies show real client outcomes across Bangladesh — paid, social, PR, SEO and political PR. ${cases.length} published engagement${cases.length === 1 ? "" : "s"} with documented metrics, time windows, and the services delivered. Where NDAs apply, client names are anonymised to a sector label.`}
       />
 
-      <Suspense fallback={null}>
-        <CaseStudiesFilter cases={serialized} serviceLabels={serviceLabels} />
-      </Suspense>
+      <CaseStudiesFilter cases={serialized} serviceLabels={serviceLabels} />
 
       <section className="bg-paper py-16 md:py-20">
         <Container>

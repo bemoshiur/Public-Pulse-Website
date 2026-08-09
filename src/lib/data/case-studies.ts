@@ -6,9 +6,9 @@
 // /manage CRUD writes invalidate with revalidateTag('case-studies').
 
 import { unstable_cache } from "next/cache";
-import { and, desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq } from "drizzle-orm";
 import { db } from "@/db/client";
-import { caseStudies, type CaseStudy } from "@/db/schema";
+import { caseStudies, clients, type CaseStudy, type Client } from "@/db/schema";
 
 export const CASE_STUDIES_TAG = "case-studies";
 
@@ -34,7 +34,9 @@ export const getPublishedCaseStudies = unstable_cache(
             eq(caseStudies.locale, locale)
           )
         )
-        .orderBy(desc(caseStudies.displayOrder), desc(caseStudies.publishedAt));
+        // ASC display order: an unedited row (default 0) sorts FIRST, not
+        // last — matches getPublishedWorks's ordering (Task 13 fix).
+        .orderBy(asc(caseStudies.displayOrder), desc(caseStudies.publishedAt));
       return rows.filter((r) => !isSeedSlug(r.slug));
     } catch (err) {
       console.warn(
@@ -44,7 +46,7 @@ export const getPublishedCaseStudies = unstable_cache(
       return [];
     }
   },
-  ["case-studies:published-v3"],
+  ["case-studies:published-v4"],
   { tags: [CASE_STUDIES_TAG], revalidate: 60 }
 );
 
@@ -64,7 +66,9 @@ export const getFeaturedCaseStudies = unstable_cache(
             eq(caseStudies.featured, true)
           )
         )
-        .orderBy(desc(caseStudies.displayOrder), desc(caseStudies.publishedAt))
+        // ASC display order: an unedited row (default 0) sorts FIRST, not
+        // last — matches getPublishedWorks's ordering (Task 13 fix).
+        .orderBy(asc(caseStudies.displayOrder), desc(caseStudies.publishedAt))
         .limit(limit + 4);
       const featured = rows.filter((r) => !isSeedSlug(r.slug)).slice(0, limit);
       if (featured.length === 0) {
@@ -86,27 +90,34 @@ export const getFeaturedCaseStudies = unstable_cache(
       return [];
     }
   },
-  ["case-studies:featured-v3"],
+  ["case-studies:featured-v4"],
   { tags: [CASE_STUDIES_TAG], revalidate: 60 }
 );
 
+export type CaseStudyWithClient = CaseStudy & { client: Client | null };
+
+/** Same publication predicate as the list accessors (`published === true`)
+ *  — a row can no longer be reachable by direct URL while invisible in the
+ *  index/sitemap (Task 13 fix). Also joins `clients` so the detail page can
+ *  render a real client logo instead of the dead `logoUrl` column. */
 export const getCaseStudyBySlug = unstable_cache(
-  async (slug: string, locale: "en" | "bn" = "en"): Promise<CaseStudy | null> => {
+  async (slug: string, locale: "en" | "bn" = "en"): Promise<CaseStudyWithClient | null> => {
     if (isSeedSlug(slug)) return null; // seed detail pages must 404 publicly
     try {
-      const [row] = await db
-        .select()
+      const rows = await db
+        .select({ study: caseStudies, client: clients })
         .from(caseStudies)
+        .leftJoin(clients, eq(caseStudies.clientId, clients.id))
         .where(and(eq(caseStudies.slug, slug), eq(caseStudies.locale, locale)))
         .limit(1);
-      if (!row) return null;
-      if (row.published || row.status === "published") return row;
-      return null;
+      const row = rows[0];
+      if (!row || !row.study.published) return null;
+      return { ...row.study, client: row.client };
     } catch {
       return null;
     }
   },
-  ["case-studies:by-slug-v3"],
+  ["case-studies:by-slug-v4"],
   { tags: [CASE_STUDIES_TAG], revalidate: 60 }
 );
 
@@ -138,7 +149,7 @@ export const getRelatedCaseStudies = unstable_cache(
       return [];
     }
   },
-  ["case-studies:related-v3"],
+  ["case-studies:related-v4"],
   { tags: [CASE_STUDIES_TAG], revalidate: 60 }
 );
 
