@@ -24,7 +24,9 @@ const KIND_LABEL: Record<string, string> = {
   service: "Service",
   glossary: "Glossary",
   "case-study": "Case study",
-  work: "Work",
+  // Keep in sync with KIND_LABEL in src/app/search/page.tsx — the palette and
+  // the full search page label the same hit kinds.
+  work: "Client work",
   post: "Article",
   guide: "Guide",
   compare: "Decision matrix",

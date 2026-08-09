@@ -34,7 +34,9 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-  if (session.user.email.trim().toLowerCase() !== adminEmail.trim().toLowerCase()) {
+  // Optional chaining: a malformed/partial session (no user, no email) must
+  // fail CLOSED with 403, not throw a 500 that reads like a server bug.
+  if (session.user?.email?.trim().toLowerCase() !== adminEmail.trim().toLowerCase()) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
@@ -68,13 +70,26 @@ export async function POST(request: Request) {
     );
   }
 
-  const client = new S3Client({});
-
-  const uploadUrl = await getSignedUrl(
-    client,
-    new PutObjectCommand({ Bucket: bucket, Key: key, ContentType: contentType }),
-    { expiresIn: PRESIGN_TTL_SECONDS }
-  );
+  // Signing is where an IAM/STS/region misconfiguration actually surfaces
+  // (missing s3:PutObject on the Lambda role, unresolvable credentials, a
+  // bad bucket name). Let it throw and the admin gets an opaque unhandled
+  // error; catch it and they get something they can act on, with the real
+  // cause in CloudWatch.
+  let uploadUrl: string;
+  try {
+    const client = new S3Client({});
+    uploadUrl = await getSignedUrl(
+      client,
+      new PutObjectCommand({ Bucket: bucket, Key: key, ContentType: contentType }),
+      { expiresIn: PRESIGN_TTL_SECONDS }
+    );
+  } catch (err) {
+    console.error("[media/presign] Could not sign upload URL.", err);
+    return NextResponse.json(
+      { error: "Could not prepare the upload. Check the server logs for the storage error." },
+      { status: 500 }
+    );
+  }
 
   const host = process.env.NEXT_PUBLIC_MEDIA_HOST ?? `${bucket}.s3.amazonaws.com`;
   return NextResponse.json({ uploadUrl, publicUrl: `https://${host}/${key}`, key });

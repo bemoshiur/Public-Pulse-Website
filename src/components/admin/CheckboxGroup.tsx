@@ -2,15 +2,17 @@
 
 import { useState } from "react";
 
-// Multi-select taxonomy picker (servicesJson) that serializes to a JSON
-// array in a hidden input — same "client island inside a plain
-// <form action>" contract as RepeatableEditor / MetricsEditor. Chips instead
-// of a raw <select multiple> so the admin doesn't need ctrl/cmd-click to
-// pick more than one, and so selections are catalog-backed by construction
-// (the option list IS the catalog — there's no way to type free text here).
+// Multi-select taxonomy picker (work serviceSlugs / disciplines, case-study
+// servicesJson) that serializes to a JSON array in a hidden input — same
+// "client island inside a plain <form action>" contract as RepeatableEditor /
+// MediaUploader. Chips instead of a raw <select multiple> so the admin
+// doesn't need ctrl/cmd-click to pick more than one, and so selections are
+// catalog-backed by construction (the option list IS the catalog — there's no
+// way to type free text here).
 //
-// Mirrors src/app/manage/work/CheckboxGroup.tsx (duplicated, not imported,
-// so this task never touches the /work admin section).
+// SHARED by both admin surfaces (manage/work + manage/case-studies). It used
+// to exist as two byte-near-identical copies in those route folders; it lives
+// here alongside MediaUploader/RepeatableEditor so a fix lands once.
 
 type Option = { slug: string; label: string };
 type Props = { name: string; label: string; options: Option[]; initial?: string[] };

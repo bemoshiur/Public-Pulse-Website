@@ -94,7 +94,12 @@ function refreshPublic(slug?: string, _locale: "en" | "bn" = "en") {
   void pingIndexNow(urls).catch(() => {});
 }
 
-function parsePayload(formData: FormData) {
+/** `existingPublishedAt` is the already-stored go-live date on an update.
+ *  Preserve it across edits to an already-published case study — otherwise a
+ *  typo fix silently bumps the "went live" date every save, corrupting
+ *  sitemap <lastmod> and the `displayOrder ASC, publishedAt DESC` ordering.
+ *  Same rule as src/app/manage/work/actions.ts. Undefined on create. */
+function parsePayload(formData: FormData, existingPublishedAt?: Date | null) {
   const parsed = caseStudySchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
     throw new Error(
@@ -157,7 +162,7 @@ function parsePayload(formData: FormData) {
     featured: d.featured,
     published: isPublished,
     status: isPublished ? "published" : d.status,
-    publishedAt: isPublished ? new Date() : null,
+    publishedAt: isPublished ? existingPublishedAt ?? new Date() : null,
     seoTitle: d.seoTitle || null,
     seoDescription: d.seoDescription || null,
   };
@@ -175,7 +180,12 @@ export async function createCaseStudy(formData: FormData): Promise<void> {
 
 export async function updateCaseStudy(id: string, formData: FormData): Promise<void> {
   await requireSession();
-  const data = parsePayload(formData);
+  const [existing] = await db
+    .select({ publishedAt: caseStudies.publishedAt })
+    .from(caseStudies)
+    .where(eq(caseStudies.id, id))
+    .limit(1);
+  const data = parsePayload(formData, existing?.publishedAt ?? null);
   await db
     .update(caseStudies)
     .set({ ...data, updatedAt: new Date() })
@@ -200,7 +210,9 @@ export async function togglePublish(id: string, nextValue: boolean): Promise<voi
     .set({
       published: nextValue,
       status: nextValue ? "published" : "draft",
-      publishedAt: nextValue ? new Date() : null,
+      // Same preservation rule as parsePayload / togglePublishWork —
+      // re-publishing keeps the original go-live date.
+      publishedAt: nextValue ? row?.publishedAt ?? new Date() : null,
       updatedAt: new Date(),
     })
     .where(eq(caseStudies.id, id));

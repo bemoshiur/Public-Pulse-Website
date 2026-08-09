@@ -135,10 +135,18 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "img-src 'self' data: blob: https: https://www.facebook.com https://*.fbcdn.net https://*.googletagmanager.com https://www.google-analytics.com",
               "font-src 'self' data: https://fonts.gstatic.com",
-              "connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net https://www.facebook.com https://graph.facebook.com https://*.facebook.com",
+              // S3 origins: /manage media uploads PUT the file straight to a
+              // presigned S3 URL from the browser (see
+              // src/components/admin/MediaUploader.tsx). Without these the
+              // browser blocks the cross-origin PUT before it leaves the page
+              // and every upload fails with only a CSP violation in the
+              // console. Bucket CORS is the other half of the same fix.
+              "connect-src 'self' https://*.s3.ap-southeast-1.amazonaws.com https://*.s3.amazonaws.com https://www.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net https://www.facebook.com https://graph.facebook.com https://*.facebook.com",
               // cal.com: required for the /book Cal.com booking iframe.
               // *.cal.com covers app.cal.com / embed.cal.com / etc.
-              "frame-src 'self' https://www.facebook.com https://*.facebook.com https://www.googletagmanager.com https://cal.com https://*.cal.com",
+              // youtube-nocookie / player.vimeo: the MediaFrame video branch
+              // (src/components/work/MediaFrame.tsx) embeds them.
+              "frame-src 'self' https://www.facebook.com https://*.facebook.com https://www.googletagmanager.com https://cal.com https://*.cal.com https://www.youtube-nocookie.com https://player.vimeo.com",
               "form-action 'self'",
               "base-uri 'self'",
               "frame-ancestors 'self'",

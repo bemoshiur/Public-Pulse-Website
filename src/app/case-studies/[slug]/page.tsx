@@ -129,6 +129,15 @@ export default async function CaseStudyDetailPage({
   const metrics = study.metrics ?? [];
   const faqs = study.faqJson ?? [];
 
+  // Confidentiality gate for the client logo — see the render site below.
+  // Trimmed, case-insensitive so trivial whitespace/casing differences in a
+  // legacy row don't read as "anonymised" and hide a logo the admin meant
+  // to show.
+  const norm = (v: string) => v.trim().toLowerCase();
+  const namesClientOpenly = Boolean(
+    study.client && study.clientName && norm(study.clientName) === norm(study.client.name)
+  );
+
   const outcome =
     study.outcomeStatement ??
     `Public Pulse Agency delivered ${study.metric} for ${study.clientName ?? study.industry}${
@@ -190,7 +199,20 @@ export default async function CaseStudyDetailPage({
                   {study.clientName}
                 </p>
               )}
-              {study.client?.logoUrl && (
+              {/* Confidentiality boundary — NOT decoration. The case_studies
+                  table has no `confidentiality` column (unlike `works`), so
+                  the only signal that a row is anonymised is that clientName
+                  carries a sector label ("A Cox's Bazar resort") rather than
+                  the linked client's real name. Rendering the logo whenever a
+                  client is linked would ship the real name (in alt text) and
+                  the real mark on a page whose index promises "Where NDAs
+                  apply, client names are anonymised". Show the logo ONLY when
+                  the row names the client openly — i.e. clientName matches
+                  client.name exactly. Any divergence (or a null clientName
+                  against a linked client) suppresses it. Do not simplify this
+                  away; it mirrors the logo-wall filter in
+                  src/app/work/page.tsx. */}
+              {namesClientOpenly && study.client?.logoUrl && (
                 <div className="mt-4">
                   <Image
                     src={study.client.logoUrl}

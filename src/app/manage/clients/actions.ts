@@ -18,6 +18,8 @@ import { auth } from "@/lib/auth";
 import { db } from "@/db/client";
 import { clients } from "@/db/schema";
 import { CLIENTS_TAG } from "@/lib/data/clients";
+import { WORKS_TAG } from "@/lib/data/works";
+import { CASE_STUDIES_TAG } from "@/lib/data/case-studies";
 
 async function requireSession() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -57,7 +59,16 @@ function parse(formData: FormData) {
 
 function refreshPublic() {
   updateTag(CLIENTS_TAG);
+  // Client name/logo is DENORMALISED into the works + case-studies caches by
+  // the leftJoin in src/lib/data/works.ts (and the client join on case
+  // studies). Invalidating CLIENTS_TAG alone leaves a renamed client showing
+  // its old name on /work/[slug] (revalidate = 3600), the proof rails and
+  // search for up to an hour. deleteClient also nulls case_studies.client_id,
+  // so that tag has to go too.
+  updateTag(WORKS_TAG);
+  updateTag(CASE_STUDIES_TAG);
   revalidatePath("/work");
+  revalidatePath("/case-studies");
 }
 
 /** Slug is unique (clients_slug_idx). Fail with a clean message instead of

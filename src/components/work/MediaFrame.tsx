@@ -24,6 +24,13 @@ export function MediaFrame({
   sizes = "100vw",
   interactive = true,
 }: Props) {
+  // NOTE — the video branch below is currently UNREACHABLE from the admin.
+  // MediaUploader hardcodes kind:"image" and WorkForm has no embed field, so
+  // no stored WorkMedia can have kind:"video" today. The branch is kept
+  // deliberately as the rendering contract for a follow-up that adds a video
+  // embed field to the work admin (CSP frame-src already allows
+  // youtube-nocookie + player.vimeo, see next.config.ts). Don't delete it as
+  // dead code; don't assume it's been exercised in production either.
   if (media.kind === "video") {
     if (!interactive) {
       // Grid-tile preview: no live embed (so the wrapping <button> always

@@ -2,8 +2,8 @@ import { SERVICES } from "@/lib/services";
 import { INDUSTRIES } from "@/lib/taxonomies/industries";
 import { LOCATIONS } from "@/lib/taxonomies/locations";
 import type { CaseStudy, Client } from "@/db/schema";
-import { CheckboxGroup } from "./CheckboxGroup";
-import { MetricsEditor } from "./MetricsEditor";
+import { CheckboxGroup } from "@/components/admin/CheckboxGroup";
+import { MetricsEditor } from "@/components/admin/MetricsEditor";
 import { FaqEditor } from "./FaqEditor";
 
 type Props = {
@@ -26,6 +26,29 @@ type Props = {
 // comma used to throw an unstyled server exception and lose the form.
 
 export function CaseStudyForm({ action, initial, clients, submitLabel }: Props) {
+  // ── Legacy free-text taxonomy: make it VISIBLE, never silently dropped ──
+  // These columns predate the catalog-backed controls, so an old row can
+  // hold a value that matches no LOCATIONS/SERVICES slug. With a plain
+  // catalog-only <select>, such a row renders as "— none —" and the very
+  // next save nulls the value without the admin ever seeing it. Same for an
+  // unmatched service slug in the checkbox group. Instead, surface the
+  // orphan as an explicitly-flagged option that is selected by default, so
+  // the admin decides deliberately whether to keep or re-map it.
+  // Server-side validation is unchanged: actions.ts still drops anything
+  // that isn't a real catalog slug, so keeping the legacy value selected
+  // and saving clears it — but now that's a visible, deliberate choice.
+  const legacyLocation =
+    initial?.location && !LOCATIONS.some((l) => l.slug === initial.location)
+      ? initial.location
+      : null;
+  const legacyServices = (initial?.services ?? []).filter(
+    (s) => !SERVICES.some((svc) => svc.slug === s)
+  );
+  const serviceOptions = [
+    ...SERVICES.map((s) => ({ slug: s.slug, label: s.shortName })),
+    ...legacyServices.map((s) => ({ slug: s, label: `⚠ legacy value: ${s}` })),
+  ];
+
   return (
     <form action={action} className="rounded-2xl border border-slate-200 bg-white p-8">
       {/* ── Identity ────────────────────────────────────────────────── */}
@@ -119,7 +142,16 @@ export function CaseStudyForm({ action, initial, clients, submitLabel }: Props) 
                 {l.name}
               </option>
             ))}
+            {legacyLocation && (
+              <option value={legacyLocation}>⚠ legacy value: {legacyLocation}</option>
+            )}
           </select>
+          {legacyLocation && (
+            <p className="mt-1.5 text-xs text-brand-red">
+              This row holds “{legacyLocation}”, which isn&rsquo;t in the location catalog. Pick a
+              real location — saving while the legacy value is selected clears it.
+            </p>
+          )}
         </Field>
       </div>
 
@@ -165,9 +197,17 @@ export function CaseStudyForm({ action, initial, clients, submitLabel }: Props) 
         <CheckboxGroup
           name="servicesJson"
           label="Services delivered"
-          options={SERVICES.map((s) => ({ slug: s.slug, label: s.shortName }))}
+          options={serviceOptions}
           initial={initial?.services}
         />
+        {legacyServices.length > 0 && (
+          <p className="mt-1.5 text-xs text-brand-red">
+            {legacyServices.length === 1 ? "One service" : `${legacyServices.length} services`} on
+            this row {legacyServices.length === 1 ? "isn't" : "aren't"} in the services catalog
+            (shown above as “legacy value”). Re-map to a real service — saving drops unmatched
+            values.
+          </p>
+        )}
       </div>
 
       <Field label="Summary (1–2 sentences shown on cards)" id="summary" required className="mt-5">
@@ -232,7 +272,11 @@ export function CaseStudyForm({ action, initial, clients, submitLabel }: Props) 
 
       {/* ── Metrics callout band ────────────────────────────────────── */}
       <div className="mt-5">
-        <MetricsEditor name="metricsJson" initial={initial?.metrics} />
+        <MetricsEditor
+          name="metricsJson"
+          heading="Metrics callout band (shown on the case study detail page)"
+          initial={initial?.metrics}
+        />
       </div>
 
       {/* ── Optional testimonial (drives Review schema) ─────────────── */}

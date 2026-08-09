@@ -12,6 +12,8 @@ import { SERVICES } from "@/lib/services";
 import { getServiceIcon } from "@/lib/icons";
 import { SITE } from "@/lib/site";
 import { getFeaturedCaseStudies } from "@/lib/data/case-studies";
+import { getFeaturedWorks } from "@/lib/data/works";
+import { WorkCard } from "@/components/work/WorkCard";
 import { InlineBlock } from "@/components/lead-capture";
 
 // JSON-LD Organization + WebSite emit site-wide from app/layout.tsx.
@@ -40,10 +42,17 @@ const PROCESS = [
 ];
 
 export default async function HomePage() {
-  // Featured case studies for the homepage Selected results — curated set
-  // (max 4). Falls back to most-recent published when none are featured;
-  // returns [] if DB unreachable (homepage hides the section gracefully).
-  const caseStudies = await getFeaturedCaseStudies("en", 4);
+  // caseStudies — featured case studies for Selected results (max 4). Falls
+  // back to most-recent published when none are featured.
+  // featuredWorks — featured client work for the /work rail below it (max 3).
+  // Both share the same real-only contract: [] when nothing is published (or
+  // the DB is unreachable) and the whole section is omitted, so the homepage
+  // is unchanged until real content is live. getFeaturedWorks honours the
+  // seed-slug guard; the anonymisation contract lives in <WorkCard>.
+  const [caseStudies, featuredWorks] = await Promise.all([
+    getFeaturedCaseStudies("en", 4),
+    getFeaturedWorks("en", 3),
+  ]);
   return (
     <>
       {/* ═══════ HERO — inset panel, centered serif (Dataplace T1) ═══════ */}
@@ -275,6 +284,50 @@ export default async function HomePage() {
                 className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-orange"
               >
                 Browse all case studies
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+              </Link>
+            </div>
+          </Container>
+        </Section>
+      )}
+
+      {/* ═══════ CLIENT WORK — featured rail into /work ═════════════════ */}
+      {/* Entry point to the portfolio. Gated on length so the homepage is
+          unchanged until real work is published — no empty-state, no
+          placeholder cards (real-only rule). SplitHeader renders an <h2>, so
+          the hero keeps the page's single <h1>. */}
+      {featuredWorks.length > 0 && (
+        <Section size="lg" className="bg-paper">
+          <Container>
+            <SplitHeader
+              eyebrow="Client work"
+              title={
+                <>
+                  The work <span className="text-ink/40">itself.</span>
+                </>
+              }
+              aside={
+                <>
+                  Campaigns, brand systems and content we shipped — with the client named where
+                  they&rsquo;ve agreed, anonymised where NDAs apply.
+                </>
+              }
+            />
+            <ul className="mt-12 grid gap-4 md:grid-cols-3">
+              {featuredWorks.map((w, i) => (
+                <li key={w.id}>
+                  <ScrollReveal delayMs={i * 70}>
+                    <WorkCard work={w} />
+                  </ScrollReveal>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-10 flex justify-end">
+              <Link
+                href="/work"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-orange"
+              >
+                See all client work
                 <ArrowRight className="h-3.5 w-3.5" aria-hidden />
               </Link>
             </div>

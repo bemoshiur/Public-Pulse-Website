@@ -44,6 +44,7 @@ export function ClientForm({ action, initial, submitLabel }: Props) {
             defaultValue={initial?.logoUrl ?? ""}
             className="form-input"
           />
+          <LogoHostHint />
         </Field>
         <Field label="Logo URL — dark surfaces (optional)" id="logoDarkUrl">
           <input
@@ -54,6 +55,7 @@ export function ClientForm({ action, initial, submitLabel }: Props) {
             defaultValue={initial?.logoDarkUrl ?? ""}
             className="form-input"
           />
+          <LogoHostHint />
         </Field>
         <Field label="Website" id="website" className="md:col-span-2">
           <input
@@ -76,6 +78,22 @@ export function ClientForm({ action, initial, submitLabel }: Props) {
         </button>
       </div>
     </form>
+  );
+}
+
+/** Logos render through next/image, whose `remotePatterns` allowlist (see
+ *  next.config.ts) only covers this site's own media bucket
+ *  (*.s3*.amazonaws.com) and CloudFront. A URL pasted from any other host
+ *  doesn't degrade — it hard-errors the page that renders it. Say so at the
+ *  point of entry rather than letting the owner discover it on /work. */
+function LogoHostHint() {
+  return (
+    <p className="mt-1.5 text-xs text-slate-500">
+      Use a relative path (<code>/logos/client.svg</code>) or a URL on our own media bucket
+      (<code>*.s3.amazonaws.com</code>) or CloudFront (<code>*.cloudfront.net</code>). Logos hosted
+      anywhere else — the client&rsquo;s own site, Google Drive, a CDN we don&rsquo;t allowlist —
+      will fail to render. Upload the file to our bucket first.
+    </p>
   );
 }
 

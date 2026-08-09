@@ -5,16 +5,18 @@ import { Plus, Trash2 } from "lucide-react";
 import type { CaseStudyMetric } from "@/db/schema";
 
 // Structured replacement for the raw metricsJson textarea that used to live
-// in CaseStudyForm.tsx (that textarea threw an unstyled server exception on
-// a missing comma). Same contract as RepeatableEditor: rows kept in local UI
+// in CaseStudyForm.tsx (that textarea threw an unstyled server exception on a
+// missing comma). Same contract as RepeatableEditor: rows kept in local UI
 // state, blank/incomplete rows dropped from the serialized JSON but kept in
 // the UI so a half-typed row doesn't vanish while the admin is still typing.
 //
-// Mirrors src/app/manage/work/MetricsEditor.tsx (duplicated, not imported,
-// so this task never touches the /work admin section).
+// SHARED by both admin surfaces (manage/work + manage/case-studies). It used
+// to exist as two copies in those route folders that differed only in the
+// heading string — that string is now the `heading` prop, so behaviour at
+// both call sites is unchanged.
 
 type Row = { label: string; value: string; timeframe: string; unit: string };
-type Props = { name: string; initial?: CaseStudyMetric[] };
+type Props = { name: string; initial?: CaseStudyMetric[]; heading?: string };
 
 const EMPTY_ROW: Row = { label: "", value: "", timeframe: "", unit: "" };
 
@@ -28,7 +30,7 @@ function toRows(initial: CaseStudyMetric[]): Row[] {
   }));
 }
 
-export function MetricsEditor({ name, initial = [] }: Props) {
+export function MetricsEditor({ name, initial = [], heading = "Metrics" }: Props) {
   const [rows, setRows] = useState<Row[]>(() => toRows(initial));
 
   const clean: CaseStudyMetric[] = rows
@@ -46,9 +48,7 @@ export function MetricsEditor({ name, initial = [] }: Props) {
 
   return (
     <div>
-      <span className="mb-2 block text-sm font-semibold text-brand-navy">
-        Metrics callout band (shown on the case study detail page)
-      </span>
+      <span className="mb-2 block text-sm font-semibold text-brand-navy">{heading}</span>
       <input type="hidden" name={name} value={JSON.stringify(clean)} />
       <ul className="space-y-2">
         {rows.map((row, i) => (

@@ -9,6 +9,8 @@ import {
 } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ProgrammaticPage, CalloutList, Hl } from "@/components/seo/ProgrammaticPage";
+import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
 import { LOCATIONS, getLocation } from "@/lib/taxonomies/locations";
 import { getIndustry } from "@/lib/taxonomies/industries";
 import { SERVICES, getService } from "@/lib/services";
@@ -189,9 +191,13 @@ export default async function LocationPage({
           </div>
         </section>
 
+        {/* Proof rail — same markup as the industry rail in
+            src/app/industries/[industry]/page.tsx. Both are ProgrammaticPage
+            children, so both use the Section/Container primitives rather than
+            a hand-rolled <section> + max-w wrapper. */}
         {locationWorks.length > 0 && (
-          <section className="bg-paper py-16 md:py-20">
-            <div className="mx-auto max-w-6xl px-6 md:px-8">
+          <Section size="md" className="bg-paper">
+            <Container>
               <div className="max-w-3xl border-t border-ink/15 pt-8">
                 <p className="text-eyebrow uppercase text-brand-orange">Proof</p>
                 <h2 className="mt-4 text-h2 tracking-tight text-ink">
@@ -205,8 +211,8 @@ export default async function LocationPage({
                   </li>
                 ))}
               </ul>
-            </div>
-          </section>
+            </Container>
+          </Section>
         )}
       </ProgrammaticPage>
     </>

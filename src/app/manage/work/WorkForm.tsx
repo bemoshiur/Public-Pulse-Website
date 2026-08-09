@@ -5,8 +5,8 @@ import { LOCATIONS } from "@/lib/taxonomies/locations";
 import { DISCIPLINES } from "@/lib/taxonomies/disciplines";
 import { RepeatableEditor } from "@/components/admin/RepeatableEditor";
 import { MediaUploader } from "@/components/admin/MediaUploader";
-import { CheckboxGroup } from "./CheckboxGroup";
-import { MetricsEditor } from "./MetricsEditor";
+import { CheckboxGroup } from "@/components/admin/CheckboxGroup";
+import { MetricsEditor } from "@/components/admin/MetricsEditor";
 
 type Props = {
   action: (formData: FormData) => Promise<void>;
@@ -232,7 +232,11 @@ export function WorkForm({ action, initial, clients, submitLabel }: Props) {
         initial={initial?.deliverables}
       />
       <div className="mt-5">
-        <MetricsEditor name="metrics" initial={initial?.metrics} />
+        <MetricsEditor
+          name="metrics"
+          heading="Metrics (the callout band on the work detail page)"
+          initial={initial?.metrics}
+        />
       </div>
 
       {/* ── Media ───────────────────────────────────────────────────── */}
