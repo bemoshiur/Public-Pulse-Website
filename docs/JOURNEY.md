@@ -13,6 +13,49 @@ Entry format:
 
 ---
 
+## 2026-08-09 — STEP 31 / CLIENT WORKS (`/work`) — BUILT, REVIEWED, DEPLOYED + LIVE-VERIFIED
+
+**LIVE at https://publicpulse.com.bd/work.** A dedicated, dynamic, detail-rich client-works portfolio, plus repairs to the sibling `/case-studies` system. Branch `feat/client-works` (18 commits, `2935446..ae73308`), deployed via `AWS_PROFILE=default bash scripts/deploy.sh production`.
+
+Full skills pipeline: brainstorm → [spec](superpowers/specs/2026-08-09-client-works-section-design.md) → [plan](superpowers/plans/2026-08-09-client-works-section.md) (14 tasks, 81 steps) → subagent-driven execution with a spec+quality review after every task, then a whole-branch review, a 13-finding fix wave, and a scoped re-review.
+
+### Why this existed
+A 5-agent audit found `/case-studies` had been live but **permanently empty** — and structurally could not become a portfolio: **no image upload anywhere** in the codebase; **no `images.remotePatterns`**, so a pasted remote URL *hard-errored* `next/image`; one image column, no gallery; `logo_url` written but read by nothing; metrics/FAQ authored as **raw JSON textareas**; free-text taxonomy that silently broke filters; and a card grid behind `Suspense`+`useSearchParams` that produced **zero crawlable detail links**.
+
+### Locked decisions
+Keep both sections under a crisp editorial rule — `/work` = visual portfolio ("are they any good?"), `/case-studies` = metrics-led proof ("does it work?"), cross-linked. Mixed client permissions → **graceful degradation is a feature**: media is optional at every level and a numbers-only work renders deliberately.
+
+### Built
+- **Data:** `clients` + `works` tables (36 cols), `disciplines` catalog, `WorkMedia[]` with required width/height (CLS 0), `case_studies` gains `clientId`/`workSlug`.
+- **Media pipeline:** SST S3 bucket (`…-mediabucket-kbvhnckf`) + `requireSession()`-gated `/api/media/presign` (8 MB, MIME allowlist, 5-min TTL, traversal-safe keys) + `remotePatterns`.
+- **Public:** `/work` index (SSR-visible grid, logo wall) + `/work/[slug]` (media hero, gallery+lightbox, metrics, deliverables, testimonial, cross-links, related). Unknown slug → **308**, never 404.
+- **Admin:** `/manage/work` + `/manage/clients` — real drag-drop upload, structured editors (no JSON textareas), catalog-backed selects.
+- **SEO/AEO:** `creativeWorkSchema`, sitemap, `llms.txt`, site search, nav split (Work / Results), proof rails on services/locations/industries, homepage featured-work rail.
+- **`/case-studies` repaired:** SSR-visible grid, ordering `ASC`, publication predicate unified, cache keys `v3→v4`, 308-on-miss, structured editors, catalog fields, logo rendered.
+
+### Review caught what would have shipped broken
+- **CRITICAL — CSP `connect-src` had no S3 origin.** Bucket CORS was fixed earlier; the CSP half was missed. The browser would have blocked **every** upload `PUT` while the presign endpoint looked healthy. Fixed pre-deploy.
+- **Anonymisation leak** — `/case-studies/[slug]` rendered a client logo + real name in `alt` even for NDA studies. Gated on `clientName === client.name`.
+- `publishedAt` reset on every edit (2 instances) — would corrupt sitemap `lastmod` + ordering.
+- Silent data loss migrating legacy free-text taxonomy → legacy values now surfaced as `⚠ legacy value` options.
+- Stale denormalised client identity (missing `WORKS_TAG`/`CASE_STUDIES_TAG` invalidation).
+- Also fixed in-flight: two bugs in the plan's own sample code (`year` coercion, `publishedAt`), and a wrong `requireSession` import path the plan assumed.
+
+**Anonymisation verified consistent across all five surfaces** that touch work data (index, detail, proof rails, llms.txt, site search) — the cross-cutting check no per-task review could make.
+
+### Live verification (all pass)
+`/work` **200** with `H1=1 / answer-block / JSON-LD / canonical` · `/case-studies` 200 · unknown slugs (`/work/zzz`, `/case-studies/zzz`, `/services/zzz`, `/group`) → **308, zero 404s** · robots+sitemap 200 with `/work` present · CSP `connect-src` includes S3 · presign **401** unauthenticated · bucket provisioned with **CORS(PUT from apex) + public-read** · `/manage/*` 307 (auth). 135-page SSR sweep: only `research`/`book` lack an H1 (correct — redirect stubs).
+
+### Next (user)
+1. **Add the first client work** at `/manage/clients` (create the client) → `/manage/work` (upload, fill, publish). `/work` is intentionally empty until then — no fabricated content.
+2. **First real upload is untested end-to-end** (bucket did not exist until this deploy). Every infrastructure precondition is verified, but exercise it once and report any failure.
+3. Known follow-up: client logos take a pasted URL (must be the media bucket or CloudFront) — a single-image uploader would be friendlier.
+4. Merge `feat/client-works` → `main` so `main` matches live.
+
+**Rollback:** `2935446` (Dataplace restyle tip). Schema changes are additive-only; no destructive DB migration.
+
+---
+
 ## 2026-07-18 — STEP 30 / DATAPLACE RESTYLE — DEPLOYED TO PRODUCTION + LIVE-VERIFIED
 
 **LIVE at https://publicpulse.com.bd.** The entire Dataplace-direction restyle (every public page, STEP 29) is deployed. Deployed from branch `feat/dataplace-restyle` via `AWS_PROFILE=default bash scripts/deploy.sh production` (eventpulse profile still invalid — used `default`, confirmed account `739275468267`). SST `✓ Complete`; the trailing `❌` is the known benign post-check (apex domain attached → SST returns the apex URL, not a CloudFront URL) — deploy exited 0.
