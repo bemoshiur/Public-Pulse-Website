@@ -33,13 +33,26 @@ Trigger: OmniRank v0.4.0 (`~/Documents/Project Archive/ClaudeCode Skill/SEO-AEO-
 - `deploy.sh`: removed the stale "abort if apex" guard (it `exit 1`'d every production deploy since the STEP 7 cutover) and the step that re-seeded a placeholder case study into production.
 
 ### Verified before deploy
-`tsc` clean, `next build` green. Over 133 built pages: one H1, canonical and JSON-LD everywhere; no duplicate titles/descriptions; **0 unresolved speakable selectors** (old code: 18 on prerendered pages); all answers 40-60 words; all titles <=60. Legal pages deliberately have no FAQ (OmniRank exempts them). Not statically checkable: DB-rendered blog posts.
+`tsc` clean, `next build` green. Over 133 built pages: one H1, canonical and JSON-LD everywhere; no duplicate titles/descriptions; **0 unresolved speakable selectors** (old code: 18 on prerendered pages); all answers 40-60 words; all titles <=60. Legal pages deliberately have no FAQ (OmniRank exempts them).
+
+### Deployed + live-verified (`AWS_PROFILE=default bash scripts/deploy.sh production`, exit 0)
+- **OmniRank re-audit of the live site: overall 77 -> 88, seo 92 -> 100, perf 95 -> 100, findings 287 -> 8.** The 8 left were 4 short blog answers (fixed below) and 4 FAQ warnings on /search, /privacy, /terms, /data-deletion (left on purpose: the gate says legal pages shouldn't have FAQs).
+- `/blog/speakable-schema-bangladesh-2026`: timed out at 40s on every attempt before; **200 in 0.6s** now. That confirms the `PostBody` loop was the cause.
+- `/feed.xml` serves 50 items; `/llms.txt`, `/llms-full.txt`, `/facts.json`, IndexNow key file, `/sitemap.xml`, `/robots.txt` all 200; unknown/removed routes still 308 (no 404).
+- IndexNow: hashes taken before/after; **254 of 254 pages had changed** (the AnswerBlock/schema change is site-wide), all submitted, HTTP 200. A second back-to-back snapshot showed 0 differences, so the normaliser is deterministic and this was a real change, not noise. Future deploys will submit only true deltas.
+
+### Second DB pass (after the audit, 16 more writes total counting the first 2)
+Scanned all 166 published posts. 16 Bengali posts are off-band but `/bn/*` 308s and is not in the sitemap, so they were left alone. 14 English posts were 34-39 words; each got ONE appended sentence grounded in its own body (independently verified). I replaced three drafts that would have promoted unsourced statistics into the quoted answer ("30-40% higher completion rates", "4.5+ star average ... within 24 hours", "3-5 minute video"). **0 English published posts are now outside 40-60.** Originals are in the (session-local) scratchpad `blog_originals_backup.json` / `short_originals_backup.json`.
+
+### Known issue found, NOT fixed
+The generated post BODIES contain many unsourced statistics ("see 30-40% higher order volumes", "outpace competitors by 2-3x", "15-25% higher click-through rates"). `quality-gate.ts`'s fabrication regex bank does not catch them. CLAUDE.md/Research-and-Evidence say no invented statistics. Needs a decision: sweep and strip them, or add a numeric-claim rule to the gate (hard-fail a percent/multiplier with no cited source).
 
 ### Next
-- Re-run `omnirank audit https://publicpulse.com.bd` and compare with the 2026-10-03 baseline (aeo 0 / overall 77).
-- Confirm `/blog/speakable-schema-bangladesh-2026` renders; if not, read that post body.
-- OmniRank v0.5.0 (`indexing` + `aeo-onpage`) remains designed but unspecced. Its existing `indexing` config schema keys conflict with the proposed shape (decide: reuse vs widen).
-- Search Console API integration not started (needs a service account added as a delegated owner on `sc-domain:publicpulse.com.bd`).
+- OmniRank v0.5.0 (`indexing` + `aeo-onpage`) remains designed but unspecced. Its existing `indexing` config schema keys conflict with the proposed shape (reuse vs widen).
+- Search Console API integration not started: needs a service account added as a delegated owner on `sc-domain:publicpulse.com.bd` (the site is DNS-verified).
+- Branch `feat/client-works` is deployed but not merged to `main`; nothing was `git push`ed this session.
+
+**Rollback:** `db59ce6` (STEP 31 tip). Code changes only, plus 16 `answer_first` row edits (originals backed up as above).
 
 ---
 
