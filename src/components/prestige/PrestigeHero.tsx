@@ -42,7 +42,7 @@ export function PrestigeHero({
             <div className="pr-reveal d3 mt-8 flex flex-wrap gap-3">
               <Link
                 href={ctaPrimary.href}
-                className="group inline-flex items-center gap-2 rounded-[3px] bg-pr-accent px-[22px] py-[13px] text-[14.5px] font-semibold text-white transition hover:bg-pr-accent-ink"
+                className="group inline-flex items-center gap-2 rounded-[3px] bg-pr-accent px-[22px] py-[13px] text-[14.5px] font-semibold text-cp-gold-ink transition hover:bg-pr-accent-ink"
               >
                 {ctaPrimary.label}
                 <span aria-hidden className="transition-transform group-hover:translate-x-[3px]">→</span>

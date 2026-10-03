@@ -21,9 +21,9 @@ export const runtime = "nodejs";
 // each (title, eyebrow) combo is cached forever after first generation.
 export const dynamic = "force-dynamic";
 
-const INK = "#0A0A0A";
+const INK = "#5C0000"; // crimson base (matches the site palette)
 const PAPER = "#FFFFFF";
-const ORANGE = "#FF5C00";
+const ORANGE = "#FCB400"; // gold accent (kept the legacy const name)
 const PAPER_MUTED = "rgba(255,255,255,0.72)";
 const PAPER_FAINT = "rgba(255,255,255,0.55)";
 
@@ -59,7 +59,7 @@ export async function GET(req: Request) {
             inset: 0,
             display: "flex",
             background:
-              "radial-gradient(40% 50% at 95% 95%, rgba(255,92,0,0.22) 0%, transparent 60%), radial-gradient(35% 45% at 10% 10%, rgba(255,92,0,0.10) 0%, transparent 60%)",
+              "radial-gradient(60% 60% at 92% 4%, rgba(254,37,0,0.60) 0%, transparent 64%), radial-gradient(120% 100% at 36% 30%, #A80000 0%, #8A0000 42%, #5C0000 100%)",
           }}
         />
 

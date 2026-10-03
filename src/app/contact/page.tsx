@@ -64,7 +64,7 @@ const PATHS = [
     tag: "Fastest",
     title: (
       <>
-        WhatsApp <span className="text-ink/45">now</span>
+        WhatsApp <span className="text-ink/65">now</span>
       </>
     ),
     body: "Under 2h reply during business hours. Best for quick questions and to feel out whether we're a fit.",
@@ -79,7 +79,7 @@ const PATHS = [
     tag: "Best fit",
     title: (
       <>
-        Send a <span className="text-ink/45">brief</span>
+        Send a <span className="text-ink/65">brief</span>
       </>
     ),
     body: "Tell us what you're trying to grow, what you've tried, and we'll reply with a structured proposal.",
@@ -94,7 +94,7 @@ const PATHS = [
     tag: "Call us",
     title: (
       <>
-        Just <span className="text-ink/45">call</span>
+        Just <span className="text-ink/65">call</span>
       </>
     ),
     body: "Direct line to the sales team. Best for urgent or sensitive work (election cycles, crisis comms).",
@@ -126,8 +126,8 @@ export default function ContactPage() {
               </div>
               {/* Live status card — the one dark accent in the panel */}
               <div className="lg:col-span-5">
-                <div className="rounded-panel bg-ink p-6 text-paper">
-                  <div className="flex items-center gap-2 text-meta uppercase tracking-wider text-paper/80">
+                <div className="rounded-panel bg-cp-night p-6 text-white">
+                  <div className="flex items-center gap-2 text-meta uppercase tracking-wider text-white/65">
                     <span
                       aria-hidden
                       className="inline-block h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-emerald-400/30"
@@ -135,8 +135,8 @@ export default function ContactPage() {
                     Sales team online
                   </div>
                   <p className="mt-3 text-h3 font-bold leading-tight">Available 09:00 – 21:00 BD</p>
-                  <p className="mt-1 text-sm text-paper/80">
-                    Average WhatsApp reply: <strong className="text-paper">under 2 hours</strong>
+                  <p className="mt-1 text-sm text-white/65">
+                    Average WhatsApp reply: <strong className="text-white">under 2 hours</strong>
                     &nbsp;during business hours.
                   </p>
                   <div className="mt-5 grid grid-cols-3 gap-3 border-t border-white/15 pt-4">
@@ -221,7 +221,7 @@ export default function ContactPage() {
                   <Mail className="h-4 w-4" aria-hidden />
                 </span>
                 <div>
-                  <p className="text-meta uppercase tracking-wider text-ink/55">Email</p>
+                  <p className="text-meta uppercase tracking-wider text-ink/65">Email</p>
                   <p className="break-all text-base font-bold text-ink">{SITE.contact.email}</p>
                 </div>
               </div>
@@ -242,7 +242,7 @@ export default function ContactPage() {
                   <MapPin className="h-4 w-4" aria-hidden />
                 </span>
                 <div>
-                  <p className="text-meta uppercase tracking-wider text-ink/55">Location</p>
+                  <p className="text-meta uppercase tracking-wider text-ink/65">Location</p>
                   <p className="text-base font-bold text-ink">Dhaka, Bangladesh</p>
                 </div>
               </div>
@@ -308,8 +308,8 @@ export default function ContactPage() {
 function Stat({ n, k }: { n: string; k: string }) {
   return (
     <div>
-      <div className="text-xl font-extrabold leading-none text-paper">{n}</div>
-      <div className="mt-1 text-[10px] uppercase tracking-wider text-paper/65">{k}</div>
+      <div className="text-xl font-extrabold leading-none text-white">{n}</div>
+      <div className="mt-1 text-[10px] uppercase tracking-wider text-white/65">{k}</div>
     </div>
   );
 }
@@ -323,7 +323,7 @@ function Promise({
 }) {
   return (
     <li className="flex items-start gap-3">
-      <span className="mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-ink text-paper">
+      <span className="mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-cp-night text-white">
         <Icon className="h-3.5 w-3.5" aria-hidden />
       </span>
       <span className="text-ink/80">{text}</span>

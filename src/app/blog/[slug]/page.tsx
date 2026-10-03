@@ -208,7 +208,7 @@ export default async function BlogPostPage({
 
       <section className="bg-paper">
         <Container className="pt-2">
-          <div className="mx-auto max-w-4xl overflow-hidden rounded-panel border border-ink">
+          <div className="mx-auto max-w-4xl overflow-hidden rounded-panel border border-ink/40">
             <Image
               src={heroImage}
               alt={post.title}
@@ -235,7 +235,7 @@ export default async function BlogPostPage({
               {/* Brand byline + meta — brand-forward, no named individuals */}
               <div className="flex flex-wrap items-center gap-4 border-b border-ink/10 pb-6">
                 <div
-                  className="grid h-12 w-12 place-items-center rounded-full bg-ink text-paper text-sm font-extrabold tracking-tight"
+                  className="grid h-12 w-12 place-items-center rounded-full bg-cp-night text-white text-sm font-extrabold tracking-tight"
                   aria-hidden="true"
                 >
                   PP
@@ -246,9 +246,9 @@ export default async function BlogPostPage({
                       {BRAND_BYLINE.name}
                     </Link>
                   </p>
-                  <p className="text-xs text-ink/55">{BRAND_BYLINE.role}</p>
+                  <p className="text-xs text-ink/65">{BRAND_BYLINE.role}</p>
                 </div>
-                <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-wider text-ink/55">
+                <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-wider text-ink/65">
                   {publishedDate && (
                     <span className="inline-flex items-center gap-1">
                       <CalendarDays className="h-3.5 w-3.5" aria-hidden />
@@ -304,7 +304,7 @@ export default async function BlogPostPage({
               {/* Source references — for AEO/GEO trust signal */}
               {sourceRefs.length > 0 && (
                 <aside className="mt-10 rounded-panel border border-ink/15 bg-paper-tint p-6">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/55">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/65">
                     Sources & further reading
                   </p>
                   <ul className="mt-3 space-y-2 text-sm">
@@ -368,7 +368,7 @@ export default async function BlogPostPage({
               {/* Keep exploring — internal backlinks to grounded pages */}
               {backlinks.length > 0 && (
                 <section className="mt-14 rounded-panel border border-ink/15 bg-paper-tint p-6">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/55">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/65">
                     Keep exploring
                   </p>
                   <ul className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -379,7 +379,7 @@ export default async function BlogPostPage({
                           className="group flex items-center justify-between gap-3 rounded-panel bg-paper-alt px-4 py-3 transition hover:bg-paper-tint"
                         >
                           <span>
-                            <span className="block text-[10px] font-semibold uppercase tracking-wider text-ink/45">
+                            <span className="block text-[10px] font-semibold uppercase tracking-wider text-ink/65">
                               {b.eyebrow}
                             </span>
                             <span className="mt-0.5 block text-sm font-semibold text-ink group-hover:text-brand-orange">
@@ -387,7 +387,7 @@ export default async function BlogPostPage({
                             </span>
                           </span>
                           <ArrowUpRight
-                            className="h-4 w-4 shrink-0 text-ink/40 transition group-hover:text-brand-orange group-hover:translate-x-0.5"
+                            className="h-4 w-4 shrink-0 text-ink/65 transition group-hover:text-brand-orange group-hover:translate-x-0.5"
                             aria-hidden
                           />
                         </Link>
@@ -406,7 +406,7 @@ export default async function BlogPostPage({
                 </div>
                 {related.length > 0 && (
                   <div className="rounded-panel border border-ink/15 bg-paper p-5">
-                    <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/55">
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/65">
                       Related reads
                     </p>
                     <ul className="mt-4 space-y-4">
@@ -420,7 +420,7 @@ export default async function BlogPostPage({
                               {r.title}
                             </p>
                             <p className="mt-1 line-clamp-2 text-xs text-ink/60">{r.excerpt}</p>
-                            <p className="mt-2 text-[10px] uppercase tracking-wider text-ink/45">
+                            <p className="mt-2 text-[10px] uppercase tracking-wider text-ink/65">
                               {r.readingTime} min · {r.categorySlug}
                             </p>
                           </Link>
@@ -431,15 +431,15 @@ export default async function BlogPostPage({
                 )}
 
                 {/* CTA card */}
-                <div className="overflow-hidden rounded-panel border border-ink/10 bg-ink p-6 text-paper">
+                <div className="overflow-hidden rounded-panel border border-ink/10 bg-cp-night p-6 text-white">
                   <span aria-hidden className="mb-4 inline-block h-[3px] w-6 bg-brand-orange" />
-                  <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-paper/70">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/65">
                     Need help executing?
                   </p>
                   <p className="mt-3 text-h3 font-bold leading-tight">
                     Talk to the team.
                   </p>
-                  <p className="mt-1 text-sm text-paper/80">
+                  <p className="mt-1 text-sm text-white/65">
                     Free 30-minute consultation · Reply under 2 hours on WhatsApp.
                   </p>
                   <div className="mt-5 flex flex-wrap gap-2">
@@ -454,7 +454,7 @@ export default async function BlogPostPage({
                       href={SITE.contact.whatsapp}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-full border border-paper/40 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-paper hover:bg-paper/10"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-white/40 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white hover:bg-paper/10"
                     >
                       <MessageCircleMore className="h-3 w-3" aria-hidden />
                       WhatsApp
@@ -467,7 +467,7 @@ export default async function BlogPostPage({
         </Container>
       </section>
 
-      <section className="bg-ink py-24 text-paper md:py-28">
+      <section className="bg-cp-night py-24 text-white md:py-28">
         <Container>
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-display leading-[0.98] tracking-tight">

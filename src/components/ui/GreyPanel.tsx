@@ -6,9 +6,9 @@ type Tone = "alt" | "tint" | "ink";
 type Radius = "md" | "lg";
 
 const TONE: Record<Tone, string> = {
-  alt: "bg-paper-alt", // #F6F6F6 — the workhorse inset grey
-  tint: "bg-paper-tint", // #F3F4F5 — slightly cooler
-  ink: "bg-ink text-paper", // the single dark panel (hero-panel / closing CTA)
+  alt: "bg-paper-alt border border-white/10", // raised maroon surface
+  tint: "cp-hero border border-cp-gold/30 text-white", // hero panels: crimson radial gradient, hot upper-right core
+  ink: "cp-hero cp-hero--flip border border-cp-gold/50 text-white", // closing CTAs: mirrored glow, stronger gold hairline
 };
 
 const RADIUS: Record<Radius, string> = {

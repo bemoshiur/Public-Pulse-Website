@@ -71,7 +71,7 @@ export default function ServicesIndexPage() {
                   <ScrollReveal delayMs={Math.min(i, 5) * 60}>
                     <Link href={`/services/${s.slug}`} className="card group flex h-full flex-col">
                       <div className="flex items-start justify-between gap-3">
-                        <span className="font-mono text-meta font-semibold text-ink/40">
+                        <span className="font-mono text-meta font-semibold text-ink/65">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <span

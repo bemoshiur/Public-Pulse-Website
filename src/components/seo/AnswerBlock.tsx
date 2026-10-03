@@ -28,7 +28,7 @@ export function AnswerBlock({ question, children }: AnswerBlockProps) {
         </h2>
       ) : null}
       <div
-        className="answer-block text-[17px] leading-relaxed text-slate-800"
+        className="answer-block text-[17px] leading-relaxed text-ink-soft"
         data-speakable=""
       >
         {children}

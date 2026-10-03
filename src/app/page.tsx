@@ -122,7 +122,7 @@ export default async function HomePage() {
             title={
               <>
                 Nine sharp services.{" "}
-                <span className="text-ink/40">One accountable team.</span>
+                <span className="text-ink/65">One accountable team.</span>
               </>
             }
             aside={
@@ -143,7 +143,7 @@ export default async function HomePage() {
                       className="group flex h-full flex-col rounded-panel border border-transparent bg-paper-alt p-7 transition duration-300 hover:-translate-y-1 hover:border-ink/10 hover:bg-paper-tint"
                     >
                       <div className="flex items-start justify-between gap-3">
-                        <span className="font-mono text-meta font-semibold text-ink/40">
+                        <span className="font-mono text-meta font-semibold text-ink/65">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <span
@@ -183,7 +183,7 @@ export default async function HomePage() {
                       value={s.number}
                       className="block font-pr-serif text-[clamp(2.75rem,5vw,4.5rem)] leading-none tracking-tight text-ink"
                     />
-                    <div className="mt-3 text-meta uppercase text-ink/55">{s.label}</div>
+                    <div className="mt-3 text-meta uppercase text-ink/65">{s.label}</div>
                   </ScrollReveal>
                 </li>
               ))}
@@ -199,7 +199,7 @@ export default async function HomePage() {
             eyebrow="How we run"
             title={
               <>
-                Four steps. <span className="text-ink/40">No fog.</span>
+                Four steps. <span className="text-ink/65">No fog.</span>
               </>
             }
             aside={<>Same framework for a 30-day political PR push or a 12-month brand build.</>}
@@ -230,7 +230,7 @@ export default async function HomePage() {
               eyebrow="Selected results"
               title={
                 <>
-                  Receipts. <span className="text-ink/40">Not vibes.</span>
+                  Receipts. <span className="text-ink/65">Not vibes.</span>
                 </>
               }
               aside={
@@ -247,14 +247,14 @@ export default async function HomePage() {
                     <article className="group flex h-full flex-col rounded-panel bg-paper-alt p-7 transition duration-300 hover:-translate-y-1 hover:bg-paper-tint">
                       <div className="flex items-center justify-between">
                         <p className="chip chip-light">{c.industry}</p>
-                        <span className="font-mono text-meta font-semibold text-ink/35">
+                        <span className="font-mono text-meta font-semibold text-ink/65">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                       </div>
                       <p className="mt-7 font-pr-serif text-[clamp(2.5rem,3.5vw+1rem,4rem)] leading-none tracking-tight text-ink">
                         {c.metric}
                       </p>
-                      <p className="mt-2 text-meta uppercase tracking-wider text-ink/55">
+                      <p className="mt-2 text-meta uppercase tracking-wider text-ink/65">
                         Over {c.windowLabel}
                       </p>
                       <p className="mt-6 flex-1 text-sm leading-relaxed text-ink/70">{c.summary}</p>
@@ -276,7 +276,7 @@ export default async function HomePage() {
               ))}
             </ul>
             <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
-              <p className="text-meta text-ink/55">
+              <p className="text-meta text-ink/65">
                 Numbers from active client engagements; specific accounts named with permission.
               </p>
               <Link
@@ -303,7 +303,7 @@ export default async function HomePage() {
               eyebrow="Client work"
               title={
                 <>
-                  The work <span className="text-ink/40">itself.</span>
+                  The work <span className="text-ink/65">itself.</span>
                 </>
               }
               aside={
@@ -350,47 +350,47 @@ export default async function HomePage() {
                   </blockquote>
                   <figcaption className="flex items-center gap-3">
                     <span
-                      className="grid h-12 w-12 flex-shrink-0 place-items-center rounded-full bg-brand-orange text-lg font-extrabold text-paper"
+                      className="grid h-12 w-12 flex-shrink-0 place-items-center rounded-full bg-brand-orange text-lg font-extrabold text-cp-gold-ink"
                       aria-hidden
                     >
                       H
                     </span>
                     <span className="leading-tight">
                       <span className="block text-sm font-bold text-ink">Hospitality brand</span>
-                      <span className="block text-[11px] uppercase tracking-wider text-ink/55">
+                      <span className="block text-[11px] uppercase tracking-wider text-ink/65">
                         Marketing director · Cox&rsquo;s Bazar
                       </span>
                     </span>
                   </figcaption>
                 </figure>
                 {/* Stat column */}
-                <div className="flex flex-col justify-between gap-6 rounded-[20px] bg-ink p-8 text-paper md:col-span-4 md:p-10">
+                <div className="flex flex-col justify-between gap-6 rounded-[20px] bg-cp-night p-8 text-white md:col-span-4 md:p-10">
                   <span aria-hidden className="inline-block h-[3px] w-6 bg-brand-orange" />
                   <ul className="space-y-6">
                     <li>
-                      <div className="font-pr-serif text-[clamp(2rem,2.5vw+0.5rem,2.75rem)] leading-none text-paper">
+                      <div className="font-pr-serif text-[clamp(2rem,2.5vw+0.5rem,2.75rem)] leading-none text-white">
                         3 → 1
                       </div>
-                      <div className="mt-2 text-meta uppercase text-paper/55">
+                      <div className="mt-2 text-meta uppercase text-white/65">
                         Vendor consolidation
                       </div>
                     </li>
                     <li>
-                      <div className="font-pr-serif text-[clamp(2rem,2.5vw+0.5rem,2.75rem)] leading-none text-paper">
+                      <div className="font-pr-serif text-[clamp(2rem,2.5vw+0.5rem,2.75rem)] leading-none text-white">
                         2×
                       </div>
-                      <div className="mt-2 text-meta uppercase text-paper/55">Decision speed</div>
+                      <div className="mt-2 text-meta uppercase text-white/65">Decision speed</div>
                     </li>
                     <li>
-                      <div className="font-pr-serif text-[clamp(2rem,2.5vw+0.5rem,2.75rem)] leading-none text-paper">
+                      <div className="font-pr-serif text-[clamp(2rem,2.5vw+0.5rem,2.75rem)] leading-none text-white">
                         1
                       </div>
-                      <div className="mt-2 text-meta uppercase text-paper/55">
+                      <div className="mt-2 text-meta uppercase text-white/65">
                         Weekly report, one team
                       </div>
                     </li>
                   </ul>
-                  <p className="text-sm text-paper/70">
+                  <p className="text-sm text-white/65">
                     Replaced three agencies with Public Pulse in Q3 2025.
                   </p>
                 </div>
@@ -411,7 +411,7 @@ export default async function HomePage() {
       <Section size="lg" className="bg-paper">
         <Container>
           <GreyPanel tone="ink" radius="lg" className="px-6 py-20 text-center md:px-16 md:py-28">
-            <h2 className="mx-auto max-w-4xl text-display leading-[0.98] tracking-tight text-paper">
+            <h2 className="mx-auto max-w-4xl text-display leading-[0.98] tracking-tight text-white">
               Got a campaign that <span className="text-brand-orange">needs to land</span>?
             </h2>
             <p className="mx-auto mt-7 max-w-2xl text-lead text-white/70">

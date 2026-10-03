@@ -99,7 +99,7 @@ export default function PricingPage() {
               <div key={svc.serviceSlug} id={svc.serviceSlug} className="scroll-mt-24">
                 <div className="flex flex-wrap items-end justify-between gap-4">
                   <div>
-                    <p className="text-eyebrow uppercase text-ink/55">Service</p>
+                    <p className="text-eyebrow uppercase text-ink/65">Service</p>
                     <h2 className="mt-2 text-h2 tracking-tight text-ink">{svc.displayName}</h2>
                   </div>
                   <Link
@@ -128,13 +128,13 @@ export default function PricingPage() {
                         <p className="text-eyebrow uppercase tracking-wider text-brand-orange">
                           {tier.name}
                         </p>
-                        <div className="mt-3 flex items-baseline gap-2">
+                        <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
                           {tier.monthly && (
                             <>
-                              <span className="font-pr-serif text-display-number font-medium tracking-tight text-ink">
+                              <span className="font-pr-serif text-[clamp(2rem,3.2vw,3.1rem)] font-medium leading-none tracking-tight text-ink">
                                 {tier.monthly}
                               </span>
-                              <span className="text-meta text-ink/55">/ month</span>
+                              <span className="text-meta text-ink/65">/ month</span>
                             </>
                           )}
                           {!tier.monthly && tier.setup && (
@@ -142,7 +142,7 @@ export default function PricingPage() {
                               <span className="font-pr-serif text-h2 tracking-tight text-ink">
                                 {tier.setup}
                               </span>
-                              <span className="text-meta text-ink/55">setup</span>
+                              <span className="text-meta text-ink/65">setup</span>
                             </>
                           )}
                           {!tier.monthly && !tier.setup && tier.oneTime && (
@@ -180,7 +180,7 @@ export default function PricingPage() {
                 </div>
 
                 {svc.notes && svc.notes.length > 0 && (
-                  <div className="mt-4 flex items-start gap-2 text-meta text-ink/55">
+                  <div className="mt-4 flex items-start gap-2 text-meta text-ink/65">
                     <Info className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" aria-hidden />
                     <div>{svc.notes.join(" · ")}</div>
                   </div>
@@ -226,7 +226,7 @@ export default function PricingPage() {
           <GreyPanel tone="ink" radius="lg" className="px-6 py-14 md:px-12 md:py-16">
             <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
               <div className="max-w-2xl">
-                <h2 className="text-h2 tracking-tight text-paper">Got a budget in mind?</h2>
+                <h2 className="text-h2 tracking-tight text-white">Got a budget in mind?</h2>
                 <p className="mt-3 text-white/70">
                   Send us your range + goal and we&rsquo;ll come back with a scope that fits. Reply
                   within 24 hours, Sat–Thu.

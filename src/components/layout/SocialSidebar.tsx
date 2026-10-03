@@ -60,7 +60,7 @@ export function SocialSidebar() {
           rel="noopener noreferrer"
           target="_blank"
           aria-label={l.label}
-          className="grid h-10 w-10 place-items-center rounded-card bg-paper text-ink shadow-card transition hover:bg-ink hover:text-paper"
+          className="grid h-10 w-10 place-items-center rounded-card bg-paper text-ink shadow-card transition hover:bg-brand-orange hover:text-cp-gold-ink"
         >
           {l.icon}
         </a>

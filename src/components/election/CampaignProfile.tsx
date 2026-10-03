@@ -58,11 +58,12 @@ export function CampaignProfile({ variant = "full" }: { variant?: "full" | "band
         <div className="grid items-center gap-8 md:grid-cols-12">
           <div className="md:col-span-3">
             <Image
-              src="/election/profile/page-01.webp"
+              src="/campaign-profile/page-01.webp"
               alt={PAGE_ALTS[0]}
               width={W}
               height={H}
               sizes="(min-width: 768px) 220px, 60vw"
+              unoptimized
               className="mx-auto w-48 rounded-card border border-white/20 shadow-card md:w-full"
             />
           </div>
@@ -135,19 +136,20 @@ export function CampaignProfile({ variant = "full" }: { variant?: "full" | "band
           return (
             <li key={n}>
               <a
-                href={`/election/profile/page-${n}.webp`}
+                href={`/campaign-profile/page-${n}.webp`}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Open page ${i + 1} of ${PROFILE_PAGES} full size`}
                 className="block overflow-hidden rounded-card border border-cp-line/80 bg-black/30 shadow-card transition hover:border-cp-gold"
               >
                 <Image
-                  src={`/election/profile/page-${n}.webp`}
+                  src={`/campaign-profile/page-${n}.webp`}
                   alt={alt}
                   width={W}
                   height={H}
                   sizes="(min-width: 768px) 330px, 72vw"
                   loading="lazy"
+                  unoptimized
                   className="h-auto w-full"
                 />
               </a>

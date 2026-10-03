@@ -6,7 +6,7 @@ import { CaptureForm } from "@/components/lead-capture";
 
 export function Footer() {
   return (
-    <footer className="bg-ink text-paper">
+    <footer className="bg-cp-night text-white">
       {/* ─── Mega CTA strip ──────────────────────────────────────────── */}
       <div className="border-b border-white/10">
         <div className="max-w-container mx-auto flex flex-col gap-8 px-5 py-16 md:flex-row md:items-end md:justify-between md:px-8 md:py-24">
@@ -27,7 +27,7 @@ export function Footer() {
       <div className="max-w-container mx-auto grid grid-cols-2 gap-10 px-5 py-14 md:grid-cols-6 md:px-8">
         <div className="col-span-2 md:col-span-2">
           <Link href="/" className="flex items-baseline gap-1" aria-label="Public Pulse Agency home">
-            <span className="text-[22px] font-extrabold tracking-tight text-paper">Public</span>
+            <span className="text-[22px] font-extrabold tracking-tight text-white">Public</span>
             <span className="text-[22px] font-extrabold tracking-tight text-brand-orange">Pulse</span>
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">{SITE.description}</p>
@@ -56,7 +56,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/45">Services</h3>
+          <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/65">Services</h3>
           <ul className="mt-4 space-y-2.5 text-sm">
             {SERVICES.slice(0, 5).map((s) => (
               <li key={s.slug}>
@@ -77,7 +77,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/45">Studio</h3>
+          <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/65">Studio</h3>
           <ul className="mt-4 space-y-2.5 text-sm">
             <li><Link href="/about" className="text-white/80 hover:text-white">About</Link></li>
             <li><Link href="/work" className="text-white/80 hover:text-white">Work</Link></li>
@@ -90,7 +90,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/45">Resources</h3>
+          <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/65">Resources</h3>
           <ul className="mt-4 space-y-2.5 text-sm">
             <li><Link href="/election" className="text-white/80 hover:text-white">Election readiness</Link></li>
             <li><Link href="/guides" className="text-white/80 hover:text-white">Guides</Link></li>
@@ -103,7 +103,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/45">Social</h3>
+          <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/65">Social</h3>
           <ul className="mt-4 space-y-2.5 text-sm">
             <li>
               <a href={SITE.social.facebook} rel="noopener noreferrer" target="_blank" className="text-white/80 hover:text-white">
@@ -143,7 +143,7 @@ export function Footer() {
 
       {/* ─── Legal row ────────────────────────────────────────────────── */}
       <div className="border-t border-white/10">
-        <div className="max-w-container mx-auto flex flex-col gap-3 px-5 py-5 text-xs text-white/55 md:flex-row md:items-center md:justify-between md:px-8">
+        <div className="max-w-container mx-auto flex flex-col gap-3 px-5 py-5 text-xs text-white/65 md:flex-row md:items-center md:justify-between md:px-8">
           <nav aria-label="Legal" className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <Link href="/privacy" className="text-white/70 hover:text-white">
               Privacy Policy
@@ -159,7 +159,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="max-w-container mx-auto flex flex-col gap-2 px-5 py-6 font-mono text-xs tracking-tight text-white/55 md:flex-row md:items-center md:justify-between md:px-8">
+        <div className="max-w-container mx-auto flex flex-col gap-2 px-5 py-6 font-mono text-xs tracking-tight text-white/65 md:flex-row md:items-center md:justify-between md:px-8">
           <div>© {new Date().getFullYear()} {SITE.name}. Dhaka, Bangladesh.</div>
           <div>BIN: {SITE.contact.legal.bin} · Trade License: {SITE.contact.legal.tradeLicense}</div>
         </div>
@@ -175,9 +175,9 @@ export function Footer() {
         className="select-none overflow-hidden border-t border-white/10 px-4 pt-8 pb-2 md:pt-12 md:pb-4 md:px-8"
       >
         <div className="max-w-container mx-auto">
-          <div className="whitespace-nowrap font-pr-serif font-semibold leading-[0.9] tracking-[-0.02em] text-paper [font-size:clamp(2.5rem,11vw,9.5rem)]">
+          <div className="whitespace-nowrap font-pr-serif font-semibold leading-[0.9] tracking-[-0.02em] text-white [font-size:clamp(2.5rem,11vw,9.5rem)]">
             Public&nbsp;<span className="text-brand-orange">Pulse</span>
-            <sup className="align-top text-[0.3em] tracking-normal text-paper/55">®</sup>
+            <sup className="align-top text-[0.3em] tracking-normal text-white/65">®</sup>
           </div>
         </div>
       </div>

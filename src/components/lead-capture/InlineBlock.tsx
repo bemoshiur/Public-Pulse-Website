@@ -22,7 +22,7 @@ export function InlineBlock({
   const t = getCopy(context, locale);
   const dark = variant === "dark";
   const surface = dark
-    ? "bg-ink text-paper"
+    ? "bg-cp-night text-white"
     : "bg-paper-alt text-ink";
   const sub = dark ? "text-white/75" : "text-ink/70";
 
@@ -34,11 +34,11 @@ export function InlineBlock({
       {/* Red accent stripe — brand motif */}
       <span
         aria-hidden
-        className="absolute left-0 top-8 h-[3px] w-16 bg-brand-red"
+        className="absolute left-0 top-8 h-[3px] w-16 bg-brand-orange"
       />
       <div className={`mx-auto max-w-2xl ${align === "center" ? "text-center" : ""}`}>
         {t.eyebrow && (
-          <p className={`text-eyebrow ${dark ? "text-brand-red" : "text-brand-red"}`}>
+          <p className={`text-eyebrow ${dark ? "text-brand-orange" : "text-brand-orange"}`}>
             {t.eyebrow}
           </p>
         )}

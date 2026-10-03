@@ -28,14 +28,14 @@ export function WorkCard({ work }: { work: WorkWithClient }) {
               {headlineMetric.value}
             </p>
           )}
-          <p className="mt-2 text-meta uppercase tracking-wider text-ink/55">
+          <p className="mt-2 text-meta uppercase tracking-wider text-ink/65">
             {headlineMetric?.label ?? work.windowLabel ?? "Case"}
           </p>
         </div>
       )}
       <div className="flex flex-1 flex-col p-6">
         {clientLabel && (
-          <p className="text-meta uppercase tracking-wider text-ink/55">{clientLabel}</p>
+          <p className="text-meta uppercase tracking-wider text-ink/65">{clientLabel}</p>
         )}
         <h3 className="mt-2 text-h3 font-bold leading-tight text-ink">{work.title}</h3>
         <p className="mt-2 line-clamp-2 flex-1 text-sm leading-relaxed text-ink/70">{work.summary}</p>

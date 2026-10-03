@@ -99,7 +99,7 @@ export default async function ComparePage({
             <div className="mx-auto max-w-4xl overflow-hidden rounded-panel border border-ink/12">
               <table className="w-full border-collapse text-left text-sm">
                 <thead>
-                  <tr className="bg-ink text-paper">
+                  <tr className="bg-cp-night text-white">
                     <th className="p-4 font-semibold">Dimension</th>
                     <th className="p-4 font-semibold">{c.leftLabel}</th>
                     <th className="p-4 font-semibold">{c.rightLabel}</th>

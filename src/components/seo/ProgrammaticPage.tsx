@@ -135,7 +135,7 @@ export function ProgrammaticPage(props: Props) {
       <Section size="lg" className="bg-paper">
         <Container>
           <GreyPanel tone="ink" radius="lg" className="px-6 py-20 text-center md:px-16 md:py-24">
-            <h2 className="mx-auto max-w-4xl text-display leading-[0.98] tracking-tight text-paper">
+            <h2 className="mx-auto max-w-4xl text-display leading-[0.98] tracking-tight text-white">
               {ctaTitle}
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lead text-white/70">{ctaSub}</p>

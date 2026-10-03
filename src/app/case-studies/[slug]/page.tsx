@@ -187,7 +187,7 @@ export default async function CaseStudyDetailPage({
             <div className="md:col-span-7">
               <span className="chip chip-orange">{study.industry}</span>
               {study.location && (
-                <span className="ml-2 inline-flex items-center rounded-full border border-ink/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-ink/55">
+                <span className="ml-2 inline-flex items-center rounded-full border border-ink/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-ink/65">
                   {study.location}
                 </span>
               )}
@@ -195,7 +195,7 @@ export default async function CaseStudyDetailPage({
                 {study.title}
               </h1>
               {study.clientName && (
-                <p className="mt-3 text-sm font-semibold uppercase tracking-wider text-ink/55">
+                <p className="mt-3 text-sm font-semibold uppercase tracking-wider text-ink/65">
                   {study.clientName}
                 </p>
               )}
@@ -229,7 +229,7 @@ export default async function CaseStudyDetailPage({
               id="case-study"
               className="rounded-panel border border-ink/10 bg-paper-tint p-8 md:col-span-5"
             >
-              <p className="text-eyebrow text-brand-red">Headline outcome</p>
+              <p className="text-eyebrow text-brand-orange">Headline outcome</p>
               <div className="mt-3 text-[clamp(2.6rem,4vw+1rem,4.5rem)] font-extrabold leading-[0.95] tracking-tight text-ink">
                 {heroParsed.num !== undefined ? (
                   <CountUp value={`${heroParsed.prefix}${heroParsed.num}${heroParsed.suffix}`} duration={1500} />
@@ -237,10 +237,10 @@ export default async function CaseStudyDetailPage({
                   study.metric
                 )}
               </div>
-              <p className="mt-2 text-meta uppercase text-ink/55">{study.windowLabel}</p>
+              <p className="mt-2 text-meta uppercase text-ink/65">{study.windowLabel}</p>
               {services.length > 0 && (
                 <div className="mt-6 border-t border-ink/10 pt-5">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/55">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/65">
                     Services delivered
                   </p>
                   <div className="mt-2 flex flex-wrap gap-1.5">
@@ -281,7 +281,7 @@ export default async function CaseStudyDetailPage({
 
       {/* ─── Metric callout band ──────────────────────────────────────── */}
       {metrics.length > 0 && (
-        <section className="bg-ink py-12 text-paper md:py-16">
+        <section className="bg-cp-night py-12 text-white md:py-16">
           <Container>
             <ul className={`grid gap-6 ${metrics.length >= 4 ? "md:grid-cols-3 lg:grid-cols-6" : `md:grid-cols-${metrics.length}`}`}>
               {metrics.map((m, i) => {
@@ -297,7 +297,7 @@ export default async function CaseStudyDetailPage({
                     </div>
                     <div className="mt-2 text-eyebrow text-white/65">{m.label}</div>
                     {m.timeframe && (
-                      <div className="mt-1 text-[11px] text-white/45">{m.timeframe}</div>
+                      <div className="mt-1 text-[11px] text-white/65">{m.timeframe}</div>
                     )}
                   </li>
                 );
@@ -318,7 +318,7 @@ export default async function CaseStudyDetailPage({
             ].map((b) =>
               b.body ? (
                 <div key={b.eyebrow}>
-                  <p className="text-eyebrow text-brand-red">{b.eyebrow}</p>
+                  <p className="text-eyebrow text-brand-orange">{b.eyebrow}</p>
                   <p className="mt-3 text-base leading-relaxed text-ink/75 whitespace-pre-line">
                     {b.body}
                   </p>
@@ -339,11 +339,11 @@ export default async function CaseStudyDetailPage({
         <section className="bg-paper py-16 md:py-20">
           <Container>
             <figure className="mx-auto max-w-3xl">
-              <Quote className="h-8 w-8 text-brand-red" aria-hidden />
+              <Quote className="h-8 w-8 text-brand-orange" aria-hidden />
               <blockquote className="mt-4 text-h2 font-bold leading-[1.15] tracking-tight text-ink">
                 &ldquo;{study.testimonialQuote}&rdquo;
               </blockquote>
-              <figcaption className="mt-5 text-sm font-semibold uppercase tracking-wider text-ink/55">
+              <figcaption className="mt-5 text-sm font-semibold uppercase tracking-wider text-ink/65">
                 — {study.testimonialAttribution}
               </figcaption>
             </figure>
@@ -356,7 +356,7 @@ export default async function CaseStudyDetailPage({
         <section className="bg-paper-alt py-16 md:py-20">
           <Container>
             <div className="mx-auto max-w-3xl">
-              <p className="text-eyebrow text-brand-red">FAQ</p>
+              <p className="text-eyebrow text-brand-orange">FAQ</p>
               <h2 className="mt-3 text-h2 tracking-tight text-ink">
                 Common questions about this engagement.
               </h2>
@@ -390,7 +390,7 @@ export default async function CaseStudyDetailPage({
           <Container>
             <div className="flex items-end justify-between gap-6">
               <div>
-                <p className="text-eyebrow text-brand-red">More in {study.industry}</p>
+                <p className="text-eyebrow text-brand-orange">More in {study.industry}</p>
                 <h2 className="mt-3 text-h2 tracking-tight text-ink">
                   Related work.
                 </h2>
@@ -410,7 +410,7 @@ export default async function CaseStudyDetailPage({
                     <div className="mt-5 text-[clamp(1.6rem,2.5vw+0.5rem,2.4rem)] font-extrabold leading-[0.95] tracking-tight text-ink">
                       {r.metric}
                     </div>
-                    <p className="mt-1 text-eyebrow text-ink/55">{r.windowLabel}</p>
+                    <p className="mt-1 text-eyebrow text-ink/65">{r.windowLabel}</p>
                     <h3 className="mt-4 text-h3 font-bold text-ink line-clamp-3">{r.title}</h3>
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-ink/70 line-clamp-2">
                       {r.summary}

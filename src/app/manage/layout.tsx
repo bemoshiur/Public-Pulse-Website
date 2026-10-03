@@ -44,7 +44,7 @@ export default async function ManageLayout({
   }
 
   return (
-    <div className="min-h-screen bg-surface-alt">
+    <div className="theme-admin min-h-screen bg-surface-alt">
       {session && (
         <header className="border-b border-slate-200 bg-white">
           <div className="max-w-container mx-auto flex h-16 items-center justify-between px-6">

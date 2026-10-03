@@ -58,13 +58,13 @@ export function StickyBar({ locale = "en", delayMs = 4000 }: { locale?: Locale; 
       aria-label="Newsletter signup"
       className="fixed inset-x-0 bottom-0 z-40 hidden md:block"
     >
-      <div className="border-t border-ink/10 bg-ink text-paper shadow-2xl">
+      <div className="border-t border-ink/10 bg-cp-night text-white shadow-2xl">
         <div className="max-w-container mx-auto flex items-center gap-6 px-6 py-3">
           <div className="flex-1 min-w-0">
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-orange">
               {t.eyebrow}
             </p>
-            <p className="mt-0.5 truncate text-[15px] font-semibold text-paper">
+            <p className="mt-0.5 truncate text-[15px] font-semibold text-white">
               {t.title}
             </p>
           </div>

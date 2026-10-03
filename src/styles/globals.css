@@ -3,9 +3,121 @@
 @tailwind utilities;
 
 :root {
-  /* Dataplace-direction tokens (restyle Phase 0). Kept in sync with the
-     tailwind.config.ts color scale. White page, warm-grey panels, vivid
-     orange accent. Body ink #212833, heading ink near-black. */
+  /* Crimson / gold system (site-wide) — sampled from the Canva "Public Pulse
+     Profile | Political PR" brochure. Kept in sync with tailwind.config.ts.
+     Surfaces are deep maroon, text is white, the single accent is gold. */
+  --ink: #ffffff;
+  --ink-mute: #e2bfbf;
+  --body-ink: #f4e4e4;
+  --paper: #520000;
+  --paper-alt: #680000;
+  --paper-tint: #470000;
+  --panel: #680000;
+  --hairline: rgba(255, 255, 255, 0.14);
+  --card-border: rgba(255, 255, 255, 0.14);
+  --graphite: #2b0000;
+  --night: #2b0000;
+  --gold-ink: #4a0000;
+  --brand-orange: #fcb400;
+  --brand-orange-deep: #e8a200;
+  --brand-orange-soft: #ffc933;
+}
+
+
+/* ─── Variable-driven palette ─────────────────────────────────────────────
+   Tailwind colour tokens resolve through these channels, so a subtree can be
+   re-themed. :root = the site-wide crimson/gold system. .theme-admin restores
+   the previous light palette for /manage (an auth-gated tool that cannot be
+   visually regression-tested here, so it is deliberately left unchanged). */
+:root {
+  --c-ink: 255 255 255;
+  --c-ink-soft: 244 228 228;
+  --c-ink-mute: 226 191 191;
+  --c-paper: 82 0 0;
+  --c-paper-alt: 104 0 0;
+  --c-paper-tint: 71 0 0;
+  --c-graphite: 43 0 0;
+  --c-brand-orange: 252 180 0;
+  --c-brand-orange-soft: 255 201 51;
+  --c-brand-orange-deep: 232 162 0;
+  --c-pr-paper: 82 0 0;
+  --c-pr-surface: 104 0 0;
+  --c-pr-raise: 104 0 0;
+  --c-pr-ink: 255 255 255;
+  --c-pr-ink-soft: 244 228 228;
+  --c-pr-muted: 226 191 191;
+  --c-pr-faint: 208 163 163;
+  --c-pr-hairline: 138 42 42;
+  --c-pr-accent: 252 180 0;
+  --c-pr-accent-ink: 255 201 51;
+  --c-pr-accent-wash: 122 26 0;
+  --c-pr-briefing: 43 0 0;
+  --c-pr-briefing-ink: 244 228 228;
+  --c-pr-briefing-muted: 208 163 163;
+  --c-pr-briefing-line: 90 20 20;
+  --c-brand-navy: 43 0 0;
+  --c-brand-navy-soft: 71 0 0;
+  --c-brand-teal: 252 180 0;
+  --c-brand-teal-soft: 255 201 51;
+  --c-brand-teal-deep: 232 162 0;
+  --c-brand-teal-tint: 122 26 0;
+  --c-brand-red: 252 180 0;
+  --c-surface-alt: 104 0 0;
+  --c-surface-tint: 71 0 0;
+  --c-cat-red: 255 138 128;
+  --c-cat-blue: 130 177 255;
+  --c-cat-purple: 206 147 216;
+  --c-cat-teal: 77 208 225;
+  --c-cat-green: 129 199 132;
+  --c-cat-orange: 255 183 77;
+  --c-cat-navy: 176 190 197;
+  --c-cat-brown: 188 170 164;
+  --c-cat-magenta: 244 143 177;
+}
+.theme-admin {
+  --c-ink: 22 24 28;
+  --c-ink-soft: 33 40 51;
+  --c-ink-mute: 107 112 117;
+  --c-paper: 255 255 255;
+  --c-paper-alt: 246 246 246;
+  --c-paper-tint: 243 244 245;
+  --c-graphite: 36 36 36;
+  --c-brand-orange: 254 74 15;
+  --c-brand-orange-soft: 255 106 55;
+  --c-brand-orange-deep: 214 61 11;
+  --c-pr-paper: 255 255 255;
+  --c-pr-surface: 246 247 247;
+  --c-pr-raise: 255 255 255;
+  --c-pr-ink: 22 24 28;
+  --c-pr-ink-soft: 33 40 51;
+  --c-pr-muted: 107 112 117;
+  --c-pr-faint: 154 158 163;
+  --c-pr-hairline: 230 230 230;
+  --c-pr-accent: 254 74 15;
+  --c-pr-accent-ink: 214 61 11;
+  --c-pr-accent-wash: 252 230 221;
+  --c-pr-briefing: 22 24 28;
+  --c-pr-briefing-ink: 236 237 238;
+  --c-pr-briefing-muted: 156 160 165;
+  --c-pr-briefing-line: 44 45 48;
+  --c-brand-navy: 22 24 28;
+  --c-brand-navy-soft: 33 40 51;
+  --c-brand-teal: 254 74 15;
+  --c-brand-teal-soft: 255 106 55;
+  --c-brand-teal-deep: 214 61 11;
+  --c-brand-teal-tint: 252 230 221;
+  --c-brand-red: 254 74 15;
+  --c-surface-alt: 246 246 246;
+  --c-surface-tint: 243 244 245;
+  --c-cat-red: 211 47 47;
+  --c-cat-blue: 21 101 192;
+  --c-cat-purple: 106 27 154;
+  --c-cat-teal: 13 148 136;
+  --c-cat-green: 46 125 50;
+  --c-cat-orange: 255 92 0;
+  --c-cat-navy: 10 10 10;
+  --c-cat-brown: 121 85 72;
+  --c-cat-magenta: 173 20 87;
   --ink: #16181c;
   --ink-mute: #6b7075;
   --body-ink: #212833;
@@ -19,6 +131,126 @@
   --brand-orange: #fe4a0f;
   --brand-orange-deep: #d63d0b;
   --brand-orange-soft: #ff6a37;
+  color: #212833;
+}
+.theme-admin ::selection { background: #fe4a0f; color: #ffffff; }
+.theme-admin .btn-ghost-dark:focus-visible {
+  outline-color: var(--paper);
+}
+.theme-admin .btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+.theme-admin .btn-primary:hover {
+  background: var(--graphite);
+}
+.theme-admin .btn-orange {
+  background: var(--brand-orange);
+  color: var(--paper);
+}
+.theme-admin .btn-orange:hover {
+  background: var(--brand-orange-deep);
+}
+.theme-admin .btn-graphite {
+  background: var(--graphite);
+  color: var(--paper);
+}
+.theme-admin .btn-graphite:hover {
+  background: var(--ink);
+}
+.theme-admin .btn-secondary {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+.theme-admin .btn-secondary:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.theme-admin .btn-ghost-dark {
+  background: transparent;
+  color: var(--paper);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+.theme-admin .btn-ghost-dark:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--paper);
+}
+.theme-admin .card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(120% 80% at 50% 0%, rgba(254, 74, 15, 0.05), transparent 60%);
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+  pointer-events: none;
+}
+.theme-admin .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 48px -30px rgba(0, 0, 0, 0.35);
+  border-color: #d7d8da;
+}
+.theme-admin .card-dark {
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 14px;
+  padding: 1.75rem;
+  transition:
+    transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.theme-admin .form-input {
+  display: block;
+  width: 100%;
+  padding: 0.875rem 1.1rem;
+  border: 1px solid #dedede;
+  border-radius: 12px;
+  background: var(--paper);
+  color: var(--body-ink);
+  font-size: 1rem;
+  line-height: 1.4;
+  transition:
+    border-color 150ms ease-out,
+    box-shadow 150ms ease-out;
+}
+.theme-admin .form-input:focus {
+  outline: none;
+  border-color: var(--brand-orange);
+  box-shadow: 0 0 0 3px rgba(254, 74, 15, 0.18);
+}
+.theme-admin .form-input[aria-invalid="true"] {
+  border-color: var(--brand-orange);
+}
+.theme-admin .form-input[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px rgba(254, 74, 15, 0.24);
+}
+.theme-admin .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  background: var(--ink);
+  color: var(--paper);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.theme-admin .chip-orange {
+  background: var(--brand-orange);
+  color: var(--paper);
+}
+.theme-admin .chip-light {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+.theme-admin .section-rule {
+  border-top: 1px solid var(--ink);
 }
 
 html {
@@ -40,7 +272,7 @@ body {
 
 ::selection {
   background: var(--brand-orange);
-  color: var(--paper);
+  color: var(--gold-ink);
 }
 
 /* ─── AnswerBlock (AEO/GEO surface) ───────────────────────────────────
@@ -76,6 +308,11 @@ body {
   background:
     radial-gradient(70% 62% at 84% -8%, rgba(254, 37, 0, 0.55) 0%, rgba(254, 37, 0, 0) 64%),
     radial-gradient(125% 105% at 38% 28%, #a80000 0%, #8a0000 42%, #5c0000 100%);
+}
+.cp-hero--flip {
+  background:
+    radial-gradient(70% 62% at 10% 112%, rgba(254, 37, 0, 0.5) 0%, rgba(254, 37, 0, 0) 64%),
+    radial-gradient(125% 105% at 62% 30%, #a80000 0%, #8a0000 42%, #5c0000 100%);
 }
 .cp-surface { background: radial-gradient(115% 95% at 50% 0%, #6e0000 0%, #610000 55%, #4f0000 100%); }
 .cp-surface-deep { background: linear-gradient(180deg, #520000 0%, #3b0000 100%); }
@@ -148,48 +385,54 @@ body {
   outline-offset: 3px;
 }
 .btn-ghost-dark:focus-visible {
-  outline-color: var(--paper);
+  outline-color: #ffffff;
 }
+/* Gold is the single accent: gold fill + deep-maroon text (9:1). White text on
+   gold would be 1.8:1, so never pair them. */
 .btn-primary {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--brand-orange);
+  color: var(--gold-ink);
+  font-weight: 700;
 }
 .btn-primary:hover {
-  background: var(--graphite);
+  background: var(--brand-orange-soft);
 }
 .btn-orange {
   background: var(--brand-orange);
-  color: var(--paper);
+  color: var(--gold-ink);
+  font-weight: 700;
 }
 .btn-orange:hover {
-  background: var(--brand-orange-deep);
+  background: var(--brand-orange-soft);
 }
 /* Avoora's literal primary — neutral graphite. Use sparingly (e.g.
    secondary actions in dense layouts) so the orange CTA stays the loud one. */
 .btn-graphite {
-  background: var(--graphite);
-  color: var(--paper);
+  background: var(--night);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 .btn-graphite:hover {
-  background: var(--ink);
+  background: #3d0000;
 }
 .btn-secondary {
-  background: var(--paper);
-  color: var(--ink);
-  border: 1px solid var(--ink);
+  background: transparent;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
 }
 .btn-secondary:hover {
-  background: var(--ink);
-  color: var(--paper);
+  background: #ffffff;
+  color: #520000;
+  border-color: #ffffff;
 }
 .btn-ghost-dark {
   background: transparent;
-  color: var(--paper);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 .btn-ghost-dark:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--paper);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
 }
 
 /* ─── Cards ──────────────────────────────────────────────────────────── */
@@ -210,7 +453,7 @@ body {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(120% 80% at 50% 0%, rgba(254, 74, 15, 0.05), transparent 60%);
+  background: radial-gradient(120% 80% at 50% 0%, rgba(252, 180, 0, 0.10), transparent 60%);
   opacity: 0;
   transition: opacity 300ms ease-out;
   pointer-events: none;
@@ -218,7 +461,7 @@ body {
 .card:hover {
   transform: translateY(-3px);
   box-shadow: 0 22px 48px -30px rgba(0, 0, 0, 0.35);
-  border-color: #d7d8da;
+  border-color: rgba(252, 180, 0, 0.55);
 }
 .card:hover::before {
   opacity: 1;
@@ -227,9 +470,9 @@ body {
   position: relative;
 }
 .card-dark {
-  background: var(--ink);
-  color: var(--paper);
-  border: 1px solid var(--ink);
+  background: var(--night);
+  color: #ffffff;
+  border: 1px solid rgba(252, 180, 0, 0.35);
   border-radius: 14px;
   padding: 1.75rem;
   transition:
@@ -451,9 +694,9 @@ html.reveal-ready .reveal-v2.is-visible {
 .shimmer {
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0.04) 25%,
-    rgba(0, 0, 0, 0.09) 37%,
-    rgba(0, 0, 0, 0.04) 63%
+    rgba(255, 255, 255, 0.06) 25%,
+    rgba(255, 255, 255, 0.12) 37%,
+    rgba(255, 255, 255, 0.06) 63%
   );
   background-size: 400% 100%;
   animation: shimmer 1.4s ease infinite;
@@ -517,10 +760,10 @@ html.reveal-ready .reveal-v2.is-visible {
   display: block;
   width: 100%;
   padding: 0.875rem 1.1rem;
-  border: 1px solid #dedede;
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 12px;
-  background: var(--paper);
-  color: var(--body-ink);
+  background: rgba(0, 0, 0, 0.24);
+  color: #ffffff;
   font-size: 1rem;
   line-height: 1.4;
   transition:
@@ -530,13 +773,14 @@ html.reveal-ready .reveal-v2.is-visible {
 .form-input:focus {
   outline: none;
   border-color: var(--brand-orange);
-  box-shadow: 0 0 0 3px rgba(254, 74, 15, 0.18);
+  box-shadow: 0 0 0 3px rgba(252, 180, 0, 0.28);
 }
+.form-input::placeholder { color: rgba(255, 255, 255, 0.55); }
 .form-input[aria-invalid="true"] {
-  border-color: var(--brand-orange);
+  border-color: #ff8a80;
 }
 .form-input[aria-invalid="true"]:focus {
-  box-shadow: 0 0 0 3px rgba(254, 74, 15, 0.24);
+  box-shadow: 0 0 0 3px rgba(255, 138, 128, 0.3);
 }
 
 /* ─── Print stylesheet (audit / brief save-as-PDF) ───────────────────── */
@@ -598,24 +842,24 @@ html.reveal-ready .reveal-v2.is-visible {
   line-height: 1;
   padding: 0.375rem 0.75rem;
   border-radius: 9999px;
-  background: var(--ink);
-  color: var(--paper);
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 .chip-orange {
   background: var(--brand-orange);
-  color: var(--paper);
+  color: var(--gold-ink);
 }
 .chip-light {
-  background: var(--paper);
-  color: var(--ink);
-  border: 1px solid var(--ink);
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 /* ─── Section dividers ───────────────────────────────────────────────── */
 .section-rule {
-  border-top: 1px solid var(--ink);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
 }
 .section-rule-light {
   border-top: 1px solid rgba(255, 255, 255, 0.15);
@@ -625,7 +869,7 @@ html.reveal-ready .reveal-v2.is-visible {
 .prose-legal {
   font-size: 16px;
   line-height: 1.7;
-  color: rgb(15 23 42 / 0.85);
+  color: rgb(255 255 255 / 0.85);
 }
 .prose-legal > * + * {
   margin-top: 1em;
@@ -638,7 +882,7 @@ html.reveal-ready .reveal-v2.is-visible {
   margin-top: 2.2em;
   margin-bottom: 0.6em;
   padding-bottom: 0.4em;
-  border-bottom: 1px solid rgb(15 23 42 / 0.12);
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
 }
 .prose-legal h2:first-child {
   margin-top: 0;
@@ -686,7 +930,7 @@ html.reveal-ready .reveal-v2.is-visible {
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, monospace;
   font-size: 0.92em;
   padding: 0.1em 0.35em;
-  background: rgb(15 23 42 / 0.06);
+  background: rgb(255 255 255 / 0.06);
   border-radius: 4px;
 }
 .prose-legal table {
@@ -698,13 +942,13 @@ html.reveal-ready .reveal-v2.is-visible {
 .prose-legal table td {
   text-align: left;
   padding: 0.6em 0.8em;
-  border-bottom: 1px solid rgb(15 23 42 / 0.12);
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
   vertical-align: top;
 }
 .prose-legal table th {
   font-weight: 700;
   color: var(--ink);
-  background: rgb(15 23 42 / 0.04);
+  background: rgb(255 255 255 / 0.04);
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.05em;

@@ -135,14 +135,14 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
               <button
                 type="button"
                 onClick={() => decide("denied")}
-                className="rounded-full border border-ink/20 px-5 py-2 text-sm font-semibold text-ink hover:border-ink hover:bg-ink hover:text-paper"
+                className="rounded-full border border-ink/20 px-5 py-2 text-sm font-semibold text-ink hover:border-ink hover:bg-brand-orange hover:text-cp-gold-ink"
               >
                 Reject
               </button>
               <button
                 type="button"
                 onClick={() => decide("granted")}
-                className="rounded-full bg-brand-orange px-5 py-2 text-sm font-semibold text-paper hover:bg-brand-orange-deep"
+                className="rounded-full bg-brand-orange px-5 py-2 text-sm font-semibold text-cp-gold-ink hover:bg-brand-orange-deep"
                 autoFocus
               >
                 Accept all
@@ -151,7 +151,7 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
                 type="button"
                 aria-label="Dismiss without choosing"
                 onClick={() => decide("denied")}
-                className="grid h-9 w-9 place-items-center rounded-full text-ink/55 hover:bg-ink/5 hover:text-ink"
+                className="grid h-9 w-9 place-items-center rounded-full text-ink/65 hover:bg-ink/5 hover:text-ink"
               >
                 <X className="h-4 w-4" aria-hidden />
               </button>

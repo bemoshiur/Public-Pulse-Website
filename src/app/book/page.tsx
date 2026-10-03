@@ -74,7 +74,7 @@ export default function BookPage() {
             />
           </div>
 
-          <p className="mt-6 text-meta text-ink/55">
+          <p className="mt-6 text-meta text-ink/65">
             Can&apos;t see the calendar?{" "}
             <a
               href={url}

@@ -55,7 +55,7 @@ export default function BangladeshMapClient({
           width: 22px;
           height: 22px;
           border-radius: 50%;
-          background: #FF5911;
+          background: #FCB400;
           border: 3px solid #FFFFFF;
           box-shadow: 0 2px 6px rgba(0,0,0,0.25);
           transition: transform 150ms ease-out;
@@ -65,7 +65,7 @@ export default function BangladeshMapClient({
           transform: scale(1.18);
         }
         .leaflet-tooltip.pp-tooltip {
-          background: #111111;
+          background: #2B0000;
           color: #FFFFFF;
           border: 0;
           border-radius: 4px;
@@ -125,7 +125,7 @@ export default function BangladeshMapClient({
                   style={{
                     display: "inline-block",
                     marginTop: 10,
-                    color: "#FF5911",
+                    color: "#8A5A00",
                     fontWeight: 600,
                   }}
                 >

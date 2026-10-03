@@ -444,7 +444,7 @@ export default function AboutPage() {
       <Section size="lg" className="bg-paper">
         <Container>
           <GreyPanel tone="ink" radius="lg" className="px-6 py-20 text-center md:px-16 md:py-24">
-            <h2 className="mx-auto max-w-4xl text-display leading-[0.98] tracking-tight text-paper">
+            <h2 className="mx-auto max-w-4xl text-display leading-[0.98] tracking-tight text-white">
               Curious whether we&rsquo;re&nbsp;
               <span className="italic text-brand-orange">the right fit</span>?
             </h2>
@@ -491,7 +491,7 @@ function CredentialTile({ icon: Icon, label, value }: CredentialProps) {
           <Icon className="h-4 w-4 text-brand-orange" aria-hidden />
         </div>
         <div className="flex-1">
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-ink/55">{label}</p>
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-ink/65">{label}</p>
           <p className="mt-1 text-sm font-semibold text-ink">{value}</p>
         </div>
       </div>

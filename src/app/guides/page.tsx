@@ -80,7 +80,7 @@ export default function GuidesIndex() {
                   <p className="mt-3 flex-1 text-sm leading-relaxed text-ink/70">
                     {g.description}
                   </p>
-                  <div className="mt-5 flex items-center justify-between text-meta text-ink/55">
+                  <div className="mt-5 flex items-center justify-between text-meta text-ink/65">
                     <span className="inline-flex items-center gap-1.5">
                       <Clock className="h-3.5 w-3.5" aria-hidden />
                       {g.totalTime.replace("PT", "").toLowerCase()}

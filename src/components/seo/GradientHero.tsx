@@ -109,10 +109,10 @@ function DefaultSalesPanel() {
     <Link
       href="/contact"
       aria-label="Sales team online — available 09:00–21:00 Asia/Dhaka"
-      className="group relative block overflow-hidden rounded-panel border border-ink/10 bg-ink p-6 text-paper transition hover:-translate-y-0.5"
+      className="group relative block overflow-hidden rounded-panel border border-ink/10 bg-cp-night p-6 text-white transition hover:-translate-y-0.5"
     >
       <span aria-hidden className="mb-4 inline-block h-[3px] w-6 bg-brand-orange" />
-      <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-paper/70">
+      <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-white/65">
         <span
           aria-hidden
           className="inline-block h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-emerald-400/25"
@@ -120,7 +120,7 @@ function DefaultSalesPanel() {
         Sales team online
       </div>
       <p className="mt-3 font-pr-serif text-h3 font-semibold leading-tight">Talk to us now.</p>
-      <p className="mt-1 text-sm text-paper/70">
+      <p className="mt-1 text-sm text-white/65">
         Reply usually under 2 hours on WhatsApp · Sat–Thu, 09:00–21:00 BD.
       </p>
       <div className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-brand-orange">

@@ -79,7 +79,7 @@ export function SeoAuditTool() {
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <div className="flex flex-1 items-center gap-2 rounded-card border border-ink/15 bg-paper px-4 py-3 focus-within:border-brand-orange focus-within:ring-2 focus-within:ring-brand-orange/20">
-            <Search className="h-5 w-5 flex-shrink-0 text-ink/45" aria-hidden />
+            <Search className="h-5 w-5 flex-shrink-0 text-ink/65" aria-hidden />
             <input
               id="domain"
               type="text"
@@ -90,7 +90,7 @@ export function SeoAuditTool() {
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
               disabled={result.state === "loading"}
-              className="flex-1 bg-transparent text-base text-ink outline-none placeholder:text-ink/40"
+              className="flex-1 bg-transparent text-base text-ink outline-none placeholder:text-ink/65"
             />
           </div>
           <button
@@ -118,14 +118,14 @@ export function SeoAuditTool() {
           {/* Score panel */}
           <div className="grid items-center gap-6 rounded-panel border border-ink/15 bg-paper p-6 md:grid-cols-3 md:p-8">
             <div className="md:col-span-1">
-              <p className="text-meta uppercase tracking-wider text-ink/55">{result.url}</p>
+              <p className="text-meta uppercase tracking-wider text-ink/65">{result.url}</p>
               <div className="mt-2 flex items-baseline gap-2">
                 <span className="text-display-number font-medium tracking-tight text-ink">
                   {result.score}
                 </span>
-                <span className="text-h3 text-ink/55">/100</span>
+                <span className="text-h3 text-ink/65">/100</span>
               </div>
-              <p className="mt-2 text-meta text-ink/55">{result.summary}</p>
+              <p className="mt-2 text-meta text-ink/65">{result.summary}</p>
             </div>
             <div className="md:col-span-2">
               <div className="rounded-card border border-brand-orange/30 bg-brand-orange/5 p-5">
@@ -147,7 +147,7 @@ export function SeoAuditTool() {
 
           {/* Findings list */}
           <div className="rounded-panel border border-ink/15 bg-paper p-6 md:p-8">
-            <p className="text-eyebrow uppercase text-ink/55">Findings</p>
+            <p className="text-eyebrow uppercase text-ink/65">Findings</p>
             <ul className="mt-5 space-y-3">
               {result.findings.map((f, i) => {
                 const { Icon, color } = ICONS[f.kind];
@@ -161,7 +161,7 @@ export function SeoAuditTool() {
                     </span>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-meta uppercase tracking-wider text-ink/55">{f.category}</span>
+                        <span className="text-meta uppercase tracking-wider text-ink/65">{f.category}</span>
                       </div>
                       <p className="mt-1 text-sm font-semibold text-ink">{f.label}</p>
                       {f.detail && <p className="mt-1 text-meta text-ink/65">{f.detail}</p>}

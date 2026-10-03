@@ -97,7 +97,7 @@ export function CaseStudiesFilter({ cases, serviceLabels }: Props) {
                 aria-pressed={!activeIndustry && !activeService}
                 className={`inline-flex items-center rounded-full border px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider transition ${
                   !activeIndustry && !activeService
-                    ? "border-ink bg-ink text-paper"
+                    ? "border-brand-orange bg-brand-orange text-cp-gold-ink"
                     : "border-ink/20 bg-paper text-ink/70 hover:border-ink"
                 }`}
               >
@@ -113,7 +113,7 @@ export function CaseStudiesFilter({ cases, serviceLabels }: Props) {
                     aria-pressed={activeIndustry === ind}
                     className={`inline-flex items-center rounded-full border px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider transition ${
                       activeIndustry === ind
-                        ? "border-ink bg-ink text-paper"
+                        ? "border-brand-orange bg-brand-orange text-cp-gold-ink"
                         : "border-ink/20 bg-paper text-ink/70 hover:border-ink"
                     }`}
                   >
@@ -136,7 +136,7 @@ export function CaseStudiesFilter({ cases, serviceLabels }: Props) {
                     aria-pressed={activeService === s}
                     className={`inline-flex items-center rounded-full border px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider transition ${
                       activeService === s
-                        ? "border-brand-orange bg-brand-orange text-paper"
+                        ? "border-brand-orange bg-brand-orange text-cp-gold-ink"
                         : "border-ink/20 bg-paper text-ink/70 hover:border-ink"
                     }`}
                   >
@@ -153,10 +153,10 @@ export function CaseStudiesFilter({ cases, serviceLabels }: Props) {
         <div className="max-w-container mx-auto px-5 md:px-8">
           {cases.length === 0 ? (
             <div className="rounded-panel border border-dashed border-ink/20 bg-paper-alt p-10 text-center">
-              <p className="text-ink/55">
+              <p className="text-ink/65">
                 Case studies are being written up — the latest will appear here soon.
               </p>
-              <p className="mt-4 text-meta text-ink/45">
+              <p className="mt-4 text-meta text-ink/65">
                 In the meantime, see what we deliver under{" "}
                 <Link href="/services" className="underline hover:text-brand-orange">
                   services
@@ -178,7 +178,7 @@ export function CaseStudiesFilter({ cases, serviceLabels }: Props) {
                     : "hidden"
                 }
               >
-                <p className="text-ink/55">
+                <p className="text-ink/65">
                   No case studies match these filters. Try removing them above.
                 </p>
               </div>
@@ -198,7 +198,7 @@ export function CaseStudiesFilter({ cases, serviceLabels }: Props) {
                         <div className="flex items-center justify-between gap-3">
                           <span className="chip chip-orange">{c.industry}</span>
                           {c.location && (
-                            <span className="inline-flex items-center rounded-full border border-ink/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-ink/55">
+                            <span className="inline-flex items-center rounded-full border border-ink/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-ink/65">
                               {c.location}
                             </span>
                           )}
@@ -211,7 +211,7 @@ export function CaseStudiesFilter({ cases, serviceLabels }: Props) {
                               c.metric
                             )}
                           </div>
-                          <div className="mt-2 text-eyebrow text-ink/55">{c.windowLabel}</div>
+                          <div className="mt-2 text-eyebrow text-ink/65">{c.windowLabel}</div>
                         </div>
                         <h2 className="mt-5 line-clamp-3 text-h3 font-bold text-ink">{c.title}</h2>
                         <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-ink/70">
@@ -229,7 +229,7 @@ export function CaseStudiesFilter({ cases, serviceLabels }: Props) {
                             ))}
                           </div>
                         )}
-                        <div className="mt-5 flex items-center justify-between border-t border-ink/10 pt-4 text-meta text-ink/55">
+                        <div className="mt-5 flex items-center justify-between border-t border-ink/10 pt-4 text-meta text-ink/65">
                           <span>{c.clientName ?? c.industry}</span>
                           <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-orange">
                             Read

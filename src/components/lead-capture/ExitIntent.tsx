@@ -119,16 +119,16 @@ export function ExitIntent({ locale = "en" }: { locale?: Locale }) {
           type="button"
           onClick={close}
           aria-label={t.dismiss}
-          className="absolute right-3 top-3 rounded-full p-2 text-ink/55 hover:bg-ink/5 hover:text-ink"
+          className="absolute right-3 top-3 rounded-full p-2 text-ink/65 hover:bg-ink/5 hover:text-ink"
         >
           <X className="h-5 w-5" aria-hidden />
         </button>
         <span
           aria-hidden
-          className="absolute left-0 top-12 h-[3px] w-16 bg-brand-red"
+          className="absolute left-0 top-12 h-[3px] w-16 bg-brand-orange"
         />
         <div className="px-8 py-10 md:px-12 md:py-12">
-          <p className="text-eyebrow text-brand-red">{t.eyebrow}</p>
+          <p className="text-eyebrow text-brand-orange">{t.eyebrow}</p>
           <h2
             id="exit-intent-title"
             className="mt-3 text-h2 leading-[1.05] tracking-tight text-ink"
@@ -145,7 +145,7 @@ export function ExitIntent({ locale = "en" }: { locale?: Locale }) {
               onSuccess={() => setTimeout(close, 1500)}
             />
           </div>
-          <p className="mt-4 text-[11px] text-ink/45">
+          <p className="mt-4 text-[11px] text-ink/65">
             {t.preferWhatsApp}
           </p>
         </div>

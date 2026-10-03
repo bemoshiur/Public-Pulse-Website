@@ -143,7 +143,7 @@ export function ServiceMatcher() {
                   <div className="text-h3 font-bold text-ink">{r.service.name}</div>
                   <div className="mt-1 text-meta text-ink/65">{r.service.oneLiner}</div>
                 </div>
-                <ArrowRight className="mt-2 h-5 w-5 flex-shrink-0 text-ink/40 transition group-hover:translate-x-1 group-hover:text-brand-orange" aria-hidden />
+                <ArrowRight className="mt-2 h-5 w-5 flex-shrink-0 text-ink/65 transition group-hover:translate-x-1 group-hover:text-brand-orange" aria-hidden />
               </Link>
             </li>
           ))}
@@ -181,7 +181,7 @@ export function ServiceMatcher() {
         </div>
       </div>
       <h3 className="mt-4 text-h2 tracking-tight text-ink">{q.prompt}</h3>
-      {isMulti && <p className="mt-2 text-meta text-ink/55">Pick all that apply.</p>}
+      {isMulti && <p className="mt-2 text-meta text-ink/65">Pick all that apply.</p>}
       <ul className="mt-6 space-y-2">
         {q.choices.map((c) => {
           const picked = picks.includes(c.label);
@@ -200,7 +200,7 @@ export function ServiceMatcher() {
                 <span
                   aria-hidden
                   className={`grid h-5 w-5 flex-shrink-0 place-items-center rounded-full border-2 ${
-                    picked ? "border-brand-orange bg-brand-orange text-paper" : "border-ink/30"
+                    picked ? "border-brand-orange bg-brand-orange text-cp-gold-ink" : "border-ink/30"
                   }`}
                 >
                   {picked ? "✓" : ""}
@@ -217,7 +217,7 @@ export function ServiceMatcher() {
             type="button"
             disabled={step === 0}
             onClick={() => setStep(step - 1)}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-ink/55 hover:text-ink disabled:opacity-40"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-ink/65 hover:text-ink disabled:opacity-40"
           >
             Back
           </button>

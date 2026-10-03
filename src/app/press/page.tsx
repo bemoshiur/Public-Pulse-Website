@@ -128,7 +128,7 @@ export default function PressPage() {
             </div>
             <div className="lg:col-span-2">
               <div className="rounded-card border border-ink/10 bg-paper p-6 md:p-8">
-                <p className="text-meta uppercase tracking-wider text-ink/45">
+                <p className="text-meta uppercase tracking-wider text-ink/65">
                   Short boilerplate (50 words)
                 </p>
                 <blockquote className="mt-3 text-lead text-ink">
@@ -139,7 +139,7 @@ export default function PressPage() {
                   A sister concern within Pulse Group.
                 </blockquote>
 
-                <p className="mt-8 text-meta uppercase tracking-wider text-ink/45">
+                <p className="mt-8 text-meta uppercase tracking-wider text-ink/65">
                   Long boilerplate (120 words)
                 </p>
                 <blockquote className="mt-3 text-body text-ink/80">
@@ -178,8 +178,8 @@ export default function PressPage() {
 
           <div className="mt-10 grid gap-5 md:grid-cols-2">
             <div className="rounded-card border border-ink/10 bg-paper p-8">
-              <p className="text-meta uppercase tracking-wider text-ink/45">
-                On light background
+              <p className="text-meta uppercase tracking-wider text-ink/65">
+                On crimson background
               </p>
               <div className="mt-6 grid h-32 place-items-center rounded-card bg-paper">
                 <span className="text-3xl font-extrabold tracking-tight text-ink">
@@ -193,12 +193,12 @@ export default function PressPage() {
                 <Download className="h-4 w-4" aria-hidden /> Request brand-kit zip
               </a>
             </div>
-            <div className="rounded-card border border-ink/10 bg-ink p-8 text-paper">
-              <p className="text-meta uppercase tracking-wider text-white/55">
+            <div className="rounded-card border border-ink/10 bg-cp-night p-8 text-white">
+              <p className="text-meta uppercase tracking-wider text-white/65">
                 On dark background
               </p>
-              <div className="mt-6 grid h-32 place-items-center rounded-card bg-ink">
-                <span className="text-3xl font-extrabold tracking-tight text-paper">
+              <div className="mt-6 grid h-32 place-items-center rounded-card bg-cp-night">
+                <span className="text-3xl font-extrabold tracking-tight text-white">
                   Public<span className="text-brand-orange">Pulse</span>
                 </span>
               </div>
@@ -214,24 +214,24 @@ export default function PressPage() {
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             <div className="rounded-card border border-ink/10 bg-paper p-6">
               <div className="h-16 w-full rounded-card bg-brand-orange" aria-hidden />
-              <p className="mt-4 text-meta uppercase tracking-wider text-ink/55">
-                Brand orange
+              <p className="mt-4 text-meta uppercase tracking-wider text-ink/65">
+                Brand gold
               </p>
-              <p className="mt-1 font-mono text-body text-ink">#BE451E</p>
+              <p className="mt-1 font-mono text-body text-ink">#FCB400</p>
             </div>
             <div className="rounded-card border border-ink/10 bg-paper p-6">
-              <div className="h-16 w-full rounded-card bg-ink" aria-hidden />
-              <p className="mt-4 text-meta uppercase tracking-wider text-ink/55">
-                Ink
+              <div className="h-16 w-full rounded-card bg-cp-night" aria-hidden />
+              <p className="mt-4 text-meta uppercase tracking-wider text-ink/65">
+                Night
               </p>
-              <p className="mt-1 font-mono text-body text-ink">#18191B</p>
+              <p className="mt-1 font-mono text-body text-ink">#2B0000</p>
             </div>
             <div className="rounded-card border border-ink/10 bg-paper p-6">
               <div className="h-16 w-full rounded-card border border-ink/15 bg-paper" aria-hidden />
-              <p className="mt-4 text-meta uppercase tracking-wider text-ink/55">
-                Paper
+              <p className="mt-4 text-meta uppercase tracking-wider text-ink/65">
+                Crimson
               </p>
-              <p className="mt-1 font-mono text-body text-ink">#F3F2EE</p>
+              <p className="mt-1 font-mono text-body text-ink">#520000</p>
             </div>
           </div>
         </Container>
@@ -253,7 +253,7 @@ export default function PressPage() {
             </div>
             <div className="lg:col-span-2">
               <div className="rounded-card border border-dashed border-ink/20 bg-paper p-10 text-center">
-                <Newspaper className="mx-auto h-10 w-10 text-ink/40" aria-hidden />
+                <Newspaper className="mx-auto h-10 w-10 text-ink/65" aria-hidden />
                 <p className="mt-4 text-body text-ink/70">
                   Coverage gallery is being curated. Featured an interview, op-ed,
                   or quote? Send it to{" "}
@@ -306,7 +306,7 @@ export default function PressPage() {
           <GreyPanel tone="ink" radius="lg" className="px-6 py-14 md:px-12 md:py-16">
             <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
               <div className="max-w-2xl">
-                <h2 className="text-h2 tracking-tight text-paper">Got a deadline?</h2>
+                <h2 className="text-h2 tracking-tight text-white">Got a deadline?</h2>
                 <p className="mt-3 text-white/70">
                   Email the press desk and put your outlet + deadline in the subject — we&rsquo;ll
                   match the response window.

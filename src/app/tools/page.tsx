@@ -97,7 +97,7 @@ export default function ToolsPage() {
                 </Link>
               </li>
             ))}
-            <li className="rounded-card border border-dashed border-ink/15 p-6 text-meta text-ink/55">
+            <li className="rounded-card border border-dashed border-ink/15 p-6 text-meta text-ink/65">
               More tools shipping soon: social benchmark, ad-spend ROI calculator, election readiness checker.
             </li>
           </ul>

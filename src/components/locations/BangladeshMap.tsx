@@ -39,7 +39,7 @@ export function BangladeshMap() {
             <>
               <p className="text-eyebrow uppercase text-brand-orange">{hovered.division} division</p>
               <h3 className="mt-2 text-h2 tracking-tight text-ink">{hovered.name}</h3>
-              <p className="mt-3 text-meta text-ink/55">Population: {hovered.population}</p>
+              <p className="mt-3 text-meta text-ink/65">Population: {hovered.population}</p>
               <p className="mt-4 text-body text-ink/75">{hovered.characterizedBy}</p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {hovered.topIndustries.slice(0, 4).map((ind) => (
@@ -57,7 +57,7 @@ export function BangladeshMap() {
             </>
           ) : (
             <>
-              <p className="text-eyebrow uppercase text-ink/55">Hover a marker</p>
+              <p className="text-eyebrow uppercase text-ink/65">Hover a marker</p>
               <h3 className="mt-2 text-h2 tracking-tight text-ink">
                 {LOCATIONS.length} cities. One studio.
               </h3>

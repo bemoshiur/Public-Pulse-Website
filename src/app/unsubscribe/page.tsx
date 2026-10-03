@@ -80,7 +80,7 @@ export default async function UnsubscribePage({
     <section className="bg-paper py-24 md:py-32">
       <Container>
         <div className="mx-auto max-w-xl text-center">
-          <span className="inline-flex items-center rounded-full border border-ink/20 bg-paper px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-ink/55">
+          <span className="inline-flex items-center rounded-full border border-ink/20 bg-paper px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-ink/65">
             Unsubscribe
           </span>
           <h1 className="mt-6 text-[44px] font-extrabold leading-[1.05] tracking-tight text-ink md:text-[56px]">
@@ -88,7 +88,7 @@ export default async function UnsubscribePage({
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-ink/70">{sub}</p>
           {result.email && (
-            <p className="mt-3 text-xs text-ink/55">{result.email}</p>
+            <p className="mt-3 text-xs text-ink/65">{result.email}</p>
           )}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Link href="/" className="btn btn-secondary text-[14px] uppercase tracking-wide">

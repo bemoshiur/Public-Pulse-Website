@@ -55,7 +55,7 @@ export function ArticleTOC({ rootSelector = "article" }: { rootSelector?: string
 
   return (
     <nav aria-label="In this article" className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-auto pr-2 text-sm">
-      <p className="text-eyebrow uppercase tracking-wider text-ink/45">In this article</p>
+      <p className="text-eyebrow uppercase tracking-wider text-ink/65">In this article</p>
       <ol className="mt-3 space-y-1.5 border-l border-ink/10">
         {items.map((h) => {
           const isActive = active === h.id;
@@ -66,7 +66,7 @@ export function ArticleTOC({ rootSelector = "article" }: { rootSelector?: string
                 className={`block border-l-2 px-3 py-1 text-[13px] leading-snug transition ${
                   isActive
                     ? "border-brand-orange font-semibold text-ink"
-                    : "border-transparent text-ink/55 hover:text-ink"
+                    : "border-transparent text-ink/65 hover:text-ink"
                 } ${h.level === 3 ? "text-[12px]" : ""}`}
               >
                 {h.text}

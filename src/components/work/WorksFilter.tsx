@@ -28,7 +28,7 @@ export function WorksFilter({ works, disciplines }: Props) {
             onClick={() => setActive("")}
             aria-pressed={active === ""}
             className={`inline-flex items-center rounded-full border px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider transition ${
-              active === "" ? "border-ink bg-ink text-paper" : "border-ink/20 bg-paper text-ink/70 hover:border-ink"
+              active === "" ? "border-brand-orange bg-brand-orange text-cp-gold-ink" : "border-ink/20 bg-paper text-ink/70 hover:border-ink"
             }`}
           >
             All ({works.length})
@@ -40,7 +40,7 @@ export function WorksFilter({ works, disciplines }: Props) {
               onClick={() => setActive(d.slug)}
               aria-pressed={active === d.slug}
               className={`inline-flex items-center rounded-full border px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider transition ${
-                active === d.slug ? "border-ink bg-ink text-paper" : "border-ink/20 bg-paper text-ink/70 hover:border-ink"
+                active === d.slug ? "border-brand-orange bg-brand-orange text-cp-gold-ink" : "border-ink/20 bg-paper text-ink/70 hover:border-ink"
               }`}
             >
               {d.name} ({count(d.slug)})
