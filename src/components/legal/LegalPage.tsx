@@ -7,6 +7,7 @@ import Link from "next/link";
 
 import { Container } from "@/components/ui/Container";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { AnswerBlock } from "@/components/seo/AnswerBlock";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { SITE } from "@/lib/site";
@@ -22,10 +23,12 @@ type Props = {
   intro: string;
   /** ISO date — "Last updated". */
   effectiveDate: string;
+  /** 40–60 word plain-prose summary of what the policy covers, rendered as the AnswerBlock. */
+  summary?: string;
   children: ReactNode;
 };
 
-export function LegalPage({ title, path, eyebrow, intro, effectiveDate, children }: Props) {
+export function LegalPage({ title, path, eyebrow, intro, effectiveDate, summary, children }: Props) {
   const crumbs = [
     { name: "Home", path: "/" },
     { name: title, path },
@@ -37,6 +40,7 @@ export function LegalPage({ title, path, eyebrow, intro, effectiveDate, children
         data={[
           breadcrumbSchema(crumbs),
           webPageSchema({
+            speakable: Boolean(summary),
             path,
             name: title,
             description: intro,
@@ -71,6 +75,11 @@ export function LegalPage({ title, path, eyebrow, intro, effectiveDate, children
               </p>
             </div>
           </div>
+          {summary ? (
+            <div className="max-w-3xl pb-10 md:pb-14">
+              <AnswerBlock>{summary}</AnswerBlock>
+            </div>
+          ) : null}
         </Container>
       </section>
 

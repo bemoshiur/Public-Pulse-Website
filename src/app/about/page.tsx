@@ -102,7 +102,7 @@ export default function AboutPage() {
         data={[
           aboutPageSchema({ path: "/about", inLanguage: "en" }),
           breadcrumbSchema(crumbs),
-          faqPageSchema(FAQS),
+          faqPageSchema(FAQS, "details"),
         ]}
       />
 

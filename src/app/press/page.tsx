@@ -13,6 +13,7 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { GreyPanel } from "@/components/ui/GreyPanel";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { AnswerBlock } from "@/components/seo/AnswerBlock";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
@@ -67,7 +68,7 @@ export default function PressPage() {
               "Public Pulse brand assets",
             ],
           }),
-          faqPageSchema(FAQS),
+          faqPageSchema(FAQS, "details"),
         ]}
       />
 
@@ -103,6 +104,11 @@ export default function PressPage() {
             </div>
           </div>
           </GreyPanel>
+          <div className="mt-8 max-w-3xl">
+            <AnswerBlock>
+              The press page gives journalists and editors verified facts about Public Pulse Agency: copy-ready short and long boilerplate, logo and colour references, a brand-kit request route, and direct contact details for the press desk. The agency is a Dhaka-based digital marketing and political PR studio registered in Bangladesh. Replies come within a working day.
+            </AnswerBlock>
+          </div>
         </Container>
       </Section>
 

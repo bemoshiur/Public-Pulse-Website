@@ -161,7 +161,7 @@ export default async function CaseStudyDetailPage({
     }),
     breadcrumbSchema(crumbs),
   ];
-  if (faqs.length > 0) schemas.push(faqPageSchema(faqs));
+  if (faqs.length > 0) schemas.push(faqPageSchema(faqs, "details"));
   if (study.testimonialQuote && study.testimonialAttribution) {
     schemas.push(
       reviewSchema({

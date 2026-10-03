@@ -17,7 +17,7 @@
 #      (uses DATABASE_URL_DIRECT — pooled endpoints reject DDL).
 #   6. Runs `sst deploy --stage <stage>` and parses out the CloudFront URL.
 #   7. Triggers /manage once so the admin user is bootstrapped on first hit.
-#   8. Seeds a placeholder case study so the homepage section renders.
+#   8. (removed) no longer seeds a placeholder case study into production.
 #   9. Runs verification curls against the CloudFront URL and prints a
 #      DOMAIN-STATUS banner reminding you that publicpulse.com.bd is
 #      unchanged.
@@ -173,6 +173,15 @@ DATABASE_URL="$DATABASE_URL" DATABASE_URL_DIRECT="$DATABASE_URL_DIRECT" \
   npx --yes tsx scripts/generate-llms.ts
 ok "llms files generated"
 
+# ─── 4c. Snapshot the LIVE site for the post-deploy IndexNow diff ───────
+# IndexNow forbids bulk resubmission, so after the deploy we submit only pages
+# whose normalised HTML changed. That needs a "before": snapshot the site as it
+# is right now (production only; best-effort, never blocks the deploy).
+if [ "$STAGE" = "production" ] && [ ! -f .deploy/freshness.json ]; then
+  info "Snapshotting live pages for the IndexNow diff"
+  npx --yes tsx scripts/indexnow-ping.ts --snapshot || true
+fi
+
 # ─── 5. SST deploy ──────────────────────────────────────────────────────
 
 info "Deploying SST stack (stage=$STAGE, region=$REGION)"
@@ -185,31 +194,27 @@ if [ -z "$URL" ]; then
 fi
 [ -n "$URL" ] || die "Could not parse a public URL from the SST deploy log ($DEPLOY_LOG). Check the output above."
 
-# Refuse to proceed if SST somehow attached the apex — extra belt-and-braces
-# guard so a misconfigured sst.config.ts can't silently take the site live.
-if [[ "$URL" == *"publicpulse.com.bd"* ]]; then
+# The apex has been attached to the production stage since the STEP 7 cutover, so
+# SST returns https://publicpulse.com.bd for production and that is expected.
+# Any OTHER stage returning the apex means a misconfigured domain block.
+if [[ "$URL" == *"publicpulse.com.bd"* && "$STAGE" != "production" ]]; then
   cat >&2 <<EOF
 
-❌ SST returned the apex URL ($URL).
-   This script expects the SST-managed CloudFront URL only. A custom
-   domain is attached in sst.config.ts — verify the \`domain:\` block is
-   commented out before re-running. See the banner at the top of
-   sst.config.ts.
+❌ SST returned the apex URL ($URL) for stage '$STAGE'.
+   Only the production stage may own publicpulse.com.bd - check the
+   \`domain:\` block in sst.config.ts.
 
 EOF
   exit 1
 fi
 ok "Deployed: $URL"
 
-# ─── 6. Trigger admin bootstrap & seed ──────────────────────────────────
+# ─── 6. Trigger admin bootstrap ─────────────────────────────────────────
 
 info "Triggering admin bootstrap (first /manage/sign-in hit)"
 # /manage/sign-in renders the manage layout, which runs ensureAdminUser().
 # (Hitting /manage directly 404s — no page.tsx at the root.)
 curl -sL -o /dev/null -w "  HTTP %{http_code}\n" "$URL/manage/sign-in" || true
-
-info "Seeding one placeholder case study"
-DATABASE_URL="$DATABASE_URL" npx --yes tsx src/db/seed.ts
 
 # ─── 7. Verification ────────────────────────────────────────────────────
 
@@ -236,13 +241,12 @@ verify "sitemap.xml — /manage absent (must be 0)"
 COUNT=$(curl -s "$URL/sitemap.xml" | grep -c manage || true)
 echo "      count = $COUNT"
 
-echo
-verify "Seeded case study present on homepage"
-if curl -s "$URL/" | grep -q "direct bookings"; then
-  echo "      ✓ Found seed metric text in homepage HTML"
-else
-  echo "      ⚠ Did not find seed text — the homepage cache may not have repopulated yet."
-  echo "        Wait ~30s for revalidation, then re-curl. Or hit /manage and re-publish."
+if [ "$STAGE" = "production" ]; then
+  echo
+  info "IndexNow: submitting only pages whose content changed"
+  # Let CloudFront/ISR settle so we hash the NEW pages, not stale cache.
+  sleep 45
+  npx --yes tsx scripts/indexnow-ping.ts --changed || true
 fi
 
 echo

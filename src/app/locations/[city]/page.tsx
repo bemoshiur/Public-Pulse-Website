@@ -14,6 +14,7 @@ import { Section } from "@/components/ui/Section";
 import { LOCATIONS, getLocation } from "@/lib/taxonomies/locations";
 import { getIndustry } from "@/lib/taxonomies/industries";
 import { SERVICES, getService } from "@/lib/services";
+import { locationAnswer } from "@/lib/taxonomies/matrix";
 import { getWorksByLocation } from "@/lib/data/works";
 import { WorkCard } from "@/components/work/WorkCard";
 
@@ -107,7 +108,7 @@ export default async function LocationPage({
           </>
         }
         lead={`${loc.characterizedBy} Public Pulse delivers paid ads, SEO, PR and content across the city's dominant industries.`}
-        answer={`Public Pulse Agency runs digital marketing, paid ads, SEO, PR and content for businesses in ${loc.name}, ${loc.division} Division, Bangladesh. We work with ${loc.topIndustries.slice(0, 3).join(", ")} brands — the ${loc.name} market's dominant verticals — billed in BDT from our registered Dhaka entity.`}
+        answer={locationAnswer(loc)}
         answerQuestion={`What does Public Pulse do for clients in ${loc.name}?`}
         faqs={[
           {

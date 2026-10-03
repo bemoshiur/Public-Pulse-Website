@@ -47,9 +47,32 @@ function clampDescription(desc: string, max = 160): string {
   return trimmed.replace(/[\s,;:.—-]+$/, "") + "…";
 }
 
+// Backstop: keep the <title> at <= 60 chars so Google doesn't rewrite or truncate
+// it. Titles are authored per page/template/DB row, so this is the one place that
+// guarantees the budget. Order of preference: (1) drop a trailing brand segment
+// ("| Public Pulse Glossary"), (2) cut at the last natural separator that still
+// leaves a meaningful head, (3) cut at a word boundary with an ellipsis.
+const TITLE_BRAND_TAIL = /\s*[|\u2014\u2013-]\s*Public Pulse[^|\u2014\u2013]*$/i;
+const TITLE_SEPARATORS = [" \u2014 ", " | ", " \u2013 ", ": "];
+export function clampTitle(title: string, max = 60): string {
+  if (title.length <= max) return title;
+  const noBrand = title.replace(TITLE_BRAND_TAIL, "").trim();
+  if (noBrand.length > 0 && noBrand.length <= max) return noBrand;
+  const base = noBrand.length > 0 ? noBrand : title;
+  let cut = -1;
+  for (const sep of TITLE_SEPARATORS) {
+    const idx = base.lastIndexOf(sep, max);
+    if (idx >= 24 && idx > cut) cut = idx;
+  }
+  if (cut > 0) return base.slice(0, cut).trim();
+  const head = base.slice(0, max - 1);
+  const sp = head.lastIndexOf(" ");
+  return (sp > max - 20 ? head.slice(0, sp) : head).replace(/[\s,;:.\u2014-]+$/, "") + "\u2026";
+}
+
 export function buildMetadata(input: BuildMetadataInput): Metadata {
   const {
-    title,
+    title: rawTitle,
     description: rawDescription,
     path,
     ogImage,
@@ -69,7 +92,8 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
     ogTitle,
   } = input;
 
-  warnIfLong("title", title, 60);
+  const title = clampTitle(rawTitle);
+  warnIfLong("title", rawTitle, 60);
   warnIfLong("description", rawDescription, 160);
   const description = clampDescription(rawDescription);
 

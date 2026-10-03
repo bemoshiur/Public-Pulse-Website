@@ -12,7 +12,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { ProgrammaticPage, CalloutList, Hl } from "@/components/seo/ProgrammaticPage";
 import { getService } from "@/lib/services";
 import { getLocation } from "@/lib/taxonomies/locations";
-import { allowedServiceCityParams, isAllowedServiceCity } from "@/lib/taxonomies/matrix";
+import { allowedServiceCityParams, isAllowedServiceCity, serviceCityAnswer } from "@/lib/taxonomies/matrix";
 
 // Folder must be named [slug] (not [service]) — Next.js requires consistent
 // dynamic-segment names at the same path depth as sibling /(matrix)/[slug]/.
@@ -117,7 +117,7 @@ export default async function ServiceLocationPage({
           </>
         }
         lead={`${s.oneLiner} For brands operating in ${l.name}, ${l.division} Division.`}
-        answer={`Public Pulse Agency delivers ${s.shortName} for ${l.name} brands. We tune every engagement to the local market — ${l.name} over-indexes on ${l.topIndustries.slice(0, 3).join(", ")}, so the playbook and KPIs we run differ from generic ${s.shortName} delivered elsewhere.`}
+        answer={serviceCityAnswer(s, l)}
         answerQuestion={`What does ${s.shortName} look like for ${l.name} brands?`}
         faqs={autoFaqs}
         related={[

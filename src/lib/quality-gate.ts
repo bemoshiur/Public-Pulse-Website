@@ -5,7 +5,7 @@
 //   • no source refs / source ref not referenced in body (phrase form)
 //   • fabricated-specific regex bank match (made-up numbers/names)
 //   • FAQ < 3
-//   • answer-block missing or outside [20, 150] words
+//   • answer-block missing or outside [40, 60] words (the documented AEO band)
 //   • placeholder text ("Lorem ipsum", "TODO", "TKTK", "[name]")
 //   • word-count < 600
 //
@@ -24,6 +24,8 @@
 // new score distribution.
 
 export const PUBLISH_THRESHOLD = 75;
+export const ANSWER_MIN_WORDS = 40;
+export const ANSWER_MAX_WORDS = 60;
 
 export type GateContent = {
   /** Page title. */
@@ -119,16 +121,15 @@ export function runQualityGate(content: GateContent): GateResult {
     }
   }
 
-  // ── AnswerBlock word count (HARD if missing or out of [20, 150]) ─────
+  // ── AnswerBlock word count (HARD if missing or outside [40, 60]) ─────
+  // This is the band CLAUDE.md / docs/SEO-AEO-GEO.md and the OmniRank
+  // `answer-block` gate all enforce. It used to be [20, 150], which let 28
+  // published posts ship at 61-73 words and fail the audit.
   let answerScore = 100;
   const answerWords = wordCount(content.answerBlock);
-  if (!content.answerBlock || answerWords < 20 || answerWords > 150) {
+  if (!content.answerBlock || answerWords < ANSWER_MIN_WORDS || answerWords > ANSWER_MAX_WORDS) {
     hardFails.push(`answer-block-words:${answerWords}`);
     answerScore = 0;
-  } else if (answerWords < 35 || answerWords > 80) {
-    // Soft warning: "ideal" is 40–60, but we accept 20–150 hard band.
-    softFails.push({ rule: "answer-block-out-of-ideal-band", weight: 5 });
-    answerScore = 85;
   }
 
   // ── FAQ count (HARD if <3) ───────────────────────────────────────────

@@ -3,10 +3,11 @@ import type { Metadata } from "next";
 import { ArrowRight, Search } from "lucide-react";
 
 import { buildMetadata } from "@/lib/seo";
-import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
+import { breadcrumbSchema, faqPageSchema, webPageSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { AnswerBlock } from "@/components/seo/AnswerBlock";
 
 export const metadata: Metadata = buildMetadata({
   title: "Free Tools | Public Pulse — SEO, social, ad-spend audits",
@@ -30,6 +31,21 @@ const TOOLS = [
   },
 ];
 
+const FAQS = [
+  {
+    q: "Which free tools does Public Pulse offer?",
+    a: "One tool is live today: the SEO audit, a 10-point on-page snapshot of a domain's homepage. A social benchmark, an ad-spend ROI calculator and an election readiness checker are listed as shipping soon.",
+  },
+  {
+    q: "Do I need to sign up to use the tools?",
+    a: "No. The basic versions need no signup. You can run the tool, read the findings and leave.",
+  },
+  {
+    q: "Is there a limit on SEO audit runs, and is my domain stored?",
+    a: "Each visitor can run five SEO audits per hour. Each run is stateless: the domain and the findings are not stored, and only a hashed IP address is counted for the rate limit.",
+  },
+];
+
 export default function ToolsPage() {
   return (
     <>
@@ -41,6 +57,7 @@ export default function ToolsPage() {
             name: "Free Tools",
             description: "Interactive tools from Public Pulse Agency for BD brands.",
           }),
+          faqPageSchema(FAQS, "details"),
         ]}
       />
 
@@ -55,6 +72,9 @@ export default function ToolsPage() {
             <p className="mt-5 text-lead text-ink/65">
               Interactive tools we built for Bangladesh brands. No signup for any of the basic versions — find out where you stand, then decide if you want help.
             </p>
+            <AnswerBlock>
+              The free tools page lists interactive diagnostics from Public Pulse Agency. Today it offers one tool, an on-page SEO audit that checks a domain&rsquo;s title, meta description, heading, Open Graph tags and schema in seconds. The basic versions need no signup, and a social benchmark, ad-spend calculator and election readiness checker are planned.
+            </AnswerBlock>
           </div>
 
           <ul className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -81,6 +101,28 @@ export default function ToolsPage() {
               More tools shipping soon: social benchmark, ad-spend ROI calculator, election readiness checker.
             </li>
           </ul>
+        </Container>
+      </section>
+
+      <section className="bg-surface-alt py-16 md:py-24">
+        <Container>
+          <div className="max-w-3xl">
+            <p className="text-eyebrow uppercase text-brand-orange">FAQ</p>
+            <h2 className="mt-4 text-h2 tracking-tight text-ink">Tool questions.</h2>
+          </div>
+          <div className="mt-10 space-y-4">
+            {FAQS.map((f) => (
+              <details key={f.q} className="group rounded-card border border-ink/10 bg-paper p-5 open:shadow-card">
+                <summary className="cursor-pointer list-none text-h3 tracking-tight text-ink marker:hidden">
+                  <span className="flex items-start justify-between gap-4">
+                    <span>{f.q}</span>
+                    <span aria-hidden className="mt-1 text-brand-orange transition group-open:rotate-45">+</span>
+                  </span>
+                </summary>
+                <p className="mt-3 text-body text-ink/70">{f.a}</p>
+              </details>
+            ))}
+          </div>
         </Container>
       </section>
     </>

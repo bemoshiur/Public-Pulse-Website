@@ -24,6 +24,7 @@ export default function PrivacyPolicyPage() {
       eyebrow="Legal"
       intro="How we collect, use, store and protect your personal data. Written in plain English — not legalese — so you actually know what's happening."
       effectiveDate={EFFECTIVE_DATE}
+      summary="This privacy policy explains how Public Pulse Agency, a Dhaka-based business acting as data controller, collects, uses, stores and protects personal data from site visitors, contact-form senders, newsletter subscribers and WhatsApp opt-ins. It covers retention periods, third-party processors, cookies, security, and your rights to access, correct, delete, export or object."
     >
       <h2>Who we are</h2>
       <p>

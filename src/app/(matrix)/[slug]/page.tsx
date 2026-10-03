@@ -7,7 +7,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { ProgrammaticPage, CalloutList, Hl } from "@/components/seo/ProgrammaticPage";
 import { getService } from "@/lib/services";
 import { getIndustry } from "@/lib/taxonomies/industries";
-import { allowedServiceIndustrySlugs, isAllowedServiceIndustry } from "@/lib/taxonomies/matrix";
+import { allowedServiceIndustrySlugs, isAllowedServiceIndustry, serviceIndustryAnswer } from "@/lib/taxonomies/matrix";
 
 // SERVICE × INDUSTRY matrix at /<service>-for-<industry> (e.g. /paid-ads-for-real-estate).
 //
@@ -117,7 +117,7 @@ export default async function ServiceIndustryPage({
           </>
         }
         lead={`${s.oneLiner} Calibrated to ${ind.name} priorities.`}
-        answer={`Public Pulse Agency delivers ${s.shortName} for Bangladesh ${ind.name} brands. ${ind.description} The engagement is tuned to ${ind.name} priorities: ${ind.priorities.slice(0, 3).join(", ")} — not generic ${s.shortName} delivered to whoever signs.`}
+        answer={serviceIndustryAnswer(s, ind)}
         answerQuestion={`What does ${s.shortName} for ${ind.name} look like?`}
         faqs={autoFaqs}
         related={[

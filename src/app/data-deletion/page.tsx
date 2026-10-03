@@ -24,6 +24,7 @@ export default function DataDeletionPage() {
       eyebrow="Privacy"
       intro="How to ask us to delete the personal data we hold about you. One email and we'll have it confirmed within 30 days."
       effectiveDate={EFFECTIVE_DATE}
+      summary="This page explains how anyone can ask Public Pulse Agency to delete the personal data it holds, covering newsletter subscriptions, contact-form submissions, WhatsApp opt-ins and social-login grants. Requests are made by email, acknowledged within 7 days and completed within 30 days at no fee, except records Bangladesh tax law requires us to keep."
     >
       <h2>Your right to deletion</h2>
       <p>

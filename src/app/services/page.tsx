@@ -2,17 +2,19 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { buildMetadata } from "@/lib/seo";
-import { breadcrumbSchema } from "@/lib/schema";
+import { breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { GradientHero } from "@/components/seo/GradientHero";
+import { FaqSection } from "@/components/seo/FaqSection";
 import { Container } from "@/components/ui/Container";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { ServiceMatcher } from "@/components/services/ServiceMatcher";
 import { SERVICES } from "@/lib/services";
 import { getServiceIcon } from "@/lib/icons";
+import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Services | Public Pulse Agency — 9 Digital Marketing Services",
+  title: "Digital Marketing Services in Bangladesh | Public Pulse",
   description:
     "Political PR, social media, content, paid ads, hospitality, branding, SEO, analytics and influencer marketing — nine integrated services under one Dhaka roof.",
   path: "/services",
@@ -23,10 +25,29 @@ const crumbs = [
   { name: "Services", path: "/services" },
 ];
 
+const FAQS = [
+  {
+    q: "How many services does Public Pulse offer?",
+    a: `Public Pulse offers ${SERVICES.length} integrated services: ${SERVICES.map((s) => s.name).join(", ")}. They can be taken one at a time or combined into a full 360° engagement.`,
+  },
+  {
+    q: "How do I choose the right service?",
+    a: "Use the three-question service matcher on this page. It asks about your goal, channels and industry, then ranks the top three matching services. You can also ask the team directly on WhatsApp.",
+  },
+  {
+    q: "Who leads an engagement?",
+    a: "Each engagement is led by a senior member of the team, with a single KPI agreed before kickoff.",
+  },
+  {
+    q: "Are service prices published, and in which currency?",
+    a: `Starting prices for every service are listed on the pricing page and billed in BDT. For a quote, email ${SITE.contact.email} or call ${SITE.contact.phoneDisplay}.`,
+  },
+];
+
 export default function ServicesIndexPage() {
   return (
     <>
-      <JsonLd data={breadcrumbSchema(crumbs)} />
+      <JsonLd data={[breadcrumbSchema(crumbs), faqPageSchema(FAQS)]} />
 
       <GradientHero
         crumbs={crumbs}
@@ -37,7 +58,7 @@ export default function ServicesIndexPage() {
           </>
         }
         lead="Pick one, or take the full 360°. Each engagement is led by a senior on our team with a single KPI agreed before kickoff."
-        answer="Public Pulse Agency runs nine integrated digital marketing services for Bangladeshi brands, political candidates, and hospitality businesses — from political PR and election campaigns to social media, paid ads, SEO, content production, branding, analytics, and influencer marketing."
+        answer="Public Pulse Agency runs nine integrated digital marketing services for Bangladeshi brands, political candidates and hospitality businesses. They are political PR and election campaigns, social media, content production, paid ads, branding, SEO, analytics and influencer marketing. Each engagement is led by a senior team member with a single KPI agreed before kickoff."
       />
 
       <section className="bg-paper py-16 md:py-24">
@@ -97,6 +118,8 @@ export default function ServicesIndexPage() {
           </div>
         </Container>
       </section>
+
+      <FaqSection faqs={FAQS} />
     </>
   );
 }

@@ -24,6 +24,7 @@ export default function TermsOfServicePage() {
       eyebrow="Legal"
       intro="The rules covering use of publicpulse.com.bd, our newsletter, and any content we publish. Read this before you use the site."
       effectiveDate={EFFECTIVE_DATE}
+      summary="These terms of service set the rules for using publicpulse.com.bd, a website operated by Public Pulse Agency, a Bangladesh-registered business in Dhaka. They cover acceptable use, newsletter and WhatsApp opt-in, content and intellectual property, disclaimers, liability limits and governing law. Client work is governed separately by a signed Master Services Agreement."
     >
       <h2>Agreement</h2>
       <p>

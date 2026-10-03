@@ -63,7 +63,7 @@ export default function PricingPage() {
             description: "Starting prices for every Public Pulse service, billed in BDT.",
           }),
           pricingSchema(),
-          faqPageSchema(FAQS),
+          faqPageSchema(FAQS, "details"),
         ]}
       />
 

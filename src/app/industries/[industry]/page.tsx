@@ -9,6 +9,7 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { INDUSTRIES, getIndustry } from "@/lib/taxonomies/industries";
 import { SERVICES, getService } from "@/lib/services";
+import { industryAnswer } from "@/lib/taxonomies/matrix";
 import { getWorksByIndustry } from "@/lib/data/works";
 import { WorkCard } from "@/components/work/WorkCard";
 
@@ -104,7 +105,7 @@ export default async function IndustryPage({
           </>
         }
         lead={ind.description}
-        answer={`Public Pulse Agency runs ${alignedServices.slice(0, 4).map((s) => s.shortName.toLowerCase()).join(", ")} for ${ind.name} brands in Bangladesh. We prioritise ${ind.priorities.slice(0, 3).join(", ")} — the moves that actually move the needle in this vertical, not generic agency playbooks.`}
+        answer={industryAnswer(ind, alignedServices)}
         answerQuestion={`What does Public Pulse do for ${ind.name} clients?`}
         faqs={[
           {

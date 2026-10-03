@@ -188,7 +188,7 @@ export default async function BlogPostPage({
     }),
     breadcrumbSchema(crumbs),
   ];
-  if (faqs.length > 0) schemas.push(faqPageSchema(faqs));
+  if (faqs.length > 0) schemas.push(faqPageSchema(faqs, "details"));
 
   return (
     <article>

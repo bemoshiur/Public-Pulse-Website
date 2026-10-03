@@ -13,6 +13,36 @@ Entry format:
 
 ---
 
+## 2026-10-03 — STEP 32 / OMNIRANK-DRIVEN AEO FIXES + IndexNow DEPLOY DIFF
+
+Trigger: OmniRank v0.4.0 (`~/Documents/Project Archive/ClaudeCode Skill/SEO-AEO-GEO-SMM-CLAUDE-SKILL`) audited the live site: **overall 77, `aeo` 0, 286 findings**. Branch `feat/client-works`. Deployed with `AWS_PROFILE=default bash scripts/deploy.sh production`.
+
+### Root causes (not 286 separate problems)
+- **Speakable (151):** `faqPageSchema()` hardcoded `dl > div dt/dd` for all 19 callers; 71 pages render `<details>` or have no AnswerBlock. Now `faqPageSchema(faqs, "dl" | "details" | "none")`; `webPageSchema` has `speakable?: boolean`.
+- **AnswerBlock length (62):** the audit counts `.answer-block` text, which INCLUDED the question heading (blog title, `answerQuestion`), so most "61-73 word" blocks were ~52 words of answer + a title. `AnswerBlock` now renders `section.answer-panel` (visual wrapper + question) around `div.answer-block[data-speakable]` (the answer alone). CSS moved to `.answer-panel`. Only 2 posts were genuinely >60 words (DB trims below).
+- **Under-length answers:** 22 service x city + 2 industry pages were 36-39 words; glossary definitions 14-38. Matrix answers now come from builders in `taxonomies/matrix.ts` (`fitAnswer` picks a 46-56 word candidate; proven 49-57 words over all 171 combos); 25 glossary definitions expanded from their own `body` text only.
+- **Titles (51):** `clampTitle()` in `seo.ts` is a <=60 backstop (drop brand tail, cut at separator, else word boundary).
+- **Missing AnswerBlocks:** press, tools, tools/seo-audit, search, privacy, terms, data-deletion. 9 index pages got a shared `FaqSection` (dl markup + FAQPage schema) built from catalog counts and facts already in the repo.
+- **Hang:** `PostBody.inlineParse` looped forever on an unpaired `*`, `**`, backtick or `[` (reproduced at 99% CPU). Fixed; probable cause of `/blog/speakable-schema-bangladesh-2026` timing out (unconfirmed until read live).
+- `quality-gate.ts` answer band `[20,150]` -> `[40,60]` (matches CLAUDE.md and the audit).
+- `/feed.xml` now serves the 50 newest published Neon posts (was the legacy catalog, 1 of 14 ready).
+- **DB write (only one):** `answer_first` trimmed by pure clause deletion on `engagement-rate-bangladeshi-marketers-2026` (62->53w) and `paid-ads-gazipur` (63->56w). Originals: scratchpad `blog_originals_backup.json` (session-local).
+
+### Deploy / IndexNow
+- `scripts/indexnow-ping.ts` + `deploy.sh`: snapshot normalised-HTML hashes of the live sitemap pages before `sst deploy`, then after deploy submit ONLY changed URLs (IndexNow forbids bulk resubmission). Manifest `.deploy/freshness.json` (gitignored). `pingIndexNow` now chunks at 10k.
+- `deploy.sh`: removed the stale "abort if apex" guard (it `exit 1`'d every production deploy since the STEP 7 cutover) and the step that re-seeded a placeholder case study into production.
+
+### Verified before deploy
+`tsc` clean, `next build` green. Over 133 built pages: one H1, canonical and JSON-LD everywhere; no duplicate titles/descriptions; **0 unresolved speakable selectors** (old code: 18 on prerendered pages); all answers 40-60 words; all titles <=60. Legal pages deliberately have no FAQ (OmniRank exempts them). Not statically checkable: DB-rendered blog posts.
+
+### Next
+- Re-run `omnirank audit https://publicpulse.com.bd` and compare with the 2026-10-03 baseline (aeo 0 / overall 77).
+- Confirm `/blog/speakable-schema-bangladesh-2026` renders; if not, read that post body.
+- OmniRank v0.5.0 (`indexing` + `aeo-onpage`) remains designed but unspecced. Its existing `indexing` config schema keys conflict with the proposed shape (decide: reuse vs widen).
+- Search Console API integration not started (needs a service account added as a delegated owner on `sc-domain:publicpulse.com.bd`).
+
+---
+
 ## 2026-08-09 — STEP 31 / CLIENT WORKS (`/work`) — BUILT, REVIEWED, DEPLOYED + LIVE-VERIFIED
 
 **LIVE at https://publicpulse.com.bd/work.** A dedicated, dynamic, detail-rich client-works portfolio, plus repairs to the sibling `/case-studies` system. Branch `feat/client-works` (18 commits, `2935446..ae73308`), deployed via `AWS_PROFILE=default bash scripts/deploy.sh production`.

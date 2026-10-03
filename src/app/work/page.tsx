@@ -6,10 +6,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 import { buildMetadata } from "@/lib/seo";
-import { breadcrumbSchema, collectionPageSchema, itemListSchema } from "@/lib/schema";
+import { breadcrumbSchema, collectionPageSchema, faqPageSchema, itemListSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { AnswerBlock } from "@/components/seo/AnswerBlock";
+import { FaqSection } from "@/components/seo/FaqSection";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { GreyPanel } from "@/components/ui/GreyPanel";
@@ -50,11 +51,31 @@ export default async function WorkIndexPage() {
   );
   const logoClients = allLogoClients.filter((c) => namedClientIds.has(c.id));
 
+  const faqs = [
+    {
+      q: "What does the Work section show?",
+      a: "Campaigns, brand systems, social, paid media and film for Bangladeshi brands, candidates and hospitality businesses, with the services delivered on each project.",
+    },
+    {
+      q: "Why are some clients not named?",
+      a: "Where a client is under NDA, the outcome is shown without the name. Outcomes are published only where the client permits it.",
+    },
+    {
+      q: "Which disciplines are covered?",
+      a: `${DISCIPLINES.length} disciplines: ${DISCIPLINES.map((d) => d.name).join(", ")}. Use the filters on the grid to narrow the list.`,
+    },
+    {
+      q: "How is this different from the case studies?",
+      a: "The Work section shows the projects themselves, while case studies lead with measured outcomes and metrics.",
+    },
+  ];
+
   return (
     <>
       <JsonLd
         data={[
           breadcrumbSchema(crumbs),
+          faqPageSchema(faqs),
           collectionPageSchema({
             path: "/work",
             name: "Public Pulse client work",
@@ -137,6 +158,8 @@ export default async function WorkIndexPage() {
           <InlineBlock context="service" />
         </Container>
       </Section>
+
+      <FaqSection faqs={faqs} />
     </>
   );
 }

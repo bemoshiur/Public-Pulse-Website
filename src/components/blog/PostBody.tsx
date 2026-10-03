@@ -96,6 +96,15 @@ function inlineParse(text: string, keyPrefix: string): React.ReactNode[] {
         tokens.push(...parts);
         break;
       }
+      if (next === 0) {
+        // An unpaired marker (lone `*`, `**`, backtick or `[`): no matcher above
+        // consumed it and search() points at index 0, so slicing off an empty chunk
+        // would leave `remaining` unchanged and spin forever (the Lambda then times
+        // out). Emit that one character literally and move on.
+        tokens.push(remaining[0]);
+        remaining = remaining.slice(1);
+        continue;
+      }
       const chunk = remaining.slice(0, next);
       if (chunk) tokens.push(...inlineLinkGlossary(chunk));
       remaining = remaining.slice(next);

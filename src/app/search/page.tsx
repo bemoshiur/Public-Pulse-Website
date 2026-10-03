@@ -16,6 +16,7 @@ import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { AnswerBlock } from "@/components/seo/AnswerBlock";
 import { SITE } from "@/lib/site";
 import { siteSearch, type SiteSearchHit } from "@/lib/site-search";
 
@@ -88,6 +89,9 @@ export default async function SearchPage({
               Searches across our published Bangladesh marketing playbooks — service
               pages, glossary terms, blog posts, case studies, location and industry hubs.
             </p>
+            <AnswerBlock>
+              The search page looks across the published Bangladesh marketing content of Public Pulse Agency. One query returns matching service pages, glossary terms, blog articles, case studies, guides, decision matrices, and location and industry hubs. Enter at least two characters, and each result shows its content type, title, excerpt and address.
+            </AnswerBlock>
           </div>
 
           {/* GET form — keeps the URL shareable + bookmark-friendly. */}

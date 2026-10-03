@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 
 import { buildMetadata } from "@/lib/seo";
-import { breadcrumbSchema, collectionPageSchema, itemListSchema } from "@/lib/schema";
+import { breadcrumbSchema, collectionPageSchema, faqPageSchema, itemListSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { GradientHero } from "@/components/seo/GradientHero";
+import { FaqSection } from "@/components/seo/FaqSection";
 import { Container } from "@/components/ui/Container";
 import { getCategories, getPublishedPosts } from "@/lib/data/blog";
 import { SITE } from "@/lib/site";
@@ -52,11 +53,31 @@ export default async function BlogIndexPage() {
     nameEn: c.nameEn,
   }));
 
+  const faqs = [
+    {
+      q: "What does the Public Pulse Insights blog cover?",
+      a: "Long-form practitioner guides on digital marketing, political PR, paid ads, SEO, hospitality marketing and brand building in Bangladesh. Each guide is grounded in a service, city or vertical Public Pulse actually delivers for.",
+    },
+    {
+      q: "How many guides are published?",
+      a: `There ${posts.length === 1 ? "is" : "are"} currently ${posts.length} published article${posts.length === 1 ? "" : "s"} across ${categories.length} categories, and the library keeps growing.`,
+    },
+    {
+      q: "Can I filter or search the guides?",
+      a: "Yes. Use the category chips to narrow the list to one topic, or use the search box to find a guide by keyword.",
+    },
+    {
+      q: "How do I discuss a topic with the team?",
+      a: `Send a brief through the contact page, message the team on WhatsApp, or email ${SITE.contact.email}. Replies come within 24 hours, Saturday through Thursday.`,
+    },
+  ];
+
   return (
     <>
       <JsonLd
         data={[
           breadcrumbSchema(crumbs),
+          faqPageSchema(faqs),
           collectionPageSchema({
             path: "/blog",
             name: "Public Pulse Insights",
@@ -80,7 +101,7 @@ export default async function BlogIndexPage() {
           </>
         }
         lead={`English + বাংলা · ${posts.length} guide${posts.length === 1 ? "" : "s"} and growing. Long-form practitioner notes for the Bangladesh market.`}
-        answer={`The Public Pulse Insights blog publishes long-form practitioner guides for Bangladesh digital marketing and political PR. ${posts.length} published article${posts.length === 1 ? "" : "s"} across ${categories.length} categories — each one grounded in a real service, location or vertical we actually deliver for.`}
+        answer={`Public Pulse Insights is the agency's blog of long-form practitioner guides on digital marketing and political PR in Bangladesh. It currently holds ${posts.length} published article${posts.length === 1 ? "" : "s"} across ${categories.length} categories, including paid media, SEO, hospitality marketing and brand building. Every guide is grounded in a service, city or industry the agency actually works in.`}
       />
 
       {/* Suspense boundary is required because BlogFilter uses
@@ -89,6 +110,7 @@ export default async function BlogIndexPage() {
         <BlogFilter posts={serializedPosts} categories={serializedCategories} />
       </Suspense>
 
+      <FaqSection faqs={faqs} />
     </>
   );
 }

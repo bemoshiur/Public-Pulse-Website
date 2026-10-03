@@ -130,7 +130,7 @@ export default function ElectionPage() {
               "win the seat",
             ],
           }),
-          faqPageSchema(FAQS),
+          faqPageSchema(FAQS, "details"),
         ]}
       />
 

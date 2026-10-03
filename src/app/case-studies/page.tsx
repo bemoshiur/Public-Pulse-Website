@@ -9,9 +9,10 @@
 import type { Metadata } from "next";
 
 import { buildMetadata } from "@/lib/seo";
-import { breadcrumbSchema, collectionPageSchema, itemListSchema } from "@/lib/schema";
+import { breadcrumbSchema, collectionPageSchema, faqPageSchema, itemListSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { GradientHero } from "@/components/seo/GradientHero";
+import { FaqSection } from "@/components/seo/FaqSection";
 import { Container } from "@/components/ui/Container";
 import { InlineBlock } from "@/components/lead-capture";
 import { getPublishedCaseStudies } from "@/lib/data/case-studies";
@@ -54,11 +55,31 @@ export default async function CaseStudiesIndex() {
     clientName: c.clientName ?? null,
   }));
 
+  const faqs = [
+    {
+      q: "What does a Public Pulse case study contain?",
+      a: "Documented metrics, the time window they cover and the services delivered, so the result can be traced back to the work behind it.",
+    },
+    {
+      q: "Are client names always shown?",
+      a: "No. Where an NDA applies, the client name is anonymised to a sector label.",
+    },
+    {
+      q: "How many case studies are published?",
+      a: `There ${cases.length === 1 ? "is" : "are"} currently ${cases.length} published case stud${cases.length === 1 ? "y" : "ies"}. Every number shown is a real result from work Public Pulse delivered, with no fabricated figures or screenshots.`,
+    },
+    {
+      q: "How is this different from the Work section?",
+      a: "Case studies lead with measured outcomes, while the Work section shows the projects themselves.",
+    },
+  ];
+
   return (
     <>
       <JsonLd
         data={[
           breadcrumbSchema(crumbs),
+          faqPageSchema(faqs),
           collectionPageSchema({
             path: "/case-studies",
             name: "Public Pulse case studies",
@@ -92,6 +113,8 @@ export default async function CaseStudiesIndex() {
           <InlineBlock context="service" />
         </Container>
       </section>
+
+      <FaqSection faqs={faqs} />
     </>
   );
 }

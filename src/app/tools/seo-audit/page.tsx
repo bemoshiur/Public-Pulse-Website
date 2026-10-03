@@ -5,6 +5,7 @@ import { breadcrumbSchema, faqPageSchema, webPageSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { AnswerBlock } from "@/components/seo/AnswerBlock";
 import { SeoAuditTool } from "./SeoAuditTool";
 
 export const metadata: Metadata = buildMetadata({
@@ -47,7 +48,7 @@ export default function SeoAuditPage() {
             description:
               "10-point on-page SEO audit for any domain. Instant, no signup.",
           }),
-          faqPageSchema(FAQS),
+          faqPageSchema(FAQS, "details"),
         ]}
       />
 
@@ -62,6 +63,9 @@ export default function SeoAuditPage() {
             <p className="mt-5 text-lead text-ink/65">
               Enter your domain. We fetch the homepage and check 10 high-signal items most BD brands get wrong. No signup; you can read the findings and leave.
             </p>
+            <AnswerBlock>
+              The free SEO audit tool checks a domain&rsquo;s homepage against ten on-page items, including title, meta description, H1 count, Open Graph tags, canonical link, JSON-LD schema, response time and security headers. Results appear in about ten seconds with no signup. Each visitor can run five audits per hour, and no domain or findings are stored.
+            </AnswerBlock>
           </div>
 
           <div className="mt-10 max-w-4xl">

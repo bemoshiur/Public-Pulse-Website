@@ -11,11 +11,13 @@ type AnswerBlockProps = {
 };
 
 export function AnswerBlock({ question, children }: AnswerBlockProps) {
+  // The question heading lives in the visual panel but OUTSIDE `.answer-block`:
+  // the answer element is what speakable points at and what audits word-count,
+  // and the contract (docs/SEO-AEO-GEO.md) is a 40-60 word ANSWER, not answer + question.
   return (
     <section
-      className="answer-block my-6"
+      className="answer-panel my-6"
       aria-labelledby={question ? "answer-question" : undefined}
-      data-speakable=""
     >
       {question ? (
         <h2
@@ -25,7 +27,12 @@ export function AnswerBlock({ question, children }: AnswerBlockProps) {
           {question}
         </h2>
       ) : null}
-      <div className="text-[17px] leading-relaxed text-slate-800">{children}</div>
+      <div
+        className="answer-block text-[17px] leading-relaxed text-slate-800"
+        data-speakable=""
+      >
+        {children}
+      </div>
     </section>
   );
 }

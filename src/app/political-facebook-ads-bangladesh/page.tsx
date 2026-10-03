@@ -34,7 +34,7 @@ const PATH = "/political-facebook-ads-bangladesh";
 
 const ANSWER_Q = "What is political Facebook advertising in Bangladesh?";
 const ANSWER =
-  'Political Facebook advertising in Bangladesh is the disciplined use of Meta’s paid tools — boosted posts and Ads Manager campaigns — to reach a defined electorate, run only from an authorized ad account carrying a “Paid for by” disclaimer, targeted by geography and interest rather than protected traits, and measured against a single campaign objective. Public Pulse runs it end-to-end from Dhaka.';
+  'Political Facebook advertising in Bangladesh is the use of Meta’s paid tools, boosted posts and Ads Manager, to reach a defined electorate. It must run only from an authorized ad account with a “Paid for by” disclaimer, target by geography and interest rather than protected traits, and serve one campaign objective. Public Pulse runs it.';
 
 export const metadata: Metadata = buildMetadata({
   title: "Political Facebook Ads in Bangladesh | Public Pulse",
@@ -206,11 +206,11 @@ export default function PoliticalFacebookAdsPage() {
               <span>PP/FB-01</span>
             </div>
             <AnswerBlock>
-              Political Facebook advertising in Bangladesh is the disciplined use of Meta’s paid
-              tools — boosted posts and Ads Manager campaigns — to reach a defined electorate,
-              run <b>only</b> from an authorized ad account carrying a “Paid for by”
-              disclaimer, targeted by geography and interest rather than protected traits, and measured
-              against a single campaign objective. Public Pulse runs it end-to-end from Dhaka.
+              Political Facebook advertising in Bangladesh is the use of Meta’s paid tools, boosted
+              posts and Ads Manager, to reach a defined electorate. It must run <b>only</b>{" "}
+              from an authorized ad account with a “Paid for by” disclaimer, target by geography and
+              interest rather than protected traits, and serve one campaign objective. Public Pulse
+              runs it.
             </AnswerBlock>
             <dl className="mt-1 grid gap-px overflow-hidden rounded-[4px] border border-pr-hairline bg-pr-hairline">
               {[

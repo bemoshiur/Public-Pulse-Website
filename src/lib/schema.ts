@@ -423,15 +423,32 @@ export function creativeWorkSchema(input: CreativeWorkInput) {
 
 export type Faq = { q: string; a: string };
 
-export function faqPageSchema(faqs: Faq[]) {
+/**
+ * How the page renders its FAQ section. Every `speakable.cssSelector` must
+ * resolve against the page's own markup — an unresolvable selector is an invalid
+ * claim to voice assistants (OmniRank `aeo.speakable.unresolved`).
+ *  - "dl"      `<dl><div><dt>/<dd>` pairs (ProgrammaticPage, services, glossary, guides)
+ *  - "details" `<details>/<summary>` accordions (blog, about, pricing, election, case studies)
+ *  - "none"    the page has no AnswerBlock, so there is nothing truthful to point at
+ */
+export type FaqMarkup = "dl" | "details" | "none";
+
+const FAQ_SPEAKABLE: Record<Exclude<FaqMarkup, "none">, string[]> = {
+  dl: [".answer-block", "dl > div dt", "dl > div dd"],
+  details: [".answer-block"],
+};
+
+export function faqPageSchema(faqs: Faq[], markup: FaqMarkup = "dl") {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     inLanguage: SITE.language,
-    speakable: {
-      "@type": "SpeakableSpecification",
-      cssSelector: [".answer-block", "dl > div dt", "dl > div dd"],
-    },
+    ...(markup !== "none" && {
+      speakable: {
+        "@type": "SpeakableSpecification",
+        cssSelector: FAQ_SPEAKABLE[markup],
+      },
+    }),
     mainEntity: faqs.map((f) => ({
       "@type": "Question",
       name: f.q,
@@ -465,6 +482,12 @@ export type WebPageInput = {
   author?: string;
   /** Reviewer name for E-E-A-T (defaults to Org). */
   reviewedBy?: string;
+  /**
+   * Emit `speakable` pointing at `.answer-block`. Defaults to true; pass false
+   * on pages that render no AnswerBlock (legal, search, tools) so the claim is
+   * never made against markup that doesn't exist.
+   */
+  speakable?: boolean;
 };
 
 export function webPageSchema(input: WebPageInput) {
@@ -520,10 +543,12 @@ export function webPageSchema(input: WebPageInput) {
           name,
         })),
       }),
-    speakable: {
-      "@type": "SpeakableSpecification",
-      cssSelector: [".answer-block"],
-    },
+    ...(input.speakable !== false && {
+      speakable: {
+        "@type": "SpeakableSpecification",
+        cssSelector: [".answer-block"],
+      },
+    }),
     potentialAction: {
       "@type": "ReadAction",
       target: [url],

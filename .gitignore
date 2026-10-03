@@ -51,3 +51,6 @@ pp-after-*.png
 check-*.png
 blog-*.png
 bd-map-*.png
+
+# IndexNow freshness manifest (scripts/indexnow-ping.ts)
+.deploy/

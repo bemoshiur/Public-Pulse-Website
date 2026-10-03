@@ -151,9 +151,10 @@ export default function ContactPage() {
 
           <div className="mt-6 max-w-3xl">
             <AnswerBlock>
-              We reply to every email and WhatsApp message within 24 hours, Saturday through
-              Thursday. Office hours are 09:00–21:00 Asia/Dhaka. Fastest channel is WhatsApp. Free
-              30-minute consultation; no pitch deck, no qualifying questions.
+              Public Pulse Agency replies to every email and WhatsApp message within 24 hours,
+              Saturday through Thursday. Office hours run 09:00–21:00 Asia/Dhaka, and WhatsApp is
+              the fastest channel. The first 30-minute consultation is free, with no pitch deck and
+              no qualifying questions, and you can also call or send a brief through the form.
             </AnswerBlock>
           </div>
         </Container>
