@@ -66,6 +66,7 @@ Triggered by the user: "/election ux is top notch, make it in whole site". The p
 - **Also:** OG / blog share cards, theme-color and PWA manifests, press brand-kit swatches, map marker.
 - **Pre-existing bugs fixed on the way:** `/pricing` price numeral overflowed the viewport (live too), `/search` submit button overflowed on phones (live too).
 - **Verified (real browser, axe-core colour-contrast + overflow + broken images + H1):** 30 pages at 1440 and 27 at 390: 0 contrast violations, 0 overflow, 0 broken images. Build: 133 pages one H1/canonical/JSON-LD, 0 unresolved speakable, same SEO baseline as before.
+- **LIVE (deployed via `AWS_PROFILE=default bash scripts/deploy.sh production`):** real-browser sweep of production, 26 pages x desktop + mobile: 0 contrast violations, 0 overflow, 0 broken images, one H1 each (only `/manage/sign-in` flags, the unchanged legacy admin). OmniRank re-audit after deploy: **overall 94/100, aeo 73 (was 40), seo/perf/security/geo 100**, 4 findings left = the deliberate legal-page FAQ warnings. Rollback: `git checkout pre-crimson-sitewide` and redeploy (code-only, no DB change).
 - **Not retheme'd:** transactional emails (`src/emails/*`, own inline-hex palette) and the `/manage` admin.
 - **Gotcha:** a stale `.next` makes Turbopack throw a bogus `next/font/google queries have exactly one entry` error; `rm -rf .next` fixes it. `public/<dir>` named like an app route (e.g. `public/election`) makes CloudFront send that whole route to S3 (403) -- found the hard way, the assets now live in `public/campaign-profile/`.
 
