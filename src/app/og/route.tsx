@@ -1,9 +1,10 @@
 import { ImageResponse } from "next/og";
+import { loadOgFonts, ogFontOptions } from "@/lib/og-fonts";
 
 // Dynamic OG image factory — /og?title=<text>&eyebrow=<text>
 //
-// Avoora-style B&W + brand-orange. Matches the live site direction
-// (black bg, white type, orange accent stripe + chip, bold sans).
+// Crimson / gold system (same palette + radial gradient as the site's heroes):
+// deep maroon base, hot upper-right core, white Fraunces headline, gold accents.
 //
 // 1200 × 630. Returns PNG.
 //
@@ -35,6 +36,9 @@ export async function GET(req: Request) {
   // Headline auto-sizes to balance long/short titles.
   const headlineSize = title.length > 110 ? 56 : title.length > 80 ? 68 : title.length > 50 ? 84 : 100;
 
+  const fonts = await loadOgFonts();
+  const serif = fonts.length ? "Fraunces, sans-serif" : "sans-serif";
+
   return new ImageResponse(
     (
       <div
@@ -45,23 +49,14 @@ export async function GET(req: Request) {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 80px",
-          background: INK,
+          background:
+            "radial-gradient(60% 60% at 92% 4%, rgba(254,37,0,0.60) 0%, transparent 64%), radial-gradient(120% 100% at 36% 30%, #A80000 0%, #8A0000 42%, #5C0000 100%)",
+          backgroundColor: INK,
           color: PAPER,
           fontFamily: "sans-serif",
           position: "relative",
         }}
       >
-        {/* Subtle radial glow in the bottom-right corner — adds depth without
-            breaking the B&W language. Single orange wash, very low opacity. */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            background:
-              "radial-gradient(60% 60% at 92% 4%, rgba(254,37,0,0.60) 0%, transparent 64%), radial-gradient(120% 100% at 36% 30%, #A80000 0%, #8A0000 42%, #5C0000 100%)",
-          }}
-        />
 
         {/* Top eyebrow chip — orange border, white text, mono spacing. */}
         <div
@@ -111,9 +106,10 @@ export async function GET(req: Request) {
           <div
             style={{
               fontSize: headlineSize,
-              fontWeight: 900,
-              letterSpacing: "-0.035em",
-              lineHeight: 0.98,
+              fontFamily: serif,
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.04,
               color: PAPER,
               display: "flex",
             }}
@@ -146,9 +142,10 @@ export async function GET(req: Request) {
               display: "flex",
               alignItems: "baseline",
               gap: 6,
-              fontSize: 38,
-              fontWeight: 900,
-              letterSpacing: "-0.025em",
+              fontSize: 40,
+              fontFamily: serif,
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
               lineHeight: 1,
             }}
           >
@@ -199,10 +196,13 @@ export async function GET(req: Request) {
       </div>
     ),
     {
+      ...ogFontOptions(fonts),
       width: 1200,
       height: 630,
       headers: {
-        "cache-control": "public, max-age=86400, s-maxage=31536000, immutable",
+        "cache-control": fonts.length
+          ? "public, max-age=86400, s-maxage=31536000, immutable"
+          : "public, max-age=60, s-maxage=300", // fallback font: re-render soon
       },
     }
   );

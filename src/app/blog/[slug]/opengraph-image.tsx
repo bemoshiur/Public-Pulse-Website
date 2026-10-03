@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getCategories, getPostBySlug } from "@/lib/data/blog";
+import { loadOgFonts, ogFontOptions } from "@/lib/og-fonts";
 
 // Per-post auto OG. Next.js file convention: this file's default export is
 // called as a 1200x630 ImageResponse and wired into <head> for /blog/[slug].
@@ -31,6 +32,9 @@ export default async function OpenGraphImage({
     ? (await getCategories()).find((c) => c.slug === categorySlug)?.nameEn ?? categorySlug
     : "Public Pulse · Dhaka";
   const eyebrow = `${categoryName} · publicpulse.com.bd`;
+
+  const fonts = await loadOgFonts();
+  const serif = fonts.length ? "Fraunces, sans-serif" : "sans-serif";
 
   return new ImageResponse(
     (
@@ -74,9 +78,10 @@ export default async function OpenGraphImage({
         <div
           style={{
             fontSize: title.length > 70 ? 64 : 84,
-            fontWeight: 800,
-            letterSpacing: "-0.025em",
-            lineHeight: 1.05,
+            fontFamily: serif,
+            fontWeight: 700,
+            letterSpacing: "-0.02em",
+            lineHeight: 1.06,
             maxWidth: 1080,
             display: "flex",
             color: "#ffffff",
@@ -90,7 +95,8 @@ export default async function OpenGraphImage({
             display: "flex",
             alignItems: "baseline",
             justifyContent: "space-between",
-            fontSize: 28,
+            fontSize: 34,
+            fontFamily: serif,
             fontWeight: 700,
           }}
         >
@@ -104,6 +110,6 @@ export default async function OpenGraphImage({
         </div>
       </div>
     ),
-    { ...size }
+    { ...size, ...ogFontOptions(fonts) }
   );
 }
