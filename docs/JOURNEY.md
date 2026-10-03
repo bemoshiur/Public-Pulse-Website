@@ -44,6 +44,14 @@ Trigger: OmniRank v0.4.0 (`~/Documents/Project Archive/ClaudeCode Skill/SEO-AEO-
 ### Second DB pass (after the audit, 16 more writes total counting the first 2)
 Scanned all 166 published posts. 16 Bengali posts are off-band but `/bn/*` 308s and is not in the sitemap, so they were left alone. 14 English posts were 34-39 words; each got ONE appended sentence grounded in its own body (independently verified). I replaced three drafts that would have promoted unsourced statistics into the quoted answer ("30-40% higher completion rates", "4.5+ star average ... within 24 hours", "3-5 minute video"). **0 English published posts are now outside 40-60.** Originals are in the (session-local) scratchpad `blog_originals_backup.json` / `short_originals_backup.json`.
 
+### Audit-tool caveat learned the hard way
+OmniRank hits each URL once. Blog pages are ISR with `stale-while-revalidate`, so right after a DB edit the audit reads the OLD cached copy and only the next visitor sees the new one. The post-edit audits therefore over-reported blog answer lengths (5 flagged; all five were 49-54 words when fetched live). To verify DB-driven pages, fetch each page twice (the first call triggers regeneration) or wait out the cache before auditing.
+
+### Brag video + shareable PDF (`/brag`, untracked in `brag-output/`)
+`brag-output/brag.mp4` (1920x1080, 30fps, 24.8s, H.264 CRF 12 + AAC, -16.5 LUFS) with a **Bengali** voiceover and `details.pdf` (2 pages, fonts embedded) pitching Public Pulse's political-PR service to candidates and parties. Every number on screen is a measured audit figure from 2026-10-03 (287 -> 8 findings, score 77 -> 88, SEO 92 -> 100, perf 95 -> 100); the PDF has a "what we have NOT measured" box. Compliance scene uses the four clauses from the political-ads page.
+- **Voice:** Kokoro (the skill's TTS) has no Bengali, so the voice is the macOS **"Piya" (bn_IN)** system voice, one clip per line (`brag-output/composition/assets/audio/`). It was not listened to by the agent; a human must check pronunciation (especially "এআই", "পিআর", "পেইড ফর বাই") before publishing, and may prefer a recorded or commercial Bangladeshi-Bengali voice.
+- Regenerate: edit `brag-output/narration.txt`, re-run the `say -v Piya` loop, then `npx hyperframes render --quality delivery --crf 12`.
+
 ### Known issue found, NOT fixed
 The generated post BODIES contain many unsourced statistics ("see 30-40% higher order volumes", "outpace competitors by 2-3x", "15-25% higher click-through rates"). `quality-gate.ts`'s fabrication regex bank does not catch them. CLAUDE.md/Research-and-Evidence say no invented statistics. Needs a decision: sweep and strip them, or add a numeric-claim rule to the gate (hard-fail a percent/multiplier with no cited source).
 
