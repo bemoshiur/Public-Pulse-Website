@@ -22,6 +22,7 @@ import { getServiceContent } from "@/content/services";
 import { getPostsBySourceRef } from "@/lib/data/blog";
 import { getWorksByService } from "@/lib/data/works";
 import { WorkCard } from "@/components/work/WorkCard";
+import { CampaignProfile } from "@/components/election/CampaignProfile";
 
 type Params = { slug: string };
 
@@ -285,6 +286,15 @@ export default async function ServiceDetailPage({
                 </p>
               </div>
             </GreyPanel>
+          </Container>
+        </Section>
+      )}
+
+      {/* ═══ CAMPAIGN PROFILE (political-pr only — the Canva brochure, as PDF) ══ */}
+      {service.slug === "political-pr" && (
+        <Section size="sm" className="bg-paper">
+          <Container>
+            <CampaignProfile variant="band" />
           </Container>
         </Section>
       )}

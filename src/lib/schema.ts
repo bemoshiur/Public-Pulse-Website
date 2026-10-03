@@ -1037,3 +1037,36 @@ export function pricingSchema() {
     })),
   };
 }
+
+// ─── DigitalDocument (downloadable PDF, e.g. the campaign profile) ────────
+
+export type DigitalDocumentInput = {
+  name: string;
+  description: string;
+  /** Site-relative path of the file, e.g. /downloads/profile.pdf */
+  path: string;
+  /** Size in bytes (contentSize is emitted as "<n> B"). */
+  bytes?: number;
+  /** Languages the document is written in (BCP-47). */
+  languages?: string[];
+  pages?: number;
+};
+
+export function digitalDocumentSchema(input: DigitalDocumentInput) {
+  const url = absoluteUrl(input.path);
+  return {
+    "@context": "https://schema.org",
+    "@type": "DigitalDocument",
+    "@id": `${url}#document`,
+    name: input.name,
+    description: input.description,
+    url,
+    contentUrl: url,
+    encodingFormat: "application/pdf",
+    inLanguage: input.languages ?? [SITE.language],
+    publisher: { "@id": ORG_ID },
+    author: { "@id": ORG_ID },
+    ...(input.bytes && { contentSize: `${input.bytes} B` }),
+    ...(input.pages && { numberOfPages: input.pages }),
+  };
+}

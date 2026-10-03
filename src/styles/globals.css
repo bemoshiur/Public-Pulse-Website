@@ -64,6 +64,56 @@ body {
   color: rgba(255, 255, 255, 0.92);
 }
 
+
+/* ─── Campaign theme (election / political-PR surfaces) ─────────────────
+   Palette + gradient sampled from the Canva "Public Pulse Profile | Political
+   PR" brochure: deep maroon edges (#5C0000-#710000), crimson mid (#8A0000-
+   #A80000), a hot core (#FE2500), gold headlines (#FCB400), thin crimson/gold
+   outlined panels and gold label tabs. Scoped under .theme-campaign so no other
+   page changes. Contrast: white on #8A0000 = 9.8:1, gold on #8A0000 = 5.5:1. */
+.theme-campaign { background: #4a0000; color: #fff; }
+.cp-hero {
+  background:
+    radial-gradient(70% 62% at 84% -8%, rgba(254, 37, 0, 0.55) 0%, rgba(254, 37, 0, 0) 64%),
+    radial-gradient(125% 105% at 38% 28%, #a80000 0%, #8a0000 42%, #5c0000 100%);
+}
+.cp-surface { background: radial-gradient(115% 95% at 50% 0%, #6e0000 0%, #610000 55%, #4f0000 100%); }
+.cp-surface-deep { background: linear-gradient(180deg, #520000 0%, #3b0000 100%); }
+.cp-panel {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1.5px solid rgba(197, 28, 3, 0.95);
+  border-radius: 20px;
+}
+.cp-panel-gold { border-color: #fcb400; }
+.cp-tab {
+  display: inline-block; background: #fcb400; color: #4a0000;
+  font-weight: 800; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.3rem 0.8rem; border-radius: 4px;
+}
+.cp-gold { color: #fcb400; }
+.cp-rule { border-color: rgba(252, 180, 0, 0.35); }
+.btn-gold {
+  background: #fcb400; color: #4a0000; font-weight: 800; border: 0;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+}
+.btn-gold:hover { background: #ffc933; transform: translateY(-1px); }
+.btn-gold-ghost { background: transparent; color: #fcb400; border: 1.5px solid #fcb400; }
+.btn-gold-ghost:hover { background: rgba(252, 180, 0, 0.12); }
+.theme-campaign .answer-panel {
+  background: rgba(0, 0, 0, 0.22); border-left: 4px solid #fcb400;
+  border-radius: 16px; padding: 24px 28px;
+}
+.theme-campaign .answer-panel .answer-block { color: #fff; }
+.theme-campaign .answer-panel h2 { color: #fcb400; }
+.cp-strip {
+  display: flex; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 0.5rem 1.5rem 1.25rem; margin: 0 -1.5rem; list-style: none;
+  scrollbar-color: #fcb400 rgba(0, 0, 0, 0.3); scrollbar-width: thin;
+}
+.cp-strip > li { flex: none; width: min(72vw, 330px); scroll-snap-align: start; }
+.cp-strip:focus-visible { outline: 3px solid #fcb400; outline-offset: 4px; border-radius: 12px; }
+@media (prefers-reduced-motion: reduce) { .cp-strip { scroll-behavior: auto; } .btn-gold:hover { transform: none; } }
+
 /* ─── Buttons ──────────────────────────────────────────────────────────
    Avoora-faithful: 6px rectangle (was pill), uppercase, 600 weight,
    slightly negative letter-spacing. Padding mirrors avoora's primary

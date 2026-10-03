@@ -1,13 +1,14 @@
 import Link from "next/link";
 import type { Crumb } from "@/lib/schema";
 
-type BreadcrumbsProps = { crumbs: Crumb[] };
+type BreadcrumbsProps = { crumbs: Crumb[]; /** "dark" for use on dark / crimson heroes. */ tone?: "light" | "dark" };
 
-export function Breadcrumbs({ crumbs }: BreadcrumbsProps) {
+export function Breadcrumbs({ crumbs, tone = "light" }: BreadcrumbsProps) {
+  const dark = tone === "dark";
   return (
     <nav
       aria-label="Breadcrumb"
-      className="text-sm text-ink/55"
+      className={`text-sm ${dark ? "text-white/70" : "text-ink/55"}`}
     >
       <ol className="flex flex-wrap items-center gap-2">
         {crumbs.map((c, i) => {
@@ -15,15 +16,15 @@ export function Breadcrumbs({ crumbs }: BreadcrumbsProps) {
           return (
             <li key={c.path} className="flex items-center gap-2">
               {last ? (
-                <span aria-current="page" className="text-ink/80">
+                <span aria-current="page" className={dark ? "text-white" : "text-ink/80"}>
                   {c.name}
                 </span>
               ) : (
-                <Link href={c.path} className="hover:text-brand-orange">
+                <Link href={c.path} className={dark ? "hover:text-cp-gold" : "hover:text-brand-orange"}>
                   {c.name}
                 </Link>
               )}
-              {!last && <span aria-hidden="true" className="text-ink/40">/</span>}
+              {!last && <span aria-hidden="true" className={dark ? "text-white/40" : "text-ink/40"}>/</span>}
             </li>
           );
         })}

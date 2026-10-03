@@ -27,6 +27,19 @@ const config: Config = {
         "brand-orange": "#FE4A0F",
         "brand-orange-soft": "#FF6A37",
         "brand-orange-deep": "#D63D0B",
+        // ── Campaign palette — sampled from the "Public Pulse Profile | Political
+        // PR" Canva brochure (public/downloads/…profile.pdf). Scoped to the
+        // election / political-PR surfaces via .theme-campaign; the rest of the
+        // site keeps the white + ink + orange identity.
+        "cp-edge": "#5C0000",
+        "cp-deep": "#7A0000",
+        "cp-mid": "#8A0000",
+        "cp-core": "#A80000",
+        "cp-hot": "#FE2500",
+        "cp-line": "#C51C03",
+        "cp-gold": "#FCB400",
+        "cp-gold-soft": "#FFC933",
+        "cp-gold-ink": "#4A0000",
         // ── Prestige palette — scoped to the political-ad flagship +
         // src/components/prestige/*. Rethemed to the Dataplace direction
         // (restyle) so the flagship matches the rest of the site: white +

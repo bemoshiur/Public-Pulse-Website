@@ -27,7 +27,32 @@ export type Phase = {
   body: string;
 };
 
-export function PhaseTimeline({ phases }: { phases: Phase[] }) {
+type Tone = "light" | "campaign";
+
+// "campaign" = the crimson/gold treatment used on /election (see .theme-campaign).
+const T = {
+  light: {
+    tabOn: "border-brand-orange bg-brand-orange/5 shadow-card",
+    tabOff: "border-ink/10 bg-paper hover:border-ink/40",
+    iconOn: "bg-brand-orange text-paper",
+    iconOff: "bg-ink/5 text-ink",
+    idx: "text-ink/45", weeks: "text-ink/55", title: "text-ink",
+    panel: "border-ink/10 bg-paper", eyebrow: "text-brand-orange", h3: "text-ink", body: "text-ink/70",
+    barOn: "bg-brand-orange", barDone: "bg-brand-orange/40", barOff: "bg-ink/10",
+  },
+  campaign: {
+    tabOn: "border-cp-gold bg-black/30 shadow-card",
+    tabOff: "border-cp-line/70 bg-black/20 hover:border-cp-gold/70",
+    iconOn: "bg-cp-gold text-cp-gold-ink",
+    iconOff: "bg-white/10 text-white",
+    idx: "text-white/55", weeks: "text-white/70", title: "text-white",
+    panel: "border-cp-line/80 bg-black/25", eyebrow: "text-cp-gold", h3: "text-white", body: "text-white/80",
+    barOn: "bg-cp-gold", barDone: "bg-cp-gold/45", barOff: "bg-white/15",
+  },
+} as const;
+
+export function PhaseTimeline({ phases, tone = "light" }: { phases: Phase[]; tone?: Tone }) {
+  const c = T[tone];
   const [active, setActive] = useState(0);
 
   function onKey(e: React.KeyboardEvent<HTMLDivElement>) {
@@ -57,32 +82,31 @@ export function PhaseTimeline({ phases }: { phases: Phase[] }) {
               key={p.title}
               type="button"
               role="tab"
+              id={`phase-tab-${i}`}
               aria-selected={isActive}
               aria-controls={`phase-${i}`}
               tabIndex={isActive ? 0 : -1}
               onClick={() => setActive(i)}
               className={`group flex flex-col items-start gap-2 rounded-card border p-4 text-left transition ${
-                isActive
-                  ? "border-brand-orange bg-brand-orange/5 shadow-card"
-                  : "border-ink/10 bg-paper hover:border-ink/40"
+                isActive ? c.tabOn : c.tabOff
               }`}
             >
               <div className="flex w-full items-center justify-between">
                 <span
                   aria-hidden
                   className={`grid h-9 w-9 place-items-center rounded-full transition ${
-                    isActive ? "bg-brand-orange text-paper" : "bg-ink/5 text-ink"
+                    isActive ? c.iconOn : c.iconOff
                   }`}
                 >
                   <Icon className="h-4 w-4" />
                 </span>
-                <span className="text-meta font-mono uppercase tracking-wider text-ink/45">
+                <span className={`text-meta font-mono uppercase tracking-wider ${c.idx}`}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
               </div>
               <div>
-                <p className="text-meta uppercase tracking-wider text-ink/55">{p.weeks}</p>
-                <p className="mt-1 text-sm font-bold text-ink">{p.title}</p>
+                <p className={`text-meta uppercase tracking-wider ${c.weeks}`}>{p.weeks}</p>
+                <p className={`mt-1 text-sm font-bold ${c.title}`}>{p.title}</p>
               </div>
             </button>
           );
@@ -94,12 +118,12 @@ export function PhaseTimeline({ phases }: { phases: Phase[] }) {
         id={`phase-${active}`}
         role="tabpanel"
         aria-labelledby={`phase-tab-${active}`}
-        className="mt-6 rounded-card border border-ink/10 bg-paper p-6 md:p-8"
+        className={`mt-6 rounded-card border p-6 md:p-8 ${c.panel}`}
         key={active /* re-render to retrigger fade */}
       >
-        <p className="text-eyebrow uppercase text-brand-orange">{phases[active].weeks}</p>
-        <h3 className="mt-3 text-h2 tracking-tight text-ink">{phases[active].title}</h3>
-        <p className="mt-4 text-lead text-ink/70">{phases[active].body}</p>
+        <p className={`text-eyebrow uppercase ${c.eyebrow}`}>{phases[active].weeks}</p>
+        <h3 className={`mt-3 text-h2 tracking-tight ${c.h3}`}>{phases[active].title}</h3>
+        <p className={`mt-4 text-lead ${c.body}`}>{phases[active].body}</p>
 
         {/* Phase index ruler */}
         <div className="mt-8 flex items-center gap-3">
@@ -110,7 +134,7 @@ export function PhaseTimeline({ phases }: { phases: Phase[] }) {
               onClick={() => setActive(i)}
               aria-label={`Phase ${i + 1}`}
               className={`h-1 flex-1 rounded-full transition ${
-                i === active ? "bg-brand-orange" : i < active ? "bg-brand-orange/40" : "bg-ink/10"
+                i === active ? c.barOn : i < active ? c.barDone : c.barOff
               }`}
             />
           ))}

@@ -13,7 +13,13 @@ const nextConfig: NextConfig = {
     // Allow next/image to source from the same-origin /og dynamic factory
     // (used by the per-post blog hero when no static heroImageUrl is set).
     // Next 16 rejects query-string srcs without an explicit localPattern.
-    localPatterns: [{ pathname: "/og", search: "" }],
+    localPatterns: [
+      { pathname: "/og", search: "" },
+      // Campaign-profile page images (gallery on /election + band on the
+      // political-PR service page). Without an explicit pattern, Next rejects
+      // every local src once localPatterns is set.
+      { pathname: "/election/profile/**" },
+    ],
     // Portfolio media lives in the SST-provisioned S3 bucket. Without this,
     // next/image HARD-ERRORS on any remote src — the bug that made the old
     // case-study heroImageUrl field a trap rather than a broken image.
