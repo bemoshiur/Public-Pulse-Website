@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, Search, ArrowUpRight } from "lucide-react";
 
@@ -8,6 +9,24 @@ import { Menu, X, Search, ArrowUpRight } from "lucide-react";
 // flagship) so it sits in the top bar between Work and Insights. Search
 // is also priority — promoted from icon-only to a labeled button in the
 // right cluster (see below). Press remains secondary (mobile drawer + footer).
+const NAV_BN = [
+  { href: "/bn/services", label: "সেবা" },
+  { href: "/case-studies", label: "কাজ" },
+  { href: "/bn/election", label: "নির্বাচন" },
+  { href: "/blog", label: "ইনসাইট" },
+  { href: "/bn/about", label: "স্টুডিও" },
+  { href: "/bn/contact", label: "যোগাযোগ" },
+];
+
+// Pages that have a native Bengali twin. Used by the EN | বাং switcher.
+const BN_TWINS = ["/", "/services", "/about", "/contact", "/book", "/election"];
+function twinPath(pathname: string): { bn: string; en: string } {
+  const isBn = pathname === "/bn" || pathname.startsWith("/bn/");
+  const en = isBn ? pathname.replace(/^\/bn/, "") || "/" : pathname;
+  const hasTwin = BN_TWINS.includes(en) || en.startsWith("/services/");
+  return { en, bn: hasTwin ? (en === "/" ? "/bn" : `/bn${en}`) : "/bn" };
+}
+
 const NAV = [
   { href: "/services", label: "Services" },
   { href: "/case-studies", label: "Work" },
@@ -25,6 +44,11 @@ const SECONDARY = [
 ];
 
 export function Header() {
+  const pathname = usePathname() || "/";
+  const isBn = pathname === "/bn" || pathname.startsWith("/bn/");
+  const twin = twinPath(pathname);
+  const nav = isBn ? NAV_BN : NAV;
+  const homeHref = isBn ? "/bn" : "/";
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -68,22 +92,18 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink/10 bg-paper/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-ink/10 bg-paper/85 backdrop-blur-md">
       <div className="max-w-container mx-auto flex h-16 items-center justify-between gap-4 px-5 md:h-[72px] md:px-8">
         {/* ─── Logo ──────────────────────────────────────────────────── */}
         <Link
-          href="/"
+          href={homeHref}
           className="flex flex-shrink-0 items-center gap-2"
           aria-label="Public Pulse Agency home"
         >
-          <span
-            aria-hidden
-            className="inline-block h-5 w-5 rounded-full"
-            style={{
-              background:
-                "conic-gradient(from 180deg at 50% 50%, #FF5C00 0deg, #FF5C00 270deg, transparent 270deg)",
-            }}
-          />
+          <span aria-hidden className="relative inline-block h-5 w-5">
+            <span className="absolute inset-0 rounded-full bg-brand-orange" />
+            <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-brand-green" />
+          </span>
           <span className="text-[18px] font-extrabold tracking-tight text-ink">
             Public<span className="text-brand-orange">Pulse</span>
           </span>
@@ -91,12 +111,12 @@ export function Header() {
 
         {/* ─── Primary nav (desktop) ──────────────────────────────── */}
         <nav aria-label="Primary" className="hidden md:flex md:flex-1 md:justify-center">
-          <ul className="flex items-center gap-6 text-[14px] font-medium text-ink/75 lg:gap-8">
-            {NAV.map((n) => (
+          <ul className="flex items-center gap-6 font-mono text-[12px] uppercase tracking-[0.12em] text-ink/70 lg:gap-8">
+            {nav.map((n) => (
               <li key={n.href}>
                 <Link
                   href={n.href}
-                  className="transition hover:text-ink focus-visible:text-ink"
+                  className="transition hover:text-brand-orange focus-visible:text-brand-orange"
                 >
                   {n.label}
                 </Link>
@@ -107,6 +127,28 @@ export function Header() {
 
         {/* ─── Right cluster: search + CTA + hamburger ─────────────── */}
         <div className="flex flex-shrink-0 items-center gap-2 md:gap-3">
+          <div
+            className="hidden items-center overflow-hidden rounded-full border border-ink/15 font-mono text-[11px] uppercase tracking-wider md:inline-flex"
+            role="group"
+            aria-label="Language"
+          >
+            <Link
+              href={twin.en as never}
+              hrefLang="en"
+              aria-current={!isBn ? "true" : undefined}
+              className={`px-3 py-2 ${!isBn ? "bg-ink text-paper" : "text-ink/70 hover:text-ink"}`}
+            >
+              EN
+            </Link>
+            <Link
+              href={twin.bn as never}
+              hrefLang="bn"
+              aria-current={isBn ? "true" : undefined}
+              className={`px-3 py-2 ${isBn ? "bg-ink text-paper" : "text-ink/70 hover:text-ink"}`}
+            >
+              বাং
+            </Link>
+          </div>
           <Link
             href="/search"
             className="hidden items-center gap-1.5 rounded-full border border-ink/15 px-4 py-2 text-[13px] font-medium text-ink/75 transition hover:border-ink hover:text-ink md:inline-flex"
@@ -115,10 +157,10 @@ export function Header() {
             Search
           </Link>
           <Link
-            href="/book"
+            href={(isBn ? "/bn/book" : "/book") as never}
             className="btn btn-orange hidden text-[13px] uppercase tracking-wide sm:inline-flex"
           >
-            Book a call
+            {isBn ? "কল বুক করুন" : "Book a call"}
             <ArrowUpRight className="h-4 w-4" aria-hidden />
           </Link>
           <button
@@ -150,12 +192,12 @@ export function Header() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/election"
+                  href={(isBn ? "/bn/election" : "/election") as never}
                   onClick={closeDrawer}
                   className="flex items-center justify-between rounded-card border-2 border-brand-orange bg-brand-orange/5 px-4 py-3 text-lg font-bold text-ink"
                 >
                   <span className="flex items-center gap-2">
-                    Election readiness
+                    {isBn ? "নির্বাচনী প্রস্তুতি" : "Election readiness"}
                   </span>
                   <ArrowUpRight className="h-4 w-4 text-brand-orange" aria-hidden />
                 </Link>
@@ -180,7 +222,7 @@ export function Header() {
 
             {/* Primary nav */}
             <ul className="space-y-1 text-lg font-bold text-ink">
-              {NAV.filter((n) => n.href !== "/election").map((n) => (
+              {nav.filter((n) => !n.href.endsWith("/election")).map((n) => (
                 <li key={n.href}>
                   <Link
                     href={n.href}
@@ -217,11 +259,11 @@ export function Header() {
             {/* Primary CTA + WhatsApp fallback */}
             <div className="mt-6 flex flex-col gap-2.5">
               <Link
-                href="/book"
+                href={(isBn ? "/bn/book" : "/book") as never}
                 onClick={closeDrawer}
                 className="btn btn-orange w-full justify-center"
               >
-                Book a call
+                {isBn ? "কল বুক করুন" : "Book a call"}
                 <ArrowUpRight className="h-4 w-4" aria-hidden />
               </Link>
               <a
@@ -231,8 +273,16 @@ export function Header() {
                 onClick={closeDrawer}
                 className="btn btn-secondary w-full justify-center"
               >
-                Message on WhatsApp
+                {isBn ? "হোয়াটসঅ্যাপে মেসেজ" : "Message on WhatsApp"}
               </a>
+              <Link
+                href={(isBn ? twin.en : twin.bn) as never}
+                hrefLang={isBn ? "en" : "bn"}
+                onClick={closeDrawer}
+                className="btn btn-secondary w-full justify-center"
+              >
+                {isBn ? "Read in English" : "বাংলায় পড়ুন"}
+              </Link>
             </div>
           </div>
         </div>

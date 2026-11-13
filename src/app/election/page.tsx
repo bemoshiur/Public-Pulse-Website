@@ -26,6 +26,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Win Bangladeshi elections with our 90-day PR playbook: constituency survey, narrative design, ground + digital coordination, 24h crisis SLA from Dhaka.",
   path: "/election",
+  bnPath: "/bn/election",
   useDynamicOg: true,
   // Social-share OG card: outcome-led, time-bounded ("in 90 days"),
   // sized to fit the 1200×630 /og factory without truncation.

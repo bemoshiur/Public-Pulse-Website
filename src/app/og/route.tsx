@@ -21,9 +21,9 @@ export const runtime = "nodejs";
 // each (title, eyebrow) combo is cached forever after first generation.
 export const dynamic = "force-dynamic";
 
-const INK = "#0A0A0A";
+const INK = "#0B0C0B";
 const PAPER = "#FFFFFF";
-const ORANGE = "#FF5C00";
+const ORANGE = "#DE2A22";
 const PAPER_MUTED = "rgba(255,255,255,0.72)";
 const PAPER_FAINT = "rgba(255,255,255,0.55)";
 

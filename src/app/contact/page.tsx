@@ -27,6 +27,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Get a free 30-minute consultation. WhatsApp +880 1717-714676, email info@publicpulse.com.bd, or send us a brief through the form. We reply within 24 hours.",
   path: "/contact",
+  bnPath: "/bn/contact",
 });
 
 const crumbs = [
@@ -79,7 +80,7 @@ export default function ContactPage() {
               <div
                 className="rounded-panel p-6 text-paper"
                 style={{
-                  background: `radial-gradient(60% 80% at 80% 20%, #FF5C00 0%, transparent 60%), radial-gradient(80% 80% at 20% 80%, #2563EB 0%, transparent 60%), linear-gradient(135deg, #14B8A6 0%, #0A0A0A 100%)`,
+                  background: `radial-gradient(60% 80% at 80% 20%, #DE2A22 0%, transparent 60%), radial-gradient(80% 80% at 20% 80%, #1F2A22 0%, transparent 60%), linear-gradient(135deg, #2FB86F 0%, #0B0C0B 100%)`,
                 }}
               >
                 <div className="flex items-center gap-2 text-meta uppercase tracking-wider text-paper/80">
@@ -164,7 +165,7 @@ export default function ContactPage() {
                 aria-label="Send a brief"
                 className="group relative flex h-full flex-col overflow-hidden rounded-panel p-6 text-paper transition hover:-translate-y-1"
                 style={{
-                  background: `radial-gradient(70% 80% at 20% 20%, #FFB07A 0%, transparent 60%), linear-gradient(135deg, #FF7A2E 0%, #B23A00 100%)`,
+                  background: `radial-gradient(70% 80% at 20% 20%, #FFB07A 0%, transparent 60%), linear-gradient(135deg, #EE5A52 0%, #B23A00 100%)`,
                 }}
               >
                 <div className="flex items-center justify-between">
@@ -195,7 +196,7 @@ export default function ContactPage() {
                 aria-label={`Call ${SITE.contact.phoneDisplay}`}
                 className="group relative flex h-full flex-col overflow-hidden rounded-panel p-6 text-paper transition hover:-translate-y-1"
                 style={{
-                  background: `radial-gradient(70% 80% at 80% 80%, #93C5FD 0%, transparent 60%), linear-gradient(135deg, #2563EB 0%, #1E1B4B 100%)`,
+                  background: `radial-gradient(70% 80% at 80% 80%, #93C5FD 0%, transparent 60%), linear-gradient(135deg, #1F2A22 0%, #1E1B4B 100%)`,
                 }}
               >
                 <div className="flex items-center justify-between">

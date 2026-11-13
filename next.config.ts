@@ -59,14 +59,17 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
-      // ── BN locale retired — site is English-only.
-      //    301 every /bn/* path to its English equivalent. Catches
-      //    /bn (bare) AND /bn/<any-path>. Includes legacy crawled URLs
-      //    like /bn/blog/<slug> (the route never existed but Google
-      //    saw them via sitemap hreflang in the old version). ───────
-      { source: "/bn", destination: "/", permanent: true },
-      { source: "/bn/", destination: "/", permanent: true },
-      { source: "/bn/:path*", destination: "/:path*", permanent: true },
+      // ── BN locale: native Bengali pages now exist for /bn, /bn/services(/…),
+      //    /bn/about, /bn/contact, /bn/book, /bn/election. Every OTHER /bn/*
+      //    path (blog, case-studies, pricing, guides, …) has no Bengali page
+      //    yet, so it still 301s to its English equivalent — nothing 404s,
+      //    and previously-crawled /bn/blog/<slug> URLs keep resolving.
+      {
+        source:
+          "/bn/:path((?!(?:services|about|contact|book|election)(?:/|$)).+)",
+        destination: "/:path",
+        permanent: true,
+      },
 
       // ── Blog (old WP single posts → blog index; specific slugs
       //         won't have a match in the DB so just go to /blog) ─────

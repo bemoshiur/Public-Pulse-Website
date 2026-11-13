@@ -110,7 +110,7 @@ function DefaultSalesPanel() {
       aria-label="Sales team online — available 09:00–21:00 Asia/Dhaka"
       className="group relative block overflow-hidden rounded-panel p-6 text-paper transition hover:-translate-y-0.5"
       style={{
-        background: `radial-gradient(60% 80% at 80% 20%, #FF5C00 0%, transparent 60%), radial-gradient(80% 80% at 20% 80%, #2563EB 0%, transparent 60%), linear-gradient(135deg, #14B8A6 0%, #0A0A0A 100%)`,
+        background: `radial-gradient(60% 80% at 80% 20%, #DE2A22 0%, transparent 60%), radial-gradient(80% 80% at 20% 80%, #1F2A22 0%, transparent 60%), linear-gradient(135deg, #2FB86F 0%, #0B0C0B 100%)`,
       }}
     >
       <div className="flex items-center gap-2 text-meta uppercase tracking-wider text-paper/80">

@@ -38,7 +38,7 @@ const TONE_CLASS: Record<Tone, string> = {
 };
 
 const GRADIENT_BG =
-  "radial-gradient(70% 80% at 80% 20%, #FFB07A 0%, transparent 60%), linear-gradient(135deg, #FF7A2E 0%, #E04E00 100%)";
+  "radial-gradient(70% 80% at 80% 20%, #FFB07A 0%, transparent 60%), linear-gradient(135deg, #EE5A52 0%, #E04E00 100%)";
 
 type Props = {
   icon: LucideIcon;

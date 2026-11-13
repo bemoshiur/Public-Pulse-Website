@@ -1,0 +1,23 @@
+version: 1
+# AWS Amplify Hosting (Next.js SSR / WEB_COMPUTE). Set the variables listed in
+# docs/AMPLIFY.md under Amplify → App settings → Environment variables.
+# Amplify does NOT pass build env vars to the SSR runtime automatically, so the
+# build step writes them into .env.production, which Next.js reads at runtime.
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - nvm use 22 || true
+        - npm ci --no-audit --no-fund
+    build:
+      commands:
+        - env | grep -E '^(DATABASE_URL|DATABASE_URL_DIRECT|NEXT_PUBLIC_|BETTER_AUTH_|ADMIN_|RESEND_|CRON_SECRET|REVALIDATE_SECRET|BOOKING_URL|CAL_WEBHOOK_SECRET|MESSENGER_|FACEBOOK_|META_CAPI_|BEDROCK_|GENERATOR_|DIGEST_URL)' >> .env.production || true
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*
