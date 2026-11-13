@@ -11,6 +11,7 @@ import {
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ProgrammaticPage, CalloutList, Hl } from "@/components/seo/ProgrammaticPage";
 import { SERVICES, getService } from "@/lib/services";
+import { getIndustry } from "@/lib/taxonomies/industries";
 import { LOCATIONS, getLocation } from "@/lib/taxonomies/locations";
 
 // Folder must be named [slug] (not [service]) — Next.js requires consistent
@@ -121,7 +122,7 @@ export default async function ServiceLocationPage({
         related={[
           { href: `/services/${s.slug}`, label: `${s.shortName} (full service overview)`, eyebrow: "Service" },
           { href: `/locations/${l.slug}`, label: `Marketing in ${l.name} (city overview)`, eyebrow: "Location" },
-          ...l.topIndustries.slice(0, 1).map((ind) => ({
+          ...l.topIndustries.filter((i) => getIndustry(i)).slice(0, 1).map((ind) => ({
             href: `/${s.slug}-for-${ind}`,
             label: `${s.shortName} for ${ind.replace(/-/g, " ").replace(/\b\w/g, (m) => m.toUpperCase())}`,
             eyebrow: "Service × Industry",

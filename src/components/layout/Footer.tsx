@@ -7,19 +7,36 @@ import { CaptureForm } from "@/components/lead-capture";
 export function Footer() {
   return (
     <footer className="bg-ink text-paper">
-      {/* ─── Mega CTA strip ──────────────────────────────────────────── */}
+      {/* ─── Ticker + CTA ───────────────────────────────────────────── */}
+      <div className="overflow-hidden border-b border-white/10 py-5" aria-hidden>
+        <div className="pp-ticker flex gap-10 whitespace-nowrap text-5xl font-extrabold tracking-tight md:text-7xl">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <span key={i} className="flex items-center gap-10">
+              <span>Let&rsquo;s talk.</span>
+              <span className="text-brand-green">✦</span>
+              <span className="text-brand-orange">Let&rsquo;s make noise.</span>
+              <span className="text-brand-green">✦</span>
+            </span>
+          ))}
+        </div>
+      </div>
       <div className="border-b border-white/10">
-        <div className="max-w-container mx-auto flex flex-col gap-8 px-5 py-16 md:flex-row md:items-end md:justify-between md:px-8 md:py-24">
-          <h2 className="text-mega tracking-tight">
-            Let&rsquo;s make <span className="text-brand-orange">noise</span>.
-          </h2>
-          <Link
-            href="/contact"
-            className="btn btn-orange text-[14px] uppercase tracking-wide"
-          >
-            Start a project
-            <ArrowUpRight className="h-4 w-4" aria-hidden />
-          </Link>
+        <div className="max-w-container mx-auto flex flex-col gap-6 px-5 py-12 md:flex-row md:items-center md:justify-between md:px-8">
+          <p className="max-w-md text-lg text-white/75">
+            Dhaka · Seoul · USA. One accountable team for your next campaign.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/book" className="btn btn-orange text-[14px] uppercase tracking-wide">
+              Book a call
+              <ArrowUpRight className="h-4 w-4" aria-hidden />
+            </Link>
+            <Link
+              href="/contact"
+              className="btn border border-white/30 text-[14px] uppercase tracking-wide text-paper hover:border-paper"
+            >
+              Start a project
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -159,7 +176,12 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <div className="max-w-container mx-auto flex flex-col gap-2 px-5 py-6 text-xs text-white/55 md:flex-row md:items-center md:justify-between md:px-8">
-          <div>© {new Date().getFullYear()} {SITE.name}. Dhaka, Bangladesh.</div>
+          <div>
+            © {new Date().getFullYear()} {SITE.name}. Dhaka, Bangladesh. · Designed by{" "}
+            <a href="https://mahir.design" target="_blank" rel="noopener" className="text-brand-green underline-offset-2 hover:underline">
+              mahir.design
+            </a>
+          </div>
           <div>BIN: {SITE.contact.legal.bin} · Trade License: {SITE.contact.legal.tradeLicense}</div>
         </div>
       </div>

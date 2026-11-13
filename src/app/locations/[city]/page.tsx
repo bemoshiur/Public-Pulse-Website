@@ -10,6 +10,7 @@ import {
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ProgrammaticPage, CalloutList, Hl } from "@/components/seo/ProgrammaticPage";
 import { LOCATIONS, getLocation } from "@/lib/taxonomies/locations";
+import { getIndustry } from "@/lib/taxonomies/industries";
 import { SERVICES, getService } from "@/lib/services";
 
 type Params = { city: string };
@@ -57,7 +58,8 @@ export default async function LocationPage({
   const aligned = SERVICES.filter((s) => s.ready).slice(0, 6);
 
   // Top 3 over-indexed industries — content hook for FAQ + body copy.
-  const top = loc.topIndustries.slice(0, 3);
+  // Only industries that actually have a page (fmcg/retail/logistics/etc. did not → 404 links).
+  const top = loc.topIndustries.filter((i) => getIndustry(i)).slice(0, 3);
 
   return (
     <>

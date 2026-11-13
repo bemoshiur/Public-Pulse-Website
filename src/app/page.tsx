@@ -1,4 +1,6 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -17,6 +19,16 @@ import { getServiceIcon } from "@/lib/icons";
 import { SITE } from "@/lib/site";
 import { getFeaturedCaseStudies } from "@/lib/data/case-studies";
 import { InlineBlock } from "@/components/lead-capture";
+
+export const metadata: Metadata = buildMetadata({
+  // Same title/description as the root layout default — repeated here only
+  // to attach the bn-BD hreflang alternate to the homepage.
+  title: "Public Pulse — Bangladesh Digital Marketing & PR Agency",
+  description:
+    "Bangladesh's 360° digital marketing & political PR agency. Political PR, social media, content, paid ads, hospitality, branding, SEO. Call +880 1717-714676.",
+  path: "/",
+  bnPath: "/bn",
+});
 
 // JSON-LD Organization + WebSite emit site-wide from app/layout.tsx.
 
@@ -195,7 +207,7 @@ export default async function HomePage() {
             aria-hidden
             className="pointer-events-none absolute inset-0 opacity-60"
             style={{
-              background: `radial-gradient(45% 50% at 15% 25%, #FF5C00 0%, transparent 60%), radial-gradient(50% 60% at 85% 75%, #2563EB 0%, transparent 60%), radial-gradient(40% 50% at 50% 60%, #0F766E 0%, transparent 55%)`,
+              background: `radial-gradient(45% 50% at 15% 25%, #DE2A22 0%, transparent 60%), radial-gradient(50% 60% at 85% 75%, #1F2A22 0%, transparent 60%), radial-gradient(40% 50% at 50% 60%, #1F3B2C 0%, transparent 55%)`,
             }}
           />
           <Container className="relative">
@@ -281,7 +293,7 @@ export default async function HomePage() {
                 <div
                   className="flex h-full flex-col justify-between gap-8 rounded-panel p-7 text-paper"
                   style={{
-                    background: `radial-gradient(60% 70% at 70% 30%, #FF5C00 0%, transparent 60%), radial-gradient(80% 80% at 20% 80%, #0F766E 0%, transparent 60%), linear-gradient(135deg, #1A1A1A 0%, #0A0A0A 100%)`,
+                    background: `radial-gradient(60% 70% at 70% 30%, #DE2A22 0%, transparent 60%), radial-gradient(80% 80% at 20% 80%, #1F3B2C 0%, transparent 60%), linear-gradient(135deg, #151715 0%, #0B0C0B 100%)`,
                   }}
                 >
                   <Quote className="h-8 w-8 text-brand-orange" aria-hidden />
@@ -390,11 +402,11 @@ export default async function HomePage() {
 function caseStudyGradient(i: number): string {
   const palettes = [
     // orange-led
-    `radial-gradient(70% 80% at 80% 20%, #FFB07A 0%, transparent 60%), radial-gradient(60% 70% at 20% 80%, #B23A00 0%, transparent 60%), linear-gradient(135deg, #FF7A2E 0%, #E04E00 100%)`,
+    `radial-gradient(70% 80% at 80% 20%, #FFB07A 0%, transparent 60%), radial-gradient(60% 70% at 20% 80%, #B23A00 0%, transparent 60%), linear-gradient(135deg, #EE5A52 0%, #E04E00 100%)`,
     // teal-led
-    `radial-gradient(70% 80% at 20% 20%, #5EEAD4 0%, transparent 60%), radial-gradient(60% 70% at 80% 80%, #064E3B 0%, transparent 60%), linear-gradient(135deg, #14B8A6 0%, #0F766E 100%)`,
+    `radial-gradient(70% 80% at 20% 20%, #5EEAD4 0%, transparent 60%), radial-gradient(60% 70% at 80% 80%, #064E3B 0%, transparent 60%), linear-gradient(135deg, #2FB86F 0%, #1F3B2C 100%)`,
     // blue-led
-    `radial-gradient(70% 80% at 80% 80%, #93C5FD 0%, transparent 60%), radial-gradient(60% 70% at 20% 20%, #1E1B4B 0%, transparent 60%), linear-gradient(135deg, #2563EB 0%, #1E3A8A 100%)`,
+    `radial-gradient(70% 80% at 80% 80%, #93C5FD 0%, transparent 60%), radial-gradient(60% 70% at 20% 20%, #1E1B4B 0%, transparent 60%), linear-gradient(135deg, #1F2A22 0%, #1E3A8A 100%)`,
     // magenta-led
     `radial-gradient(70% 80% at 50% 30%, #FBCFE8 0%, transparent 60%), radial-gradient(60% 70% at 50% 90%, #831843 0%, transparent 60%), linear-gradient(135deg, #DB2777 0%, #9F1239 100%)`,
     // amber-led

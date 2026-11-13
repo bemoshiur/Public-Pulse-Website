@@ -15,6 +15,7 @@ import { Container } from "@/components/ui/Container";
 import { InlineBlock } from "@/components/lead-capture";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SERVICES, getService } from "@/lib/services";
+import { getBnService } from "@/content/bn/services";
 import { getServiceContent } from "@/content/services";
 import { getPostsBySourceRef } from "@/lib/data/blog";
 
@@ -39,6 +40,7 @@ export async function generateMetadata({
     title: service.seoTitle,
     description: service.seoDescription,
     path: `/services/${service.slug}`,
+    bnPath: getBnService(service.slug) ? `/bn/services/${service.slug}` : undefined,
     // Per-service OG card via the dynamic /og?title=&eyebrow= factory.
     // Headline uses the clean service name (not the verbose SEO title with
     // "| Public Pulse" suffix); chip uses the category in caps. Each service

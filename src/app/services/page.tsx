@@ -17,6 +17,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Political PR, social media, content, paid ads, hospitality, branding, SEO, analytics and influencer marketing — nine integrated services under one Dhaka roof.",
   path: "/services",
+  bnPath: "/bn/services",
 });
 
 const crumbs = [

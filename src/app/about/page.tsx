@@ -38,6 +38,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Public Pulse Agency is Bangladesh's 360° digital marketing & political PR studio, founded in Dhaka in 2024. Nine integrated services billed in BDT from a registered Bangladesh entity.",
   path: "/about",
+  bnPath: "/bn/about",
 });
 
 const crumbs = [

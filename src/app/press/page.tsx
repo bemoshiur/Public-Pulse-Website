@@ -207,14 +207,14 @@ export default function PressPage() {
               <p className="mt-4 text-meta uppercase tracking-wider text-ink/55">
                 Brand orange
               </p>
-              <p className="mt-1 font-mono text-body text-ink">#FF5C00</p>
+              <p className="mt-1 font-mono text-body text-ink">#DE2A22</p>
             </div>
             <div className="rounded-card border border-ink/10 bg-paper p-6">
               <div className="h-16 w-full rounded-card bg-ink" aria-hidden />
               <p className="mt-4 text-meta uppercase tracking-wider text-ink/55">
                 Ink
               </p>
-              <p className="mt-1 font-mono text-body text-ink">#0A0A0A</p>
+              <p className="mt-1 font-mono text-body text-ink">#0B0C0B</p>
             </div>
             <div className="rounded-card border border-ink/10 bg-paper p-6">
               <div className="h-16 w-full rounded-card border border-ink/15 bg-paper" aria-hidden />

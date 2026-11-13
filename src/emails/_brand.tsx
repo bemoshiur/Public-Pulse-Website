@@ -27,7 +27,7 @@ export const C = {
   navy: "#0F1B3D",
   navySoft: "#1A2A52",
   red: "#D32F2F",
-  ink: "#0A0A0A",
+  ink: "#0B0C0B",
   paper: "#FFFFFF",
   paperAlt: "#F7F6F2",
   cream: "#FAF8F5",

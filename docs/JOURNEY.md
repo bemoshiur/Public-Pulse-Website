@@ -13,6 +13,18 @@ Entry format:
 
 ---
 
+## 2026-11-13 — NEW DESIGN PORT + BENGALI (/bn) + AMPLIFY
+
+**Summary:** Re-skinned the site with the new Public Pulse design (red `#DE2A22` + green `#4BE38F`, Archivo + JetBrains Mono, interactive Dhaka↔USA/Seoul globe hero, new header/footer) without touching any URL, `<title>`, description, canonical, OG, JSON-LD, sitemap entry or robots rule of the 245 existing pages (verified by diffing built HTML before/after — only intended differences below).
+
+**Changed:** `tailwind.config.ts` + `globals.css` tokens; `layout.tsx` fonts (+ Noto Sans Bengali); `Header.tsx` (bilingual + EN|বাং switch); `Footer.tsx` (ticker, "Designed by mahir.design"); `HeroPanel.tsx` + new `Globe.tsx`; `/book` now defaults to the Cal.com 15-min link (`https://cal.com/publicpulse/15min`, dark embed) instead of redirecting to /contact; `public/og-image.jpg` recoloured to brand red (same path/size).
+**Bengali:** native pages `/bn`, `/bn/services`, `/bn/services/<9 slugs>`, `/bn/about`, `/bn/contact`, `/bn/book`, `/bn/election` (content in `src/content/bn/`), hreflang `en` / `bn-BD` / `x-default` in page metadata + sitemap. All OTHER `/bn/*` paths still 301 to English (next.config redirect now excludes only the 6 implemented prefixes). Bengali pages use the static OG image (the `/og` factory has no Bengali font).
+**Fixes:** `/locations/[city]` and `/(matrix)/[slug]/[city]` linked to non-existent industry pages (`fmcg`, `retail`, `logistics`, …) → 404; now filtered to existing industries.
+**Deploy:** `amplify.yml` + `docs/AMPLIFY.md` added.
+**Open:** `<html lang>` stays `en-BD` on /bn pages (single root layout; `lang="bn-BD"` is set on the /bn wrapper). No Bengali blog/case-study/pricing/guides yet. Other "30-minute" copy elsewhere in the site still says 30 (booking is 15). Cron schedules need an external scheduler on Amplify.
+
+---
+
 ## 2026-05-26 — STEP 20 / PERF + PERMANENT CACHE FIX + WRAP-UP
 
 Deployed live to https://publicpulse.com.bd. Three coupled fixes in this turn.

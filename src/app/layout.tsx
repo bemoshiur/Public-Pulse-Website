@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Archivo, JetBrains_Mono, Noto_Sans_Bengali } from "next/font/google";
 import Script from "next/script";
 import "@/styles/globals.css";
 
@@ -15,6 +15,8 @@ import {
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { FooterBn } from "@/components/layout/FooterBn";
+import { FooterSwitch } from "@/components/layout/FooterSwitch";
 import { SocialSidebar } from "@/components/layout/SocialSidebar";
 import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
 import { CookieConsent } from "@/components/analytics/CookieConsent";
@@ -22,10 +24,24 @@ import { CommandPalette } from "@/components/search/CommandPalette";
 import { CursorGlow, ScrollProgress } from "@/components/motion";
 import { StickyBar, ExitIntent } from "@/components/lead-capture";
 
-const inter = Inter({
+const archivo = Archivo({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
-  variable: "--font-inter",
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+const bengali = Noto_Sans_Bengali({
+  subsets: ["bengali"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-bn",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -53,7 +69,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0A0A0A",
+  themeColor: "#0B0C0B",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -61,7 +77,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-BD" className={`${inter.variable} reveal-ready`} suppressHydrationWarning>
+    <html lang="en-BD" className={`${archivo.variable} ${mono.variable} ${bengali.variable} reveal-ready`} suppressHydrationWarning>
       <body className="font-sans antialiased bg-paper text-ink">
         {/* Safety kill-switch: 2.5s after load, drop reveal-ready so no element
             can stay invisible if IntersectionObserver fails to fire. */}
@@ -109,7 +125,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main id="main" tabIndex={-1} className="focus:outline-none">{children}</main>
         <SocialSidebar />
-        <Footer />
+        <FooterSwitch en={<Footer />} bn={<FooterBn />} />
         <WhatsAppFab />
         <StickyBar />
         <ExitIntent />

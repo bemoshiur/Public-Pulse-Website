@@ -4,15 +4,16 @@
 
 :root {
   /* Avoora-faithful tokens, verified against avoora.webflow.io */
-  --ink: #111111;
-  --ink-mute: #5d5d5d;
-  --paper: #ffffff;
-  --paper-alt: #f5f5f5;
-  --paper-tint: #e3e3e3;
-  --graphite: #4c4c4c;
-  --brand-orange: #ff5911;
-  --brand-orange-deep: #e84a00;
-  --brand-orange-soft: #ff7a3d;
+  --ink: #0B0C0B;
+  --ink-mute: #5a5c57;
+  --paper: #f2f0ea;
+  --paper-alt: #e9e6dd;
+  --paper-tint: #dcd8cc;
+  --graphite: #2a2c29;
+  --brand-orange: #de2a22;
+  --brand-green: #4be38f;
+  --brand-orange-deep: #b81e17;
+  --brand-orange-soft: #ee5a52;
 }
 
 html {
@@ -25,7 +26,7 @@ html {
 body {
   color: var(--ink);
   background: var(--paper);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-archivo), var(--font-inter), system-ui, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
@@ -40,7 +41,7 @@ body {
 /* ─── AnswerBlock (AEO/GEO surface) ─────────────────────────────────── */
 .answer-block {
   border-left: 3px solid var(--brand-orange);
-  background: #f5f5f5;
+  background: #e9e6dd;
   padding: 22px 26px;
   border-radius: 8px;
   font-size: 1rem;
@@ -266,8 +267,8 @@ html.reveal-ready .reveal.is-visible {
     100deg,
     var(--ink) 0%,
     var(--ink) 25%,
-    #ff5c00 45%,
-    #2563eb 55%,
+    #DE2A22 45%,
+    #1F2A22 55%,
     var(--ink) 75%,
     var(--ink) 100%
   );
@@ -290,7 +291,7 @@ html.reveal-ready .reveal.is-visible {
   left: 0;
   height: 2px;
   width: 100%;
-  background: linear-gradient(90deg, #ff5c00, #2563eb, #14b8a6);
+  background: linear-gradient(90deg, #DE2A22, #1F2A22, #2FB86F);
   transform: scaleX(0);
   transform-origin: 0 50%;
   z-index: 60;
@@ -494,14 +495,14 @@ html.reveal-ready .reveal-v2.is-visible {
   section,
   main {
     background: #ffffff !important;
-    color: #0a0a0a !important;
+    color: #0B0C0B !important;
     box-shadow: none !important;
   }
   .card,
   .card-dark {
     background: #ffffff !important;
-    color: #0a0a0a !important;
-    border: 1px solid #0a0a0a !important;
+    color: #0B0C0B !important;
+    border: 1px solid #0B0C0B !important;
     box-shadow: none !important;
     page-break-inside: avoid;
   }
@@ -514,15 +515,15 @@ html.reveal-ready .reveal-v2.is-visible {
   .answer-block,
   .answer-block-dark {
     background: #f5f5f5 !important;
-    color: #0a0a0a !important;
-    border-left: 3px solid #0a0a0a !important;
+    color: #0B0C0B !important;
+    border-left: 3px solid #0B0C0B !important;
   }
   /* Open headings with a small top-margin so PDF pagination is graceful. */
   h1,
   h2,
   h3 {
     page-break-after: avoid;
-    color: #0a0a0a !important;
+    color: #0B0C0B !important;
   }
 }
 
@@ -647,3 +648,25 @@ html.reveal-ready .reveal-v2.is-visible {
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
+
+/* ─── New-design additions ──────────────────────────────────────────── */
+@keyframes pp-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.pp-float { animation: pp-float 6s ease-in-out infinite; }
+
+@keyframes pp-ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.pp-ticker { animation: pp-ticker 28s linear infinite; width: max-content; }
+.pp-ticker:hover { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-float, .pp-ticker { animation: none; }
+}
+
+/* Bengali pages: Noto Sans Bengali first, Archivo for Latin runs */
+[lang^="bn"] { font-family: var(--font-bn), var(--font-archivo), system-ui, sans-serif; }
+[lang^="bn"] h1, [lang^="bn"] h2, [lang^="bn"] h3 { letter-spacing: -0.01em; line-height: 1.25; }

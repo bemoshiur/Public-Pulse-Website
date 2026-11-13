@@ -434,7 +434,7 @@ export default async function BlogPostPage({
                 <div
                   className="overflow-hidden rounded-panel p-6 text-paper"
                   style={{
-                    background: `radial-gradient(60% 80% at 80% 20%, #FF5C00 0%, transparent 60%), radial-gradient(80% 80% at 20% 80%, #2563EB 0%, transparent 60%), linear-gradient(135deg, #14B8A6 0%, #0A0A0A 100%)`,
+                    background: `radial-gradient(60% 80% at 80% 20%, #DE2A22 0%, transparent 60%), radial-gradient(80% 80% at 20% 80%, #1F2A22 0%, transparent 60%), linear-gradient(135deg, #2FB86F 0%, #0B0C0B 100%)`,
                   }}
                 >
                   <p className="text-[11px] font-semibold uppercase tracking-wider text-paper/80">
