@@ -118,7 +118,7 @@ export function CaptureForm({
             <strong className={dark ? "text-white" : "text-ink"}>
               {locale === "bn" ? "ধন্যবাদ — ইনবক্স চেক করুন।" : "Got it — check your inbox to confirm."}
             </strong>
-            <p className={`mt-1 text-xs ${dark ? "text-white/65" : "text-ink/65"}`}>
+            <p className={`mt-1 text-xs ${dark ? "text-white/65" : "text-ink/75"}`}>
               {locale === "bn"
                 ? "কনফার্ম করার পরে আপনি ডাইজেস্ট পাওয়া শুরু করবেন।"
                 : "Once you click the link, you'll start receiving the digest."}
@@ -129,7 +129,7 @@ export function CaptureForm({
             <strong className={dark ? "text-white" : "text-ink"}>
               {locale === "bn" ? "নম্বর পেয়েছি — শীঘ্রই WhatsApp করব।" : "Got your number — we'll WhatsApp you shortly."}
             </strong>
-            <p className={`mt-1 text-xs ${dark ? "text-white/65" : "text-ink/65"}`}>
+            <p className={`mt-1 text-xs ${dark ? "text-white/65" : "text-ink/75"}`}>
               {locale === "bn" ? "শনি-বৃহস্পতি, ০৯:০০–২১:০০ BD।" : "Sat–Thu, 09:00–21:00 BD."}
             </p>
           </>
@@ -138,7 +138,7 @@ export function CaptureForm({
     );
   }
 
-  const inputBase = `form-input ${dark ? "bg-paper text-ink placeholder:text-ink/65" : ""}`;
+  const inputBase = `form-input ${dark ? "bg-paper text-ink placeholder:text-ink/75" : ""}`;
 
   return (
     <form onSubmit={submit} className="w-full" aria-label={`Lead capture ${context}`}>
@@ -232,7 +232,7 @@ export function CaptureForm({
       </div>
 
       {channel === "phone" && (
-        <label className={`mt-3 flex items-start gap-2 text-[11px] ${dark ? "text-white/70" : "text-ink/65"}`}>
+        <label className={`mt-3 flex items-start gap-2 text-[11px] ${dark ? "text-white/70" : "text-ink/75"}`}>
           <input
             type="checkbox"
             required
@@ -244,7 +244,7 @@ export function CaptureForm({
         </label>
       )}
 
-      <p className={`mt-2 text-[11px] ${dark ? "text-white/65" : "text-ink/65"}`}>
+      <p className={`mt-2 text-[11px] ${dark ? "text-white/65" : "text-ink/75"}`}>
         {channel === "email" ? t.consentEmail : t.consentPhone}
       </p>
 

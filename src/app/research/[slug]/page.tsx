@@ -126,7 +126,7 @@ export default async function BenchmarkPage({ params }: { params: Promise<Params
                   {b.value}
                 </div>
                 {b.unit && <p className="mt-3 text-lead text-ink/70">{b.unit}</p>}
-                <p className="mt-1 text-sm text-ink/60">{b.context}</p>
+                <p className="mt-1 text-sm text-ink/75">{b.context}</p>
               </div>
 
               {b.breakdown && b.breakdown.length > 0 && (

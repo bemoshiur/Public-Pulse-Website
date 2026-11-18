@@ -36,7 +36,7 @@ export function RepeatableEditor({ name, label, initial = [], placeholder }: Pro
               type="button"
               aria-label="Remove row"
               onClick={() => setRows((p) => (p.length === 1 ? [""] : p.filter((_, idx) => idx !== i)))}
-              className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full bg-paper-alt text-ink/60"
+              className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full bg-paper-alt text-ink/75"
             >
               <Trash2 className="h-4 w-4" aria-hidden />
             </button>

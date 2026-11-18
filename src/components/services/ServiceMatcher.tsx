@@ -124,7 +124,7 @@ export function ServiceMatcher() {
         </h3>
         <ul className="mt-7 space-y-4">
           {ranked.length === 0 && (
-            <li className="text-ink/65">
+            <li className="text-ink/75">
               No strong match yet. Try{" "}
               <Link href="/services" className="text-brand-orange underline">browsing all services</Link> or{" "}
               <Link href="/contact" className="text-brand-orange underline">tell us what you&rsquo;re trying to do</Link>.
@@ -141,9 +141,9 @@ export function ServiceMatcher() {
                 </span>
                 <div className="min-w-0 flex-1">
                   <div className="text-h3 font-bold text-ink">{r.service.name}</div>
-                  <div className="mt-1 text-meta text-ink/65">{r.service.oneLiner}</div>
+                  <div className="mt-1 text-meta text-ink/75">{r.service.oneLiner}</div>
                 </div>
-                <ArrowRight className="mt-2 h-5 w-5 flex-shrink-0 text-ink/65 transition group-hover:translate-x-1 group-hover:text-brand-orange" aria-hidden />
+                <ArrowRight className="mt-2 h-5 w-5 flex-shrink-0 text-ink/75 transition group-hover:translate-x-1 group-hover:text-brand-orange" aria-hidden />
               </Link>
             </li>
           ))}
@@ -153,7 +153,7 @@ export function ServiceMatcher() {
             Book a call about {ranked[0]?.service.shortName ?? "this"}
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
-          <button type="button" onClick={restart} className="inline-flex items-center gap-2 text-sm font-semibold text-ink/65 hover:text-ink">
+          <button type="button" onClick={restart} className="inline-flex items-center gap-2 text-sm font-semibold text-ink/75 hover:text-ink">
             <RotateCcw className="h-4 w-4" aria-hidden /> Start over
           </button>
         </div>
@@ -181,7 +181,7 @@ export function ServiceMatcher() {
         </div>
       </div>
       <h3 className="mt-4 text-h2 tracking-tight text-ink">{q.prompt}</h3>
-      {isMulti && <p className="mt-2 text-meta text-ink/65">Pick all that apply.</p>}
+      {isMulti && <p className="mt-2 text-meta text-ink/75">Pick all that apply.</p>}
       <ul className="mt-6 space-y-2">
         {q.choices.map((c) => {
           const picked = picks.includes(c.label);
@@ -217,7 +217,7 @@ export function ServiceMatcher() {
             type="button"
             disabled={step === 0}
             onClick={() => setStep(step - 1)}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-ink/65 hover:text-ink disabled:opacity-40"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-ink/75 hover:text-ink disabled:opacity-40"
           >
             Back
           </button>

@@ -214,10 +214,10 @@ export function Header() {
                   className="flex items-center justify-between rounded-card border border-ink/15 px-4 py-3 text-base font-semibold text-ink"
                 >
                   <span className="flex items-center gap-2">
-                    <Search className="h-4 w-4 text-ink/65" aria-hidden />
+                    <Search className="h-4 w-4 text-ink/75" aria-hidden />
                     Search the site
                   </span>
-                  <ArrowUpRight className="h-4 w-4 text-ink/65" aria-hidden />
+                  <ArrowUpRight className="h-4 w-4 text-ink/75" aria-hidden />
                 </Link>
               </li>
             </ul>
@@ -235,7 +235,7 @@ export function Header() {
                     onClick={closeDrawer}
                   >
                     <span>{n.label}</span>
-                    <ArrowUpRight className="h-4 w-4 text-ink/65" aria-hidden />
+                    <ArrowUpRight className="h-4 w-4 text-ink/75" aria-hidden />
                   </Link>
                 </li>
               ))}
@@ -245,7 +245,7 @@ export function Header() {
             <hr className="my-5 border-ink/10" aria-hidden />
 
             {/* Secondary nav */}
-            <p className="text-eyebrow uppercase tracking-wider text-ink/65">More</p>
+            <p className="text-eyebrow uppercase tracking-wider text-ink/75">More</p>
             <ul className="mt-3 space-y-1 text-base font-medium text-ink/85">
               {SECONDARY.map((s) => (
                 <li key={s.href}>
@@ -255,7 +255,7 @@ export function Header() {
                     onClick={closeDrawer}
                   >
                     <span>{s.label}</span>
-                    <ArrowUpRight className="h-4 w-4 text-ink/65" aria-hidden />
+                    <ArrowUpRight className="h-4 w-4 text-ink/75" aria-hidden />
                   </Link>
                 </li>
               ))}

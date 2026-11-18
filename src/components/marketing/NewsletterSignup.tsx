@@ -88,7 +88,7 @@ export function NewsletterSignup({ source = "footer", variant = "light" }: Props
       </button>
       {state === "err" && (
         <p
-          className={`mt-1 text-xs ${dark ? "text-white/70" : "text-ink/65"} basis-full`}
+          className={`mt-1 text-xs ${dark ? "text-white/70" : "text-ink/75"} basis-full`}
           role="alert"
         >
           Something went wrong — try again in a moment.

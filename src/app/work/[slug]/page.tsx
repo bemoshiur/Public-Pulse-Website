@@ -132,7 +132,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<Param
             <div className="px-6 py-12 md:px-12 md:py-14">
               <div className="max-w-3xl">
                 {clientLabel && (
-                  <p className="text-meta uppercase tracking-wider text-ink/65">{clientLabel}</p>
+                  <p className="text-meta uppercase tracking-wider text-ink/75">{clientLabel}</p>
                 )}
                 <h1 className="mt-4 text-h1 tracking-tight text-ink">{work.title}</h1>
                 {work.tagline && <p className="mt-5 text-lead text-ink/70">{work.tagline}</p>}
@@ -236,8 +236,8 @@ export default async function WorkDetailPage({ params }: { params: Promise<Param
                       value={m.value}
                       className="block font-pr-serif text-[clamp(2.25rem,4vw,3.5rem)] leading-none tracking-tight text-ink"
                     />
-                    <div className="mt-3 text-meta uppercase text-ink/65">{m.label}</div>
-                    {m.timeframe && <div className="mt-1 text-meta text-ink/65">{m.timeframe}</div>}
+                    <div className="mt-3 text-meta uppercase text-ink/75">{m.label}</div>
+                    {m.timeframe && <div className="mt-1 text-meta text-ink/75">{m.timeframe}</div>}
                   </li>
                 ))}
               </ul>

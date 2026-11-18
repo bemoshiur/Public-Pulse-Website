@@ -169,7 +169,7 @@ export default function ElectionPage() {
                 </p>
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <Link href={booking ? "/book" : "/contact"} className="btn btn-gold">
-                    {booking ? "Book a 30-min strategy call" : "Start a campaign brief"}
+                    {booking ? "Book a 15-min strategy call" : "Start a campaign brief"}
                     <ArrowRight className="h-4 w-4" aria-hidden />
                   </Link>
                   <a

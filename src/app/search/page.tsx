@@ -100,7 +100,7 @@ export default async function SearchPage({
               Search the site
             </label>
             <div className="flex items-center gap-2 rounded-full border border-ink/15 bg-paper px-3 py-2 sm:gap-3 sm:px-5 sm:py-3 focus-within:border-brand-orange focus-within:ring-2 focus-within:ring-brand-orange/30">
-              <SearchIcon className="h-5 w-5 flex-shrink-0 text-ink/65" aria-hidden />
+              <SearchIcon className="h-5 w-5 flex-shrink-0 text-ink/75" aria-hidden />
               <input
                 id="q"
                 name="q"
@@ -108,7 +108,7 @@ export default async function SearchPage({
                 defaultValue={query}
                 placeholder="e.g. paid ads, political pr, hospitality, cox's bazar"
                 autoComplete="off"
-                className="min-w-0 flex-1 bg-transparent text-base text-ink outline-none placeholder:text-ink/65"
+                className="min-w-0 flex-1 bg-transparent text-base text-ink outline-none placeholder:text-ink/75"
               />
               <button type="submit" className="btn btn-orange text-[13px]">
                 Search
@@ -118,14 +118,14 @@ export default async function SearchPage({
           </form>
 
           {query.length >= 2 && (
-            <p className="mt-6 text-meta text-ink/65">
+            <p className="mt-6 text-meta text-ink/75">
               {hits.length === 0
                 ? `No results for "${query}".`
                 : `${hits.length} result${hits.length === 1 ? "" : "s"} for "${query}".`}
             </p>
           )}
           {query.length > 0 && query.length < 2 && (
-            <p className="mt-6 text-meta text-ink/65">Type at least 2 characters.</p>
+            <p className="mt-6 text-meta text-ink/75">Type at least 2 characters.</p>
           )}
 
           <Suspense fallback={null}>
@@ -142,8 +142,8 @@ export default async function SearchPage({
                     <div className="mt-2 text-h3 font-bold text-ink group-hover:text-brand-orange">
                       {h.title}
                     </div>
-                    <p className="mt-1 text-body text-ink/65">{h.excerpt}</p>
-                    <p className="mt-3 text-meta text-ink/65">{h.url}</p>
+                    <p className="mt-1 text-body text-ink/75">{h.excerpt}</p>
+                    <p className="mt-3 text-meta text-ink/75">{h.url}</p>
                   </Link>
                 </li>
               ))}

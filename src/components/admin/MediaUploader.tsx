@@ -117,11 +117,11 @@ export function MediaUploader({ name, workSlug, initial = [] }: Props) {
       <input type="hidden" name={name} value={JSON.stringify(items)} />
 
       <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-panel border border-dashed border-ink/25 bg-paper-alt p-8 text-center">
-        <UploadCloud className="h-6 w-6 text-ink/50" aria-hidden />
+        <UploadCloud className="h-6 w-6 text-ink/75" aria-hidden />
         <span className="text-sm font-semibold text-ink">
           {busy ? "Uploading…" : "Click to upload images"}
         </span>
-        <span className="text-meta text-ink/55">JPEG, PNG, WebP or AVIF · max 8 MB each</span>
+        <span className="text-meta text-ink/75">JPEG, PNG, WebP or AVIF · max 8 MB each</span>
         <input
           type="file"
           accept="image/jpeg,image/png,image/webp,image/avif"
@@ -163,7 +163,7 @@ export function MediaUploader({ name, workSlug, initial = [] }: Props) {
                   value={m.caption ?? ""}
                   onChange={(e) => patch(i, { caption: e.target.value })}
                 />
-                <div className="flex items-center gap-3 text-meta text-ink/55">
+                <div className="flex items-center gap-3 text-meta text-ink/75">
                   <label className="flex items-center gap-1.5">
                     <input
                       type="radio"

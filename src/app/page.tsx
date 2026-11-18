@@ -17,6 +17,7 @@ import { getFeaturedCaseStudies } from "@/lib/data/case-studies";
 import { getFeaturedWorks } from "@/lib/data/works";
 import { WorkCard } from "@/components/work/WorkCard";
 import { InlineBlock } from "@/components/lead-capture";
+import { Globe } from "@/components/home/Globe";
 
 // Same title/description as the root layout default — repeated here only to
 // attach the bn-BD hreflang alternate to the homepage.
@@ -48,7 +49,7 @@ const FACTS: [string, string][] = [
 ];
 
 const PROCESS = [
-  { n: "01", title: "Listen", body: "30-min strategy call. Channels audit. What's working, what isn't, and what you've already tried." },
+  { n: "01", title: "Listen", body: "15-min strategy call. Channels audit. What's working, what isn't, and what you've already tried." },
   { n: "02", title: "Plan", body: "Quarterly plan with named owners, the calendar, the budget, and ONE KPI we'll be held to." },
   { n: "03", title: "Make", body: "Strategy, creative, paid, PR, analytics — one room, one brief, one weekly stand-up." },
   { n: "04", title: "Sharpen", body: "Monthly review. Honest call on what to double down on. What to kill. No vanity dashboards." },
@@ -71,35 +72,40 @@ export default async function HomePage() {
       {/* ═══════ HERO — inset panel, centered serif (Dataplace T1) ═══════ */}
       <Section size="sm" className="bg-paper">
         <Container>
-          <GreyPanel tone="tint" radius="lg" className="px-6 py-16 text-center md:px-16 md:py-24">
-            <div className="mx-auto flex max-w-3xl flex-col items-center">
-              <div className="mb-6 flex items-center gap-3">
-                <span aria-hidden className="inline-block h-[3px] w-6 bg-brand-orange" />
-                <span className="font-mono text-[11.5px] uppercase tracking-[0.22em] text-ink-mute">
-                  Digital marketing &amp; political PR · Dhaka
-                </span>
+          <GreyPanel tone="tint" radius="lg" className="px-6 py-14 md:px-14 md:py-20">
+            <div className="grid items-center gap-10 text-left lg:grid-cols-12">
+              <div className="lg:col-span-7">
+                <div className="mb-6 flex items-center gap-3">
+                  <span aria-hidden className="inline-block h-[3px] w-6 bg-brand-orange" />
+                  <span className="font-mono text-[11.5px] uppercase tracking-[0.22em] text-ink-mute">
+                    Digital marketing &amp; political PR · Dhaka
+                  </span>
+                </div>
+                <h1 className="text-display leading-[1.02] tracking-tight text-ink">
+                  Reach that <em className="italic text-brand-orange">moves</em>. Narratives that{" "}
+                  <em className="italic text-brand-orange">hold</em>.
+                </h1>
+                <p className="mt-6 max-w-2xl text-lead text-ink-soft">
+                  Public Pulse is a Dhaka-based 360° digital marketing and political-PR studio —
+                  strategy, creative, paid media, PR, and analytics under one accountable team,
+                  billed in BDT from a registered Bangladeshi entity.
+                </p>
+                <div className="mt-9 flex flex-wrap gap-3">
+                  <Link href="/contact" className="btn btn-orange group">
+                    Book a free consultation
+                    <ArrowCircle onDark />
+                  </Link>
+                  <Link href="/services" className="btn btn-secondary">
+                    See our services
+                  </Link>
+                </div>
               </div>
-              <h1 className="text-display leading-[1.02] tracking-tight text-ink">
-                Reach that <em className="italic text-brand-orange">moves</em>. Narratives that{" "}
-                <em className="italic text-brand-orange">hold</em>.
-              </h1>
-              <p className="mt-6 max-w-2xl text-lead text-ink-soft">
-                Public Pulse is a Dhaka-based 360° digital marketing and political-PR studio —
-                strategy, creative, paid media, PR, and analytics under one accountable team, billed
-                in BDT from a registered Bangladeshi entity.
-              </p>
-              <div className="mt-9 flex flex-wrap justify-center gap-3">
-                <Link href="/contact" className="btn btn-orange group">
-                  Book a free consultation
-                  <ArrowCircle onDark />
-                </Link>
-                <Link href="/services" className="btn btn-secondary">
-                  See our services
-                </Link>
+              <div className="mx-auto aspect-square w-full max-w-[480px] lg:col-span-5">
+                <Globe />
               </div>
             </div>
             {/* Operational facts — real (not the 50+/300% placeholders) */}
-            <dl className="mx-auto mt-14 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-6 border-t border-ink/12 pt-8 text-left md:grid-cols-4">
+            <dl className="mt-14 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-ink/12 pt-8 text-left md:grid-cols-4">
               {FACTS.map(([k, v]) => (
                 <div key={k}>
                   <dt className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-ink-mute">
@@ -135,7 +141,7 @@ export default async function HomePage() {
             title={
               <>
                 Nine sharp services.{" "}
-                <span className="text-ink/65">One accountable team.</span>
+                <span className="text-ink/75">One accountable team.</span>
               </>
             }
             aside={
@@ -156,7 +162,7 @@ export default async function HomePage() {
                       className="group flex h-full flex-col rounded-panel border border-transparent bg-paper-alt p-7 transition duration-300 hover:-translate-y-1 hover:border-ink/10 hover:bg-paper-tint"
                     >
                       <div className="flex items-start justify-between gap-3">
-                        <span className="font-mono text-meta font-semibold text-ink/65">
+                        <span className="font-mono text-meta font-semibold text-ink/75">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <span
@@ -196,7 +202,7 @@ export default async function HomePage() {
                       value={s.number}
                       className="block font-pr-serif text-[clamp(2.75rem,5vw,4.5rem)] leading-none tracking-tight text-ink"
                     />
-                    <div className="mt-3 text-meta uppercase text-ink/65">{s.label}</div>
+                    <div className="mt-3 text-meta uppercase text-ink/75">{s.label}</div>
                   </ScrollReveal>
                 </li>
               ))}
@@ -212,7 +218,7 @@ export default async function HomePage() {
             eyebrow="How we run"
             title={
               <>
-                Four steps. <span className="text-ink/65">No fog.</span>
+                Four steps. <span className="text-ink/75">No fog.</span>
               </>
             }
             aside={<>Same framework for a 30-day political PR push or a 12-month brand build.</>}
@@ -243,7 +249,7 @@ export default async function HomePage() {
               eyebrow="Selected results"
               title={
                 <>
-                  Receipts. <span className="text-ink/65">Not vibes.</span>
+                  Receipts. <span className="text-ink/75">Not vibes.</span>
                 </>
               }
               aside={
@@ -260,14 +266,14 @@ export default async function HomePage() {
                     <article className="group flex h-full flex-col rounded-panel bg-paper-alt p-7 transition duration-300 hover:-translate-y-1 hover:bg-paper-tint">
                       <div className="flex items-center justify-between">
                         <p className="chip chip-light">{c.industry}</p>
-                        <span className="font-mono text-meta font-semibold text-ink/65">
+                        <span className="font-mono text-meta font-semibold text-ink/75">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                       </div>
                       <p className="mt-7 font-pr-serif text-[clamp(2.5rem,3.5vw+1rem,4rem)] leading-none tracking-tight text-ink">
                         {c.metric}
                       </p>
-                      <p className="mt-2 text-meta uppercase tracking-wider text-ink/65">
+                      <p className="mt-2 text-meta uppercase tracking-wider text-ink/75">
                         Over {c.windowLabel}
                       </p>
                       <p className="mt-6 flex-1 text-sm leading-relaxed text-ink/70">{c.summary}</p>
@@ -289,7 +295,7 @@ export default async function HomePage() {
               ))}
             </ul>
             <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
-              <p className="text-meta text-ink/65">
+              <p className="text-meta text-ink/75">
                 Numbers from active client engagements; specific accounts named with permission.
               </p>
               <Link
@@ -316,7 +322,7 @@ export default async function HomePage() {
               eyebrow="Client work"
               title={
                 <>
-                  The work <span className="text-ink/65">itself.</span>
+                  The work <span className="text-ink/75">itself.</span>
                 </>
               }
               aside={
@@ -370,7 +376,7 @@ export default async function HomePage() {
                     </span>
                     <span className="leading-tight">
                       <span className="block text-sm font-bold text-ink">Hospitality brand</span>
-                      <span className="block text-[11px] uppercase tracking-wider text-ink/65">
+                      <span className="block text-[11px] uppercase tracking-wider text-ink/75">
                         Marketing director · Cox&rsquo;s Bazar
                       </span>
                     </span>

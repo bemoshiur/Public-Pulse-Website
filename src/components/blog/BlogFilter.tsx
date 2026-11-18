@@ -133,13 +133,13 @@ export function BlogFilter({ posts, categories }: Props) {
         <div className="max-w-container mx-auto px-5 md:px-8">
           {filtered.length === 0 ? (
             <div className="rounded-panel border border-dashed border-ink/20 bg-paper-alt p-10 text-center">
-              <p className="text-ink/65">
+              <p className="text-ink/75">
                 {posts.length === 0
                   ? "New guides are being prepared — check back soon."
                   : "No posts match these filters yet. Try removing them above."}
               </p>
               {posts.length === 0 && (
-                <p className="mt-4 text-meta text-ink/65">
+                <p className="mt-4 text-meta text-ink/75">
                   In the meantime, browse our{" "}
                   <Link href="/services" className="underline hover:text-brand-orange">
                     services
@@ -168,11 +168,11 @@ export function BlogFilter({ posts, categories }: Props) {
                       <h2 className="mt-5 text-h3 font-bold text-ink">{p.title}</h2>
                       <p className="mt-3 flex-1 text-sm leading-relaxed text-ink/70">{p.excerpt}</p>
                       {(p.tags ?? []).length > 0 && (
-                        <p className="mt-3 text-[11px] uppercase tracking-wider text-ink/65">
+                        <p className="mt-3 text-[11px] uppercase tracking-wider text-ink/75">
                           {(p.tags ?? []).slice(0, 3).join(" · ")}
                         </p>
                       )}
-                      <div className="mt-5 flex items-center justify-between text-meta text-ink/65">
+                      <div className="mt-5 flex items-center justify-between text-meta text-ink/75">
                         <span className="inline-flex items-center gap-3">
                           {p.publishedAt && (
                             <span className="inline-flex items-center gap-1">

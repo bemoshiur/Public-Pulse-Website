@@ -95,7 +95,7 @@ export default async function TermPage({
           <>
             {t.name}
             {t.nameBn && (
-              <span className="block text-h2 font-medium text-ink/65 mt-3">{t.nameBn}</span>
+              <span className="block text-h2 font-medium text-ink/75 mt-3">{t.nameBn}</span>
             )}
           </>
         }

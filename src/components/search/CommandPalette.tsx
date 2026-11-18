@@ -145,7 +145,7 @@ export function CommandPalette() {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-3 border-b border-ink/10 px-4 py-3">
-          <SearchIcon className="h-5 w-5 flex-shrink-0 text-ink/65" aria-hidden />
+          <SearchIcon className="h-5 w-5 flex-shrink-0 text-ink/75" aria-hidden />
           <input
             ref={inputRef}
             type="search"
@@ -153,16 +153,16 @@ export function CommandPalette() {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={onKeyDown}
             placeholder="Search services, guides, case studies…"
-            className="flex-1 bg-transparent text-base text-ink outline-none placeholder:text-ink/65"
+            className="flex-1 bg-transparent text-base text-ink outline-none placeholder:text-ink/75"
           />
-          <kbd className="hidden rounded border border-ink/15 px-2 py-0.5 text-[11px] font-semibold text-ink/65 md:inline-block">
+          <kbd className="hidden rounded border border-ink/15 px-2 py-0.5 text-[11px] font-semibold text-ink/75 md:inline-block">
             esc
           </kbd>
           <button
             type="button"
             aria-label="Close"
             onClick={close}
-            className="grid h-7 w-7 place-items-center rounded-full text-ink/65 hover:bg-ink/5 hover:text-ink md:hidden"
+            className="grid h-7 w-7 place-items-center rounded-full text-ink/75 hover:bg-ink/5 hover:text-ink md:hidden"
           >
             <X className="h-4 w-4" aria-hidden />
           </button>
@@ -170,15 +170,15 @@ export function CommandPalette() {
 
         <div className="max-h-[60vh] overflow-y-auto">
           {loading && (
-            <p className="px-5 py-6 text-sm text-ink/65">Searching…</p>
+            <p className="px-5 py-6 text-sm text-ink/75">Searching…</p>
           )}
           {!loading && query.trim().length >= 2 && hits.length === 0 && (
-            <p className="px-5 py-6 text-sm text-ink/65">
+            <p className="px-5 py-6 text-sm text-ink/75">
               No matches. <span className="text-brand-orange">Enter</span> to open full search.
             </p>
           )}
           {!loading && query.trim().length < 2 && (
-            <div className="px-5 py-6 text-sm text-ink/65">
+            <div className="px-5 py-6 text-sm text-ink/75">
               <p>Type at least 2 characters. Examples:</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {["paid ads", "political pr", "cox's bazar", "hospitality"].map((s) => (
@@ -210,16 +210,16 @@ export function CommandPalette() {
                       {KIND_LABEL[h.kind] ?? h.kind}
                     </div>
                     <div className="mt-0.5 truncate text-sm font-bold text-ink">{h.title}</div>
-                    <div className="mt-0.5 truncate text-meta text-ink/65">{h.excerpt}</div>
+                    <div className="mt-0.5 truncate text-meta text-ink/75">{h.excerpt}</div>
                   </div>
-                  <ArrowRight className="mt-2 h-4 w-4 flex-shrink-0 text-ink/65" aria-hidden />
+                  <ArrowRight className="mt-2 h-4 w-4 flex-shrink-0 text-ink/75" aria-hidden />
                 </Link>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="flex items-center justify-between border-t border-ink/10 bg-surface-alt px-5 py-2 text-[11px] text-ink/65">
+        <div className="flex items-center justify-between border-t border-ink/10 bg-surface-alt px-5 py-2 text-[11px] text-ink/75">
           <span>
             <kbd className="rounded border border-ink/15 px-1.5 py-0.5 font-mono">↑↓</kbd> navigate ·{" "}
             <kbd className="rounded border border-ink/15 px-1.5 py-0.5 font-mono">↵</kbd> open

@@ -187,7 +187,7 @@ export default async function CaseStudyDetailPage({
             <div className="md:col-span-7">
               <span className="chip chip-orange">{study.industry}</span>
               {study.location && (
-                <span className="ml-2 inline-flex items-center rounded-full border border-ink/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-ink/65">
+                <span className="ml-2 inline-flex items-center rounded-full border border-ink/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-ink/75">
                   {study.location}
                 </span>
               )}
@@ -195,7 +195,7 @@ export default async function CaseStudyDetailPage({
                 {study.title}
               </h1>
               {study.clientName && (
-                <p className="mt-3 text-sm font-semibold uppercase tracking-wider text-ink/65">
+                <p className="mt-3 text-sm font-semibold uppercase tracking-wider text-ink/75">
                   {study.clientName}
                 </p>
               )}
@@ -237,10 +237,10 @@ export default async function CaseStudyDetailPage({
                   study.metric
                 )}
               </div>
-              <p className="mt-2 text-meta uppercase text-ink/65">{study.windowLabel}</p>
+              <p className="mt-2 text-meta uppercase text-ink/75">{study.windowLabel}</p>
               {services.length > 0 && (
                 <div className="mt-6 border-t border-ink/10 pt-5">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/65">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/75">
                     Services delivered
                   </p>
                   <div className="mt-2 flex flex-wrap gap-1.5">
@@ -343,7 +343,7 @@ export default async function CaseStudyDetailPage({
               <blockquote className="mt-4 text-h2 font-bold leading-[1.15] tracking-tight text-ink">
                 &ldquo;{study.testimonialQuote}&rdquo;
               </blockquote>
-              <figcaption className="mt-5 text-sm font-semibold uppercase tracking-wider text-ink/65">
+              <figcaption className="mt-5 text-sm font-semibold uppercase tracking-wider text-ink/75">
                 — {study.testimonialAttribution}
               </figcaption>
             </figure>
@@ -370,7 +370,7 @@ export default async function CaseStudyDetailPage({
                       <span className="font-semibold text-ink">{f.q}</span>
                       <span
                         aria-hidden
-                        className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full border border-ink/20 text-ink/60 transition group-open:rotate-45 group-open:border-brand-orange group-open:text-brand-orange"
+                        className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full border border-ink/20 text-ink/75 transition group-open:rotate-45 group-open:border-brand-orange group-open:text-brand-orange"
                       >
                         +
                       </span>
@@ -410,7 +410,7 @@ export default async function CaseStudyDetailPage({
                     <div className="mt-5 text-[clamp(1.6rem,2.5vw+0.5rem,2.4rem)] font-extrabold leading-[0.95] tracking-tight text-ink">
                       {r.metric}
                     </div>
-                    <p className="mt-1 text-eyebrow text-ink/65">{r.windowLabel}</p>
+                    <p className="mt-1 text-eyebrow text-ink/75">{r.windowLabel}</p>
                     <h3 className="mt-4 text-h3 font-bold text-ink line-clamp-3">{r.title}</h3>
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-ink/70 line-clamp-2">
                       {r.summary}

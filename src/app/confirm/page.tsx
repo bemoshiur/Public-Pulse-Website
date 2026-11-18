@@ -154,7 +154,7 @@ export default async function ConfirmPage({
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-ink/70">{sub}</p>
           {result.email && (
-            <p className="mt-3 text-xs text-ink/65">{result.email}</p>
+            <p className="mt-3 text-xs text-ink/75">{result.email}</p>
           )}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Link href="/blog" className="btn btn-orange text-[14px] uppercase tracking-wide">

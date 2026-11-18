@@ -72,7 +72,7 @@ export default function ServicesIndexPage() {
                   <ScrollReveal delayMs={Math.min(i, 5) * 60}>
                     <Link href={`/services/${s.slug}`} className="card group flex h-full flex-col">
                       <div className="flex items-start justify-between gap-3">
-                        <span className="font-mono text-meta font-semibold text-ink/65">
+                        <span className="font-mono text-meta font-semibold text-ink/75">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <span
@@ -110,7 +110,7 @@ export default function ServicesIndexPage() {
             <h2 className="mt-4 text-h1 tracking-tight text-ink">
               Three quick questions. We&rsquo;ll point you to the right service.
             </h2>
-            <p className="mt-5 text-lead text-ink/65">
+            <p className="mt-5 text-lead text-ink/75">
               Tells us your goal, channels, and industry. We rank our nine services against your answers and surface the top three matches.
             </p>
           </div>

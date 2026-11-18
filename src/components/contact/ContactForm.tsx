@@ -104,9 +104,9 @@ export function ContactForm({ bookingUrl }: { bookingUrl?: string | null } = {})
               </span>
               <div className="min-w-0 flex-1">
                 <div className="text-sm font-bold text-ink">Schedule the call now</div>
-                <div className="mt-0.5 text-meta text-ink/65">Pick a 30-min slot — instant confirmation.</div>
+                <div className="mt-0.5 text-meta text-ink/75">Pick a 15-min slot — instant confirmation.</div>
               </div>
-              <ArrowRight className="mt-1 h-4 w-4 flex-shrink-0 text-ink/65 transition group-hover:translate-x-0.5 group-hover:text-brand-orange" aria-hidden />
+              <ArrowRight className="mt-1 h-4 w-4 flex-shrink-0 text-ink/75 transition group-hover:translate-x-0.5 group-hover:text-brand-orange" aria-hidden />
             </a>
           )}
           <a
@@ -120,9 +120,9 @@ export function ContactForm({ bookingUrl }: { bookingUrl?: string | null } = {})
             </span>
             <div className="min-w-0 flex-1">
               <div className="text-sm font-bold text-ink">Message on WhatsApp</div>
-              <div className="mt-0.5 text-meta text-ink/65">Fastest path — usually &lt;2h reply.</div>
+              <div className="mt-0.5 text-meta text-ink/75">Fastest path — usually &lt;2h reply.</div>
             </div>
-            <ArrowRight className="mt-1 h-4 w-4 flex-shrink-0 text-ink/65 transition group-hover:translate-x-0.5 group-hover:text-brand-orange" aria-hidden />
+            <ArrowRight className="mt-1 h-4 w-4 flex-shrink-0 text-ink/75 transition group-hover:translate-x-0.5 group-hover:text-brand-orange" aria-hidden />
           </a>
           <Link
             href="/blog"
@@ -133,13 +133,13 @@ export function ContactForm({ bookingUrl }: { bookingUrl?: string | null } = {})
             </span>
             <div className="min-w-0 flex-1">
               <div className="text-sm font-bold text-ink">Read the playbooks</div>
-              <div className="mt-0.5 text-meta text-ink/65">Bangladesh marketing guides while you wait.</div>
+              <div className="mt-0.5 text-meta text-ink/75">Bangladesh marketing guides while you wait.</div>
             </div>
-            <ArrowRight className="mt-1 h-4 w-4 flex-shrink-0 text-ink/65 transition group-hover:translate-x-0.5 group-hover:text-brand-orange" aria-hidden />
+            <ArrowRight className="mt-1 h-4 w-4 flex-shrink-0 text-ink/75 transition group-hover:translate-x-0.5 group-hover:text-brand-orange" aria-hidden />
           </Link>
         </div>
 
-        <p className="mt-6 text-meta text-ink/65">
+        <p className="mt-6 text-meta text-ink/75">
           Trusted by 50+ Bangladeshi brands · Senior in the room on every call.
         </p>
       </div>
@@ -197,7 +197,7 @@ export function ContactForm({ bookingUrl }: { bookingUrl?: string | null } = {})
             className={`inline-flex items-center rounded-full border px-3.5 py-2 text-sm font-semibold transition ${
               selectedService === "not-sure"
                 ? "border-brand-orange bg-brand-orange text-cp-gold-ink"
-                : "border-dashed border-ink/30 bg-paper text-ink/65 hover:border-ink"
+                : "border-dashed border-ink/30 bg-paper text-ink/75 hover:border-ink"
             }`}
           >
             Not sure yet
@@ -280,7 +280,7 @@ export function ContactForm({ bookingUrl }: { bookingUrl?: string | null } = {})
       )}
 
       <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-meta text-ink/65">
+        <p className="text-meta text-ink/75">
           <span
             aria-hidden
             className="mr-1 inline-block h-1.5 w-1.5 -translate-y-[1px] rounded-full bg-emerald-500 align-middle"
@@ -303,7 +303,7 @@ export function ContactForm({ bookingUrl }: { bookingUrl?: string | null } = {})
         </button>
       </div>
 
-      <p className="mt-4 text-[11px] text-ink/65">
+      <p className="mt-4 text-[11px] text-ink/75">
         <Send className="mr-1 inline-block h-3 w-3" aria-hidden />
         Lands in our inbox the moment you hit send. No marketing emails — we use it only to
         reply.
@@ -332,7 +332,7 @@ function Field({ id, label, error, required, className = "", hint, children }: F
           {label}
           {required && <span className="ml-1 text-brand-orange">*</span>}
         </label>
-        {hint && <span className="text-[11px] text-ink/65">{hint}</span>}
+        {hint && <span className="text-[11px] text-ink/75">{hint}</span>}
       </div>
       <div className="mt-2">{children}</div>
       {error && (

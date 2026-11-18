@@ -65,7 +65,7 @@ const PATHS = [
     tag: "Fastest",
     title: (
       <>
-        WhatsApp <span className="text-ink/65">now</span>
+        WhatsApp <span className="text-ink/75">now</span>
       </>
     ),
     body: "Under 2h reply during business hours. Best for quick questions and to feel out whether we're a fit.",
@@ -80,7 +80,7 @@ const PATHS = [
     tag: "Best fit",
     title: (
       <>
-        Send a <span className="text-ink/65">brief</span>
+        Send a <span className="text-ink/75">brief</span>
       </>
     ),
     body: "Tell us what you're trying to grow, what you've tried, and we'll reply with a structured proposal.",
@@ -95,7 +95,7 @@ const PATHS = [
     tag: "Call us",
     title: (
       <>
-        Just <span className="text-ink/65">call</span>
+        Just <span className="text-ink/75">call</span>
       </>
     ),
     body: "Direct line to the sales team. Best for urgent or sensitive work (election cycles, crisis comms).",
@@ -222,7 +222,7 @@ export default function ContactPage() {
                   <Mail className="h-4 w-4" aria-hidden />
                 </span>
                 <div>
-                  <p className="text-meta uppercase tracking-wider text-ink/65">Email</p>
+                  <p className="text-meta uppercase tracking-wider text-ink/75">Email</p>
                   <p className="break-all text-base font-bold text-ink">{SITE.contact.email}</p>
                 </div>
               </div>
@@ -243,7 +243,7 @@ export default function ContactPage() {
                   <MapPin className="h-4 w-4" aria-hidden />
                 </span>
                 <div>
-                  <p className="text-meta uppercase tracking-wider text-ink/65">Location</p>
+                  <p className="text-meta uppercase tracking-wider text-ink/75">Location</p>
                   <p className="text-base font-bold text-ink">Dhaka, Bangladesh</p>
                 </div>
               </div>
@@ -270,7 +270,7 @@ export default function ContactPage() {
               <ul className="mt-8 space-y-4 text-sm">
                 <Promise icon={Clock} text="Reply within 24 hours, Sat–Thu" />
                 <Promise icon={ShieldCheck} text="No marketing emails ever; we use it only to reply" />
-                <Promise icon={CalendarDays} text="If a fit, we'll book a 30-min call within 2 working days" />
+                <Promise icon={CalendarDays} text="If a fit, we'll book a 15-min call within 2 working days" />
               </ul>
             </aside>
             <div className="lg:col-span-8">

@@ -47,7 +47,7 @@ export default async function OpenGraphImage({
           justifyContent: "space-between",
           padding: "60px 80px",
           background:
-            "radial-gradient(60% 60% at 92% 4%, rgba(254,37,0,0.60) 0%, transparent 64%), radial-gradient(120% 100% at 36% 30%, #A80000 0%, #8A0000 42%, #5C0000 100%)",
+            "radial-gradient(60% 60% at 92% 4%, rgba(222,42,34,0.55) 0%, transparent 64%), radial-gradient(50% 50% at 4% 110%, rgba(75,227,143,0.16) 0%, transparent 66%), linear-gradient(160deg, #1A1D1A 0%, #0B0C0B 70%)",
           color: "#ffffff",
           fontFamily: "sans-serif",
         }}
@@ -69,7 +69,7 @@ export default async function OpenGraphImage({
               width: "16px",
               height: "16px",
               borderRadius: "9999px",
-              background: "#FCB400",
+              background: "#4BE38F",
             }}
           />
           {eyebrow.toUpperCase()}
@@ -102,7 +102,7 @@ export default async function OpenGraphImage({
         >
           <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
             <span>Public</span>
-            <span style={{ color: "#FCB400" }}>Pulse</span>
+            <span style={{ color: "#4BE38F" }}>Pulse</span>
           </div>
           <div style={{ opacity: 0.85, fontSize: 20, fontWeight: 500 }}>
             {post?.readingTime ? `${post.readingTime} min read` : "Insights"}

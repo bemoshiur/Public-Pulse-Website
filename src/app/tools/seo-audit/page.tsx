@@ -60,7 +60,7 @@ export default function SeoAuditPage() {
             <h1 className="mt-4 text-h1 tracking-tight text-ink">
               Free on-page SEO audit. 10 seconds.
             </h1>
-            <p className="mt-5 text-lead text-ink/65">
+            <p className="mt-5 text-lead text-ink/75">
               Enter your domain. We fetch the homepage and check 10 high-signal items most BD brands get wrong. No signup; you can read the findings and leave.
             </p>
             <AnswerBlock>

@@ -246,9 +246,9 @@ export default async function BlogPostPage({
                       {BRAND_BYLINE.name}
                     </Link>
                   </p>
-                  <p className="text-xs text-ink/65">{BRAND_BYLINE.role}</p>
+                  <p className="text-xs text-ink/75">{BRAND_BYLINE.role}</p>
                 </div>
-                <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-wider text-ink/65">
+                <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-wider text-ink/75">
                   {publishedDate && (
                     <span className="inline-flex items-center gap-1">
                       <CalendarDays className="h-3.5 w-3.5" aria-hidden />
@@ -304,7 +304,7 @@ export default async function BlogPostPage({
               {/* Source references — for AEO/GEO trust signal */}
               {sourceRefs.length > 0 && (
                 <aside className="mt-10 rounded-panel border border-ink/15 bg-paper-tint p-6">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/65">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/75">
                     Sources & further reading
                   </p>
                   <ul className="mt-3 space-y-2 text-sm">
@@ -353,7 +353,7 @@ export default async function BlogPostPage({
                           <span className="font-semibold text-ink">{f.q}</span>
                           <span
                             aria-hidden
-                            className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full border border-ink/20 text-ink/60 transition group-open:rotate-45 group-open:border-brand-orange group-open:text-brand-orange"
+                            className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full border border-ink/20 text-ink/75 transition group-open:rotate-45 group-open:border-brand-orange group-open:text-brand-orange"
                           >
                             +
                           </span>
@@ -368,7 +368,7 @@ export default async function BlogPostPage({
               {/* Keep exploring — internal backlinks to grounded pages */}
               {backlinks.length > 0 && (
                 <section className="mt-14 rounded-panel border border-ink/15 bg-paper-tint p-6">
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/65">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/75">
                     Keep exploring
                   </p>
                   <ul className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -379,7 +379,7 @@ export default async function BlogPostPage({
                           className="group flex items-center justify-between gap-3 rounded-panel bg-paper-alt px-4 py-3 transition hover:bg-paper-tint"
                         >
                           <span>
-                            <span className="block text-[10px] font-semibold uppercase tracking-wider text-ink/65">
+                            <span className="block text-[10px] font-semibold uppercase tracking-wider text-ink/75">
                               {b.eyebrow}
                             </span>
                             <span className="mt-0.5 block text-sm font-semibold text-ink group-hover:text-brand-orange">
@@ -387,7 +387,7 @@ export default async function BlogPostPage({
                             </span>
                           </span>
                           <ArrowUpRight
-                            className="h-4 w-4 shrink-0 text-ink/65 transition group-hover:text-brand-orange group-hover:translate-x-0.5"
+                            className="h-4 w-4 shrink-0 text-ink/75 transition group-hover:text-brand-orange group-hover:translate-x-0.5"
                             aria-hidden
                           />
                         </Link>
@@ -406,7 +406,7 @@ export default async function BlogPostPage({
                 </div>
                 {related.length > 0 && (
                   <div className="rounded-panel border border-ink/15 bg-paper p-5">
-                    <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/65">
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-ink/75">
                       Related reads
                     </p>
                     <ul className="mt-4 space-y-4">
@@ -419,8 +419,8 @@ export default async function BlogPostPage({
                             <p className="text-sm font-semibold text-ink group-hover:text-brand-orange">
                               {r.title}
                             </p>
-                            <p className="mt-1 line-clamp-2 text-xs text-ink/60">{r.excerpt}</p>
-                            <p className="mt-2 text-[10px] uppercase tracking-wider text-ink/65">
+                            <p className="mt-1 line-clamp-2 text-xs text-ink/75">{r.excerpt}</p>
+                            <p className="mt-2 text-[10px] uppercase tracking-wider text-ink/75">
                               {r.readingTime} min · {r.categorySlug}
                             </p>
                           </Link>

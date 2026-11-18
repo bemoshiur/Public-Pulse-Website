@@ -69,7 +69,7 @@ export default function ToolsPage() {
             <h1 className="mt-4 text-h1 tracking-tight text-ink">
               Diagnostics you can run without a sales call.
             </h1>
-            <p className="mt-5 text-lead text-ink/65">
+            <p className="mt-5 text-lead text-ink/75">
               Interactive tools we built for Bangladesh brands. No signup for any of the basic versions — find out where you stand, then decide if you want help.
             </p>
             <AnswerBlock>
@@ -89,7 +89,7 @@ export default function ToolsPage() {
                   </span>
                   <div>
                     <h2 className="text-h3 tracking-tight text-ink">{t.title}</h2>
-                    <p className="mt-2 text-body text-ink/65">{t.body}</p>
+                    <p className="mt-2 text-body text-ink/75">{t.body}</p>
                   </div>
                   <span className="mt-auto inline-flex items-center gap-1 text-sm font-semibold text-brand-orange">
                     Open <ArrowRight className="h-4 w-4" aria-hidden />
@@ -97,7 +97,7 @@ export default function ToolsPage() {
                 </Link>
               </li>
             ))}
-            <li className="rounded-card border border-dashed border-ink/15 p-6 text-meta text-ink/65">
+            <li className="rounded-card border border-dashed border-ink/15 p-6 text-meta text-ink/75">
               More tools shipping soon: social benchmark, ad-spend ROI calculator, election readiness checker.
             </li>
           </ul>

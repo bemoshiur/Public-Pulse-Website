@@ -151,7 +151,7 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
                 type="button"
                 aria-label="Dismiss without choosing"
                 onClick={() => decide("denied")}
-                className="grid h-9 w-9 place-items-center rounded-full text-ink/65 hover:bg-ink/5 hover:text-ink"
+                className="grid h-9 w-9 place-items-center rounded-full text-ink/75 hover:bg-ink/5 hover:text-ink"
               >
                 <X className="h-4 w-4" aria-hidden />
               </button>

@@ -176,7 +176,7 @@ export default async function LocationPage({
                   key={s.slug}
                   className="flex items-center gap-3 rounded-panel bg-paper-alt p-4"
                 >
-                  <span className="font-mono text-meta font-semibold text-ink/65">
+                  <span className="font-mono text-meta font-semibold text-ink/75">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="flex-1 text-sm font-semibold text-ink">{s.shortName}</span>

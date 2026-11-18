@@ -121,14 +121,14 @@ export default function PressPage() {
               <h2 className="mt-4 text-h2 tracking-tight text-ink">
                 Cut, paste, publish.
               </h2>
-              <p className="mt-4 text-body text-ink/65">
+              <p className="mt-4 text-body text-ink/75">
                 Copy-ready boilerplate for stories about Public Pulse. Verified
                 facts — registered entity, services, sister concerns, contact.
               </p>
             </div>
             <div className="lg:col-span-2">
               <div className="rounded-card border border-ink/10 bg-paper p-6 md:p-8">
-                <p className="text-meta uppercase tracking-wider text-ink/65">
+                <p className="text-meta uppercase tracking-wider text-ink/75">
                   Short boilerplate (50 words)
                 </p>
                 <blockquote className="mt-3 text-lead text-ink">
@@ -139,7 +139,7 @@ export default function PressPage() {
                   A sister concern within Pulse Group.
                 </blockquote>
 
-                <p className="mt-8 text-meta uppercase tracking-wider text-ink/65">
+                <p className="mt-8 text-meta uppercase tracking-wider text-ink/75">
                   Long boilerplate (120 words)
                 </p>
                 <blockquote className="mt-3 text-body text-ink/80">
@@ -169,7 +169,7 @@ export default function PressPage() {
             <h2 className="mt-4 text-h2 tracking-tight text-ink">
               Logos, colors, typography.
             </h2>
-            <p className="mt-5 text-body text-ink/65">
+            <p className="mt-5 text-body text-ink/75">
               For SVG / EPS / brand-kit zip, email the press desk — we&rsquo;ll send
               within a working day. The wordmark below is reproducible inline if you
               prefer.
@@ -178,7 +178,7 @@ export default function PressPage() {
 
           <div className="mt-10 grid gap-5 md:grid-cols-2">
             <div className="rounded-card border border-ink/10 bg-paper p-8">
-              <p className="text-meta uppercase tracking-wider text-ink/65">
+              <p className="text-meta uppercase tracking-wider text-ink/75">
                 On crimson background
               </p>
               <div className="mt-6 grid h-32 place-items-center rounded-card bg-paper">
@@ -214,24 +214,24 @@ export default function PressPage() {
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             <div className="rounded-card border border-ink/10 bg-paper p-6">
               <div className="h-16 w-full rounded-card bg-brand-orange" aria-hidden />
-              <p className="mt-4 text-meta uppercase tracking-wider text-ink/65">
-                Brand gold
+              <p className="mt-4 text-meta uppercase tracking-wider text-ink/75">
+                Brand red
               </p>
-              <p className="mt-1 font-mono text-body text-ink">#FCB400</p>
+              <p className="mt-1 font-mono text-body text-ink">#DE2A22</p>
             </div>
             <div className="rounded-card border border-ink/10 bg-paper p-6">
               <div className="h-16 w-full rounded-card bg-cp-night" aria-hidden />
-              <p className="mt-4 text-meta uppercase tracking-wider text-ink/65">
-                Night
+              <p className="mt-4 text-meta uppercase tracking-wider text-ink/75">
+                Ink
               </p>
-              <p className="mt-1 font-mono text-body text-ink">#2B0000</p>
+              <p className="mt-1 font-mono text-body text-ink">#0B0C0B</p>
             </div>
             <div className="rounded-card border border-ink/10 bg-paper p-6">
               <div className="h-16 w-full rounded-card border border-ink/15 bg-paper" aria-hidden />
-              <p className="mt-4 text-meta uppercase tracking-wider text-ink/65">
-                Crimson
+              <p className="mt-4 text-meta uppercase tracking-wider text-ink/75">
+                Paper
               </p>
-              <p className="mt-1 font-mono text-body text-ink">#520000</p>
+              <p className="mt-1 font-mono text-body text-ink">#F2F0EA</p>
             </div>
           </div>
         </Container>
@@ -246,14 +246,14 @@ export default function PressPage() {
               <h2 className="mt-4 text-h2 tracking-tight text-ink">
                 In the news.
               </h2>
-              <p className="mt-4 text-body text-ink/65">
+              <p className="mt-4 text-body text-ink/75">
                 Articles, interviews, and mentions of Public Pulse Agency in the
                 Bangladesh media. Reach out if your outlet should be on this list.
               </p>
             </div>
             <div className="lg:col-span-2">
               <div className="rounded-card border border-dashed border-ink/20 bg-paper p-10 text-center">
-                <Newspaper className="mx-auto h-10 w-10 text-ink/65" aria-hidden />
+                <Newspaper className="mx-auto h-10 w-10 text-ink/75" aria-hidden />
                 <p className="mt-4 text-body text-ink/70">
                   Coverage gallery is being curated. Featured an interview, op-ed,
                   or quote? Send it to{" "}

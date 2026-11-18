@@ -25,22 +25,23 @@ const config: Config = {
         "paper-tint": "rgb(var(--c-paper-tint) / <alpha-value>)",
         "graphite": "rgb(var(--c-graphite) / <alpha-value>)",
         "brand-orange": "rgb(var(--c-brand-orange) / <alpha-value>)",
+        "brand-green": "rgb(var(--c-brand-green, 75 227 143) / <alpha-value>)",
         "brand-orange-soft": "rgb(var(--c-brand-orange-soft) / <alpha-value>)",
         "brand-orange-deep": "rgb(var(--c-brand-orange-deep) / <alpha-value>)",
         // ── Campaign palette — sampled from the "Public Pulse Profile | Political
         // PR" Canva brochure (public/downloads/…profile.pdf). Scoped to the
         // election / political-PR surfaces via .theme-campaign; the rest of the
         // site keeps the white + ink + orange identity.
-        "cp-edge": "#5C0000",
-        "cp-deep": "#7A0000",
-        "cp-mid": "#8A0000",
-        "cp-core": "#A80000",
-        "cp-hot": "#FE2500",
-        "cp-line": "#C51C03",
-        "cp-gold": "#FCB400",
-        "cp-gold-soft": "#FFC933",
-        "cp-gold-ink": "#4A0000",
-        "cp-night": "#2B0000",
+        "cp-edge": "#151815",
+        "cp-deep": "#1A1D1A",
+        "cp-mid": "#242824",
+        "cp-core": "#2E332E",
+        "cp-hot": "#DE2A22",
+        "cp-line": "#DE2A22",
+        "cp-gold": "#4BE38F",
+        "cp-gold-soft": "#7DF0B0",
+        "cp-gold-ink": "#FFFFFF",
+        "cp-night": "#0B0C0B",
         // ── Prestige palette — scoped to the political-ad flagship +
         // src/components/prestige/*. Rethemed to the Dataplace direction
         // (restyle) so the flagship matches the rest of the site: white +
@@ -85,14 +86,14 @@ const config: Config = {
         "cat-magenta": "rgb(var(--c-cat-magenta) / <alpha-value>)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "var(--font-inter)", "system-ui", "sans-serif"],
+        sans: ["var(--font-archivo)", "system-ui", "sans-serif"],
+        display: ["var(--font-archivo)", "system-ui", "sans-serif"],
         // serif aliased to sans so legacy markup compiles
-        serif: ["var(--font-inter)", "system-ui", "sans-serif"],
+        serif: ["var(--font-archivo)", "system-ui", "sans-serif"],
         // Prestige serif display (Fraunces, loaded in layout.tsx) + mono
         // "field-dossier" layer. Used by the political-ad flagship + prestige kit.
-        "pr-serif": ["var(--font-fraunces)", "Charter", "Palatino", "Georgia", "serif"],
-        mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
+        "pr-serif": ["var(--font-archivo)", "system-ui", "sans-serif"],
+        mono: ["var(--font-jetbrains)", "ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
       },
       fontSize: {
         // Avoora-faithful: editorial weight (500/600), VERY tight tracking.

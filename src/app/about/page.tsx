@@ -258,7 +258,7 @@ export default function AboutPage() {
                       {s.category}
                     </span>
                     <h3 className="mt-3 text-h3 font-bold text-ink">{s.shortName}</h3>
-                    <p className="mt-2 line-clamp-2 flex-1 text-sm text-ink/65">{s.oneLiner}</p>
+                    <p className="mt-2 line-clamp-2 flex-1 text-sm text-ink/75">{s.oneLiner}</p>
                     <p className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-orange">
                       Explore
                       <ArrowUpRight
@@ -369,7 +369,7 @@ export default function AboutPage() {
                       <p className="text-sm font-bold text-ink group-hover:text-brand-orange">
                         {b.name}
                       </p>
-                      <p className="mt-1 text-xs text-ink/65">{b.tagline}</p>
+                      <p className="mt-1 text-xs text-ink/75">{b.tagline}</p>
                     </a>
                   </li>
                 ))}
@@ -429,7 +429,7 @@ export default function AboutPage() {
                   <span className="font-semibold text-ink">{f.q}</span>
                   <span
                     aria-hidden
-                    className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full border border-ink/20 text-ink/60 transition group-open:rotate-45 group-open:border-brand-orange group-open:text-brand-orange"
+                    className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full border border-ink/20 text-ink/75 transition group-open:rotate-45 group-open:border-brand-orange group-open:text-brand-orange"
                   >
                     +
                   </span>
@@ -474,7 +474,7 @@ function ProofTile({ k, v }: { k: string; v: string }) {
   return (
     <div className="rounded-panel bg-paper px-4 py-3">
       <p className="font-pr-serif text-h3 tracking-tight text-ink">{k}</p>
-      <p className="mt-1 text-xs text-ink/65">{v}</p>
+      <p className="mt-1 text-xs text-ink/75">{v}</p>
     </div>
   );
 }
@@ -492,7 +492,7 @@ function CredentialTile({ icon: Icon, label, value }: CredentialProps) {
           <Icon className="h-4 w-4 text-brand-orange" aria-hidden />
         </div>
         <div className="flex-1">
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-ink/65">{label}</p>
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-ink/75">{label}</p>
           <p className="mt-1 text-sm font-semibold text-ink">{value}</p>
         </div>
       </div>

@@ -8,7 +8,7 @@ export function Breadcrumbs({ crumbs, tone = "light" }: BreadcrumbsProps) {
   return (
     <nav
       aria-label="Breadcrumb"
-      className={`text-sm ${dark ? "text-white/70" : "text-ink/65"}`}
+      className={`text-sm ${dark ? "text-white/70" : "text-ink/75"}`}
     >
       <ol className="flex flex-wrap items-center gap-2">
         {crumbs.map((c, i) => {
@@ -24,7 +24,7 @@ export function Breadcrumbs({ crumbs, tone = "light" }: BreadcrumbsProps) {
                   {c.name}
                 </Link>
               )}
-              {!last && <span aria-hidden="true" className={dark ? "text-white/65" : "text-ink/65"}>/</span>}
+              {!last && <span aria-hidden="true" className={dark ? "text-white/65" : "text-ink/75"}>/</span>}
             </li>
           );
         })}

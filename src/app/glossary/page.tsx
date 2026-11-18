@@ -93,7 +93,7 @@ export default function GlossaryIndex() {
                       >
                         <h3 className="text-h3 font-bold text-ink">{t.name}</h3>
                         {t.nameBn && (
-                          <p className="mt-1 text-meta text-ink/65">{t.nameBn}</p>
+                          <p className="mt-1 text-meta text-ink/75">{t.nameBn}</p>
                         )}
                         <p className="mt-3 flex-1 text-sm leading-relaxed text-ink/70">
                           {t.definition}

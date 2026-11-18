@@ -3,24 +3,24 @@
 @tailwind utilities;
 
 :root {
-  /* Crimson / gold system (site-wide) — sampled from the Canva "Public Pulse
-     Profile | Political PR" brochure. Kept in sync with tailwind.config.ts.
-     Surfaces are deep maroon, text is white, the single accent is gold. */
-  --ink: #ffffff;
-  --ink-mute: #e2bfbf;
-  --body-ink: #f4e4e4;
-  --paper: #520000;
-  --paper-alt: #680000;
-  --paper-tint: #470000;
-  --panel: #680000;
-  --hairline: rgba(255, 255, 255, 0.14);
-  --card-border: rgba(255, 255, 255, 0.14);
-  --graphite: #2b0000;
-  --night: #2b0000;
-  --gold-ink: #4a0000;
-  --brand-orange: #fcb400;
-  --brand-orange-deep: #e8a200;
-  --brand-orange-soft: #ffc933;
+  /* Mahir's design: warm paper + near-black ink + brand red, with a green
+     accent used on dark surfaces. Kept in sync with tailwind.config.ts. */
+  --ink: #0b0c0b;
+  --ink-mute: #5a5c57;
+  --body-ink: #2a2c29;
+  --paper: #f2f0ea;
+  --paper-alt: #e9e6dd;
+  --paper-tint: #dcd8cc;
+  --panel: #e9e6dd;
+  --hairline: rgba(11, 12, 11, 0.14);
+  --card-border: rgba(11, 12, 11, 0.14);
+  --graphite: #2a2c29;
+  --night: #0b0c0b;
+  --gold-ink: #ffffff;
+  --brand-orange: #c4231c;
+  --brand-orange-deep: #a01812;
+  --brand-orange-soft: #de2a22;
+  --brand-green: #4be38f;
 }
 
 
@@ -30,49 +30,76 @@
    the previous light palette for /manage (an auth-gated tool that cannot be
    visually regression-tested here, so it is deliberately left unchanged). */
 :root {
+  --c-ink: 11 12 11;
+  --c-ink-soft: 42 44 41;
+  --c-ink-mute: 90 92 87;
+  --c-paper: 242 240 234;
+  --c-paper-alt: 233 230 221;
+  --c-paper-tint: 220 216 204;
+  --c-graphite: 42 44 41;
+  --c-brand-orange: 196 35 28;
+  --c-brand-orange-soft: 222 42 34;
+  --c-brand-orange-deep: 160 24 18;
+  --c-brand-green: 75 227 143;
+  --c-pr-paper: 242 240 234;
+  --c-pr-surface: 233 230 221;
+  --c-pr-raise: 250 249 245;
+  --c-pr-ink: 11 12 11;
+  --c-pr-ink-soft: 42 44 41;
+  --c-pr-muted: 90 92 87;
+  --c-pr-faint: 120 122 116;
+  --c-pr-hairline: 207 203 192;
+  --c-pr-accent: 196 35 28;
+  --c-pr-accent-ink: 160 24 18;
+  --c-pr-accent-wash: 247 221 219;
+  --c-pr-briefing: 11 12 11;
+  --c-pr-briefing-ink: 242 240 234;
+  --c-pr-briefing-muted: 176 179 172;
+  --c-pr-briefing-line: 42 45 42;
+  --c-brand-navy: 11 12 11;
+  --c-brand-navy-soft: 26 29 26;
+  --c-brand-teal: 196 35 28;
+  --c-brand-teal-soft: 222 42 34;
+  --c-brand-teal-deep: 160 24 18;
+  --c-brand-teal-tint: 247 221 219;
+  --c-brand-red: 196 35 28;
+  --c-surface-alt: 233 230 221;
+  --c-surface-tint: 220 216 204;
+  --c-cat-red: 211 47 47;
+  --c-cat-blue: 21 101 192;
+  --c-cat-purple: 106 27 154;
+  --c-cat-teal: 13 148 136;
+  --c-cat-green: 46 125 50;
+  --c-cat-orange: 255 92 0;
+  --c-cat-navy: 10 10 10;
+  --c-cat-brown: 121 85 72;
+  --c-cat-magenta: 173 20 87;
+}
+/* Dark scope: surfaces that are dark inside the light page (hero/CTA panels,
+   night bands, the campaign theme). Tokens flip so text-ink / bg-paper inside
+   them stay readable, and the accent becomes green (red on near-black is only
+   4.2:1; green is 11.8:1). */
+.cp-hero, .cp-hero--flip, .cp-surface, .cp-surface-deep, .bg-cp-night,
+.bg-pr-briefing, .theme-campaign {
   --c-ink: 255 255 255;
-  --c-ink-soft: 244 228 228;
-  --c-ink-mute: 226 191 191;
-  --c-paper: 82 0 0;
-  --c-paper-alt: 104 0 0;
-  --c-paper-tint: 71 0 0;
-  --c-graphite: 43 0 0;
-  --c-brand-orange: 252 180 0;
-  --c-brand-orange-soft: 255 201 51;
-  --c-brand-orange-deep: 232 162 0;
-  --c-pr-paper: 82 0 0;
-  --c-pr-surface: 104 0 0;
-  --c-pr-raise: 104 0 0;
-  --c-pr-ink: 255 255 255;
-  --c-pr-ink-soft: 244 228 228;
-  --c-pr-muted: 226 191 191;
-  --c-pr-faint: 208 163 163;
-  --c-pr-hairline: 138 42 42;
-  --c-pr-accent: 252 180 0;
-  --c-pr-accent-ink: 255 201 51;
-  --c-pr-accent-wash: 122 26 0;
-  --c-pr-briefing: 43 0 0;
-  --c-pr-briefing-ink: 244 228 228;
-  --c-pr-briefing-muted: 208 163 163;
-  --c-pr-briefing-line: 90 20 20;
-  --c-brand-navy: 43 0 0;
-  --c-brand-navy-soft: 71 0 0;
-  --c-brand-teal: 252 180 0;
-  --c-brand-teal-soft: 255 201 51;
-  --c-brand-teal-deep: 232 162 0;
-  --c-brand-teal-tint: 122 26 0;
-  --c-brand-red: 252 180 0;
-  --c-surface-alt: 104 0 0;
-  --c-surface-tint: 71 0 0;
-  --c-cat-red: 255 138 128;
-  --c-cat-blue: 130 177 255;
-  --c-cat-purple: 206 147 216;
-  --c-cat-teal: 77 208 225;
-  --c-cat-green: 129 199 132;
-  --c-cat-orange: 255 183 77;
-  --c-cat-navy: 176 190 197;
-  --c-cat-brown: 188 170 164;
-  --c-cat-magenta: 244 143 177;
+  --c-ink-soft: 232 233 228;
+  --c-ink-mute: 176 179 172;
+  --c-paper: 11 12 11;
+  --c-paper-alt: 26 29 26;
+  --c-paper-tint: 18 20 18;
+  --c-brand-orange: 255 92 84;
+  --c-brand-orange-soft: 255 130 122;
+  --c-brand-orange-deep: 222 42 34;
+  --c-brand-teal: 255 92 84;
+  --c-brand-red: 255 92 84;
+  --c-pr-accent-ink: 255 130 122;
+  --ink: #ffffff;
+  --ink-mute: #b0b3ac;
+  --paper: #0b0c0b;
+  --paper-alt: #1a1d1a;
+  --card-border: rgba(255, 255, 255, 0.16);
+  --hairline: rgba(255, 255, 255, 0.16);
+  color: #f2f0ea;
 }
 .theme-admin {
   --c-ink: 22 24 28;
@@ -263,7 +290,7 @@ html {
 body {
   color: var(--body-ink);
   background: var(--paper);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-archivo), system-ui, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
@@ -303,52 +330,54 @@ body {
    #A80000), a hot core (#FE2500), gold headlines (#FCB400), thin crimson/gold
    outlined panels and gold label tabs. Scoped under .theme-campaign so no other
    page changes. Contrast: white on #8A0000 = 9.8:1, gold on #8A0000 = 5.5:1. */
-.theme-campaign { background: #4a0000; color: #fff; }
+.theme-campaign { background: #0b0c0b; color: #fff; }
 .cp-hero {
   background:
-    radial-gradient(70% 62% at 84% -8%, rgba(254, 37, 0, 0.55) 0%, rgba(254, 37, 0, 0) 64%),
-    radial-gradient(125% 105% at 38% 28%, #a80000 0%, #8a0000 42%, #5c0000 100%);
+    radial-gradient(70% 62% at 84% -8%, rgba(222, 42, 34, 0.5) 0%, rgba(222, 42, 34, 0) 64%),
+    radial-gradient(60% 55% at 6% 118%, rgba(75, 227, 143, 0.14) 0%, rgba(75, 227, 143, 0) 66%),
+    linear-gradient(160deg, #1a1d1a 0%, #0b0c0b 70%);
 }
 .cp-hero--flip {
   background:
-    radial-gradient(70% 62% at 10% 112%, rgba(254, 37, 0, 0.5) 0%, rgba(254, 37, 0, 0) 64%),
-    radial-gradient(125% 105% at 62% 30%, #a80000 0%, #8a0000 42%, #5c0000 100%);
+    radial-gradient(70% 62% at 10% 112%, rgba(222, 42, 34, 0.5) 0%, rgba(222, 42, 34, 0) 64%),
+    radial-gradient(60% 55% at 94% -10%, rgba(75, 227, 143, 0.14) 0%, rgba(75, 227, 143, 0) 66%),
+    linear-gradient(200deg, #1a1d1a 0%, #0b0c0b 70%);
 }
-.cp-surface { background: radial-gradient(115% 95% at 50% 0%, #6e0000 0%, #610000 55%, #4f0000 100%); }
-.cp-surface-deep { background: linear-gradient(180deg, #520000 0%, #3b0000 100%); }
+.cp-surface { background: radial-gradient(115% 95% at 50% 0%, #1a1d1a 0%, #121412 55%, #0b0c0b 100%); }
+.cp-surface-deep { background: linear-gradient(180deg, #121412 0%, #0b0c0b 100%); }
 .cp-panel {
   background: rgba(0, 0, 0, 0.2);
-  border: 1.5px solid rgba(197, 28, 3, 0.95);
+  border: 1.5px solid rgba(222, 42, 34, 0.85);
   border-radius: 20px;
 }
-.cp-panel-gold { border-color: #fcb400; }
+.cp-panel-gold { border-color: #4be38f; }
 .cp-tab {
-  display: inline-block; background: #fcb400; color: #4a0000;
+  display: inline-block; background: #4be38f; color: #0b0c0b;
   font-weight: 800; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
   padding: 0.3rem 0.8rem; border-radius: 4px;
 }
-.cp-gold { color: #fcb400; }
-.cp-rule { border-color: rgba(252, 180, 0, 0.35); }
+.cp-gold { color: #4be38f; }
+.cp-rule { border-color: rgba(75, 227, 143, 0.35); }
 .btn-gold {
-  background: #fcb400; color: #4a0000; font-weight: 800; border: 0;
+  background: #4be38f; color: #0b0c0b; font-weight: 800; border: 0;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
 }
-.btn-gold:hover { background: #ffc933; transform: translateY(-1px); }
-.btn-gold-ghost { background: transparent; color: #fcb400; border: 1.5px solid #fcb400; }
-.btn-gold-ghost:hover { background: rgba(252, 180, 0, 0.12); }
+.btn-gold:hover { background: #7df0b0; transform: translateY(-1px); }
+.btn-gold-ghost { background: transparent; color: #4be38f; border: 1.5px solid #4be38f; }
+.btn-gold-ghost:hover { background: rgba(75, 227, 143, 0.12); }
 .theme-campaign .answer-panel {
-  background: rgba(0, 0, 0, 0.22); border-left: 4px solid #fcb400;
+  background: rgba(0, 0, 0, 0.22); border-left: 4px solid #4be38f;
   border-radius: 16px; padding: 24px 28px;
 }
 .theme-campaign .answer-panel .answer-block { color: #fff; }
-.theme-campaign .answer-panel h2 { color: #fcb400; }
+.theme-campaign .answer-panel h2 { color: #4be38f; }
 .cp-strip {
   display: flex; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory;
   padding: 0.5rem 1.5rem 1.25rem; margin: 0 -1.5rem; list-style: none;
-  scrollbar-color: #fcb400 rgba(0, 0, 0, 0.3); scrollbar-width: thin;
+  scrollbar-color: #4be38f rgba(0, 0, 0, 0.3); scrollbar-width: thin;
 }
 .cp-strip > li { flex: none; width: min(72vw, 330px); scroll-snap-align: start; }
-.cp-strip:focus-visible { outline: 3px solid #fcb400; outline-offset: 4px; border-radius: 12px; }
+.cp-strip:focus-visible { outline: 3px solid #4be38f; outline-offset: 4px; border-radius: 12px; }
 @media (prefers-reduced-motion: reduce) { .cp-strip { scroll-behavior: auto; } .btn-gold:hover { transform: none; } }
 
 /* ─── Buttons ──────────────────────────────────────────────────────────
@@ -390,20 +419,20 @@ body {
 /* Gold is the single accent: gold fill + deep-maroon text (9:1). White text on
    gold would be 1.8:1, so never pair them. */
 .btn-primary {
-  background: var(--brand-orange);
-  color: var(--gold-ink);
+  background: #de2a22;
+  color: #ffffff;
   font-weight: 700;
 }
 .btn-primary:hover {
-  background: var(--brand-orange-soft);
+  background: #b81e17;
 }
 .btn-orange {
-  background: var(--brand-orange);
-  color: var(--gold-ink);
+  background: #de2a22;
+  color: #ffffff;
   font-weight: 700;
 }
 .btn-orange:hover {
-  background: var(--brand-orange-soft);
+  background: #b81e17;
 }
 /* Avoora's literal primary — neutral graphite. Use sparingly (e.g.
    secondary actions in dense layouts) so the orange CTA stays the loud one. */
@@ -413,17 +442,17 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 .btn-graphite:hover {
-  background: #3d0000;
+  background: #2a2c29;
 }
 .btn-secondary {
   background: transparent;
-  color: #ffffff;
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
 }
 .btn-secondary:hover {
-  background: #ffffff;
-  color: #520000;
-  border-color: #ffffff;
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
 }
 .btn-ghost-dark {
   background: transparent;
@@ -453,7 +482,7 @@ body {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(120% 80% at 50% 0%, rgba(252, 180, 0, 0.10), transparent 60%);
+  background: radial-gradient(120% 80% at 50% 0%, rgba(75, 227, 143, 0.10), transparent 60%);
   opacity: 0;
   transition: opacity 300ms ease-out;
   pointer-events: none;
@@ -461,7 +490,7 @@ body {
 .card:hover {
   transform: translateY(-3px);
   box-shadow: 0 22px 48px -30px rgba(0, 0, 0, 0.35);
-  border-color: rgba(252, 180, 0, 0.55);
+  border-color: rgba(75, 227, 143, 0.55);
 }
 .card:hover::before {
   opacity: 1;
@@ -472,7 +501,7 @@ body {
 .card-dark {
   background: var(--night);
   color: #ffffff;
-  border: 1px solid rgba(252, 180, 0, 0.35);
+  border: 1px solid rgba(75, 227, 143, 0.35);
   border-radius: 14px;
   padding: 1.75rem;
   transition:
@@ -760,10 +789,10 @@ html.reveal-ready .reveal-v2.is-visible {
   display: block;
   width: 100%;
   padding: 0.875rem 1.1rem;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgb(var(--c-ink) / 0.28);
   border-radius: 12px;
-  background: rgba(0, 0, 0, 0.24);
-  color: #ffffff;
+  background: rgb(var(--c-ink) / 0.04);
+  color: var(--ink);
   font-size: 1rem;
   line-height: 1.4;
   transition:
@@ -773,9 +802,9 @@ html.reveal-ready .reveal-v2.is-visible {
 .form-input:focus {
   outline: none;
   border-color: var(--brand-orange);
-  box-shadow: 0 0 0 3px rgba(252, 180, 0, 0.28);
+  box-shadow: 0 0 0 3px rgba(222, 42, 34, 0.22);
 }
-.form-input::placeholder { color: rgba(255, 255, 255, 0.55); }
+.form-input::placeholder { color: rgb(var(--c-ink) / 0.62); }
 .form-input[aria-invalid="true"] {
   border-color: #ff8a80;
 }
@@ -842,34 +871,34 @@ html.reveal-ready .reveal-v2.is-visible {
   line-height: 1;
   padding: 0.375rem 0.75rem;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.14);
-  color: #ffffff;
+  background: rgb(var(--c-ink) / 0.09);
+  color: var(--ink);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 .chip-orange {
-  background: var(--brand-orange);
-  color: var(--gold-ink);
+  background: #de2a22;
+  color: #ffffff;
 }
 .chip-light {
   background: transparent;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: var(--ink);
+  border: 1px solid rgb(var(--c-ink) / 0.5);
 }
 
 /* ─── Section dividers ───────────────────────────────────────────────── */
 .section-rule {
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-top: 1px solid rgb(var(--c-ink) / 0.25);
 }
 .section-rule-light {
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgb(var(--c-ink) / 0.15);
 }
 
 /* ─── Long-form legal copy (privacy / terms / data-deletion) ────────── */
 .prose-legal {
   font-size: 16px;
   line-height: 1.7;
-  color: rgb(255 255 255 / 0.85);
+  color: rgb(var(--c-ink) / 0.85);
 }
 .prose-legal > * + * {
   margin-top: 1em;
@@ -882,7 +911,7 @@ html.reveal-ready .reveal-v2.is-visible {
   margin-top: 2.2em;
   margin-bottom: 0.6em;
   padding-bottom: 0.4em;
-  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+  border-bottom: 1px solid rgb(var(--c-ink) / 0.12);
 }
 .prose-legal h2:first-child {
   margin-top: 0;
@@ -930,7 +959,7 @@ html.reveal-ready .reveal-v2.is-visible {
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, monospace;
   font-size: 0.92em;
   padding: 0.1em 0.35em;
-  background: rgb(255 255 255 / 0.06);
+  background: rgb(var(--c-ink) / 0.06);
   border-radius: 4px;
 }
 .prose-legal table {
@@ -942,13 +971,13 @@ html.reveal-ready .reveal-v2.is-visible {
 .prose-legal table td {
   text-align: left;
   padding: 0.6em 0.8em;
-  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+  border-bottom: 1px solid rgb(var(--c-ink) / 0.12);
   vertical-align: top;
 }
 .prose-legal table th {
   font-weight: 700;
   color: var(--ink);
-  background: rgb(255 255 255 / 0.04);
+  background: rgb(var(--c-ink) / 0.04);
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -973,7 +1002,8 @@ html.reveal-ready .reveal-v2.is-visible {
    Headings that must stay sans (a mono/UI label rendered as h*) opt out
    with `font-sans`. */
 h1, h2, h3 {
-  font-family: var(--font-fraunces), "Charter", Georgia, serif;
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-weight: 700;
   letter-spacing: -0.015em;
   /* No color here on purpose: headings INHERIT (dark body ink on light
      surfaces, white on dark sections via a parent text-paper). An element-
@@ -981,9 +1011,9 @@ h1, h2, h3 {
      every dark band. Set `text-ink`/`text-paper` per heading where needed. */
 }
 h1.font-sans, h2.font-sans, h3.font-sans {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-archivo), system-ui, sans-serif;
 }
 
 /* Bengali pages: Noto Sans Bengali first, Inter for Latin runs */
-[lang^="bn"] { font-family: var(--font-bn), var(--font-inter), system-ui, sans-serif; }
+[lang^="bn"] { font-family: var(--font-bn), var(--font-archivo), system-ui, sans-serif; }
 [lang^="bn"] h1, [lang^="bn"] h2, [lang^="bn"] h3 { letter-spacing: -0.01em; line-height: 1.25; }

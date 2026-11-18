@@ -118,7 +118,7 @@ export default async function WorkIndexPage() {
       {logoClients.length > 0 && (
         <Section size="sm" className="bg-paper">
           <Container>
-            <p className="text-center text-meta uppercase tracking-wider text-ink/65">Trusted by</p>
+            <p className="text-center text-meta uppercase tracking-wider text-ink/75">Trusted by</p>
             <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
               {logoClients.map((c) => (
                 <li key={c.id}>
@@ -141,7 +141,7 @@ export default async function WorkIndexPage() {
           <h2 className="text-h2 tracking-tight text-ink">Selected work</h2>
           {works.length === 0 ? (
             <div className="mt-8 rounded-panel border border-dashed border-ink/20 bg-paper-alt p-10 text-center">
-              <p className="text-ink/65">
+              <p className="text-ink/75">
                 Selected work is being prepared for publication — check back shortly.
               </p>
             </div>

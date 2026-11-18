@@ -55,7 +55,7 @@ export default function BangladeshMapClient({
           width: 22px;
           height: 22px;
           border-radius: 50%;
-          background: #FCB400;
+          background: #DE2A22;
           border: 3px solid #FFFFFF;
           box-shadow: 0 2px 6px rgba(0,0,0,0.25);
           transition: transform 150ms ease-out;

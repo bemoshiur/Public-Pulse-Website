@@ -91,7 +91,7 @@ export function MediaFrame({
         className="h-auto w-full object-cover"
       />
       {media.caption && (
-        <figcaption className="px-4 py-3 text-meta text-ink/65">{media.caption}</figcaption>
+        <figcaption className="px-4 py-3 text-meta text-ink/75">{media.caption}</figcaption>
       )}
     </figure>
   );

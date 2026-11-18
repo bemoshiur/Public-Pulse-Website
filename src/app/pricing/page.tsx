@@ -85,7 +85,7 @@ export default function PricingPage() {
               retainers start from ৳45,000 for single-platform social or paid-ads campaigns; full
               multi-channel engagements typically run ৳1,20,000+/month. Project work (brand identity,
               video production, websites) starts from ৳1,50,000 one-time. Every quote is anchored on
-              a 30-min free discovery call, then a written proposal within 24 hours.
+              a 15-min free discovery call, then a written proposal within 24 hours.
             </AnswerBlock>
           </div>
         </Container>
@@ -99,7 +99,7 @@ export default function PricingPage() {
               <div key={svc.serviceSlug} id={svc.serviceSlug} className="scroll-mt-24">
                 <div className="flex flex-wrap items-end justify-between gap-4">
                   <div>
-                    <p className="text-eyebrow uppercase text-ink/65">Service</p>
+                    <p className="text-eyebrow uppercase text-ink/75">Service</p>
                     <h2 className="mt-2 text-h2 tracking-tight text-ink">{svc.displayName}</h2>
                   </div>
                   <Link
@@ -134,7 +134,7 @@ export default function PricingPage() {
                               <span className="font-pr-serif text-[clamp(2rem,3.2vw,3.1rem)] font-medium leading-none tracking-tight text-ink">
                                 {tier.monthly}
                               </span>
-                              <span className="text-meta text-ink/65">/ month</span>
+                              <span className="text-meta text-ink/75">/ month</span>
                             </>
                           )}
                           {!tier.monthly && tier.setup && (
@@ -142,7 +142,7 @@ export default function PricingPage() {
                               <span className="font-pr-serif text-h2 tracking-tight text-ink">
                                 {tier.setup}
                               </span>
-                              <span className="text-meta text-ink/65">setup</span>
+                              <span className="text-meta text-ink/75">setup</span>
                             </>
                           )}
                           {!tier.monthly && !tier.setup && tier.oneTime && (
@@ -151,7 +151,7 @@ export default function PricingPage() {
                             </span>
                           )}
                         </div>
-                        <p className="mt-3 text-meta text-ink/65">{tier.bestFor}</p>
+                        <p className="mt-3 text-meta text-ink/75">{tier.bestFor}</p>
                         <ul className="mt-5 flex-1 space-y-2">
                           {tier.includes.map((item) => (
                             <li key={item} className="flex items-start gap-2 text-sm text-ink/80">
@@ -180,7 +180,7 @@ export default function PricingPage() {
                 </div>
 
                 {svc.notes && svc.notes.length > 0 && (
-                  <div className="mt-4 flex items-start gap-2 text-meta text-ink/65">
+                  <div className="mt-4 flex items-start gap-2 text-meta text-ink/75">
                     <Info className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" aria-hidden />
                     <div>{svc.notes.join(" · ")}</div>
                   </div>
@@ -234,7 +234,7 @@ export default function PricingPage() {
               </div>
               <div className="flex flex-wrap gap-3">
                 <Link href={booking ? "/book" : "/contact"} className="btn btn-orange group">
-                  {booking ? "Book a 30-min call" : "Send a brief"}
+                  {booking ? "Book a 15-min call" : "Send a brief"}
                   <ArrowCircle onDark />
                 </Link>
                 <a

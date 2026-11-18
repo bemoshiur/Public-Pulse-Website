@@ -62,9 +62,9 @@ export function LegalPage({ title, path, eyebrow, intro, effectiveDate, summary,
               <p className="mt-5 text-lead text-ink/70">{intro}</p>
             </div>
             <div className="md:col-span-4 md:text-right">
-              <p className="text-eyebrow text-ink/65">Last updated</p>
+              <p className="text-eyebrow text-ink/75">Last updated</p>
               <p className="mt-2 text-base font-semibold text-ink">{effectiveDate}</p>
-              <p className="mt-3 text-meta text-ink/65">
+              <p className="mt-3 text-meta text-ink/75">
                 Questions?{" "}
                 <Link
                   href={`mailto:${SITE.contact.email}`}
@@ -92,7 +92,7 @@ export function LegalPage({ title, path, eyebrow, intro, effectiveDate, summary,
       <section className="bg-paper py-12">
         <Container>
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-meta text-ink/65">
+            <p className="text-meta text-ink/75">
               {SITE.name} · Dhaka, Bangladesh · BIN {SITE.contact.legal.bin} · Trade Licence{" "}
               {SITE.contact.legal.tradeLicense}
             </p>

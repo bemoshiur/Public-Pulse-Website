@@ -13,6 +13,26 @@ Entry format:
 
 ---
 
+## 2026-11-19 — STEP 34 / MAHIR'S RED + GREEN THEME ON TOP OF `main` (PR, NOT DEPLOYED)
+
+**Changed:** branch `redesign/mahir-theme` (off `origin/main` `929ba90`). A token-level re-theme, so no page structure, route, metadata or schema changed.
+- `globals.css` `:root` and `tailwind.config.ts`: crimson/gold system replaced by warm paper `#F2F0EA`, ink `#0B0C0B`, brand red (`#DE2A22` buttons, `#C4231C` as text on light for 4.5:1), green `#4BE38F` as the accent on dark surfaces. `.theme-admin` (/manage) untouched.
+- New dark scope (`.cp-hero`, `.bg-cp-night`, `.theme-campaign`, `.bg-pr-briefing`, ...) flips the ink/paper tokens inside dark panels, so existing `text-ink` / `bg-paper` markup stays readable on both surfaces. `cp-*` tokens keep their names but now map to near-black / green.
+- Fonts: Archivo (sans + headings) and JetBrains Mono replace Inter and Fraunces in `layout.tsx`; Noto Sans Bengali stays for `[lang^="bn"]`.
+- Homepage hero is two-column with the existing `Globe` (Dhaka, USA, Seoul). OG cards (`/og`, blog card), static `og-image.jpg`, manifests, press palette and the map marker re-coloured.
+- `.chip`, `.form-input`, `.btn-secondary`, `.section-rule`, `.prose-legal` made theme-aware; `text-ink/50..65` raised to `/75`; `cp-gold-ink` is now white (text on red).
+- Booking copy 30 -> 15 min in the remaining places (election, pricing, contact, home process, welcome drip, site search).
+
+**Verified (local `next build`, Google Fonts stubbed because the sandbox cannot reach them):** `tsc` clean, build green, 150 pages: one H1, canonical, JSON-LD (except the `/research` stub, as before), 15 `/bn` pages with `bn-BD` hreflang. Real-browser axe color-contrast + horizontal overflow on about 50 pages at 1440 and 390: 0 violations, 0 overflow.
+
+**Not verified:** the real Archivo / JetBrains Mono render (fonts stubbed locally); blog/work/case-study detail pages (need the DB); the `/manage` admin; transactional emails (own inline palette); OG headline font is still Fraunces.
+
+**Next:** Moshiur reviews the PR, merges, then deploys from his Mac (`AWS_PROFILE=<profile> bash scripts/deploy.sh production`). After deploy: curl `/`, `/bn`, `/sitemap.xml`, `/og`, check the live Archivo fonts, and run the IndexNow delta (the deploy script does it).
+
+**Rollback:** `929ba90` (code only).
+
+---
+
 ## 2026-11-18 — STEP 33 / PORT NATIVE BENGALI (/bn) + 15-MIN BOOKING FROM `origin/main` PR #22 (LOCAL, NOT DEPLOYED)
 
 Trigger: "build as per latest merge". `origin/main` had PR #22 (new design + `/bn` pages + Cal.com 15-min + Amplify config) that production did NOT have (live = crimson/gold from `feat/crimson-site`). Main's tree builds clean on its own (tsc + next build, 262 pages).

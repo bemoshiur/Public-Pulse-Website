@@ -108,10 +108,10 @@ export function useFormAutosave(
 export function AutosaveBadge({ status }: { status: AutosaveStatus }) {
   if (status.state === "idle") return null;
   let label = "";
-  let color = "text-ink/55";
+  let color = "text-ink/75";
   if (status.state === "saving") {
     label = "Saving…";
-    color = "text-ink/55";
+    color = "text-ink/75";
   } else if (status.state === "saved") {
     label = "Draft saved locally";
     color = "text-emerald-600";

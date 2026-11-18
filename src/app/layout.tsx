@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Fraunces, Noto_Sans_Bengali } from "next/font/google";
+import { Archivo, JetBrains_Mono, Noto_Sans_Bengali } from "next/font/google";
 import Script from "next/script";
 import "@/styles/globals.css";
 
@@ -25,28 +25,25 @@ import { CommandPalette } from "@/components/search/CommandPalette";
 import { ScrollProgress } from "@/components/motion";
 import { StickyBar, ExitIntent } from "@/components/lead-capture";
 
-const inter = Inter({
+const archivo = Archivo({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
-  variable: "--font-inter",
+  style: ["normal", "italic"],
+  variable: "--font-archivo",
   display: "swap",
 });
 
-// Fraunces — variable serif display for the "restrained luxury" prestige
-// surfaces (political-ad flagship + prestige kit). optical-size axis tuned for
-// display. Scoped: only elements with `font-pr-serif` use it.
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
+
 const bengali = Noto_Sans_Bengali({
   subsets: ["bengali"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-bn",
-  display: "swap",
-});
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
   display: "swap",
 });
 
@@ -74,7 +71,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#520000",
+  themeColor: "#0B0C0B",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -82,7 +79,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-BD" className={`${inter.variable} ${fraunces.variable} ${bengali.variable} reveal-ready`} suppressHydrationWarning>
+    <html lang="en-BD" className={`${archivo.variable} ${jetbrains.variable} ${bengali.variable} reveal-ready`} suppressHydrationWarning>
       <body className="font-sans antialiased bg-paper text-ink">
         {/* Safety kill-switch: 2.5s after load, drop reveal-ready so no element
             can stay invisible if IntersectionObserver fails to fire. */}
