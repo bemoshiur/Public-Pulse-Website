@@ -39,7 +39,11 @@ Trigger: "build as per latest merge". `origin/main` had PR #22 (new design + `/b
 - Bengali twins exist only for home, services (+ per-service), about, contact, book, election. Blog/work/etc. still English-only.
 - main's dependabot bumps (nanoid, js-yaml) were not merged; this is a port, not a merge, so `feat/port-bn-booking` still differs from `origin/main`.
 
-**Rollback:** `a2cf5ec` (`feat/crimson-site` tip). Code only, no DB changes.
+**DEPLOYED to production** (`AWS_PROFILE=default bash scripts/deploy.sh production`, exit 0, twice) from `feat/port-bn-booking` (`b803d46`, fix `fcfea1e`). Live-verified: `/`, `/bn`, `/bn/{about,services,services/political-pr,contact,book,election}`, `/book` all 200 with one H1 / canonical / JSON-LD / hreflang `bn-BD`; crimson design intact; sitemap has 15 `/bn` URLs; robots + llms + facts.json 200.
+- **Regression caught live and fixed:** the first deploy made legacy multi-segment paths (`/bn/blog/<slug>`, `/bn/glossary/<term>`) return **500** on CloudFront. The negative-lookahead regex redirect worked under `next start` but not on OpenNext (`next start` is NOT a faithful test of redirect rules). Replaced with explicit per-section `:path*` rules (the shape that already worked); re-deployed; all now 308 to the English URL. Lesson: probe redirects on production right after deploy, never trust local only.
+- `feat/port-bn-booking` is deployed but not merged to `main` and nothing was pushed. `main` still has PR #22's competing redesign.
+
+**Rollback:** `a2cf5ec`. Code only, no DB changes.
 
 ---
 
