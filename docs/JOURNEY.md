@@ -51,6 +51,11 @@ Trigger: "build as per latest merge". `origin/main` had PR #22 (new design + `/b
 
 **Still open for the user:** merge `feat/port-bn-booking` into `main` (main has PR #22's competing redesign: 8 commits, 25 conflicting files; needs a decision before pushing), keep/remove the mahir.design footer credit, native-reader review of the Bengali copy.
 
+**Merged to `main` + CI fixed (no deploy):**
+- `main` now equals the live build (`310e23e`). Done with `git merge -s ours origin/main` on `feat/port-bn-booking` (tree identical to production, `origin/main` becomes an ancestor), then a plain fast-forward push, no force. PR #22's redesign, `amplify.yml` and dependabot bumps (nanoid, js-yaml, qs) are superseded and NOT in the tree; dependabot may reopen its PRs.
+- CI `verify` was failing on every push: (1) transient Google Fonts fetch failure for Noto Sans Bengali (Turbopack `Can't resolve '@vercel/turbopack-next/internal/font/google/font'`, passes on re-run); (2) real and pre-existing: `auth.ts` throws at import in production builds without `BETTER_AUTH_SECRET`, so "Collecting page data" failed. Fixed with a build-only placeholder in `.github/workflows/deploy.yml`. Run on `310e23e`: verify success, deploy-production skipped (tag-gated, as designed).
+- Feature branches are all ancestors of `main` now; safe to delete (kept as rollback refs).
+
 **Rollback:** `a2cf5ec`. Code only, no DB changes.
 
 ---
