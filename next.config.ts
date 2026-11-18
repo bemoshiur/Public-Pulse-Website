@@ -81,14 +81,18 @@ const nextConfig: NextConfig = {
       //    saw them via sitemap hreflang in the old version). ───────
 
       // ── Native Bengali pages now live at /bn, /bn/services[/slug], /bn/about,
-      //    /bn/contact, /bn/book, /bn/election. Any OTHER /bn/* path (e.g. legacy
-      //    crawled /bn/blog/<slug>) still has no Bengali twin → 301 to English,
-      //    never a 404. ───────────────────────────────────────────────
-      {
-        source: "/bn/:path((?!services|about|contact|book|election)[^/]+.*)",
-        destination: "/:path",
-        permanent: true,
-      },
+      //    /bn/contact, /bn/book, /bn/election. Every OTHER /bn/* path (legacy
+      //    crawled /bn/blog/<slug> etc.) has no Bengali twin → 308 to English,
+      //    never a 404. Explicit `:path*` per section: the regex/negative-
+      //    lookahead form worked under `next start` but 500'd on OpenNext. ──
+      ...[
+        "blog", "glossary", "guides", "compare", "locations", "industries",
+        "work", "case-studies", "tools", "research", "press", "pricing",
+        "privacy", "terms", "data-deletion", "search", "political-facebook-ads-bangladesh",
+      ].flatMap((sec) => [
+        { source: `/bn/${sec}`, destination: `/${sec}`, permanent: true },
+        { source: `/bn/${sec}/:path*`, destination: `/${sec}/:path*`, permanent: true },
+      ]),
 
       // ── Blog (old WP single posts → blog index; specific slugs
       //         won't have a match in the DB so just go to /blog) ─────
