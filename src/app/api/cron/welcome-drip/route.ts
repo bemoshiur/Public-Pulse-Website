@@ -59,7 +59,7 @@ function copyForStage(stage: 1 | 2 | 3, email: string, unsubToken: string): Drip
           <li><strong>Local-language creative even on Bangla-English bilingual targeting.</strong> CTR jumps 2–3× on creative that mixes scripts where your audience actually does.</li>
           <li><strong>One number per campaign.</strong> "More awareness" isn't a goal. Pick one (CPL, CPM, ROAS) and instrument it weekly.</li>
         </ol>
-        <p>Want a free 30-min audit on any of these? Reply to this email or <a href="${SITE.url}/book">book a slot</a>.</p>
+        <p>Want a free 15-min audit on any of these? Reply to this email or <a href="${SITE.url}/book">book a slot</a>.</p>
         ${footer}`,
     };
   }
@@ -81,7 +81,7 @@ function copyForStage(stage: 1 | 2 | 3, email: string, unsubToken: string): Drip
   }
   return {
     subject: "Three weeks in — what would help next?",
-    preheader: "Free 30-min call if any of this resonates.",
+    preheader: "Free 15-min call if any of this resonates.",
     htmlBody: `
       <p>You've been with the Digest for three weeks now. If any of the playbooks have sparked an "I wish someone would just do this for us" thought — that's literally what we do.</p>
       <p>Some of the things people most commonly book us for:</p>
@@ -91,7 +91,7 @@ function copyForStage(stage: 1 | 2 | 3, email: string, unsubToken: string): Drip
         <li>SEO + landing pages that actually convert in Bangladesh</li>
         <li>Analytics setup — CAPI, GA4, attribution that survives iOS 14</li>
       </ul>
-      <p>If you'd like to chat — <a href="${SITE.url}/book">book a free 30-min strategy call</a> or reply with what you're trying to fix and I'll come back within a day.</p>
+      <p>If you'd like to chat — <a href="${SITE.url}/book">book a free 15-min strategy call</a> or reply with what you're trying to fix and I'll come back within a day.</p>
       <p>Either way, the Digest keeps landing every other week. Thanks for reading.</p>
       ${footer}`,
   };

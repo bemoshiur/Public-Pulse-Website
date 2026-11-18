@@ -131,7 +131,7 @@ export function SeoAuditTool() {
               <div className="rounded-card border border-brand-orange/30 bg-brand-orange/5 p-5">
                 <p className="text-eyebrow uppercase text-brand-orange">Want the full audit?</p>
                 <p className="mt-2 text-body text-ink">
-                  Backlinks, competitor gap, keyword positions, technical crawl. 30 min, free, no pitch.
+                  Backlinks, competitor gap, keyword positions, technical crawl. 15 min, free, no pitch.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-3">
                   <Link href="/book" className="btn btn-orange text-[13px]">

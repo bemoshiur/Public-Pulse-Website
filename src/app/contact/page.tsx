@@ -25,7 +25,7 @@ import { bookingUrl } from "@/lib/booking";
 export const metadata: Metadata = buildMetadata({
   title: "Contact Public Pulse Agency | Free Consultation, Dhaka",
   description:
-    "Get a free 30-minute consultation. WhatsApp +880 1717-714676, email info@publicpulse.com.bd, or send us a brief through the form. We reply within 24 hours.",
+    "Get a free 15-minute consultation. WhatsApp +880 1717-714676, email info@publicpulse.com.bd, or send us a brief through the form. We reply within 24 hours.",
   path: "/contact",
   bnPath: "/bn/contact",
 });
@@ -46,7 +46,7 @@ const FAQS = [
   },
   {
     q: "Is the first call really free?",
-    a: "Yes — 30 minutes, no pitch deck, no obligation. We'll either be a fit or we won't, and if we're not we'll usually be able to point you somewhere that is.",
+    a: "Yes — 15 minutes, no pitch deck, no obligation. We'll either be a fit or we won't, and if we're not we'll usually be able to point you somewhere that is.",
   },
   {
     q: "Do you work with clients outside Bangladesh?",
@@ -110,7 +110,7 @@ export default function ContactPage() {
             <AnswerBlock>
               We reply to every email and WhatsApp message within 24 hours, Saturday through
               Thursday. Office hours are 09:00–21:00 Asia/Dhaka. Fastest channel is WhatsApp.
-              Free 30-minute consultation; no pitch deck, no qualifying questions.
+              Free 15-minute consultation; no pitch deck, no qualifying questions.
             </AnswerBlock>
           </div>
         </Container>
@@ -300,7 +300,7 @@ export default function ContactPage() {
               <ul className="mt-8 space-y-4 text-sm">
                 <Promise icon={Clock} text="Reply within 24 hours, Sat–Thu" />
                 <Promise icon={ShieldCheck} text="No marketing emails ever; we use it only to reply" />
-                <Promise icon={CalendarDays} text="If a fit, we'll book a 30-min call within 2 working days" />
+                <Promise icon={CalendarDays} text="If a fit, we'll book a 15-min call within 2 working days" />
               </ul>
             </aside>
 

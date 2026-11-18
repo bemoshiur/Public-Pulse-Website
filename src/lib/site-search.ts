@@ -40,7 +40,7 @@ const STATIC_PAGES: Array<{ title: string; url: string; excerpt: string; keyword
   { title: "Contact", url: "/contact", excerpt: "Send a brief or book a strategy call.", keywords: "contact email phone whatsapp brief" },
   { title: "Press & media", url: "/press", excerpt: "Brand assets, boilerplate, and media enquiries.", keywords: "press media journalist logo brand kit" },
   { title: "Pricing", url: "/pricing", excerpt: "Tier matrix and starting points for every service.", keywords: "pricing cost budget retainer monthly" },
-  { title: "Book a call", url: "/book", excerpt: "30-min strategy call.", keywords: "book schedule cal.com calendar" },
+  { title: "Book a call", url: "/book", excerpt: "15-min strategy call.", keywords: "book schedule cal.com calendar" },
 ];
 
 export async function siteSearch(q: string, limit = 40): Promise<SiteSearchHit[]> {

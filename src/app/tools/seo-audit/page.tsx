@@ -31,7 +31,7 @@ const FAQS = [
   },
   {
     q: "What's NOT in this tool?",
-    a: "Backlinks, ranking positions, competitor gap, technical crawl beyond the homepage. Those need 30 minutes + paid tools (Ahrefs/Semrush). Book a free 30-min review and we'll do that part.",
+    a: "Backlinks, ranking positions, competitor gap, technical crawl beyond the homepage. Those need 30 minutes + paid tools (Ahrefs/Semrush). Book a free 15-min review and we'll do that part.",
   },
 ];
 

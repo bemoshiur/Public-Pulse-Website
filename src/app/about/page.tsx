@@ -473,7 +473,7 @@ export default function AboutPage() {
               <GradientText as="span">the right fit</GradientText>?
             </h2>
             <p className="mt-6 text-lead text-white/70">
-              We&rsquo;re not for everyone. The fastest way to find out is a 30-minute call.
+              We&rsquo;re not for everyone. The fastest way to find out is a 15-minute call.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <MagneticButton href="/contact" className="btn btn-orange">

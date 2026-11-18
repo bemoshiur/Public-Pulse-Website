@@ -285,7 +285,7 @@ export default async function ServiceDetailPage({
               Ready for <span className="text-brand-orange">{service.shortName}</span>?
             </h2>
             <p className="mt-6 text-lead text-white/70">
-              Free 30-minute consultation. We&rsquo;ll review your situation and propose a plan.
+              Free 15-minute consultation. We&rsquo;ll review your situation and propose a plan.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Link href="/contact" className="btn btn-orange">

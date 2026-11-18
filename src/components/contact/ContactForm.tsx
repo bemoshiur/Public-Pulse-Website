@@ -104,7 +104,7 @@ export function ContactForm({ bookingUrl }: { bookingUrl?: string | null } = {})
               </span>
               <div className="min-w-0 flex-1">
                 <div className="text-sm font-bold text-ink">Schedule the call now</div>
-                <div className="mt-0.5 text-meta text-ink/55">Pick a 30-min slot — instant confirmation.</div>
+                <div className="mt-0.5 text-meta text-ink/55">Pick a 15-min slot — instant confirmation.</div>
               </div>
               <ArrowRight className="mt-1 h-4 w-4 flex-shrink-0 text-ink/40 transition group-hover:translate-x-0.5 group-hover:text-brand-orange" aria-hidden />
             </a>

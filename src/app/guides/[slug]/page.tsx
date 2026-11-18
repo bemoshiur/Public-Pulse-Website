@@ -67,7 +67,7 @@ export default async function GuidePage({
     },
     {
       q: `Can Public Pulse run this for me?`,
-      a: `Yes. This playbook is open documentation but we do this work for clients. Free 30-minute consultation to scope.`,
+      a: `Yes. This playbook is open documentation but we do this work for clients. Free 15-minute consultation to scope.`,
     },
   ];
 

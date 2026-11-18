@@ -41,7 +41,7 @@ const STATS = [
 ];
 
 const PROCESS = [
-  { n: "01", title: "Listen", body: "30-min strategy call. Channels audit. What's working, what isn't, and what you've already tried." },
+  { n: "01", title: "Listen", body: "15-min strategy call. Channels audit. What's working, what isn't, and what you've already tried." },
   { n: "02", title: "Plan", body: "Quarterly plan with named owners, the calendar, the budget, and ONE KPI we'll be held to." },
   { n: "03", title: "Make", body: "Strategy, creative, paid, PR, analytics — one room, one brief, one weekly stand-up." },
   { n: "04", title: "Sharpen", body: "Monthly review. Honest call on what to double down on. What to kill. No vanity dashboards." },
@@ -376,7 +376,7 @@ export default async function HomePage() {
               Got a campaign that <span className="text-brand-orange">needs to land</span>?
             </h2>
             <p className="mt-7 max-w-2xl text-lead text-white/70">
-              Free 30-minute consultation. We&rsquo;ll review your channels, your goals, and
+              Free 15-minute consultation. We&rsquo;ll review your channels, your goals, and
               whether we&rsquo;re the right fit. No deck, no pitch.
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-3">

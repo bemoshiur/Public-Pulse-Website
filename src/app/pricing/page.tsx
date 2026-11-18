@@ -39,7 +39,7 @@ const FAQS = [
   },
   {
     q: "What does the discovery call cover?",
-    a: "30 minutes. We map your goal to a scope and confirm whether we're the right fit. No pitch deck — you get a written proposal within 24 hours after the call.",
+    a: "15 minutes. We map your goal to a scope and confirm whether we're the right fit. No pitch deck — you get a written proposal within 24 hours after the call.",
   },
   {
     q: "Can you work with smaller budgets?",
@@ -78,7 +78,7 @@ export default function PricingPage() {
               social or paid-ads campaigns; full multi-channel engagements
               typically run ৳1,20,000+/month. Project work (brand identity,
               video production, websites) starts from ৳1,50,000 one-time. Every
-              quote is anchored on a 30-min free discovery call, then a written
+              quote is anchored on a 15-min free discovery call, then a written
               proposal within 24 hours.
             </AnswerBlock>
           </div>
@@ -208,7 +208,7 @@ export default function PricingPage() {
             </div>
             <div className="flex flex-wrap gap-3">
               <Link href={booking ? "/book" : "/contact"} className="btn btn-orange">
-                {booking ? "Book a 30-min call" : "Send a brief"}
+                {booking ? "Book a 15-min call" : "Send a brief"}
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
               <a

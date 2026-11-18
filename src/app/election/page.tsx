@@ -160,7 +160,7 @@ export default function ElectionPage() {
                     href={booking ? "/book" : "/contact"}
                     className="btn btn-orange"
                   >
-                    {booking ? "Book a 30-min strategy call" : "Start a campaign brief"}
+                    {booking ? "Book a 15-min strategy call" : "Start a campaign brief"}
                     <ArrowRight className="h-4 w-4" aria-hidden />
                   </Link>
                   <a
@@ -274,7 +274,7 @@ export default function ElectionPage() {
               Election cycle running? Let&rsquo;s talk this week.
             </h2>
             <p className="mt-5 text-lead text-white/75">
-              Free 30-minute discovery call. We&rsquo;ll review the seat, the opposition,
+              Free 15-minute discovery call. We&rsquo;ll review the seat, the opposition,
               and the timeline — and tell you honestly whether we can help and when to start.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
