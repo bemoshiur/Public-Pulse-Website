@@ -43,6 +43,14 @@ Trigger: "build as per latest merge". `origin/main` had PR #22 (new design + `/b
 - **Regression caught live and fixed:** the first deploy made legacy multi-segment paths (`/bn/blog/<slug>`, `/bn/glossary/<term>`) return **500** on CloudFront. The negative-lookahead regex redirect worked under `next start` but not on OpenNext (`next start` is NOT a faithful test of redirect rules). Replaced with explicit per-section `:path*` rules (the shape that already worked); re-deployed; all now 308 to the English URL. Lesson: probe redirects on production right after deploy, never trust local only.
 - `feat/port-bn-booking` is deployed but not merged to `main` and nothing was pushed. `main` still has PR #22's competing redesign.
 
+**Housekeeping + security (same session, deployed):**
+- Found `security/next-16.3.6` (`d15be26`) never merged: Next 16.2.6 -> 16.3.6 fixes the `next/og` `ImageResponse` RCE (GHSA-vcvr-r3jv-pc5j) and an image-optimizer RCE; this site uses both (`/og`, `next/image`). Cherry-picked (`c732adc`), tsc + build green, deployed. Live: `/og` 200 PNG 1200x630, redirects/BN/booking routes unchanged.
+- `npm audit` still lists items. Checked relevance: Better Auth's critical is OIDC `redirect_uri` XSS (we run email/password only, no OIDC plugin); Next's remaining critical is `use cache`/Draft Mode (unused: grep clean); the rest are build/dev tooling (`sst`, `eslint`, `opencontrol`, `drizzle-kit`) not in the runtime bundle. NOT applied: a blanket `npm audit fix` (would bump Next to 16.4.6 and dozens of packages with no test suite). Do it as its own reviewed change.
+- `git worktree prune` (dead `publicpulse-sec` worktree). `.gitignore` now excludes `.enola/`, `brag-output/` and the 46 MB brochure original. All feature branches (`client-works`, `crimson-site`, `dataplace-restyle`, `political-fb-flagship`, `prestige-rollout`, `super-aeo`) are ancestors of `feat/port-bn-booking`, i.e. fully contained; kept as rollback refs, not deleted.
+- Deploy regenerated `public/llms.txt`, `llms-full.txt`, `facts.json` with the live DB (committed, per the existing convention).
+
+**Still open for the user:** merge `feat/port-bn-booking` into `main` (main has PR #22's competing redesign: 8 commits, 25 conflicting files; needs a decision before pushing), keep/remove the mahir.design footer credit, native-reader review of the Bengali copy.
+
 **Rollback:** `a2cf5ec`. Code only, no DB changes.
 
 ---
