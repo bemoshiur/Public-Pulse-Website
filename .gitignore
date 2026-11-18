@@ -54,3 +54,8 @@ bd-map-*.png
 
 # IndexNow freshness manifest (scripts/indexnow-ping.ts)
 .deploy/
+
+# Local-only artefacts: never commit
+.enola/
+brag-output/
+/Public Pulse Profile _ Political PR.pdf
