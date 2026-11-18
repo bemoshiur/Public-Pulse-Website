@@ -1,3 +1,4 @@
+import { DcPage } from "@/components/pp/DcPage";
 // Modern compact case-studies index — filterable grid, dense but breathable.
 // Server fetches once, ISR-cached, statically prerendered. Client component
 // (CaseStudiesFilter) renders every card unconditionally and filters via
@@ -93,28 +94,7 @@ export default async function CaseStudiesIndex() {
           ),
         ]}
       />
-
-      <GradientHero
-        crumbs={crumbs}
-        chip="Case studies"
-        title={
-          <>
-            Work that <span className="text-brand-orange">measured up</span>.
-          </>
-        }
-        lead={`${cases.length} real engagement${cases.length === 1 ? "" : "s"} from Bangladesh brands and campaigns. No fluff, no fabricated screenshots — every number is real, citable, and grounded in work we delivered.`}
-        answer={`Public Pulse case studies show real client outcomes across Bangladesh — paid, social, PR, SEO and political PR. ${cases.length} published engagement${cases.length === 1 ? "" : "s"} with documented metrics, time windows, and the services delivered. Where NDAs apply, client names are anonymised to a sector label.`}
-      />
-
-      <CaseStudiesFilter cases={serialized} serviceLabels={serviceLabels} />
-
-      <section className="bg-paper py-16 md:py-20">
-        <Container>
-          <InlineBlock context="service" />
-        </Container>
-      </section>
-
-      <FaqSection faqs={faqs} />
+      <DcPage name="Results" />
     </>
   );
 }

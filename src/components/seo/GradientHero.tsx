@@ -2,8 +2,6 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowUpRight, MessageCircleMore } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { GreyPanel } from "@/components/ui/GreyPanel";
-import { ArrowCircle } from "@/components/ui/ArrowCircle";
 import { AnswerBlock } from "@/components/seo/AnswerBlock";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import type { Crumb } from "@/lib/schema";
@@ -52,50 +50,51 @@ export function GradientHero({
   rightPanel,
 }: Props) {
   return (
-    <section className="relative bg-paper">
-      <Container className="relative pt-8 md:pt-10">
+    <section className="relative overflow-hidden bg-paper">
+      <Container className="relative pt-10 pb-12 md:pt-14 md:pb-16">
         <Breadcrumbs crumbs={crumbs} />
-      </Container>
-      <Container className="relative pb-12 pt-6 md:pb-16">
-        {/* Dataplace inset hero panel (matches the homepage hero) */}
-        <GreyPanel tone="tint" radius="lg" className="px-6 py-12 md:px-12 md:py-16">
-          <div
-            className={`grid items-end gap-8 lg:gap-10 ${
-              variant === "panel" ? "lg:grid-cols-12" : ""
-            }`}
-          >
-            <div className={variant === "panel" ? "lg:col-span-7" : "max-w-4xl"}>
-              <span className="chip chip-orange">{chip}</span>
-              {/* text-display (44-104px clamp) NOT text-mega — text-mega is
-                  reserved for the homepage wordmark + footer sign-off. */}
-              <h1 className="mt-6 text-display leading-[0.98] tracking-tight text-ink">
-                {title}
-              </h1>
-              <p className="mt-6 max-w-2xl text-lead text-ink/70">{lead}</p>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Link href={primaryCtaHref} className="btn btn-primary group">
-                  {primaryCtaLabel}
-                  <ArrowCircle onDark />
-                </Link>
-                <a
-                  href={SECONDARY_CTA.href}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  className="btn btn-secondary"
-                >
-                  <MessageCircleMore className="h-4 w-4" aria-hidden />
-                  {SECONDARY_CTA.label}
-                </a>
-              </div>
+
+        <div
+          className={`mt-8 grid items-end gap-8 lg:gap-10 ${
+            variant === "panel" ? "lg:grid-cols-12" : ""
+          }`}
+        >
+          <div className={variant === "panel" ? "lg:col-span-7" : "max-w-5xl"}>
+            <span className="chip chip-orange">{chip}</span>
+            {/* text-display (44-104px clamp) NOT text-mega (56-136px).
+                text-mega is reserved for the homepage wordmark + the footer
+                sign-off — using it on long article titles like blog posts
+                blows past the viewport and looks broken. text-display sits
+                in the right scale for inner-page heroes. */}
+            <h1 className="mt-6 text-display tracking-tight text-ink leading-[0.98]">
+              {title}
+            </h1>
+            <p className="mt-6 max-w-2xl text-lead text-ink/70">{lead}</p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link href={primaryCtaHref} className="btn btn-primary">
+                {primaryCtaLabel}
+                <ArrowUpRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <a
+                href={SECONDARY_CTA.href}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="btn btn-secondary"
+              >
+                <MessageCircleMore className="h-4 w-4" aria-hidden />
+                {SECONDARY_CTA.label}
+              </a>
             </div>
-
-            {variant === "panel" && (
-              <div className="lg:col-span-5">{rightPanel ?? <DefaultSalesPanel />}</div>
-            )}
           </div>
-        </GreyPanel>
 
-        <div className="mt-8 max-w-3xl">
+          {variant === "panel" && (
+            <div className="lg:col-span-5">
+              {rightPanel ?? <DefaultSalesPanel />}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-12 max-w-3xl">
           <AnswerBlock question={answerQuestion}>{answer}</AnswerBlock>
         </div>
       </Container>
@@ -109,23 +108,27 @@ function DefaultSalesPanel() {
     <Link
       href="/contact"
       aria-label="Sales team online — available 09:00–21:00 Asia/Dhaka"
-      className="group relative block overflow-hidden rounded-panel border border-ink/10 bg-cp-night p-6 text-white transition hover:-translate-y-0.5"
+      className="group relative block overflow-hidden rounded-panel p-6 text-paper transition hover:-translate-y-0.5"
+      style={{
+        background: `radial-gradient(60% 80% at 80% 20%, #DE2A22 0%, transparent 60%), radial-gradient(80% 80% at 20% 80%, #1F2A22 0%, transparent 60%), linear-gradient(135deg, #2FB86F 0%, #0B0C0B 100%)`,
+      }}
     >
-      <span aria-hidden className="mb-4 inline-block h-[3px] w-6 bg-brand-orange" />
-      <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-white/65">
+      <div className="flex items-center gap-2 text-meta uppercase tracking-wider text-paper/80">
         <span
           aria-hidden
-          className="inline-block h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-emerald-400/25"
+          className="inline-block h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-emerald-400/30"
         />
         Sales team online
       </div>
-      <p className="mt-3 font-pr-serif text-h3 font-semibold leading-tight">Talk to us now.</p>
-      <p className="mt-1 text-sm text-white/65">
+      <p className="mt-3 text-h3 font-bold leading-tight">Talk to us now.</p>
+      <p className="mt-1 text-sm text-paper/80">
         Reply usually under 2 hours on WhatsApp · Sat–Thu, 09:00–21:00 BD.
       </p>
-      <div className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-brand-orange">
+      <div className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-paper px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-ink">
         Let&rsquo;s talk
-        <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" aria-hidden />
+        <span className="grid h-3.5 w-3.5 place-items-center rounded-full bg-brand-orange">
+          <ArrowUpRight className="h-2.5 w-2.5 text-paper" aria-hidden />
+        </span>
       </div>
     </Link>
   );

@@ -1,3 +1,4 @@
+import { DcPage } from "@/components/pp/DcPage";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -91,26 +92,7 @@ export default async function BlogIndexPage() {
           ),
         ]}
       />
-
-      <GradientHero
-        crumbs={crumbs}
-        chip="Insights"
-        title={
-          <>
-            Notes from the <span className="text-brand-orange">studio</span>.
-          </>
-        }
-        lead={`English + বাংলা · ${posts.length} guide${posts.length === 1 ? "" : "s"} and growing. Long-form practitioner notes for the Bangladesh market.`}
-        answer={`Public Pulse Insights is the agency's blog of long-form practitioner guides on digital marketing and political PR in Bangladesh. It currently holds ${posts.length} published article${posts.length === 1 ? "" : "s"} across ${categories.length} categories, including paid media, SEO, hospitality marketing and brand building. Every guide is grounded in a service, city or industry the agency actually works in.`}
-      />
-
-      {/* Suspense boundary is required because BlogFilter uses
-          useSearchParams — without it Next refuses to statically generate. */}
-      <Suspense fallback={null}>
-        <BlogFilter posts={serializedPosts} categories={serializedCategories} />
-      </Suspense>
-
-      <FaqSection faqs={faqs} />
+      <DcPage name="Insights" />
     </>
   );
 }

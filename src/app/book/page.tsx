@@ -1,3 +1,4 @@
+import { DcPage } from "@/components/pp/DcPage";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 
@@ -23,12 +24,6 @@ const crumbs = [
 ];
 
 export default function BookPage() {
-  const url = bookingUrl();
-  const embed = bookingEmbedUrl();
-  // When BOOKING_URL isn't configured yet, redirect to /contact rather
-  // than show a broken page. Visitors still get to a working entry point.
-  if (!url) redirect("/contact");
-
   return (
     <>
       <JsonLd
@@ -50,46 +45,7 @@ export default function BookPage() {
           ]),
         ]}
       />
-
-      <section className="bg-paper py-12 md:py-20">
-        <Container>
-          <Breadcrumbs crumbs={crumbs} />
-          <div className="mt-6 max-w-3xl">
-            <p className="text-eyebrow uppercase text-brand-orange">Book a call</p>
-            <h1 className="mt-4 text-h1 tracking-tight text-ink">
-              Pick a time that works.
-            </h1>
-            <p className="mt-5 text-lead text-ink/70">
-              15-minute strategy call with a senior at the studio. We'll cover your
-              goals, current setup, and what a working plan could look like — Dhaka
-              time, English or {SITE.contact.phoneDisplay} fallback if you prefer phone.
-            </p>
-          </div>
-
-          <div className="mt-10 overflow-hidden rounded-card border border-ink/10 bg-paper shadow-card">
-            <iframe
-              src={embed ?? url ?? ""}
-              title="Schedule a call with Public Pulse"
-              loading="lazy"
-              className="h-[820px] w-full"
-              style={{ border: 0 }}
-            />
-          </div>
-
-          <p className="mt-6 text-meta text-ink/65">
-            Can&apos;t see the calendar?{" "}
-            <a
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-brand-orange underline hover:no-underline"
-            >
-              Open booking page in a new tab
-            </a>
-            .
-          </p>
-        </Container>
-      </section>
+      <DcPage name="Book" />
     </>
   );
 }

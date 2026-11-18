@@ -3,254 +3,17 @@
 @tailwind utilities;
 
 :root {
-  /* Crimson / gold system (site-wide) — sampled from the Canva "Public Pulse
-     Profile | Political PR" brochure. Kept in sync with tailwind.config.ts.
-     Surfaces are deep maroon, text is white, the single accent is gold. */
-  --ink: #ffffff;
-  --ink-mute: #e2bfbf;
-  --body-ink: #f4e4e4;
-  --paper: #520000;
-  --paper-alt: #680000;
-  --paper-tint: #470000;
-  --panel: #680000;
-  --hairline: rgba(255, 255, 255, 0.14);
-  --card-border: rgba(255, 255, 255, 0.14);
-  --graphite: #2b0000;
-  --night: #2b0000;
-  --gold-ink: #4a0000;
-  --brand-orange: #fcb400;
-  --brand-orange-deep: #e8a200;
-  --brand-orange-soft: #ffc933;
-}
-
-
-/* ─── Variable-driven palette ─────────────────────────────────────────────
-   Tailwind colour tokens resolve through these channels, so a subtree can be
-   re-themed. :root = the site-wide crimson/gold system. .theme-admin restores
-   the previous light palette for /manage (an auth-gated tool that cannot be
-   visually regression-tested here, so it is deliberately left unchanged). */
-:root {
-  --c-ink: 255 255 255;
-  --c-ink-soft: 244 228 228;
-  --c-ink-mute: 226 191 191;
-  --c-paper: 82 0 0;
-  --c-paper-alt: 104 0 0;
-  --c-paper-tint: 71 0 0;
-  --c-graphite: 43 0 0;
-  --c-brand-orange: 252 180 0;
-  --c-brand-orange-soft: 255 201 51;
-  --c-brand-orange-deep: 232 162 0;
-  --c-pr-paper: 82 0 0;
-  --c-pr-surface: 104 0 0;
-  --c-pr-raise: 104 0 0;
-  --c-pr-ink: 255 255 255;
-  --c-pr-ink-soft: 244 228 228;
-  --c-pr-muted: 226 191 191;
-  --c-pr-faint: 208 163 163;
-  --c-pr-hairline: 138 42 42;
-  --c-pr-accent: 252 180 0;
-  --c-pr-accent-ink: 255 201 51;
-  --c-pr-accent-wash: 122 26 0;
-  --c-pr-briefing: 43 0 0;
-  --c-pr-briefing-ink: 244 228 228;
-  --c-pr-briefing-muted: 208 163 163;
-  --c-pr-briefing-line: 90 20 20;
-  --c-brand-navy: 43 0 0;
-  --c-brand-navy-soft: 71 0 0;
-  --c-brand-teal: 252 180 0;
-  --c-brand-teal-soft: 255 201 51;
-  --c-brand-teal-deep: 232 162 0;
-  --c-brand-teal-tint: 122 26 0;
-  --c-brand-red: 252 180 0;
-  --c-surface-alt: 104 0 0;
-  --c-surface-tint: 71 0 0;
-  --c-cat-red: 255 138 128;
-  --c-cat-blue: 130 177 255;
-  --c-cat-purple: 206 147 216;
-  --c-cat-teal: 77 208 225;
-  --c-cat-green: 129 199 132;
-  --c-cat-orange: 255 183 77;
-  --c-cat-navy: 176 190 197;
-  --c-cat-brown: 188 170 164;
-  --c-cat-magenta: 244 143 177;
-}
-.theme-admin {
-  --c-ink: 22 24 28;
-  --c-ink-soft: 33 40 51;
-  --c-ink-mute: 107 112 117;
-  --c-paper: 255 255 255;
-  --c-paper-alt: 246 246 246;
-  --c-paper-tint: 243 244 245;
-  --c-graphite: 36 36 36;
-  --c-brand-orange: 254 74 15;
-  --c-brand-orange-soft: 255 106 55;
-  --c-brand-orange-deep: 214 61 11;
-  --c-pr-paper: 255 255 255;
-  --c-pr-surface: 246 247 247;
-  --c-pr-raise: 255 255 255;
-  --c-pr-ink: 22 24 28;
-  --c-pr-ink-soft: 33 40 51;
-  --c-pr-muted: 107 112 117;
-  --c-pr-faint: 154 158 163;
-  --c-pr-hairline: 230 230 230;
-  --c-pr-accent: 254 74 15;
-  --c-pr-accent-ink: 214 61 11;
-  --c-pr-accent-wash: 252 230 221;
-  --c-pr-briefing: 22 24 28;
-  --c-pr-briefing-ink: 236 237 238;
-  --c-pr-briefing-muted: 156 160 165;
-  --c-pr-briefing-line: 44 45 48;
-  --c-brand-navy: 22 24 28;
-  --c-brand-navy-soft: 33 40 51;
-  --c-brand-teal: 254 74 15;
-  --c-brand-teal-soft: 255 106 55;
-  --c-brand-teal-deep: 214 61 11;
-  --c-brand-teal-tint: 252 230 221;
-  --c-brand-red: 254 74 15;
-  --c-surface-alt: 246 246 246;
-  --c-surface-tint: 243 244 245;
-  --c-cat-red: 211 47 47;
-  --c-cat-blue: 21 101 192;
-  --c-cat-purple: 106 27 154;
-  --c-cat-teal: 13 148 136;
-  --c-cat-green: 46 125 50;
-  --c-cat-orange: 255 92 0;
-  --c-cat-navy: 10 10 10;
-  --c-cat-brown: 121 85 72;
-  --c-cat-magenta: 173 20 87;
-  --ink: #16181c;
-  --ink-mute: #6b7075;
-  --body-ink: #212833;
-  --paper: #ffffff;
-  --paper-alt: #f6f6f6;
-  --paper-tint: #f3f4f5;
-  --panel: #f6f7f7;
-  --hairline: #e6e6e6;
-  --card-border: #e4e4e4;
-  --graphite: #242424;
-  --brand-orange: #fe4a0f;
-  --brand-orange-deep: #d63d0b;
-  --brand-orange-soft: #ff6a37;
-  color: #212833;
-}
-.theme-admin ::selection { background: #fe4a0f; color: #ffffff; }
-.theme-admin .btn-ghost-dark:focus-visible {
-  outline-color: var(--paper);
-}
-.theme-admin .btn-primary {
-  background: var(--ink);
-  color: var(--paper);
-}
-.theme-admin .btn-primary:hover {
-  background: var(--graphite);
-}
-.theme-admin .btn-orange {
-  background: var(--brand-orange);
-  color: var(--paper);
-}
-.theme-admin .btn-orange:hover {
-  background: var(--brand-orange-deep);
-}
-.theme-admin .btn-graphite {
-  background: var(--graphite);
-  color: var(--paper);
-}
-.theme-admin .btn-graphite:hover {
-  background: var(--ink);
-}
-.theme-admin .btn-secondary {
-  background: var(--paper);
-  color: var(--ink);
-  border: 1px solid var(--ink);
-}
-.theme-admin .btn-secondary:hover {
-  background: var(--ink);
-  color: var(--paper);
-}
-.theme-admin .btn-ghost-dark {
-  background: transparent;
-  color: var(--paper);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-}
-.theme-admin .btn-ghost-dark:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--paper);
-}
-.theme-admin .card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(120% 80% at 50% 0%, rgba(254, 74, 15, 0.05), transparent 60%);
-  opacity: 0;
-  transition: opacity 300ms ease-out;
-  pointer-events: none;
-}
-.theme-admin .card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 22px 48px -30px rgba(0, 0, 0, 0.35);
-  border-color: #d7d8da;
-}
-.theme-admin .card-dark {
-  background: var(--ink);
-  color: var(--paper);
-  border: 1px solid var(--ink);
-  border-radius: 14px;
-  padding: 1.75rem;
-  transition:
-    transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.theme-admin .form-input {
-  display: block;
-  width: 100%;
-  padding: 0.875rem 1.1rem;
-  border: 1px solid #dedede;
-  border-radius: 12px;
-  background: var(--paper);
-  color: var(--body-ink);
-  font-size: 1rem;
-  line-height: 1.4;
-  transition:
-    border-color 150ms ease-out,
-    box-shadow 150ms ease-out;
-}
-.theme-admin .form-input:focus {
-  outline: none;
-  border-color: var(--brand-orange);
-  box-shadow: 0 0 0 3px rgba(254, 74, 15, 0.18);
-}
-.theme-admin .form-input[aria-invalid="true"] {
-  border-color: var(--brand-orange);
-}
-.theme-admin .form-input[aria-invalid="true"]:focus {
-  box-shadow: 0 0 0 3px rgba(254, 74, 15, 0.24);
-}
-.theme-admin .chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  line-height: 1;
-  padding: 0.375rem 0.75rem;
-  border-radius: 9999px;
-  background: var(--ink);
-  color: var(--paper);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.theme-admin .chip-orange {
-  background: var(--brand-orange);
-  color: var(--paper);
-}
-.theme-admin .chip-light {
-  background: var(--paper);
-  color: var(--ink);
-  border: 1px solid var(--ink);
-}
-.theme-admin .section-rule {
-  border-top: 1px solid var(--ink);
+  /* Avoora-faithful tokens, verified against avoora.webflow.io */
+  --ink: #0B0C0B;
+  --ink-mute: #5a5c57;
+  --paper: #f2f0ea;
+  --paper-alt: #e9e6dd;
+  --paper-tint: #dcd8cc;
+  --graphite: #2a2c29;
+  --brand-orange: #cc261e;
+  --brand-green: #4be38f;
+  --brand-orange-deep: #a81c16;
+  --brand-orange-soft: #ee5a52;
 }
 
 html {
@@ -261,9 +24,9 @@ html {
 }
 
 body {
-  color: var(--body-ink);
+  color: var(--ink);
   background: var(--paper);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-archivo), var(--font-inter), system-ui, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
@@ -272,21 +35,18 @@ body {
 
 ::selection {
   background: var(--brand-orange);
-  color: var(--gold-ink);
+  color: var(--paper);
 }
 
-/* ─── AnswerBlock (AEO/GEO surface) ───────────────────────────────────
-   .answer-panel is the visual wrapper (it may also hold the question heading);
-   .answer-block is the 40-60 word answer ALONE, so audits, speakable and
-   answer engines measure and read the answer without the question's words. */
-.answer-panel {
+/* ─── AnswerBlock (AEO/GEO surface) ─────────────────────────────────── */
+.answer-block {
   border-left: 3px solid var(--brand-orange);
-  background: var(--panel);
+  background: #e9e6dd;
   padding: 22px 26px;
-  border-radius: 14px;
+  border-radius: 8px;
   font-size: 1rem;
   line-height: 1.65;
-  color: var(--body-ink);
+  color: var(--ink);
 }
 .answer-block-dark {
   border-left: 3px solid var(--brand-orange);
@@ -295,61 +55,6 @@ body {
   border-radius: 8px;
   color: rgba(255, 255, 255, 0.92);
 }
-
-
-/* ─── Campaign theme (election / political-PR surfaces) ─────────────────
-   Palette + gradient sampled from the Canva "Public Pulse Profile | Political
-   PR" brochure: deep maroon edges (#5C0000-#710000), crimson mid (#8A0000-
-   #A80000), a hot core (#FE2500), gold headlines (#FCB400), thin crimson/gold
-   outlined panels and gold label tabs. Scoped under .theme-campaign so no other
-   page changes. Contrast: white on #8A0000 = 9.8:1, gold on #8A0000 = 5.5:1. */
-.theme-campaign { background: #4a0000; color: #fff; }
-.cp-hero {
-  background:
-    radial-gradient(70% 62% at 84% -8%, rgba(254, 37, 0, 0.55) 0%, rgba(254, 37, 0, 0) 64%),
-    radial-gradient(125% 105% at 38% 28%, #a80000 0%, #8a0000 42%, #5c0000 100%);
-}
-.cp-hero--flip {
-  background:
-    radial-gradient(70% 62% at 10% 112%, rgba(254, 37, 0, 0.5) 0%, rgba(254, 37, 0, 0) 64%),
-    radial-gradient(125% 105% at 62% 30%, #a80000 0%, #8a0000 42%, #5c0000 100%);
-}
-.cp-surface { background: radial-gradient(115% 95% at 50% 0%, #6e0000 0%, #610000 55%, #4f0000 100%); }
-.cp-surface-deep { background: linear-gradient(180deg, #520000 0%, #3b0000 100%); }
-.cp-panel {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1.5px solid rgba(197, 28, 3, 0.95);
-  border-radius: 20px;
-}
-.cp-panel-gold { border-color: #fcb400; }
-.cp-tab {
-  display: inline-block; background: #fcb400; color: #4a0000;
-  font-weight: 800; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 0.3rem 0.8rem; border-radius: 4px;
-}
-.cp-gold { color: #fcb400; }
-.cp-rule { border-color: rgba(252, 180, 0, 0.35); }
-.btn-gold {
-  background: #fcb400; color: #4a0000; font-weight: 800; border: 0;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
-}
-.btn-gold:hover { background: #ffc933; transform: translateY(-1px); }
-.btn-gold-ghost { background: transparent; color: #fcb400; border: 1.5px solid #fcb400; }
-.btn-gold-ghost:hover { background: rgba(252, 180, 0, 0.12); }
-.theme-campaign .answer-panel {
-  background: rgba(0, 0, 0, 0.22); border-left: 4px solid #fcb400;
-  border-radius: 16px; padding: 24px 28px;
-}
-.theme-campaign .answer-panel .answer-block { color: #fff; }
-.theme-campaign .answer-panel h2 { color: #fcb400; }
-.cp-strip {
-  display: flex; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory;
-  padding: 0.5rem 1.5rem 1.25rem; margin: 0 -1.5rem; list-style: none;
-  scrollbar-color: #fcb400 rgba(0, 0, 0, 0.3); scrollbar-width: thin;
-}
-.cp-strip > li { flex: none; width: min(72vw, 330px); scroll-snap-align: start; }
-.cp-strip:focus-visible { outline: 3px solid #fcb400; outline-offset: 4px; border-radius: 12px; }
-@media (prefers-reduced-motion: reduce) { .cp-strip { scroll-behavior: auto; } .btn-gold:hover { transform: none; } }
 
 /* ─── Buttons ──────────────────────────────────────────────────────────
    Avoora-faithful: 6px rectangle (was pill), uppercase, 600 weight,
@@ -365,7 +70,7 @@ body {
   font-size: 0.9375rem;
   line-height: 1;
   padding: 0.875rem 1.5rem;
-  border-radius: 9999px;
+  border-radius: 6px;
   transition:
     background-color 200ms ease-out,
     color 200ms ease-out,
@@ -385,62 +90,56 @@ body {
   outline-offset: 3px;
 }
 .btn-ghost-dark:focus-visible {
-  outline-color: #ffffff;
+  outline-color: var(--paper);
 }
-/* Gold is the single accent: gold fill + deep-maroon text (9:1). White text on
-   gold would be 1.8:1, so never pair them. */
 .btn-primary {
-  background: var(--brand-orange);
-  color: var(--gold-ink);
-  font-weight: 700;
+  background: var(--ink);
+  color: var(--paper);
 }
 .btn-primary:hover {
-  background: var(--brand-orange-soft);
+  background: var(--graphite);
 }
 .btn-orange {
   background: var(--brand-orange);
-  color: var(--gold-ink);
-  font-weight: 700;
+  color: var(--paper);
 }
 .btn-orange:hover {
-  background: var(--brand-orange-soft);
+  background: var(--brand-orange-deep);
 }
 /* Avoora's literal primary — neutral graphite. Use sparingly (e.g.
    secondary actions in dense layouts) so the orange CTA stays the loud one. */
 .btn-graphite {
-  background: var(--night);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--graphite);
+  color: var(--paper);
 }
 .btn-graphite:hover {
-  background: #3d0000;
+  background: var(--ink);
 }
 .btn-secondary {
-  background: transparent;
-  color: #ffffff;
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--ink);
 }
 .btn-secondary:hover {
-  background: #ffffff;
-  color: #520000;
-  border-color: #ffffff;
+  background: var(--ink);
+  color: var(--paper);
 }
 .btn-ghost-dark {
   background: transparent;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: var(--paper);
+  border: 1px solid rgba(255, 255, 255, 0.35);
 }
 .btn-ghost-dark:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--paper);
 }
 
 /* ─── Cards ──────────────────────────────────────────────────────────── */
 .card {
   position: relative;
-  background: var(--paper-alt);
-  border: 1px solid var(--card-border);
-  border-radius: 14px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 8px;
   padding: 1.75rem;
   transition:
     transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
@@ -453,15 +152,15 @@ body {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(120% 80% at 50% 0%, rgba(252, 180, 0, 0.10), transparent 60%);
+  background: radial-gradient(120% 80% at 50% 0%, rgba(255, 92, 0, 0.08), transparent 60%);
   opacity: 0;
   transition: opacity 300ms ease-out;
   pointer-events: none;
 }
 .card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 22px 48px -30px rgba(0, 0, 0, 0.35);
-  border-color: rgba(252, 180, 0, 0.55);
+  transform: translateY(-4px);
+  box-shadow: 8px 8px 0 0 var(--ink);
+  border-color: var(--brand-orange);
 }
 .card:hover::before {
   opacity: 1;
@@ -470,30 +169,27 @@ body {
   position: relative;
 }
 .card-dark {
-  background: var(--night);
-  color: #ffffff;
-  border: 1px solid rgba(252, 180, 0, 0.35);
-  border-radius: 14px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 8px;
   padding: 1.75rem;
   transition:
     transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .card-dark:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.6);
+  transform: translateY(-4px);
+  box-shadow: 8px 8px 0 0 var(--brand-orange);
 }
 
-/* ─── Motion: scroll-reveal — Dataplace fade-up (pure translateY, no scale) ──
-   One preset site-wide: opacity + translateY only, ease-out-quart. The avoora
-   scale(1.05) zoom is dropped. Travel restrained to 48px (vs Dataplace's 100px)
-   for a content-dense agency site; easing matches (cubic-bezier(.25,1,.5,1)). */
+/* ─── Motion: scroll-reveal (fade + scale 105 → 100) ────────────────── */
 html.reveal-ready .reveal {
   opacity: 0;
-  transform: translateY(48px);
+  transform: translateY(20px) scale(1.05);
   transition:
-    opacity 800ms cubic-bezier(0.25, 1, 0.5, 1),
-    transform 800ms cubic-bezier(0.25, 1, 0.5, 1);
+    opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 html.reveal-ready .reveal.is-visible {
@@ -571,8 +267,8 @@ html.reveal-ready .reveal.is-visible {
     100deg,
     var(--ink) 0%,
     var(--ink) 25%,
-    #ff5c00 45%,
-    #2563eb 55%,
+    #DE2A22 45%,
+    #1F2A22 55%,
     var(--ink) 75%,
     var(--ink) 100%
   );
@@ -595,7 +291,7 @@ html.reveal-ready .reveal.is-visible {
   left: 0;
   height: 2px;
   width: 100%;
-  background: var(--brand-orange);
+  background: linear-gradient(90deg, #DE2A22, #1F2A22, #2FB86F);
   transform: scaleX(0);
   transform-origin: 0 50%;
   z-index: 60;
@@ -606,10 +302,10 @@ html.reveal-ready .reveal.is-visible {
 /* ScrollReveal v2 directional + stagger */
 html.reveal-ready .reveal-v2 {
   opacity: 0;
-  transform: translate3d(var(--rv-x, 0), var(--rv-y, 48px), 0);
+  transform: translate3d(var(--rv-x, 0), var(--rv-y, 24px), 0);
   transition:
-    opacity 800ms cubic-bezier(0.25, 1, 0.5, 1),
-    transform 800ms cubic-bezier(0.25, 1, 0.5, 1);
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: var(--rv-delay, 0ms);
   will-change: opacity, transform;
 }
@@ -694,9 +390,9 @@ html.reveal-ready .reveal-v2.is-visible {
 .shimmer {
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.06) 25%,
-    rgba(255, 255, 255, 0.12) 37%,
-    rgba(255, 255, 255, 0.06) 63%
+    rgba(0, 0, 0, 0.04) 25%,
+    rgba(0, 0, 0, 0.09) 37%,
+    rgba(0, 0, 0, 0.04) 63%
   );
   background-size: 400% 100%;
   animation: shimmer 1.4s ease infinite;
@@ -759,11 +455,11 @@ html.reveal-ready .reveal-v2.is-visible {
 .form-input {
   display: block;
   width: 100%;
-  padding: 0.875rem 1.1rem;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.24);
-  color: #ffffff;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
   font-size: 1rem;
   line-height: 1.4;
   transition:
@@ -773,14 +469,13 @@ html.reveal-ready .reveal-v2.is-visible {
 .form-input:focus {
   outline: none;
   border-color: var(--brand-orange);
-  box-shadow: 0 0 0 3px rgba(252, 180, 0, 0.28);
+  box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.2);
 }
-.form-input::placeholder { color: rgba(255, 255, 255, 0.55); }
 .form-input[aria-invalid="true"] {
-  border-color: #ff8a80;
+  border-color: var(--brand-orange);
 }
 .form-input[aria-invalid="true"]:focus {
-  box-shadow: 0 0 0 3px rgba(255, 138, 128, 0.3);
+  box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.25);
 }
 
 /* ─── Print stylesheet (audit / brief save-as-PDF) ───────────────────── */
@@ -800,14 +495,14 @@ html.reveal-ready .reveal-v2.is-visible {
   section,
   main {
     background: #ffffff !important;
-    color: #0a0a0a !important;
+    color: #0B0C0B !important;
     box-shadow: none !important;
   }
   .card,
   .card-dark {
     background: #ffffff !important;
-    color: #0a0a0a !important;
-    border: 1px solid #0a0a0a !important;
+    color: #0B0C0B !important;
+    border: 1px solid #0B0C0B !important;
     box-shadow: none !important;
     page-break-inside: avoid;
   }
@@ -817,18 +512,18 @@ html.reveal-ready .reveal-v2.is-visible {
     font-size: 0.85em;
     word-break: break-all;
   }
-  .answer-panel,
+  .answer-block,
   .answer-block-dark {
     background: #f5f5f5 !important;
-    color: #0a0a0a !important;
-    border-left: 3px solid #0a0a0a !important;
+    color: #0B0C0B !important;
+    border-left: 3px solid #0B0C0B !important;
   }
   /* Open headings with a small top-margin so PDF pagination is graceful. */
   h1,
   h2,
   h3 {
     page-break-after: avoid;
-    color: #0a0a0a !important;
+    color: #0B0C0B !important;
   }
 }
 
@@ -842,24 +537,24 @@ html.reveal-ready .reveal-v2.is-visible {
   line-height: 1;
   padding: 0.375rem 0.75rem;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.14);
-  color: #ffffff;
+  background: var(--ink);
+  color: var(--paper);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 .chip-orange {
   background: var(--brand-orange);
-  color: var(--gold-ink);
+  color: var(--paper);
 }
 .chip-light {
-  background: transparent;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--ink);
 }
 
 /* ─── Section dividers ───────────────────────────────────────────────── */
 .section-rule {
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-top: 1px solid var(--ink);
 }
 .section-rule-light {
   border-top: 1px solid rgba(255, 255, 255, 0.15);
@@ -869,7 +564,7 @@ html.reveal-ready .reveal-v2.is-visible {
 .prose-legal {
   font-size: 16px;
   line-height: 1.7;
-  color: rgb(255 255 255 / 0.85);
+  color: rgb(15 23 42 / 0.85);
 }
 .prose-legal > * + * {
   margin-top: 1em;
@@ -882,7 +577,7 @@ html.reveal-ready .reveal-v2.is-visible {
   margin-top: 2.2em;
   margin-bottom: 0.6em;
   padding-bottom: 0.4em;
-  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+  border-bottom: 1px solid rgb(15 23 42 / 0.12);
 }
 .prose-legal h2:first-child {
   margin-top: 0;
@@ -930,7 +625,7 @@ html.reveal-ready .reveal-v2.is-visible {
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, monospace;
   font-size: 0.92em;
   padding: 0.1em 0.35em;
-  background: rgb(255 255 255 / 0.06);
+  background: rgb(15 23 42 / 0.06);
   border-radius: 4px;
 }
 .prose-legal table {
@@ -942,17 +637,119 @@ html.reveal-ready .reveal-v2.is-visible {
 .prose-legal table td {
   text-align: left;
   padding: 0.6em 0.8em;
-  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+  border-bottom: 1px solid rgb(15 23 42 / 0.12);
   vertical-align: top;
 }
 .prose-legal table th {
   font-weight: 700;
   color: var(--ink);
-  background: rgb(255 255 255 / 0.04);
+  background: rgb(15 23 42 / 0.04);
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
+
+/* ─── New-design additions ──────────────────────────────────────────── */
+@keyframes pp-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.pp-float { animation: pp-float 6s ease-in-out infinite; }
+
+@keyframes pp-ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.pp-ticker { animation: pp-ticker 28s linear infinite; width: max-content; }
+.pp-ticker:hover { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-float, .pp-ticker { animation: none; }
+}
+
+/* Bengali pages: Noto Sans Bengali first, Archivo for Latin runs */
+[lang^="bn"] { font-family: var(--font-bn), var(--font-archivo), system-ui, sans-serif; }
+[lang^="bn"] h1, [lang^="bn"] h2, [lang^="bn"] h3 { letter-spacing: -0.01em; line-height: 1.25; }
+
+/* ─── Ported for pages added after the design (answer-panel, campaign, flagship) ─── */
+/* ─── AnswerBlock (AEO/GEO surface) ───────────────────────────────────
+   .answer-panel is the visual wrapper (it may also hold the question heading);
+   .answer-block is the 40-60 word answer ALONE, so audits, speakable and
+   answer engines measure and read the answer without the question's words. */
+.answer-panel {
+  border-left: 3px solid var(--brand-orange);
+  background: var(--panel);
+  padding: 22px 26px;
+  border-radius: 14px;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--body-ink);
+}
+.answer-block-dark {
+  border-left: 3px solid var(--brand-orange);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 22px 26px;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+
+/* ─── Campaign theme (election / political-PR surfaces) ─────────────────
+   Palette + gradient sampled from the Canva "Public Pulse Profile | Political
+   PR" brochure: deep maroon edges (#5C0000-#710000), crimson mid (#8A0000-
+   #A80000), a hot core (#FE2500), gold headlines (#FCB400), thin crimson/gold
+   outlined panels and gold label tabs. Scoped under .theme-campaign so no other
+   page changes. Contrast: white on #8A0000 = 9.8:1, gold on #8A0000 = 5.5:1. */
+.theme-campaign { background: #0b0c0b; color: #fff; }
+.cp-hero {
+  background:
+    radial-gradient(70% 62% at 84% -8%, rgba(222, 42, 34, 0.5) 0%, rgba(222, 42, 34, 0) 64%),
+    radial-gradient(60% 55% at 6% 118%, rgba(75, 227, 143, 0.14) 0%, rgba(75, 227, 143, 0) 66%),
+    linear-gradient(160deg, #1a1d1a 0%, #0b0c0b 70%);
+}
+.cp-hero--flip {
+  background:
+    radial-gradient(70% 62% at 10% 112%, rgba(222, 42, 34, 0.5) 0%, rgba(222, 42, 34, 0) 64%),
+    radial-gradient(60% 55% at 94% -10%, rgba(75, 227, 143, 0.14) 0%, rgba(75, 227, 143, 0) 66%),
+    linear-gradient(200deg, #1a1d1a 0%, #0b0c0b 70%);
+}
+.cp-surface { background: radial-gradient(115% 95% at 50% 0%, #1a1d1a 0%, #121412 55%, #0b0c0b 100%); }
+.cp-surface-deep { background: linear-gradient(180deg, #121412 0%, #0b0c0b 100%); }
+.cp-panel {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1.5px solid rgba(222, 42, 34, 0.85);
+  border-radius: 20px;
+}
+.cp-panel-gold { border-color: #4be38f; }
+.cp-tab {
+  display: inline-block; background: #4be38f; color: #0b0c0b;
+  font-weight: 800; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.3rem 0.8rem; border-radius: 4px;
+}
+.cp-gold { color: #4be38f; }
+.cp-rule { border-color: rgba(75, 227, 143, 0.35); }
+.btn-gold {
+  background: #4be38f; color: #0b0c0b; font-weight: 800; border: 0;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+}
+.btn-gold:hover { background: #7df0b0; transform: translateY(-1px); }
+.btn-gold-ghost { background: transparent; color: #4be38f; border: 1.5px solid #4be38f; }
+.btn-gold-ghost:hover { background: rgba(75, 227, 143, 0.12); }
+.theme-campaign .answer-panel {
+  background: rgba(0, 0, 0, 0.22); border-left: 4px solid #4be38f;
+  border-radius: 16px; padding: 24px 28px;
+}
+.theme-campaign .answer-panel .answer-block { color: #fff; }
+.theme-campaign .answer-panel h2 { color: #4be38f; }
+.cp-strip {
+  display: flex; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 0.5rem 1.5rem 1.25rem; margin: 0 -1.5rem; list-style: none;
+  scrollbar-color: #4be38f rgba(0, 0, 0, 0.3); scrollbar-width: thin;
+}
+.cp-strip > li { flex: none; width: min(72vw, 330px); scroll-snap-align: start; }
+.cp-strip:focus-visible { outline: 3px solid #4be38f; outline-offset: 4px; border-radius: 12px; }
+@media (prefers-reduced-motion: reduce) { .cp-strip { scroll-behavior: auto; } .btn-gold:hover { transform: none; } }
+
 
 /* ─── Prestige flagship — single signature load motion ──────────────────
    Used by the political-ad flagship + src/components/prestige/*. transform +
@@ -967,23 +764,8 @@ html.reveal-ready .reveal-v2.is-visible {
   .pr-reveal { animation: none; opacity: 1; transform: none; }
 }
 
-/* ─── Prestige rollout Phase 1: serif headings site-wide ─────────────────
-   Fraunces (already loaded via next/font) becomes the heading face. The
-   text-hX size tokens carry tight Inter tracking; reset it for Fraunces.
-   Headings that must stay sans (a mono/UI label rendered as h*) opt out
-   with `font-sans`. */
-h1, h2, h3 {
-  font-family: var(--font-fraunces), "Charter", Georgia, serif;
-  letter-spacing: -0.015em;
-  /* No color here on purpose: headings INHERIT (dark body ink on light
-     surfaces, white on dark sections via a parent text-paper). An element-
-     level color would override inherited white and render dark-on-dark on
-     every dark band. Set `text-ink`/`text-paper` per heading where needed. */
-}
-h1.font-sans, h2.font-sans, h3.font-sans {
-  font-family: var(--font-inter), system-ui, sans-serif;
-}
-
-/* Bengali pages: Noto Sans Bengali first, Inter for Latin runs */
-[lang^="bn"] { font-family: var(--font-bn), var(--font-inter), system-ui, sans-serif; }
-[lang^="bn"] h1, [lang^="bn"] h2, [lang^="bn"] h3 { letter-spacing: -0.01em; line-height: 1.25; }
+/* Red text on near-black needs the lighter red to keep AA contrast. */
+.bg-ink .text-brand-orange,
+.bg-cp-night .text-brand-orange,
+.cp-hero .text-brand-orange,
+.bg-ink .chip-orange { color: #ee5a52; }

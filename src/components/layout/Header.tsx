@@ -6,29 +6,12 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, X, Search, ArrowUpRight } from "lucide-react";
 
 // Primary nav. /election is a priority landing page (seasonal political-PR
-// flagship) so it sits in the top bar between Results and Insights. Search
+// flagship) so it sits in the top bar between Work and Insights. Search
 // is also priority — promoted from icon-only to a labeled button in the
 // right cluster (see below). Press remains secondary (mobile drawer + footer).
-//
-// Work vs Results is a deliberate editorial split: /work is the visual
-// portfolio ("are they any good?"), /case-studies is the metrics-led proof
-// ("does it work?"). Both stay reachable from the primary bar.
-const NAV = [
-  { href: "/services", label: "Services" },
-  { href: "/work", label: "Work" },
-  { href: "/case-studies", label: "Results" },
-  { href: "/election", label: "Election" },
-  { href: "/blog", label: "Insights" },
-  { href: "/about", label: "Studio" },
-  { href: "/contact", label: "Contact" },
-];
-
-// Bengali primary nav (native /bn twins; Work/Insights have no twin yet so
-// they point at the English pages).
 const NAV_BN = [
   { href: "/bn/services", label: "সেবা" },
-  { href: "/work", label: "কাজ" },
-  { href: "/case-studies", label: "ফলাফল" },
+  { href: "/case-studies", label: "কাজ" },
   { href: "/bn/election", label: "নির্বাচন" },
   { href: "/blog", label: "ইনসাইট" },
   { href: "/bn/about", label: "স্টুডিও" },
@@ -43,6 +26,15 @@ function twinPath(pathname: string): { bn: string; en: string } {
   const hasTwin = BN_TWINS.includes(en) || en.startsWith("/services/");
   return { en, bn: hasTwin ? (en === "/" ? "/bn" : `/bn${en}`) : "/bn" };
 }
+
+const NAV = [
+  { href: "/services", label: "Services" },
+  { href: "/case-studies", label: "Work" },
+  { href: "/election", label: "Election" },
+  { href: "/blog", label: "Insights" },
+  { href: "/about", label: "Studio" },
+  { href: "/contact", label: "Contact" },
+];
 
 // Secondary nav — only Press now; Election + Search were promoted to
 // the primary bar / right cluster. Press still surfaces in the mobile
@@ -100,28 +92,31 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink/10 bg-paper/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-ink/10 bg-paper/85 backdrop-blur-md">
       <div className="max-w-container mx-auto flex h-16 items-center justify-between gap-4 px-5 md:h-[72px] md:px-8">
         {/* ─── Logo ──────────────────────────────────────────────────── */}
         <Link
-          href={homeHref as never}
-          className="flex flex-shrink-0 items-center gap-2.5"
+          href={homeHref}
+          className="flex flex-shrink-0 items-center gap-2"
           aria-label="Public Pulse Agency home"
         >
-          <span aria-hidden className="inline-block h-[3px] w-5 bg-brand-orange" />
-          <span className="font-pr-serif text-[20px] font-semibold tracking-tight text-ink">
-            Public&nbsp;<span className="text-brand-orange">Pulse</span>
+          <span aria-hidden className="relative inline-block h-5 w-5">
+            <span className="absolute inset-0 rounded-full bg-brand-orange" />
+            <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-brand-green" />
+          </span>
+          <span className="text-[18px] font-extrabold tracking-tight text-ink">
+            Public<span className="text-brand-orange">Pulse</span>
           </span>
         </Link>
 
         {/* ─── Primary nav (desktop) ──────────────────────────────── */}
         <nav aria-label="Primary" className="hidden md:flex md:flex-1 md:justify-center">
-          <ul className="flex items-center gap-6 text-[14px] font-medium text-ink/75 lg:gap-8">
+          <ul className="flex items-center gap-6 font-mono text-[12px] uppercase tracking-[0.12em] text-ink/70 lg:gap-8">
             {nav.map((n) => (
               <li key={n.href}>
                 <Link
-                  href={n.href as never}
-                  className="transition hover:text-ink focus-visible:text-ink"
+                  href={n.href}
+                  className="transition hover:text-brand-orange focus-visible:text-brand-orange"
                 >
                   {n.label}
                 </Link>
@@ -133,7 +128,7 @@ export function Header() {
         {/* ─── Right cluster: search + CTA + hamburger ─────────────── */}
         <div className="flex flex-shrink-0 items-center gap-2 md:gap-3">
           <div
-            className="hidden items-center overflow-hidden rounded-full border border-ink/15 text-[12px] font-semibold md:inline-flex"
+            className="hidden items-center overflow-hidden rounded-full border border-ink/15 font-mono text-[11px] uppercase tracking-wider md:inline-flex"
             role="group"
             aria-label="Language"
           >
@@ -141,7 +136,7 @@ export function Header() {
               href={twin.en as never}
               hrefLang="en"
               aria-current={!isBn ? "true" : undefined}
-              className={`px-3 py-2 ${!isBn ? "bg-ink text-cp-gold-ink" : "text-ink/75 hover:text-ink"}`}
+              className={`px-3 py-2 ${!isBn ? "bg-ink text-paper" : "text-ink/70 hover:text-ink"}`}
             >
               EN
             </Link>
@@ -149,7 +144,7 @@ export function Header() {
               href={twin.bn as never}
               hrefLang="bn"
               aria-current={isBn ? "true" : undefined}
-              className={`px-3 py-2 ${isBn ? "bg-ink text-cp-gold-ink" : "text-ink/75 hover:text-ink"}`}
+              className={`px-3 py-2 ${isBn ? "bg-ink text-paper" : "text-ink/70 hover:text-ink"}`}
             >
               বাং
             </Link>
@@ -163,7 +158,7 @@ export function Header() {
           </Link>
           <Link
             href={(isBn ? "/bn/book" : "/book") as never}
-            className="btn btn-orange hidden text-[14px] sm:inline-flex"
+            className="btn btn-orange hidden text-[13px] uppercase tracking-wide sm:inline-flex"
           >
             {isBn ? "কল বুক করুন" : "Book a call"}
             <ArrowUpRight className="h-4 w-4" aria-hidden />
@@ -175,7 +170,7 @@ export function Header() {
             aria-expanded={open ? "true" : "false"}
             aria-controls="mobile-nav-drawer"
             onClick={() => setOpen((o) => !o)}
-            className="grid h-10 w-10 place-items-center rounded-card border border-ink/40 text-ink md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-card border border-ink text-ink md:hidden"
           >
             {open ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}
           </button>
@@ -214,10 +209,10 @@ export function Header() {
                   className="flex items-center justify-between rounded-card border border-ink/15 px-4 py-3 text-base font-semibold text-ink"
                 >
                   <span className="flex items-center gap-2">
-                    <Search className="h-4 w-4 text-ink/65" aria-hidden />
+                    <Search className="h-4 w-4 text-ink/55" aria-hidden />
                     Search the site
                   </span>
-                  <ArrowUpRight className="h-4 w-4 text-ink/65" aria-hidden />
+                  <ArrowUpRight className="h-4 w-4 text-ink/30" aria-hidden />
                 </Link>
               </li>
             </ul>
@@ -230,12 +225,12 @@ export function Header() {
               {nav.filter((n) => !n.href.endsWith("/election")).map((n) => (
                 <li key={n.href}>
                   <Link
-                    href={n.href as never}
+                    href={n.href}
                     className="flex items-center justify-between py-2.5 transition hover:text-brand-orange"
                     onClick={closeDrawer}
                   >
                     <span>{n.label}</span>
-                    <ArrowUpRight className="h-4 w-4 text-ink/65" aria-hidden />
+                    <ArrowUpRight className="h-4 w-4 text-ink/30" aria-hidden />
                   </Link>
                 </li>
               ))}
@@ -245,7 +240,7 @@ export function Header() {
             <hr className="my-5 border-ink/10" aria-hidden />
 
             {/* Secondary nav */}
-            <p className="text-eyebrow uppercase tracking-wider text-ink/65">More</p>
+            <p className="text-eyebrow uppercase tracking-wider text-ink/45">More</p>
             <ul className="mt-3 space-y-1 text-base font-medium text-ink/85">
               {SECONDARY.map((s) => (
                 <li key={s.href}>
@@ -255,7 +250,7 @@ export function Header() {
                     onClick={closeDrawer}
                   >
                     <span>{s.label}</span>
-                    <ArrowUpRight className="h-4 w-4 text-ink/65" aria-hidden />
+                    <ArrowUpRight className="h-4 w-4 text-ink/30" aria-hidden />
                   </Link>
                 </li>
               ))}
@@ -271,6 +266,15 @@ export function Header() {
                 {isBn ? "কল বুক করুন" : "Book a call"}
                 <ArrowUpRight className="h-4 w-4" aria-hidden />
               </Link>
+              <a
+                href="https://wa.me/message/TBIM4KYTCFPEI1"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeDrawer}
+                className="btn btn-secondary w-full justify-center"
+              >
+                {isBn ? "হোয়াটসঅ্যাপে মেসেজ" : "Message on WhatsApp"}
+              </a>
               <Link
                 href={(isBn ? twin.en : twin.bn) as never}
                 hrefLang={isBn ? "en" : "bn"}
@@ -279,15 +283,6 @@ export function Header() {
               >
                 {isBn ? "Read in English" : "বাংলায় পড়ুন"}
               </Link>
-              <a
-                href="https://wa.me/message/TBIM4KYTCFPEI1"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={closeDrawer}
-                className="btn btn-secondary w-full justify-center"
-              >
-                Message on WhatsApp
-              </a>
             </div>
           </div>
         </div>

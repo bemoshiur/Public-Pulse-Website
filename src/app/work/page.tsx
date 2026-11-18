@@ -1,3 +1,4 @@
+import { DcPage } from "@/components/pp/DcPage";
 // /work index — the client-works portfolio landing page. The grid is
 // SSR-visible by construction (see WorksFilter): no Suspense/useSearchParams
 // wrapping it, unlike the /case-studies anti-pattern this section must avoid.
@@ -88,78 +89,7 @@ export default async function WorkIndexPage() {
           ),
         ]}
       />
-
-      <Section size="sm" className="bg-paper">
-        <Container>
-          <Breadcrumbs crumbs={crumbs} />
-          <GreyPanel tone="tint" radius="lg" className="mt-6 px-6 py-12 md:px-12 md:py-16">
-            <div className="max-w-3xl">
-              <span className="chip chip-orange">Work</span>
-              <h1 className="mt-5 text-h1 tracking-tight text-ink">
-                The work, <span className="text-brand-orange">in the open</span>.
-              </h1>
-              <p className="mt-5 text-lead text-ink/70">
-                Campaigns, brand systems, social, paid media and film for Bangladeshi brands. Where a
-                client is under NDA we show the outcome without the name.
-              </p>
-            </div>
-          </GreyPanel>
-          <div className="mt-6 max-w-3xl">
-            <AnswerBlock>
-              Public Pulse Agency&rsquo;s client work spans political campaigns, hospitality, e-commerce
-              and brand building across Bangladesh. Each project below lists the client (or an
-              anonymised sector label under NDA), the services delivered, the work itself, and the
-              measured outcome where the client permits publication.
-            </AnswerBlock>
-          </div>
-        </Container>
-      </Section>
-
-      {logoClients.length > 0 && (
-        <Section size="sm" className="bg-paper">
-          <Container>
-            <p className="text-center text-meta uppercase tracking-wider text-ink/65">Trusted by</p>
-            <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
-              {logoClients.map((c) => (
-                <li key={c.id}>
-                  <Image
-                    src={c.logoUrl as string}
-                    alt={c.name}
-                    width={140}
-                    height={40}
-                    className="h-8 w-auto object-contain opacity-70"
-                  />
-                </li>
-              ))}
-            </ul>
-          </Container>
-        </Section>
-      )}
-
-      <Section size="lg" className="bg-paper">
-        <Container>
-          <h2 className="text-h2 tracking-tight text-ink">Selected work</h2>
-          {works.length === 0 ? (
-            <div className="mt-8 rounded-panel border border-dashed border-ink/20 bg-paper-alt p-10 text-center">
-              <p className="text-ink/65">
-                Selected work is being prepared for publication — check back shortly.
-              </p>
-            </div>
-          ) : (
-            <div className="mt-8">
-              <WorksFilter works={works} disciplines={DISCIPLINES} />
-            </div>
-          )}
-        </Container>
-      </Section>
-
-      <Section size="sm" className="bg-paper">
-        <Container>
-          <InlineBlock context="service" />
-        </Container>
-      </Section>
-
-      <FaqSection faqs={faqs} />
+      <DcPage name="Work" />
     </>
   );
 }

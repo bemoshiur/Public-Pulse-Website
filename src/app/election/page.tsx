@@ -1,3 +1,4 @@
+import { DcPage } from "@/components/pp/DcPage";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, Clock } from "lucide-react";
@@ -115,11 +116,8 @@ const PHASES: import("@/components/election/PhaseTimeline").Phase[] = [
 ];
 
 export default function ElectionPage() {
-  const booking = bookingUrl();
-
   return (
-    <div className="theme-campaign">
-      <ScrollDepthTracker surface="/election" />
+    <>
       <JsonLd
         data={[
           breadcrumbSchema(crumbs),
@@ -149,194 +147,7 @@ export default function ElectionPage() {
           }),
         ]}
       />
-
-      {/* ═══ HERO — crimson radial gradient, gold accents ═══════════════ */}
-      <section className="cp-hero relative overflow-hidden text-white">
-        <Container>
-          <div className="py-12 md:py-20">
-            <Breadcrumbs crumbs={crumbs} tone="dark" />
-            <div className="mt-6 grid items-end gap-10 md:grid-cols-12">
-              <div className="md:col-span-8">
-                <span className="cp-tab">Election readiness · Bangladesh</span>
-                <h1 className="mt-5 text-display tracking-tight text-white">
-                  Win the perception <em className="not-italic cp-gold">first</em>.
-                  The booth comes after.
-                </h1>
-                <p className="mt-6 max-w-2xl text-lead text-white/85">
-                  90-day election playbook for candidates and parties in Bangladesh —
-                  constituency survey, narrative design, ground + digital coordination,
-                  and a 24-hour crisis SLA. NDA-protected, senior in the room, billed in BDT.
-                </p>
-                <div className="mt-8 flex flex-wrap items-center gap-3">
-                  <Link href={booking ? "/book" : "/contact"} className="btn btn-gold">
-                    {booking ? "Book a 30-min strategy call" : "Start a campaign brief"}
-                    <ArrowRight className="h-4 w-4" aria-hidden />
-                  </Link>
-                  <a
-                    href={SITE.contact.whatsapp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-gold-ghost"
-                  >
-                    WhatsApp the strategist
-                  </a>
-                </div>
-                <p className="mt-5 text-sm text-white/75">
-                  <a href="#profile" className="cp-gold underline underline-offset-4 hover:text-cp-gold-soft">
-                    Read the campaign profile (PDF)
-                  </a>
-                  {" · "}Focused on the paid digital push?{" "}
-                  <Link
-                    href="/political-facebook-ads-bangladesh"
-                    className="cp-gold underline underline-offset-4 hover:text-cp-gold-soft"
-                  >
-                    See our political Facebook advertising
-                  </Link>{" "}
-                  — Meta-authorized, compliant, run from Dhaka.
-                </p>
-              </div>
-              <div className="md:col-span-4">
-                <div className="cp-panel cp-panel-gold p-5 backdrop-blur">
-                  <div className="flex items-center gap-2 text-cp-gold">
-                    <Clock className="h-4 w-4" aria-hidden />
-                    <span className="text-eyebrow uppercase">Crisis SLA</span>
-                  </div>
-                  <p className="mt-3 text-h3 font-bold text-white">
-                    24 hours — strategist + creative on it by midnight.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <dl className="mt-12 grid gap-4 sm:grid-cols-3">
-              {[
-                ["90", "day playbook", "from discovery to post-election PR"],
-                ["24h", "crisis SLA", "strategist + creative on it by midnight"],
-                ["NDA", "by default", "no work for a direct rival in your seat"],
-              ].map(([n, l, d]) => (
-                <div key={l} className="cp-panel px-5 py-4">
-                  <dt className="font-pr-serif text-5xl font-bold leading-none cp-gold">{n}</dt>
-                  <dd className="mt-2 text-body font-semibold text-white">{l}</dd>
-                  <dd className="text-meta text-white/70">{d}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </Container>
-      </section>
-
-      <section className="cp-surface py-12 md:py-16">
-        <Container>
-          <AnswerBlock>{politicalPr.answer}</AnswerBlock>
-        </Container>
-      </section>
-
-      {/* ═══ THE PDF — campaign profile ══════════════════════════════════ */}
-      <section id="profile" className="cp-surface-deep scroll-mt-24 border-t cp-rule py-16 md:py-24">
-        <Container>
-          <CampaignProfile />
-        </Container>
-      </section>
-
-      <section className="cp-surface border-t cp-rule py-16 md:py-24">
-        <Container>
-          <div className="max-w-3xl">
-            <span className="cp-tab">90-day playbook</span>
-            <h2 className="mt-4 text-h1 tracking-tight text-white">
-              Five phases. One <span className="cp-gold">accountable team.</span>
-            </h2>
-            <p className="mt-5 text-lead text-white/80">
-              Calendar-mapped so your campaign manager can see exactly what happens when.
-              We compress this to 60 or 45 days when the timeline demands it — the order
-              stays the same, the depth changes.
-            </p>
-          </div>
-          <div className="mt-12">
-            <PhaseTimeline phases={PHASES} tone="campaign" />
-          </div>
-        </Container>
-      </section>
-
-      <section className="cp-surface-deep border-t cp-rule py-16 md:py-24">
-        <Container>
-          <div className="max-w-3xl">
-            <span className="cp-tab">Constituency-ready</span>
-            <h2 className="mt-4 text-h1 tracking-tight text-white">
-              What we deliver — <span className="cp-gold">at constituency scale.</span>
-            </h2>
-          </div>
-          <ul className="mt-10 grid gap-x-10 gap-y-4 md:grid-cols-2">
-            {politicalPr.included
-              .filter((item) => !item.includes("TODO"))
-              .map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 border-b border-white/15 pb-4 text-body text-white/90"
-                >
-                  <span aria-hidden className="mt-2.5 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-cp-gold" />
-                  <span>{item}</span>
-                </li>
-              ))}
-          </ul>
-        </Container>
-      </section>
-
-      <section className="cp-surface border-t cp-rule py-16 md:py-24">
-        <Container>
-          <div className="max-w-3xl">
-            <span className="cp-tab">FAQ</span>
-            <h2 className="mt-4 text-h1 tracking-tight text-white">
-              Election cycle <span className="cp-gold">questions.</span>
-            </h2>
-          </div>
-          <div className="mt-10 space-y-4">
-            {FAQS.map((f) => (
-              <details
-                key={f.q}
-                className="group cp-panel p-5 open:border-cp-gold"
-              >
-                <summary className="cursor-pointer list-none text-h3 font-bold text-white marker:hidden">
-                  <span className="flex items-start justify-between gap-4">
-                    <span>{f.q}</span>
-                    <span aria-hidden className="mt-1 text-cp-gold transition group-open:rotate-45">
-                      +
-                    </span>
-                  </span>
-                </summary>
-                <p className="mt-3 text-body text-white/80">{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <Section size="lg" className="cp-surface-deep border-t cp-rule">
-        <Container>
-          <div className="cp-hero cp-panel-gold overflow-hidden rounded-panel-lg border-[1.5px] px-6 py-16 md:px-12 md:py-20">
-            <div className="max-w-3xl">
-              <p className="text-eyebrow uppercase cp-gold">
-                You lead the campaign. We work as you, for you.
-              </p>
-              <h2 className="mt-4 text-h1 tracking-tight text-white">
-                Election cycle running? Let&rsquo;s talk this week.
-              </h2>
-              <p className="mt-5 text-lead text-white/85">
-                Free 15-minute discovery call. We&rsquo;ll review the seat, the opposition, and the
-                timeline — and tell you honestly whether we can help and when to start.
-              </p>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Link href={booking ? "/book" : "/contact"} className="btn btn-gold">
-                  {booking ? "Book the call" : "Send a brief"}
-                  <ArrowRight className="h-4 w-4" aria-hidden />
-                </Link>
-                <Link href="/services/political-pr" className="btn btn-gold-ghost">
-                  Read the service detail
-                </Link>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </Section>
-    </div>
+      <DcPage name="Election" />
+    </>
   );
 }
