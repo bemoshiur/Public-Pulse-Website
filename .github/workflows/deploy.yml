@@ -54,6 +54,12 @@ jobs:
           # apex is fine here even pre-cutover because canonicals are
           # rebuilt + redeployed once DNS is flipped.
           NEXT_PUBLIC_SITE_URL: https://publicpulse.com.bd
+          # src/lib/auth.ts throws at import time in production builds when the
+          # secret is unset, which breaks "Collecting page data". This is a
+          # throwaway placeholder for the CI build only; it is NOT the real
+          # secret (that lives in SSM) and is never used at runtime.
+          BETTER_AUTH_SECRET: ci-build-only-placeholder-not-a-real-secret-0000
+          BETTER_AUTH_URL: https://publicpulse.com.bd
 
   # ─── 2. Production: gated by GitHub Environment + required reviewer ─────
   # Only runs on a tag matching v*. The "production" environment in repo
