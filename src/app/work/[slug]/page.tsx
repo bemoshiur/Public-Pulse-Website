@@ -362,7 +362,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<Param
               Want work like this?
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lead text-white/70">
-              Free 30-minute consultation. We&rsquo;ll review your goals and tell you honestly whether
+              Free 15-minute consultation. We&rsquo;ll review your goals and tell you honestly whether
               we&rsquo;re the right fit.
             </p>
             <div className="mt-8 flex justify-center">

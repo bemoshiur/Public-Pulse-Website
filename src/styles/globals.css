@@ -983,3 +983,7 @@ h1, h2, h3 {
 h1.font-sans, h2.font-sans, h3.font-sans {
   font-family: var(--font-inter), system-ui, sans-serif;
 }
+
+/* Bengali pages: Noto Sans Bengali first, Inter for Latin runs */
+[lang^="bn"] { font-family: var(--font-bn), var(--font-inter), system-ui, sans-serif; }
+[lang^="bn"] h1, [lang^="bn"] h2, [lang^="bn"] h3 { letter-spacing: -0.01em; line-height: 1.25; }

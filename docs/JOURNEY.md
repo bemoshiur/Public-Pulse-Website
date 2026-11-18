@@ -13,6 +13,36 @@ Entry format:
 
 ---
 
+## 2026-11-18 — STEP 33 / PORT NATIVE BENGALI (/bn) + 15-MIN BOOKING FROM `origin/main` PR #22 (LOCAL, NOT DEPLOYED)
+
+Trigger: "build as per latest merge". `origin/main` had PR #22 (new design + `/bn` pages + Cal.com 15-min + Amplify config) that production did NOT have (live = crimson/gold from `feat/crimson-site`). Main's tree builds clean on its own (tsc + next build, 262 pages).
+
+**Decision:** a full merge was tried on a throwaway branch and aborted: 25 conflicted files, because main's redesign branched from `14f9195`, before the Dataplace restyle, `/work`, the STEP 32 AEO fixes and the crimson retheme. Taking main's design would have undone those. User chose to keep crimson and port only the features. Branch `feat/port-bn-booking` (off `feat/crimson-site`).
+
+**Changed:**
+- Ported from main: `src/app/bn/*` (home, services, services/[slug], about, contact, book, election), `src/components/bn/*`, `src/content/bn/services.ts`, `FooterBn` + `FooterSwitch`, `home/Globe.tsx`, `lib/booking.ts` (default `https://cal.com/publicpulse/15min`, dark embed).
+- NOT overwritten: your `seo.ts` (main's copy predates `clampTitle`/`clampDescription`); only added `locale` / `enPath` / `bnPath` to `buildMetadata` (hreflang `bn-BD`, `x-default`, `og:locale bn_BD`).
+- `next.config.ts`: dropped the blanket `/bn/:path*` -> English redirect; kept a narrowed one for Bengali paths with no twin (e.g. legacy `/bn/blog/<slug>` -> 308 `/blog/<slug>`).
+- `layout.tsx` (Noto Sans Bengali `--font-bn`, `FooterSwitch`), `globals.css` (`[lang^="bn"]`), `Header.tsx` (EN | বাং switcher, Bengali nav, Bengali Book CTA), `sitemap.ts` (+7 `/bn` URLs, `/book`, hreflang pairs on the English twins), `bnPath` on home/about/services/services/[slug]/contact/election/book.
+- Booking copy 30 -> 15 minutes site-wide (matches main's "15 minutes, not 30").
+- Main's Bengali pages assumed ink = dark / paper = white; on crimson that rendered white-on-white. Remapped `bg-ink` -> `bg-cp-night`, `text-paper` -> `text-white`, `bg-ink-soft` -> `bg-paper-alt`, `brand-green` -> `brand-orange`, low-opacity white floored at 70%.
+- `/bn/services/<unknown>`: 308 to `/bn/services` (main's route 404'd under `dynamicParams=false`).
+
+**Verified:** tsc clean, `next build` green. 14 `/bn` pages: one H1, canonical, JSON-LD, hreflang. Real browser (axe color-contrast, overflow, H1) on 7 `/bn` pages + `/` + `/book` at 1440 and 390: 0 violations, 0 overflow. Redirect probes: `/bn/blog/x` 308, `/bn/services/zzz` 308, `/bn` 200. Sitemap +15 `/bn` URLs, 30 `bn-BD` alternates.
+
+**Not taken from main (on purpose):** its redesign (Archivo/JetBrains Mono, tokens), `amplify.yml` / `docs/AMPLIFY.md` (CLAUDE.md says SST/OpenNext; confirm Amplify is intended before adopting a second deploy path), main's `ProgrammaticPage`/`GradientHero`/OG/manifest changes.
+
+**Next / open:**
+- Deploy is held: `AWS_PROFILE=default bash scripts/deploy.sh production` from `feat/port-bn-booking`, then curl `/bn`, `/sitemap.xml` and run the IndexNow delta.
+- `FooterBn` carries main's credit link "ডিজাইন: mahir.design". Keep or remove?
+- `/bn/book` has no AnswerBlock (utility page, like other booking/legal pages); other `/bn` pages do. The Bengali copy was written by main's author and not reviewed by the agent; have a native reader check it.
+- Bengali twins exist only for home, services (+ per-service), about, contact, book, election. Blog/work/etc. still English-only.
+- main's dependabot bumps (nanoid, js-yaml) were not merged; this is a port, not a merge, so `feat/port-bn-booking` still differs from `origin/main`.
+
+**Rollback:** `a2cf5ec` (`feat/crimson-site` tip). Code only, no DB changes.
+
+---
+
 ## 2026-10-03 — STEP 32 / OMNIRANK-DRIVEN AEO FIXES + IndexNow DEPLOY DIFF
 
 Trigger: OmniRank v0.4.0 (`~/Documents/Project Archive/ClaudeCode Skill/SEO-AEO-GEO-SMM-CLAUDE-SKILL`) audited the live site: **overall 77, `aeo` 0, 286 findings**. Branch `feat/client-works`. Deployed with `AWS_PROFILE=default bash scripts/deploy.sh production`.

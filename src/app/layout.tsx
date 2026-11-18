@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Fraunces } from "next/font/google";
+import { Inter, Fraunces, Noto_Sans_Bengali } from "next/font/google";
 import Script from "next/script";
 import "@/styles/globals.css";
 
@@ -15,6 +15,8 @@ import {
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { FooterBn } from "@/components/layout/FooterBn";
+import { FooterSwitch } from "@/components/layout/FooterSwitch";
 import { SocialSidebar } from "@/components/layout/SocialSidebar";
 import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
 import { CookieConsent } from "@/components/analytics/CookieConsent";
@@ -33,6 +35,13 @@ const inter = Inter({
 // Fraunces — variable serif display for the "restrained luxury" prestige
 // surfaces (political-ad flagship + prestige kit). optical-size axis tuned for
 // display. Scoped: only elements with `font-pr-serif` use it.
+const bengali = Noto_Sans_Bengali({
+  subsets: ["bengali"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-bn",
+  display: "swap",
+});
+
 const fraunces = Fraunces({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
@@ -73,7 +82,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-BD" className={`${inter.variable} ${fraunces.variable} reveal-ready`} suppressHydrationWarning>
+    <html lang="en-BD" className={`${inter.variable} ${fraunces.variable} ${bengali.variable} reveal-ready`} suppressHydrationWarning>
       <body className="font-sans antialiased bg-paper text-ink">
         {/* Safety kill-switch: 2.5s after load, drop reveal-ready so no element
             can stay invisible if IntersectionObserver fails to fire. */}
@@ -123,7 +132,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main id="main" tabIndex={-1} className="focus:outline-none">{children}</main>
         <SocialSidebar />
-        <Footer />
+        <FooterSwitch en={<Footer />} bn={<FooterBn />} />
         <WhatsAppFab />
         <StickyBar />
         <ExitIntent />

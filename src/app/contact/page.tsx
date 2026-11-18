@@ -27,8 +27,9 @@ import { bookingUrl } from "@/lib/booking";
 export const metadata: Metadata = buildMetadata({
   title: "Contact Public Pulse Agency | Free Consultation, Dhaka",
   description:
-    "Get a free 30-minute consultation. WhatsApp +880 1717-714676, email info@publicpulse.com.bd, or send us a brief through the form. We reply within 24 hours.",
+    "Get a free 15-minute consultation. WhatsApp +880 1717-714676, email info@publicpulse.com.bd, or send us a brief through the form. We reply within 24 hours.",
   path: "/contact",
+  bnPath: "/bn/contact",
 });
 
 const crumbs = [
@@ -47,7 +48,7 @@ const FAQS = [
   },
   {
     q: "Is the first call really free?",
-    a: "Yes — 30 minutes, no pitch deck, no obligation. We'll either be a fit or we won't, and if we're not we'll usually be able to point you somewhere that is.",
+    a: "Yes — 15 minutes, no pitch deck, no obligation. We'll either be a fit or we won't, and if we're not we'll usually be able to point you somewhere that is.",
   },
   {
     q: "Do you work with clients outside Bangladesh?",
@@ -153,7 +154,7 @@ export default function ContactPage() {
             <AnswerBlock>
               Public Pulse Agency replies to every email and WhatsApp message within 24 hours,
               Saturday through Thursday. Office hours run 09:00–21:00 Asia/Dhaka, and WhatsApp is
-              the fastest channel. The first 30-minute consultation is free, with no pitch deck and
+              the fastest channel. The first 15-minute consultation is free, with no pitch deck and
               no qualifying questions, and you can also call or send a brief through the form.
             </AnswerBlock>
           </div>

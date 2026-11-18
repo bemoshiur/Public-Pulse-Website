@@ -83,7 +83,7 @@ export default async function ServiceLocationPage({
     },
     {
       q: `What's the entry-level engagement for ${s.shortName} in ${l.name}?`,
-      a: `Monthly retainer or per-campaign — depends on scope. Free 30-minute consultation to scope your specific situation.`,
+      a: `Monthly retainer or per-campaign — depends on scope. Free 15-minute consultation to scope your specific situation.`,
     },
     {
       q: `Do I need to travel to Dhaka to work with Public Pulse?`,

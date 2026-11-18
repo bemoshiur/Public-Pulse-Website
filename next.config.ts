@@ -79,9 +79,16 @@ const nextConfig: NextConfig = {
       //    /bn (bare) AND /bn/<any-path>. Includes legacy crawled URLs
       //    like /bn/blog/<slug> (the route never existed but Google
       //    saw them via sitemap hreflang in the old version). ───────
-      { source: "/bn", destination: "/", permanent: true },
-      { source: "/bn/", destination: "/", permanent: true },
-      { source: "/bn/:path*", destination: "/:path*", permanent: true },
+
+      // ── Native Bengali pages now live at /bn, /bn/services[/slug], /bn/about,
+      //    /bn/contact, /bn/book, /bn/election. Any OTHER /bn/* path (e.g. legacy
+      //    crawled /bn/blog/<slug>) still has no Bengali twin → 301 to English,
+      //    never a 404. ───────────────────────────────────────────────
+      {
+        source: "/bn/:path((?!services|about|contact|book|election)[^/]+.*)",
+        destination: "/:path",
+        permanent: true,
+      },
 
       // ── Blog (old WP single posts → blog index; specific slugs
       //         won't have a match in the DB so just go to /blog) ─────

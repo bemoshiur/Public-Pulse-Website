@@ -115,7 +115,7 @@ export default async function BenchmarkPage({ params }: { params: Promise<Params
             Want numbers for <Hl>your</Hl> account?
           </>
         }
-        ctaSub="We benchmark your campaigns against the Bangladesh market on a free 30-minute call."
+        ctaSub="We benchmark your campaigns against the Bangladesh market on a free 15-minute call."
       >
         <section className="bg-paper py-16">
           <Container>

@@ -353,7 +353,7 @@ export default function PoliticalFacebookAdsPage() {
             <em className="italic text-pr-accent-ink">plan</em>.
           </h2>
           <p className="mt-5 max-w-[46ch] text-[17px] text-pr-briefing-muted">
-            A confidential 30-minute briefing: your constituency, your timeline, and a straight read on
+            A confidential 15-minute briefing: your constituency, your timeline, and a straight read on
             what a compliant Facebook operation would cost and deliver. No pitch theatre.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">

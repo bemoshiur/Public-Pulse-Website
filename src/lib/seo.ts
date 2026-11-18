@@ -23,6 +23,12 @@ type BuildMetadataInput = {
   ogTitle?: string;
   /** Extra hreflang entries merged into alternates.languages (e.g. bn-BD pointing at /bn/...). */
   alternateLanguages?: Record<string, string>;
+  /** Set to "bn" for native Bengali pages. `path` is then the /bn/... path. */
+  locale?: "en" | "bn";
+  /** English counterpart path of a Bengali page (hreflang `en` + `x-default`). */
+  enPath?: string;
+  /** Bengali counterpart path of an English page — emits hreflang `bn-BD`. */
+  bnPath?: string;
 };
 
 const DEFAULT_OG = "/og-image.jpg";
@@ -90,7 +96,11 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
     useDynamicOg = false,
     alternateLanguages,
     ogTitle,
+    locale = "en",
+    enPath,
+    bnPath,
   } = input;
+  const isBn = locale === "bn";
 
   const title = clampTitle(rawTitle);
   warnIfLong("title", rawTitle, 60);
@@ -120,11 +130,19 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
     formatDetection: { email: false, address: false, telephone: false },
     alternates: {
       canonical,
-      languages: {
-        en: canonical,
-        "x-default": canonical,
-        ...(alternateLanguages ?? {}),
-      },
+      languages: isBn
+        ? {
+            en: absoluteUrl(enPath ?? "/"),
+            "bn-BD": canonical,
+            "x-default": absoluteUrl(enPath ?? "/"),
+            ...(alternateLanguages ?? {}),
+          }
+        : {
+            en: canonical,
+            "x-default": canonical,
+            ...(bnPath ? { "bn-BD": absoluteUrl(bnPath) } : {}),
+            ...(alternateLanguages ?? {}),
+          },
     },
     robots: noIndex
       ? { index: false, follow: false }
@@ -141,7 +159,8 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
       title,
       description,
       siteName: SITE.name,
-      locale: SITE.locale,
+      locale: isBn ? "bn_BD" : SITE.locale,
+      alternateLocale: isBn ? [SITE.locale] : bnPath ? ["bn_BD"] : undefined,
       images: [{ url: resolvedOg, width: 1200, height: 630, alt: title }],
       ...(ogType === "article" && {
         publishedTime,

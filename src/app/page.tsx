@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
 import { AnswerBlock } from "@/components/seo/AnswerBlock";
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { GreyPanel } from "@/components/ui/GreyPanel";
@@ -15,6 +17,17 @@ import { getFeaturedCaseStudies } from "@/lib/data/case-studies";
 import { getFeaturedWorks } from "@/lib/data/works";
 import { WorkCard } from "@/components/work/WorkCard";
 import { InlineBlock } from "@/components/lead-capture";
+
+// Same title/description as the root layout default — repeated here only to
+// attach the bn-BD hreflang alternate to the homepage.
+export const metadata: Metadata = buildMetadata({
+  title: "Public Pulse — Bangladesh Digital Marketing & PR Agency",
+  description:
+    "Bangladesh's 360° digital marketing & political PR agency. Political PR, social media, content, paid ads, hospitality, branding, SEO. Call +880 1717-714676.",
+  path: "/",
+  bnPath: "/bn",
+});
+
 
 // JSON-LD Organization + WebSite emit site-wide from app/layout.tsx.
 
@@ -415,7 +428,7 @@ export default async function HomePage() {
               Got a campaign that <span className="text-brand-orange">needs to land</span>?
             </h2>
             <p className="mx-auto mt-7 max-w-2xl text-lead text-white/70">
-              Free 30-minute consultation. We&rsquo;ll review your channels, your goals, and whether
+              Free 15-minute consultation. We&rsquo;ll review your channels, your goals, and whether
               we&rsquo;re the right fit. No deck, no pitch.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">

@@ -88,7 +88,7 @@ export default async function ServiceIndustryPage({
     },
     {
       q: `How is this priced?`,
-      a: `Monthly retainer or per-campaign. Free 30-minute consultation; written scope + single KPI before kickoff.`,
+      a: `Monthly retainer or per-campaign. Free 15-minute consultation; written scope + single KPI before kickoff.`,
     },
   ];
 

@@ -6,14 +6,15 @@ import { breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { bookingUrl } from "@/lib/booking";
+import { bookingUrl, bookingEmbedUrl } from "@/lib/booking";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
   title: "Book a strategy call | Public Pulse",
   description:
-    "Schedule a 30-minute strategy call with Public Pulse Agency. We'll review your goals, current setup, and outline what could move the needle in Bangladesh.",
+    "Schedule a 15-minute strategy call with Public Pulse Agency. We'll review your goals, current setup, and outline what could move the needle in Bangladesh.",
   path: "/book",
+  bnPath: "/bn/book",
 });
 
 const crumbs = [
@@ -23,6 +24,7 @@ const crumbs = [
 
 export default function BookPage() {
   const url = bookingUrl();
+  const embed = bookingEmbedUrl();
   // When BOOKING_URL isn't configured yet, redirect to /contact rather
   // than show a broken page. Visitors still get to a working entry point.
   if (!url) redirect("/contact");
@@ -35,7 +37,7 @@ export default function BookPage() {
           faqPageSchema([
             {
               q: "How long is the strategy call?",
-              a: "30 minutes. Long enough to map your goals to a workable plan; short enough that you can fit it in.",
+              a: "15 minutes. Long enough to map your goals to a workable plan; short enough that you can fit it in.",
             },
             {
               q: "What should I prepare?",
@@ -58,7 +60,7 @@ export default function BookPage() {
               Pick a time that works.
             </h1>
             <p className="mt-5 text-lead text-ink/70">
-              30-minute strategy call with a senior at the studio. We'll cover your
+              15-minute strategy call with a senior at the studio. We'll cover your
               goals, current setup, and what a working plan could look like — Dhaka
               time, English or {SITE.contact.phoneDisplay} fallback if you prefer phone.
             </p>
@@ -66,7 +68,7 @@ export default function BookPage() {
 
           <div className="mt-10 overflow-hidden rounded-card border border-ink/10 bg-paper shadow-card">
             <iframe
-              src={url}
+              src={embed ?? url ?? ""}
               title="Schedule a call with Public Pulse"
               loading="lazy"
               className="h-[820px] w-full"

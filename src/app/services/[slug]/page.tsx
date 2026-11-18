@@ -23,6 +23,7 @@ import { getPostsBySourceRef } from "@/lib/data/blog";
 import { getWorksByService } from "@/lib/data/works";
 import { WorkCard } from "@/components/work/WorkCard";
 import { CampaignProfile } from "@/components/election/CampaignProfile";
+import { getBnService } from "@/content/bn/services";
 
 type Params = { slug: string };
 
@@ -48,6 +49,7 @@ export async function generateMetadata({
     title: service.seoTitle,
     description: service.seoDescription,
     path: `/services/${service.slug}`,
+    bnPath: getBnService(service.slug) ? `/bn/services/${service.slug}` : undefined,
     // Per-service OG card via the dynamic /og?title=&eyebrow= factory.
     // Headline uses the clean service name (not the verbose SEO title with
     // "| Public Pulse" suffix); chip uses the category in caps. Each service
@@ -339,7 +341,7 @@ export default async function ServiceDetailPage({
               Ready for <span className="text-brand-orange">{service.shortName}</span>?
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lead text-white/70">
-              Free 30-minute consultation. We&rsquo;ll review your situation and propose a plan.
+              Free 15-minute consultation. We&rsquo;ll review your situation and propose a plan.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Link href="/contact" className="btn btn-orange group">

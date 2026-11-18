@@ -440,7 +440,7 @@ export default async function BlogPostPage({
                     Talk to the team.
                   </p>
                   <p className="mt-1 text-sm text-white/65">
-                    Free 30-minute consultation · Reply under 2 hours on WhatsApp.
+                    Free 15-minute consultation · Reply under 2 hours on WhatsApp.
                   </p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     <Link
@@ -474,7 +474,7 @@ export default async function BlogPostPage({
               Want help <span className="text-brand-orange">executing</span> this?
             </h2>
             <p className="mt-6 text-lead text-white/70">
-              Public Pulse Agency offers a free 30-minute consultation.
+              Public Pulse Agency offers a free 15-minute consultation.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Link href="/contact" className="btn btn-orange">

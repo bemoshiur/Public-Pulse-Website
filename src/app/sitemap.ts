@@ -11,6 +11,7 @@ import { PUBLISHED_BENCHMARKS } from "@/lib/content/benchmarks";
 import { getPublishedPosts } from "@/lib/data/blog";
 import { getPublishedCaseStudies } from "@/lib/data/case-studies";
 import { getPublishedWorks } from "@/lib/data/works";
+import { BN_SERVICES } from "@/content/bn/services";
 
 // Single flat sitemap.xml — Next.js doesn't have first-class sitemap-index
 // support without a route handler. We list every URL here with `alternates`
@@ -29,11 +30,23 @@ const today = new Date().toISOString().slice(0, 10);
 // their real publishedAt below.
 const CATALOG_LASTMOD = "2026-07-15";
 
+// Native Bengali twins (hand-authored, never machine-translated). An English
+// URL gets an hreflang `bn-BD` alternate only when its twin exists.
+const BN_SERVICE_SLUGS = new Set(BN_SERVICES.map((b) => b.slug));
+const BN_TWINS = new Set(["/", "/about", "/services", "/contact", "/book", "/election"]);
+const bnOf = (path: string): string | undefined => {
+  if (path === "/") return "/bn";
+  if (BN_TWINS.has(path)) return `/bn${path}`;
+  const m = /^\/services\/([^/]+)$/.exec(path);
+  return m && BN_SERVICE_SLUGS.has(m[1]) ? `/bn${path}` : undefined;
+};
+
 function entry(
   path: string,
   changeFrequency: "daily" | "weekly" | "monthly" | "yearly" = "monthly",
   priority = 0.7
 ): MetadataRoute.Sitemap[number] {
+  const bn = bnOf(path);
   return {
     url: absoluteUrl(path),
     lastModified: CATALOG_LASTMOD,
@@ -43,7 +56,7 @@ function entry(
       languages: {
         en: absoluteUrl(path),
         "x-default": absoluteUrl(path),
-        // bn: absoluteUrl(`/bn${path === "/" ? "" : path}`),  // unlock when bn content lands
+        ...(bn ? { "bn-BD": absoluteUrl(bn) } : {}),
       },
     },
   };
@@ -57,6 +70,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry("/services", "monthly", 0.9),
     entry("/blog", "weekly", 0.8),
     entry("/contact", "yearly", 0.7),
+    entry("/book", "monthly", 0.7),
     entry("/glossary", "weekly", 0.7),
     entry("/guides", "weekly", 0.7),
     entry("/case-studies", "weekly", 0.8),
@@ -147,8 +161,40 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  // ── Native Bengali pages (hreflang pairs with the English twin) ────
+  const bnEntry = (
+    path: string,
+    en: string,
+    changeFrequency: "weekly" | "monthly" | "yearly" = "monthly",
+    priority = 0.7
+  ): MetadataRoute.Sitemap[number] => ({
+    url: absoluteUrl(path),
+    lastModified: CATALOG_LASTMOD,
+    changeFrequency,
+    priority,
+    alternates: {
+      languages: {
+        en: absoluteUrl(en),
+        "bn-BD": absoluteUrl(path),
+        "x-default": absoluteUrl(en),
+      },
+    },
+  });
+  const bn: MetadataRoute.Sitemap = [
+    bnEntry("/bn", "/", "weekly", 0.9),
+    bnEntry("/bn/services", "/services", "monthly", 0.8),
+    bnEntry("/bn/about", "/about", "monthly", 0.7),
+    bnEntry("/bn/contact", "/contact", "yearly", 0.6),
+    bnEntry("/bn/book", "/book", "monthly", 0.6),
+    bnEntry("/bn/election", "/election", "monthly", 0.75),
+    ...BN_SERVICES.filter((b) => SERVICES.some((s) => s.slug === b.slug && s.ready)).map((b) =>
+      bnEntry(`/bn/services/${b.slug}`, `/services/${b.slug}`, "monthly", 0.7)
+    ),
+  ];
+
   return [
     ...core,
+    ...bn,
     ...services,
     ...locations,
     ...industries,

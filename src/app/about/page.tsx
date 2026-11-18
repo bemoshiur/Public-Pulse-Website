@@ -33,6 +33,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Public Pulse Agency is Bangladesh's 360° digital marketing & political PR studio, founded in Dhaka in 2024. Nine integrated services billed in BDT from a registered Bangladesh entity.",
   path: "/about",
+  bnPath: "/bn/about",
 });
 
 const crumbs = [
@@ -449,7 +450,7 @@ export default function AboutPage() {
               <span className="italic text-brand-orange">the right fit</span>?
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lead text-white/70">
-              We&rsquo;re not for everyone. The fastest way to find out is a 30-minute call.
+              We&rsquo;re not for everyone. The fastest way to find out is a 15-minute call.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Link href="/contact" className="btn btn-orange group">

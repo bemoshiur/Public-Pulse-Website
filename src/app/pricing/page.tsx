@@ -42,7 +42,7 @@ const FAQS = [
   },
   {
     q: "What does the discovery call cover?",
-    a: "30 minutes. We map your goal to a scope and confirm whether we're the right fit. No pitch deck — you get a written proposal within 24 hours after the call.",
+    a: "15 minutes. We map your goal to a scope and confirm whether we're the right fit. No pitch deck — you get a written proposal within 24 hours after the call.",
   },
   {
     q: "Can you work with smaller budgets?",

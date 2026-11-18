@@ -64,7 +64,7 @@ export function ProgrammaticPage(props: Props) {
         Want help <Hl>doing this</Hl>?
       </>
     ),
-    ctaSub = "Free 30-minute consultation. We'll review your situation and propose a plan.",
+    ctaSub = "Free 15-minute consultation. We'll review your situation and propose a plan.",
   } = props;
 
   return (

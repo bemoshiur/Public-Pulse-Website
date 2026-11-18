@@ -34,6 +34,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Win Bangladeshi elections with our 90-day PR playbook: constituency survey, narrative design, ground + digital coordination, 24h crisis SLA from Dhaka.",
   path: "/election",
+  bnPath: "/bn/election",
   useDynamicOg: true,
   // Social-share OG card: outcome-led, time-bounded ("in 90 days"),
   // sized to fit the 1200×630 /og factory without truncation.
@@ -320,7 +321,7 @@ export default function ElectionPage() {
                 Election cycle running? Let&rsquo;s talk this week.
               </h2>
               <p className="mt-5 text-lead text-white/85">
-                Free 30-minute discovery call. We&rsquo;ll review the seat, the opposition, and the
+                Free 15-minute discovery call. We&rsquo;ll review the seat, the opposition, and the
                 timeline — and tell you honestly whether we can help and when to start.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">

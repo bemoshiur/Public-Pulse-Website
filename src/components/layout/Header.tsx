@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, Search, ArrowUpRight } from "lucide-react";
 
@@ -22,6 +23,27 @@ const NAV = [
   { href: "/contact", label: "Contact" },
 ];
 
+// Bengali primary nav (native /bn twins; Work/Insights have no twin yet so
+// they point at the English pages).
+const NAV_BN = [
+  { href: "/bn/services", label: "সেবা" },
+  { href: "/work", label: "কাজ" },
+  { href: "/case-studies", label: "ফলাফল" },
+  { href: "/bn/election", label: "নির্বাচন" },
+  { href: "/blog", label: "ইনসাইট" },
+  { href: "/bn/about", label: "স্টুডিও" },
+  { href: "/bn/contact", label: "যোগাযোগ" },
+];
+
+// Pages that have a native Bengali twin. Used by the EN | বাং switcher.
+const BN_TWINS = ["/", "/services", "/about", "/contact", "/book", "/election"];
+function twinPath(pathname: string): { bn: string; en: string } {
+  const isBn = pathname === "/bn" || pathname.startsWith("/bn/");
+  const en = isBn ? pathname.replace(/^\/bn/, "") || "/" : pathname;
+  const hasTwin = BN_TWINS.includes(en) || en.startsWith("/services/");
+  return { en, bn: hasTwin ? (en === "/" ? "/bn" : `/bn${en}`) : "/bn" };
+}
+
 // Secondary nav — only Press now; Election + Search were promoted to
 // the primary bar / right cluster. Press still surfaces in the mobile
 // drawer + footer for journalist discoverability.
@@ -30,6 +52,11 @@ const SECONDARY = [
 ];
 
 export function Header() {
+  const pathname = usePathname() || "/";
+  const isBn = pathname === "/bn" || pathname.startsWith("/bn/");
+  const twin = twinPath(pathname);
+  const nav = isBn ? NAV_BN : NAV;
+  const homeHref = isBn ? "/bn" : "/";
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -77,7 +104,7 @@ export function Header() {
       <div className="max-w-container mx-auto flex h-16 items-center justify-between gap-4 px-5 md:h-[72px] md:px-8">
         {/* ─── Logo ──────────────────────────────────────────────────── */}
         <Link
-          href="/"
+          href={homeHref as never}
           className="flex flex-shrink-0 items-center gap-2.5"
           aria-label="Public Pulse Agency home"
         >
@@ -90,10 +117,10 @@ export function Header() {
         {/* ─── Primary nav (desktop) ──────────────────────────────── */}
         <nav aria-label="Primary" className="hidden md:flex md:flex-1 md:justify-center">
           <ul className="flex items-center gap-6 text-[14px] font-medium text-ink/75 lg:gap-8">
-            {NAV.map((n) => (
+            {nav.map((n) => (
               <li key={n.href}>
                 <Link
-                  href={n.href}
+                  href={n.href as never}
                   className="transition hover:text-ink focus-visible:text-ink"
                 >
                   {n.label}
@@ -105,6 +132,28 @@ export function Header() {
 
         {/* ─── Right cluster: search + CTA + hamburger ─────────────── */}
         <div className="flex flex-shrink-0 items-center gap-2 md:gap-3">
+          <div
+            className="hidden items-center overflow-hidden rounded-full border border-ink/15 text-[12px] font-semibold md:inline-flex"
+            role="group"
+            aria-label="Language"
+          >
+            <Link
+              href={twin.en as never}
+              hrefLang="en"
+              aria-current={!isBn ? "true" : undefined}
+              className={`px-3 py-2 ${!isBn ? "bg-ink text-cp-gold-ink" : "text-ink/75 hover:text-ink"}`}
+            >
+              EN
+            </Link>
+            <Link
+              href={twin.bn as never}
+              hrefLang="bn"
+              aria-current={isBn ? "true" : undefined}
+              className={`px-3 py-2 ${isBn ? "bg-ink text-cp-gold-ink" : "text-ink/75 hover:text-ink"}`}
+            >
+              বাং
+            </Link>
+          </div>
           <Link
             href="/search"
             className="hidden items-center gap-1.5 rounded-full border border-ink/15 px-4 py-2 text-[13px] font-medium text-ink/75 transition hover:border-ink hover:text-ink md:inline-flex"
@@ -113,10 +162,10 @@ export function Header() {
             Search
           </Link>
           <Link
-            href="/book"
+            href={(isBn ? "/bn/book" : "/book") as never}
             className="btn btn-orange hidden text-[14px] sm:inline-flex"
           >
-            Book a call
+            {isBn ? "কল বুক করুন" : "Book a call"}
             <ArrowUpRight className="h-4 w-4" aria-hidden />
           </Link>
           <button
@@ -148,12 +197,12 @@ export function Header() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/election"
+                  href={(isBn ? "/bn/election" : "/election") as never}
                   onClick={closeDrawer}
                   className="flex items-center justify-between rounded-card border-2 border-brand-orange bg-brand-orange/5 px-4 py-3 text-lg font-bold text-ink"
                 >
                   <span className="flex items-center gap-2">
-                    Election readiness
+                    {isBn ? "নির্বাচনী প্রস্তুতি" : "Election readiness"}
                   </span>
                   <ArrowUpRight className="h-4 w-4 text-brand-orange" aria-hidden />
                 </Link>
@@ -178,10 +227,10 @@ export function Header() {
 
             {/* Primary nav */}
             <ul className="space-y-1 text-lg font-bold text-ink">
-              {NAV.filter((n) => n.href !== "/election").map((n) => (
+              {nav.filter((n) => !n.href.endsWith("/election")).map((n) => (
                 <li key={n.href}>
                   <Link
-                    href={n.href}
+                    href={n.href as never}
                     className="flex items-center justify-between py-2.5 transition hover:text-brand-orange"
                     onClick={closeDrawer}
                   >
@@ -215,12 +264,20 @@ export function Header() {
             {/* Primary CTA + WhatsApp fallback */}
             <div className="mt-6 flex flex-col gap-2.5">
               <Link
-                href="/book"
+                href={(isBn ? "/bn/book" : "/book") as never}
                 onClick={closeDrawer}
                 className="btn btn-orange w-full justify-center"
               >
-                Book a call
+                {isBn ? "কল বুক করুন" : "Book a call"}
                 <ArrowUpRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <Link
+                href={(isBn ? twin.en : twin.bn) as never}
+                hrefLang={isBn ? "en" : "bn"}
+                onClick={closeDrawer}
+                className="btn btn-secondary w-full justify-center"
+              >
+                {isBn ? "Read in English" : "বাংলায় পড়ুন"}
               </Link>
               <a
                 href="https://wa.me/message/TBIM4KYTCFPEI1"
