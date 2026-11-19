@@ -39,12 +39,13 @@ export default function BnContactPage() {
   ];
   return (
     <>
-      <JsonLd data={[contactPageSchema(), breadcrumbSchema(crumbs), faqPageSchema(FAQS)]} />
+      <JsonLd data={[contactPageSchema(), breadcrumbSchema(crumbs), faqPageSchema(FAQS, "none")]} />
       <BnHero
         crumbs={crumbs}
         chip="যোগাযোগ"
         title={<>চলুন কথা বলি। <span className="text-brand-orange">আপনার ব্রিফ শুনি।</span></>}
         lead="প্রতিটি ইমেইল ও হোয়াটসঅ্যাপ বার্তার উত্তর আমরা ২৪ ঘণ্টায় দিই (শনি–বৃহস্পতি)। অফিস সময় সকাল ৯টা–রাত ৯টা, এশিয়া/ঢাকা।"
+        answer="পাবলিক পালস এজেন্সির সাথে ঢাকায় হোয়াটসঅ্যাপে +৮৮০ ১৭১৭-৭১৪৬৭৬ নম্বরে, ইমেইলে info@publicpulse.com.bd ঠিকানায় অথবা এই পেজের ফর্মের মাধ্যমে যোগাযোগ করা যায়। হোয়াটসঅ্যাপে সাধারণত দুই ঘণ্টার মধ্যে এবং ইমেইলে চব্বিশ ঘণ্টার মধ্যে উত্তর দেওয়া হয়। দল শনিবার থেকে বৃহস্পতিবার কাজ করে, আর প্রথম পরামর্শ বিনামূল্যে।"
         ctaLabel="১৫ মিনিটের কল বুক করুন"
         ctaHref="/bn/book"
       />
