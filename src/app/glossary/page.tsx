@@ -1,3 +1,4 @@
+import { DcPage } from "@/components/pp/DcPage";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
@@ -63,59 +64,7 @@ export default function GlossaryIndex() {
           faqPageSchema(FAQS),
         ]}
       />
-
-      <GradientHero
-        crumbs={crumbs}
-        chip="Glossary"
-        title={
-          <>
-            Words we <span className="text-brand-orange">use</span>.
-          </>
-        }
-        lead="The vocabulary of digital marketing and political PR — defined for the Bangladesh market, in plain English (and Bangla where relevant)."
-        answer="The Public Pulse glossary defines the working vocabulary of digital marketing and political PR: AEO, GEO, JSON-LD, FAQPage Schema, IndexNow, Meta Conversions API, ROAS, CTR, Political PR, Narrative Engineering, Opposition Research, llms.txt, robots.txt, Speakable. Each term has its own page with a longer explanation."
-      />
-
-      <section className="bg-paper py-16 md:py-24">
-        <Container>
-          {AREAS.map((area) => {
-            const terms = GLOSSARY.filter((t) => t.area === area);
-            if (terms.length === 0) return null;
-            return (
-              <div key={area} className="mb-14 last:mb-0">
-                <h2 className="text-h2 tracking-tight text-ink">{area}</h2>
-                <ul className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {terms.map((t) => (
-                    <li key={t.slug}>
-                      <Link
-                        href={`/glossary/${t.slug}`}
-                        className="card group flex h-full flex-col"
-                      >
-                        <h3 className="text-h3 font-bold text-ink">{t.name}</h3>
-                        {t.nameBn && (
-                          <p className="mt-1 text-meta text-ink/65">{t.nameBn}</p>
-                        )}
-                        <p className="mt-3 flex-1 text-sm leading-relaxed text-ink/70">
-                          {t.definition}
-                        </p>
-                        <p className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-orange">
-                          Open
-                          <ArrowRight
-                            className="h-3.5 w-3.5 transition group-hover:translate-x-1"
-                            aria-hidden
-                          />
-                        </p>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
-        </Container>
-      </section>
-
-      <FaqSection faqs={FAQS} />
+      <DcPage name="Glossary" />
     </>
   );
 }

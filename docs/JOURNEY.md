@@ -13,6 +13,15 @@ Entry format:
 
 ---
 
+## 2026-11-19 — STEP 34 / MAHIR'S FULL DESIGN INSTALLED (branch `redesign/mahir-design`, NOT DEPLOYED)
+
+**Changed:** The 16 top-level pages (`/`, services, work, case-studies, election, blog, about, contact, book, pricing, press, guides, glossary, compare, locations, industries) now render Mahir's design (his `.dc.html` templates). Each page is prerendered to HTML at build prep (`src/pp/pages/*.json`), served in SSR so the single H1 and copy are crawlable, then the Preact runtime in `public/pp/` takes over for animation (globe, ECG, marquees, cursor, curtain). Page files keep `generateMetadata`/`metadata` and JSON-LD; layout Header/Footer/sidebar/cursor are hidden on these routes via `DcPage`. Template `<h1>` is shipped as `<hh1>` and restored client-side so SSR has one H1. `/bn` pages, detail routes (`/blog/[slug]`, `/services/[slug]` etc.) keep earlier components under the new tokens. Replaces the recolour-only approach of PR #27.
+**Why:** Mahir asked to remove Moshiur's design entirely and install his own.
+**Verified:** tsc, build (174 pages), one H1/canonical/JSON-LD per page, unique titles, no overflow at 1440/390, no console errors.
+**Next:** design copy is static (not DB-driven: blog/work lists, prices); AnswerBlock is not on design pages (CLAUDE.md rule) - decide; detail routes still need restyling; regenerate `src/pp/pages` if design changes; confirm mahir.design credit; Bengali copy review; close PR #27; deploy by Moshiur.
+
+---
+
 ## 2026-11-18 — STEP 33 / PORT NATIVE BENGALI (/bn) + 15-MIN BOOKING FROM `origin/main` PR #22 (LOCAL, NOT DEPLOYED)
 
 Trigger: "build as per latest merge". `origin/main` had PR #22 (new design + `/bn` pages + Cal.com 15-min + Amplify config) that production did NOT have (live = crimson/gold from `feat/crimson-site`). Main's tree builds clean on its own (tsc + next build, 262 pages).

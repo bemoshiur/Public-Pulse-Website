@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Fraunces, Noto_Sans_Bengali } from "next/font/google";
+import { Archivo, JetBrains_Mono, Noto_Sans_Bengali } from "next/font/google";
 import Script from "next/script";
 import "@/styles/globals.css";
 
@@ -20,21 +20,17 @@ import { FooterSwitch } from "@/components/layout/FooterSwitch";
 import { SocialSidebar } from "@/components/layout/SocialSidebar";
 import { WhatsAppFab } from "@/components/layout/WhatsAppFab";
 import { CookieConsent } from "@/components/analytics/CookieConsent";
-import { AiReferralTracker } from "@/components/analytics/AiReferralTracker";
 import { CommandPalette } from "@/components/search/CommandPalette";
-import { ScrollProgress } from "@/components/motion";
+import { CursorGlow, ScrollProgress } from "@/components/motion";
 import { StickyBar, ExitIntent } from "@/components/lead-capture";
 
-const inter = Inter({
+const archivo = Archivo({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
-  variable: "--font-inter",
+  variable: "--font-archivo",
   display: "swap",
 });
 
-// Fraunces — variable serif display for the "restrained luxury" prestige
-// surfaces (political-ad flagship + prestige kit). optical-size axis tuned for
-// display. Scoped: only elements with `font-pr-serif` use it.
 const bengali = Noto_Sans_Bengali({
   subsets: ["bengali"],
   weight: ["400", "500", "600", "700", "800"],
@@ -42,11 +38,10 @@ const bengali = Noto_Sans_Bengali({
   display: "swap",
 });
 
-const fraunces = Fraunces({
+const mono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
+  weight: ["400", "500", "700"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -74,7 +69,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#520000",
+  themeColor: "#0B0C0B",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -82,7 +77,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-BD" className={`${inter.variable} ${fraunces.variable} ${bengali.variable} reveal-ready`} suppressHydrationWarning>
+    <html lang="en-BD" className={`${archivo.variable} ${mono.variable} ${bengali.variable} reveal-ready`} suppressHydrationWarning>
       <body className="font-sans antialiased bg-paper text-ink">
         {/* Safety kill-switch: 2.5s after load, drop reveal-ready so no element
             can stay invisible if IntersectionObserver fails to fire. */}
@@ -96,9 +91,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               - stays silent (if consent='denied')
             See src/components/analytics/CookieConsent.tsx for the policy. */}
         <CookieConsent />
-        {/* Fires an ai_referral event when a visit comes from an AI answer
-            engine (ChatGPT/Perplexity/Gemini/…) — on-site AEO proof. */}
-        <AiReferralTracker />
         <JsonLd
           data={[
             organizationSchema(),
@@ -124,11 +116,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded focus:bg-brand-orange focus:px-3 focus:py-2 focus:text-cp-gold-ink focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded focus:bg-ink focus:px-3 focus:py-2 focus:text-paper focus:shadow-lg"
         >
           Skip to content
         </a>
         <ScrollProgress />
+        <CursorGlow />
         <Header />
         <main id="main" tabIndex={-1} className="focus:outline-none">{children}</main>
         <SocialSidebar />

@@ -9,6 +9,7 @@
 //   • pointer:coarse: disable cursor-follower / magnetic / tilt.
 //   • Crawlers / no-JS: html.reveal-ready gate keeps content fully visible.
 
+export { CursorGlow } from "./CursorGlow";
 export { MagneticButton } from "./MagneticButton";
 export { TiltCard } from "./TiltCard";
 export { GradientText } from "./GradientText";

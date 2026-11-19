@@ -112,20 +112,20 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
           role="dialog"
           aria-label="Cookie consent"
           aria-describedby="cookie-consent-text"
-          className="fixed inset-x-0 bottom-0 z-[55] border-t border-ink/15 bg-paper px-5 py-5 shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.15)] md:px-8 md:py-6"
+          className="fixed inset-x-3 bottom-3 z-[55] rounded-2xl border border-white/12 outline-none bg-[#0B0C0B]/95 px-5 py-4 text-white shadow-[0_20px_60px_-10px_rgba(0,0,0,0.6)] backdrop-blur md:inset-x-6 md:bottom-6 md:px-6 md:py-5 md:pr-28"
         >
           <div className="max-w-container mx-auto flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-8">
             <div className="flex flex-1 items-start gap-3">
               <span
                 aria-hidden
-                className="grid h-9 w-9 flex-shrink-0 place-items-center rounded-full bg-brand-orange/10 text-brand-orange"
+                className="grid h-9 w-9 flex-shrink-0 place-items-center rounded-full bg-[#4BE38F]/15 text-[#4BE38F]"
               >
                 <Cookie className="h-4 w-4" />
               </span>
-              <p id="cookie-consent-text" className="text-sm text-ink/80">
+              <p id="cookie-consent-text" className="font-sans text-sm text-white/80">
                 We use cookies for analytics + ad performance (Google Analytics,
                 Meta Pixel). They&rsquo;re off until you decide.{" "}
-                <Link href="/privacy" className="font-semibold text-brand-orange hover:underline">
+                <Link href="/privacy" className="font-semibold text-[#4BE38F] hover:underline">
                   Privacy policy
                 </Link>
                 .
@@ -135,14 +135,14 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
               <button
                 type="button"
                 onClick={() => decide("denied")}
-                className="rounded-full border border-ink/20 px-5 py-2 text-sm font-semibold text-ink hover:border-ink hover:bg-brand-orange hover:text-cp-gold-ink"
+                className="rounded-full border border-white/25 px-5 py-2 text-sm font-semibold text-white hover:border-white hover:bg-white/10"
               >
                 Reject
               </button>
               <button
                 type="button"
                 onClick={() => decide("granted")}
-                className="rounded-full bg-brand-orange px-5 py-2 text-sm font-semibold text-cp-gold-ink hover:bg-brand-orange-deep"
+                className="rounded-full bg-[#DE2A22] px-5 py-2 text-sm font-semibold text-white hover:bg-[#c8241d]"
                 autoFocus
               >
                 Accept all
@@ -151,7 +151,7 @@ window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);
                 type="button"
                 aria-label="Dismiss without choosing"
                 onClick={() => decide("denied")}
-                className="grid h-9 w-9 place-items-center rounded-full text-ink/65 hover:bg-ink/5 hover:text-ink"
+                className="grid h-9 w-9 place-items-center rounded-full text-white/70 hover:bg-white/10 hover:text-white"
               >
                 <X className="h-4 w-4" aria-hidden />
               </button>
