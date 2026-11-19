@@ -22,6 +22,22 @@ Entry format:
 
 ---
 
+## 2026-11-19 — STEP 34 / PR #28 (MAHIR'S DESIGN) MERGED TO `main`; DEPLOY HELD ON AEO REGRESSION
+
+**State:** `main` = `febe231` (PR #28 merged, CI verify green, +4786/-2782, 67 files). **NOT deployed.** Production still serves the crimson/gold build at `929ba90` (rollback target). PR #27 (colour-only, superseded) closed.
+
+**Verified locally on merged `main`:** `tsc` clean, `npm run build` green. Per-page SSR gate over 16 core pages + 6 `/bn` pages: one H1, canonical, JSON-LD, title everywhere; GTM / GA4 / Pixel IDs, phone, WhatsApp, email preserved; robots still allows AI crawlers; hreflang `bn-BD` on twins.
+
+**Blocker found (why no deploy):** the 16 redesigned pages (`/`, services, work, case-studies, election, blog, about, contact, book, pricing, press, guides, glossary, compare, locations, industries) are SSR-prerendered from `src/pp/pages/*.json` and render **no `.answer-block[data-speakable]` element at all**. CLAUDE.md's "always do" requires an AnswerBlock on service and blog pages, and the STEP 32 audit work had reached **0 unresolved speakable selectors**. Their JSON-LD still declares `speakable` -> `.answer-block` (+ `dl > div dt/dd`): **15 pages now point at a selector that matches nothing** (the exact defect class that produced 151 OmniRank findings). Home also lost its AnswerBlock. Expected effect if deployed as-is: AEO score regression from the 94/100 (aeo 73) baseline.
+
+**Options (user to choose):** (a) add the AnswerBlock to the pp page generator (`src/pp/pages/*.json` + template) with 40-60 word answers, then regenerate; (b) emit the speakable selector only where an element exists (`webPageSchema speakable?: boolean`); (c) accept the regression temporarily. Recommended: (a).
+
+**Also open:** footer credit "mahir.design" (keep/remove?); Bengali copy needs a native reader; `/bn/book` has no AnswerBlock (utility page); `amplify.yml` question moot (PR #28 does not reintroduce it).
+
+**Next:** deploy via `AWS_PROFILE=default bash scripts/deploy.sh production` once the AnswerBlock decision is made, then live-probe (200s, 308s for `/bn/blog/x` and `/services/zzz`, one H1, canonical, JSON-LD, sitemap `/bn` + hreflang) and roll back with `git checkout 929ba90` + redeploy on any 404/500/502.
+
+---
+
 ## 2026-11-18 — STEP 33 / PORT NATIVE BENGALI (/bn) + 15-MIN BOOKING FROM `origin/main` PR #22 (LOCAL, NOT DEPLOYED)
 
 Trigger: "build as per latest merge". `origin/main` had PR #22 (new design + `/bn` pages + Cal.com 15-min + Amplify config) that production did NOT have (live = crimson/gold from `feat/crimson-site`). Main's tree builds clean on its own (tsc + next build, 262 pages).
