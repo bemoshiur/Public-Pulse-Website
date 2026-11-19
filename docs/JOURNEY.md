@@ -22,7 +22,7 @@ Entry format:
 
 ---
 
-## 2026-11-19 — STEP 34 / PR #28 (MAHIR'S DESIGN) MERGED TO `main`; DEPLOY HELD ON AEO REGRESSION
+## 2026-11-19 — STEP 34 / PR #28 (MAHIR'S DESIGN) MERGED + ANSWERBLOCK FIX (option A) + DEPLOY
 
 **State:** `main` = `febe231` (PR #28 merged, CI verify green, +4786/-2782, 67 files). **NOT deployed.** Production still serves the crimson/gold build at `929ba90` (rollback target). PR #27 (colour-only, superseded) closed.
 
@@ -30,7 +30,18 @@ Entry format:
 
 **Blocker found (why no deploy):** the 16 redesigned pages (`/`, services, work, case-studies, election, blog, about, contact, book, pricing, press, guides, glossary, compare, locations, industries) are SSR-prerendered from `src/pp/pages/*.json` and render **no `.answer-block[data-speakable]` element at all**. CLAUDE.md's "always do" requires an AnswerBlock on service and blog pages, and the STEP 32 audit work had reached **0 unresolved speakable selectors**. Their JSON-LD still declares `speakable` -> `.answer-block` (+ `dl > div dt/dd`): **15 pages now point at a selector that matches nothing** (the exact defect class that produced 151 OmniRank findings). Home also lost its AnswerBlock. Expected effect if deployed as-is: AEO score regression from the 94/100 (aeo 73) baseline.
 
-**Options (user to choose):** (a) add the AnswerBlock to the pp page generator (`src/pp/pages/*.json` + template) with 40-60 word answers, then regenerate; (b) emit the speakable selector only where an element exists (`webPageSchema speakable?: boolean`); (c) accept the regression temporarily. Recommended: (a).
+**RESOLVED (option A chosen by the user): AnswerBlock injected at load time.**
+- `src/pp/answers.ts` holds one 40-60 word answer + question per page (16 pages). Validated at import: 40-60 words, brand name exactly once, no entry = build fails. Counts (services/cities/industries) come from the catalogs so they cannot drift. Facts only from the site's own copy; no invented statistics. **Wording needs a human review** (it is the text Google/AI assistants will quote).
+- `src/components/pp/DcPage.tsx` inserts the block after the hero section in BOTH the SSR html and the runtime `<template>`s (the Preact runtime re-renders from templates, so html-only markup vanishes on mount). Fails the build if the hero anchor is missing, so a regenerated design can never silently drop it. Because it is injected at load, it survives re-generating `src/pp/pages/*.json`. In the hidden templates copy the markup is neutralised (`answer-blk` / `data-spk`) and restored by `DcBoot` (same trick as the existing `hh1`), so crawlers see ONE `.answer-block`, not two.
+- `src/pp/pp.css`: `.pp-answer` styling in Mahir's tokens (overrides the legacy global `.answer-block` box).
+- JSON-LD fixed: FAQ speakable is now `none` (Mahir's FAQs are button accordions, no `dl`/`details`); FAQPage schema REMOVED on services, blog, book, glossary, about (FAQ text not visible there; Google requires markup to match visible content) and two unmatched questions dropped from pricing/press. 0 unresolved speakable selectors.
+- `/bn` fixed for the new palette (cards: `bg-white/[0.06]`; `/bn/book` muted text). Axe: /bn 16 -> 0.
+- Verified (real browser, after Preact hydration, 1440 + 390): all 16 core pages have exactly 1 `.answer-block` (43-56 words) + 1 H1; 0 overflow; 0 broken images; `/bn/*` 0 contrast issues. Remaining axe hits are NOT from this change: `/` word-by-word scroll-reveal text is dim until scrolled (axe on an unscrolled frame), plus 1-2 translucent labels on Mahir's red buttons on /election, /pricing, /industries; old service/blog detail components use `brand-orange` (#cc261e/#de2a22) on light panels at 4.1-4.35:1 (just under AA 4.5).
+- Gotcha: `npm run build` regenerates `public/llms.txt`, `llms-full.txt`, `facts.json` WITHOUT the DB (catalog-only, -19k lines). Do not commit those after a local build; `git checkout` them. `deploy.sh` regenerates them with the DB.
+
+**Open for the user:** Mahir's Book/Contact/Pricing/Election copy says "30-minute" consultation but the booking embed is the 15-minute Cal event (PR #22 deliberately changed copy to 15). Decide which is true and fix it in the design source. "mahir.design" footer credit: keep/remove. Bengali copy: native review. `/bn/contact` and `/bn/book` have no AnswerBlock.
+
+**(superseded) Options that were offered:** (a) add the AnswerBlock to the pp page generator (`src/pp/pages/*.json` + template) with 40-60 word answers, then regenerate; (b) emit the speakable selector only where an element exists (`webPageSchema speakable?: boolean`); (c) accept the regression temporarily. Recommended: (a).
 
 **Also open:** footer credit "mahir.design" (keep/remove?); Bengali copy needs a native reader; `/bn/book` has no AnswerBlock (utility page); `amplify.yml` question moot (PR #28 does not reintroduce it).
 

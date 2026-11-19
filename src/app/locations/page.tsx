@@ -49,7 +49,7 @@ export default function LocationsIndex() {
       <JsonLd
         data={[
           breadcrumbSchema(crumbs),
-          faqPageSchema(FAQS),
+          faqPageSchema(FAQS, "none"),
           itemListSchema(
             "Public Pulse Locations",
             LOCATIONS.map((l) => ({ url: `/locations/${l.slug}`, name: l.name }))

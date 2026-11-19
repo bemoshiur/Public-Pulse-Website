@@ -104,7 +104,7 @@ export default function AboutPage() {
         data={[
           aboutPageSchema({ path: "/about", inLanguage: "en" }),
           breadcrumbSchema(crumbs),
-          faqPageSchema(FAQS, "details"),
+          
         ]}
       />
       <DcPage name="Studio" />

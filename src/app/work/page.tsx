@@ -76,7 +76,7 @@ export default async function WorkIndexPage() {
       <JsonLd
         data={[
           breadcrumbSchema(crumbs),
-          faqPageSchema(faqs),
+          faqPageSchema(faqs, "none"),
           collectionPageSchema({
             path: "/work",
             name: "Public Pulse client work",

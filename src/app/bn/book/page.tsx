@@ -45,7 +45,7 @@ export default function BnBookPage() {
               style={{ border: 0 }}
             />
           </div>
-          <p className="mt-6 text-meta text-ink/55">
+          <p className="mt-6 text-meta text-ink/70">
             ক্যালেন্ডার দেখতে পাচ্ছেন না?{" "}
             <a href={url ?? "#"} target="_blank" rel="noopener noreferrer" className="text-brand-orange underline hover:no-underline">
               নতুন ট্যাবে বুকিং পেজ খুলুন

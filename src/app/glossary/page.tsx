@@ -61,7 +61,7 @@ export default function GlossaryIndex() {
         data={[
           breadcrumbSchema(crumbs),
           definedTermSetSchema(GLOSSARY.map((t) => ({ slug: t.slug, name: t.name }))),
-          faqPageSchema(FAQS),
+          
         ]}
       />
       <DcPage name="Glossary" />

@@ -36,7 +36,11 @@ export function DcBoot({ name }: { name: string }) {
       // Templates are shipped with <hh1> so the SSR HTML has a single <h1>;
       // restore real tags before the runtime reads them.
       document.querySelectorAll("template").forEach((t) => {
-        if (t.innerHTML.includes("hh1")) t.innerHTML = t.innerHTML.replace(/<(\/?)hh1/g, "<$1h1");
+        if (/hh1|answer-blk/.test(t.innerHTML))
+          t.innerHTML = t.innerHTML
+            .replace(/<(\/?)hh1/g, "<$1h1")
+            .replace(/answer-blk/g, "answer-block")
+            .replace(/data-spk/g, "data-speakable");
       });
       await loadScript("/pp/preact.min.js");
       await loadScript("/pp/dc-runtime.js");

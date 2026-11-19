@@ -107,3 +107,10 @@
 }
 @supports not (animation-timeline:view()){.rv,.rv-s,.rv-x,.slide-x,.slide-xr{animation:none}}
 @media (prefers-reduced-motion:reduce){.pp *{animation:none !important;transition:none !important}}
+
+/* AnswerBlock (AEO/GEO) — injected after the hero by DcPage (src/pp/answers.ts).
+   Overrides the legacy global .answer-block box so it reads as part of the design. */
+.pp .pp-answer{background:#111311;border-top:1px solid rgba(242,240,234,.1);border-bottom:1px solid rgba(242,240,234,.1);padding:44px 0 48px}
+.pp .pp-answer .pp-answer-q{margin:0 0 14px;color:#4BE38F;font-weight:500}
+.pp .pp-answer .answer-block{background:transparent;border:0;border-radius:0;padding:0;max-width:920px;font-size:clamp(17px,1.5vw,21px);line-height:1.6;font-weight:400;color:#F2F0EA}
+@media (max-width:640px){.pp .pp-answer{padding:32px 0 36px}}

@@ -38,10 +38,6 @@ const FAQS = [
     a: "Monthly retainers are invoiced at the start of each cycle. Project work is split 50/50 — half on kickoff, half on delivery. All BDT, with VAT where applicable. Foreign-currency billing available on request.",
   },
   {
-    q: "Is the media spend included?",
-    a: "No. Agency fees are separate from the media budget you spend on Meta, Google, etc. We can quote both together if you want a single number.",
-  },
-  {
     q: "What does the discovery call cover?",
     a: "15 minutes. We map your goal to a scope and confirm whether we're the right fit. No pitch deck — you get a written proposal within 24 hours after the call.",
   },
@@ -63,7 +59,7 @@ export default function PricingPage() {
             description: "Starting prices for every Public Pulse service, billed in BDT.",
           }),
           pricingSchema(),
-          faqPageSchema(FAQS, "details"),
+          faqPageSchema(FAQS, "none"),
         ]}
       />
       <DcPage name="Pricing" />

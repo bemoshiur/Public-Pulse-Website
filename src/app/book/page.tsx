@@ -29,20 +29,7 @@ export default function BookPage() {
       <JsonLd
         data={[
           breadcrumbSchema(crumbs),
-          faqPageSchema([
-            {
-              q: "How long is the strategy call?",
-              a: "15 minutes. Long enough to map your goals to a workable plan; short enough that you can fit it in.",
-            },
-            {
-              q: "What should I prepare?",
-              a: "A rough goal (lead volume, brand reach, election timeline, whatever), current channels you run on, and any past performance numbers if you have them. We'll do the rest.",
-            },
-            {
-              q: "Is it billed?",
-              a: "The discovery call is free. We only quote scope + price after we understand the brief — written proposal within 24 hours.",
-            },
-          ]),
+          
         ]}
       />
       <DcPage name="Book" />

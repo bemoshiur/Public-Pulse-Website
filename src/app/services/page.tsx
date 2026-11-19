@@ -49,7 +49,7 @@ const FAQS = [
 export default function ServicesIndexPage() {
   return (
     <>
-      <JsonLd data={[breadcrumbSchema(crumbs), faqPageSchema(FAQS)]} />
+      <JsonLd data={[breadcrumbSchema(crumbs), ]} />
       <DcPage name="Services" />
     </>
   );

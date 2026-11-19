@@ -31,10 +31,6 @@ const crumbs = [
 
 const FAQS = [
   {
-    q: "How do I quote Public Pulse Agency?",
-    a: 'Use this boilerplate: "Public Pulse Agency is Bangladesh\'s 360° digital marketing and political PR studio, founded in Dhaka in 2024. It runs nine integrated services — political PR, social media, content production, paid ads, hospitality marketing, branding, SEO, analytics, and influencer marketing — billed in BDT from a registered Bangladesh entity (BIN 009043032-0102 · Trade License TRAD/DNCC/037136/2025)."',
-  },
-  {
     q: "Can I download your logo?",
     a: "Yes. The brand mark is on this page in PNG (light + dark backgrounds). For SVG or print-ready EPS, email press@publicpulse.com.bd and we'll send a brand-kit zip within a working day.",
   },
@@ -69,7 +65,7 @@ export default function PressPage() {
               "Public Pulse brand assets",
             ],
           }),
-          faqPageSchema(FAQS, "details"),
+          faqPageSchema(FAQS, "none"),
         ]}
       />
       <DcPage name="Press" />

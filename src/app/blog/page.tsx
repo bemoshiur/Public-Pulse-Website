@@ -78,7 +78,7 @@ export default async function BlogIndexPage() {
       <JsonLd
         data={[
           breadcrumbSchema(crumbs),
-          faqPageSchema(faqs),
+          
           collectionPageSchema({
             path: "/blog",
             name: "Public Pulse Insights",

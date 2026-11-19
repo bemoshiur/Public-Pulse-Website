@@ -49,7 +49,7 @@ export default function CompareIndex() {
       <JsonLd
         data={[
           breadcrumbSchema(crumbs),
-          faqPageSchema(faqs),
+          faqPageSchema(faqs, "none"),
           itemListSchema(
             "Public Pulse Comparisons",
             ready.map((c) => ({ url: `/compare/${c.slug}`, name: c.title }))

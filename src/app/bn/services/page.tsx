@@ -40,7 +40,7 @@ export default function BnServicesPage() {
               <li key={s.slug}>
                 <Link
                   href={`/bn/services/${s.slug}`}
-                  className="group block h-full rounded-card border border-white/15 bg-paper-alt p-7 transition hover:-translate-y-1 hover:border-brand-orange"
+                  className="group block h-full rounded-card border border-white/15 bg-white/[0.06] p-7 transition hover:-translate-y-1 hover:border-brand-orange"
                 >
                   <span className="font-mono text-meta text-white/70">{String(i + 1).padStart(2, "0")}</span>
                   <h2 className="mt-4 text-2xl font-bold tracking-tight">{s.name}</h2>

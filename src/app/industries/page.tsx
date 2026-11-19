@@ -49,7 +49,7 @@ export default function IndustriesIndex() {
       <JsonLd
         data={[
           breadcrumbSchema(crumbs),
-          faqPageSchema(FAQS),
+          faqPageSchema(FAQS, "none"),
           itemListSchema(
             "Public Pulse Industries",
             INDUSTRIES.map((i) => ({ url: `/industries/${i.slug}`, name: i.name }))

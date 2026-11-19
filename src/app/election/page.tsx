@@ -135,7 +135,7 @@ export default function ElectionPage() {
               "win the seat",
             ],
           }),
-          faqPageSchema(FAQS, "details"),
+          faqPageSchema(FAQS, "none"),
           digitalDocumentSchema({
             name: "Public Pulse Profile — Political PR",
             description:

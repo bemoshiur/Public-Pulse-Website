@@ -80,7 +80,7 @@ export default async function CaseStudiesIndex() {
       <JsonLd
         data={[
           breadcrumbSchema(crumbs),
-          faqPageSchema(faqs),
+          faqPageSchema(faqs, "none"),
           collectionPageSchema({
             path: "/case-studies",
             name: "Public Pulse case studies",

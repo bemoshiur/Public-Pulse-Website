@@ -49,7 +49,7 @@ export default function GuidesIndex() {
       <JsonLd
         data={[
           breadcrumbSchema(crumbs),
-          faqPageSchema(faqs),
+          faqPageSchema(faqs, "none"),
           itemListSchema(
             "Public Pulse Guides",
             ready.map((g) => ({ url: `/guides/${g.slug}`, name: g.title }))

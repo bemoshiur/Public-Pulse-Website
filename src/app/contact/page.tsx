@@ -108,7 +108,7 @@ const PATHS = [
 export default function ContactPage() {
   return (
     <>
-      <JsonLd data={[contactPageSchema(), breadcrumbSchema(crumbs), faqPageSchema(FAQS)]} />
+      <JsonLd data={[contactPageSchema(), breadcrumbSchema(crumbs), faqPageSchema(FAQS, "none")]} />
       <DcPage name="Contact" />
     </>
   );
